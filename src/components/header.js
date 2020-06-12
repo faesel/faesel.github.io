@@ -11,7 +11,7 @@ const Header = () => {
                     Faesel Saeed
                 </Link>
             </h1>
-            <nav>
+            <nav className={headerStyles.navList}>
                 <ul>
                     <li><Link className={headerStyles.link} to="/">Home</Link></li>
                     <li><Link className={headerStyles.link} to="/blog">Blog</Link></li>
