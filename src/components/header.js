@@ -11,12 +11,12 @@ const Header = () => {
                     Faesel Saeed
                 </Link>
             </h1>
-            <nav className={headerStyles.navList}>
-                <ul>
-                    <li><Link className={headerStyles.link} to="/">Home</Link></li>
-                    <li><Link className={headerStyles.link} to="/blog">Blog</Link></li>
-                    <li><Link className={headerStyles.link} to="/about">About</Link></li>
-                    <li><Link className={headerStyles.link} to="/contact">Contact</Link></li>
+            <nav>
+                <ul className={headerStyles.navList}>
+                    <li><Link className={headerStyles.navItem} to="/">Home</Link></li>
+                    <li><Link className={headerStyles.navItem} to="/blog">Blog</Link></li>
+                    <li><Link className={headerStyles.navItem} to="/about">About</Link></li>
+                    <li><Link className={headerStyles.navItem} to="/contact">Contact</Link></li>
                 </ul>
             </nav>
         </header>
