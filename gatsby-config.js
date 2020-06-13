@@ -11,7 +11,7 @@ module.exports = {
     author: 'Faesel Saeed'
   },
   plugins: [
-    `gatsby-plugin-react-helmet,`
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-sharp`,
     {
