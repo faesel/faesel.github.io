@@ -4,14 +4,15 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 const BlogPage = () => {
     const data = useStaticQuery(graphql`
-        query {
+        query blogExtracts {
             allMarkdownRemark {
                 edges {
                     node {
                         frontmatter {
-                            title,
+                            title
                             date
                         }
+                        excerpt
                     }
                 }
             }
@@ -27,8 +28,9 @@ const BlogPage = () => {
                         <li>
                             <h2>{edge.node.frontmatter.title}</h2>
                             <p>{edge.node.frontmatter.date}</p>
+                            <p>{edge.node.excerpt}</p>
                         </li>
-                    ) 
+                    )
                 })}
             </ol>
         </Layout>
