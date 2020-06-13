@@ -5,6 +5,8 @@ date: "2020-01-01"
 
 This is some content!
 
+![Code](./code.jpg)
+
 ## Topics covered
 
 1. one
