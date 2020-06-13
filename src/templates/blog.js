@@ -38,11 +38,22 @@ export const query = graphql`
 `
 
 const Blog = (props) => {
+    const options = {
+        renderNode: {
+            'embedded-asset-block': (node) => {
+                const alt = node.data.target.fields.title['en-GB']
+                const src = node.data.target.fields.file['en-GB'].url
+
+                return <img alt={alt} src={src} />
+            }
+        }
+    }
+
     return (
         <Layout>
             <h1>{props.data.contentfulBlog.title}</h1>
             <p>{props.data.contentfulBlog.datePublished}</p>
-            { documentToReactComponents(props.data.contentfulBlog.body.json) }
+            { documentToReactComponents(props.data.contentfulBlog.body.json, options) }
         </Layout>
     ) 
 }
