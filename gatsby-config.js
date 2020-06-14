@@ -6,6 +6,7 @@
 
 module.exports = {
   /* Your site config here */
+  pathPrefix: "/faesel-blog",
   siteMetadata: {
     title: 'The Code Transposer',
     author: 'Faesel Saeed'
