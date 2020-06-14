@@ -28,7 +28,14 @@ const Blog = (props) => {
                 const src = node.data.target.fields.file['en-GB'].url
 
                 return <img alt={alt} src={src} />
+            },
+            'paragraph': (node, children) => {
+                return node.content.some(childNode => childNode.nodeType === `text` && childNode.marks.some(mark => mark.type === 'code')) ? 
+                    children :  //Render code
+                    children    //Render paragraph
             }
+                 
+
         }
     }
 
