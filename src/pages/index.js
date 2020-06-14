@@ -6,7 +6,7 @@ import Head from '../components/head'
 const IndexPage = () => {
   return (
     <Layout>
-      <Head></Head>
+      <Head title="Home"></Head>
       <h1>Hello,</h1>
       <h2>Im Faesel Saeed</h2>
       <p>
