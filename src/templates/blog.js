@@ -2,10 +2,9 @@ import React from 'react'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
 // import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { richTextFromMarkdown } from '@contentful/rich-text-from-markdown'
+// import { richTextFromMarkdown } from '@contentful/rich-text-from-markdown'
 
 import Head from '../components/head'
-// import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
 
 export const query = graphql`
     query($slug: String!) {
@@ -16,6 +15,11 @@ export const query = graphql`
         ) {
             title
             datePublished(formatString: "MMMM Do, YYYY")
+            bodym {
+                childMarkdownRemark {
+                html
+              }
+            }
             body {
                 json
             }
@@ -24,11 +28,6 @@ export const query = graphql`
 `
 
 const Blog = async (props) => {
-    // deckDeckGoHighlightElement();
-
-    // const document = await richTextFromMarkdown(props.data.contentfulBlog.markdown.markdown)
-
-
     // const options = {
     //     renderNode: {
     //         'embedded-asset-block': (node) => {
@@ -50,7 +49,6 @@ const Blog = async (props) => {
             <Head title={props.data.contentfulBlog.title}></Head>
             <h1>{props.data.contentfulBlog.title}</h1>
             <p>{props.data.contentfulBlog.datePublished}</p>
-            {/* { documentToReactComponents(props.data.contentfulBlog.body.json, options) } */}
 
         </Layout>
     ) 
