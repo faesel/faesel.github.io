@@ -1,6 +1,6 @@
 ---
-title: "Test article 2"
-date: "2020-01-02"
+title: "React"
+date: "2019-04-02"
 ---
 
-This is some more content!
+In this post you'll learn React.

@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Layout from '../components/layout'
-import Head from '../components/head'
 
-const notFoundPage = () => {
+import Layout from '../components/layout'
+import Head from "../components/head"
+
+const NotFound = () => {
     return (
         <Layout>
-            <Head title="404"></Head>
-            <h1>Page Not Found</h1>
-            <p><Link to="/">Opps this pages doesn't exist! click here to go to the home page!</Link></p>
+            <Head title="404"/>
+            <h1>Page not found</h1>
+            <p><Link to="/">Head home</Link></p>
         </Layout>
     )
 }
 
-export default notFoundPage
+export default NotFound

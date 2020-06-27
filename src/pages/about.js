@@ -1,15 +1,16 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Layout from '../components/layout'
+
+import Layout from "../components/layout"
 import Head from '../components/head'
 
 const AboutPage = () => {
     return (
         <Layout>
-            <Head title="About"></Head>
+            <Head title="About"/>
             <h1>About Me</h1>
-            <p>Im a software developer</p>
-            <Link to="/contact">Want to work with me reach out!</Link>
+            <p>I currently teach full-time on Udemy.</p>
+            <p><Link to="/contact">Want to work with me? Reach out.</Link></p>
         </Layout>
     )
 }

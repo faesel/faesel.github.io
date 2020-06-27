@@ -1,14 +1,14 @@
 ---
-title: "Test article 1"
-date: "2020-01-01"
+title: "The Great Gatsby Bootcamp"
+date: "2019-04-04"
 ---
 
-This is some content!
+I just launched a new bootcamp!
 
-![Code](./code.jpg)
+![Grass](./grass.png)
 
-## Topics covered
+## Topics Covered
 
-1. one
-2. two
-3. three
+1. Gatsby
+2. GraphQL
+3. React
