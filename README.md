@@ -15,6 +15,9 @@ Urls:
 Code styles can be found here:
 https://docs.deckdeckgo.com/components/code/
 
+Link to gatsby docs here:
+https://www.gatsbyjs.org/packages/gatsby-remark-highlight-code/#theme
+
 ## 💫 Deploy
 
 Code is designed to make use of github pages
