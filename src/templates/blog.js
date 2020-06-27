@@ -1,6 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
 
 import Layout from "../components/layout"
 import Head from "../components/head"
@@ -37,7 +38,7 @@ const Blog = props => {
     }
   }
 
-  console.log(props.data.contentfulBlog)
+  deckDeckGoHighlightElement();
 
   return (
     <Layout>
