@@ -7,9 +7,8 @@ const ContactPage = () => {
     return (
         <Layout>
             <Head title="Contact"/>
-            <h1>Contact</h1>
             <p>
-                The best way to reach me is via <a href="https://twitter.com/@andrew_j_mead" rel="noopener noreferrer" target="_blank">@andrew_j_mead</a> on Twitter!
+                The best way to reach me is via <a href="https://twitter.com/@faeselsaeed" rel="noopener noreferrer" target="_blank">@faeselsaeed</a> on Twitter!
             </p>
         </Layout>
     )
