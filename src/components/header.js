@@ -1,5 +1,7 @@
 import React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
+import { FiActivity } from "react-icons/fi";
+
 
 import headerStyles from "./header.module.scss"
 
@@ -18,7 +20,7 @@ const Header = () => {
     <header className={headerStyles.header}>
       <h1>
         <Link className={headerStyles.title} to="/">
-          {data.site.siteMetadata.title}
+          {data.site.siteMetadata.title} <FiActivity></FiActivity>
         </Link>
       </h1>
       <nav>
