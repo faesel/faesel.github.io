@@ -14,6 +14,11 @@ const BlogPage = () => {
                         title
                         slug
                         datePublished(formatString:"MMMM Do, YYYY")
+                        bodym {
+                            childMarkdownRemark { 
+                                excerpt(pruneLength: 300)
+                            }
+                        }
                     }
                 }
             }
@@ -23,7 +28,6 @@ const BlogPage = () => {
     return (
         <Layout>
             <Head title="Blog"/>
-            <h1>Blog</h1>
             <ol className={blogStyles.posts}>
                 {data.allContentfulBlog.edges.map((edge) => {
                     return (
@@ -31,6 +35,7 @@ const BlogPage = () => {
                             <Link to={`/blog/${edge.node.slug}`}>
                                 <h2>{edge.node.title}</h2>
                                 <p>{edge.node.datePublished}</p>
+                                <p>{edge.node.bodym.childMarkdownRemark.excerpt}</p>
                             </Link>
                         </li>
                     )

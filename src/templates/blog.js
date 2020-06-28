@@ -6,6 +6,8 @@ import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/
 import Layout from "../components/layout"
 import Head from "../components/head"
 
+import './blog.scss'
+
 export const query = graphql`
     query($slug: String!) {
         contentfulBlog (
