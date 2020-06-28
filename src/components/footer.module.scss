@@ -4,11 +4,13 @@
 
 .social {
     font-size: 1rem;
-
+    background-color: #333;
+    padding: 20px;
+    
     a {
         text-decoration: none;
-        color: black;    
-        margin-right: 15px;
+        color: white;    
+        padding:20px;
     }
 
     a:hover {
@@ -17,5 +19,11 @@
 }
 
 .copyright {
-    
+    background-color: #2b2b2b;
+
+    p {
+        color: white;
+        padding: 20px;
+        font-size: 0.5rem;
+    }
 }

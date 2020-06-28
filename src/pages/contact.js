@@ -1,15 +1,56 @@
 import React from 'react'
+import { FiTwitter, FiLinkedin, FiGithub } from "react-icons/fi";
 
 import Layout from "../components/layout"
 import Head from "../components/head"
+import contactStyles from './contact.module.scss'
 
 const ContactPage = () => {
     return (
         <Layout>
             <Head title="Contact"/>
-            <p>
-                The best way to reach me is via <a href="https://twitter.com/@faeselsaeed" rel="noopener noreferrer" target="_blank">@faeselsaeed</a> on Twitter!
-            </p>
+            <h1>Contact Me</h1>
+
+            <p>I may take up to a day to get back to you if you do decide to contact me, so please be patient.</p>
+
+            <ol className={contactStyles.contactbox}>
+                <li className={contactStyles.contactoption}>
+                    <a href="https://www.linkedin.com/in/faesel-saeed-a97b1614" rel="noopener noreferrer" target="_blank">
+                        <div className={contactStyles.content}>
+                            <div className={contactStyles.contenticon}>
+                                <FiLinkedin></FiLinkedin>
+                            </div>
+                            <p>
+                                So you wanna hire me hey, for anything career related Linked In is the best place, please do review my current experience including the technologies im familiar with before contacting me.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li className={contactStyles.contactoption}>
+                    <a href="https://www.linkedin.com/in/faesel-saeed-a97b1614" rel="noopener noreferrer" target="_blank">
+                        <div className={contactStyles.content}>
+                            <div className={contactStyles.contenticon}>
+                                <FiGithub></FiGithub>
+                            </div>
+                            <p>
+                                Want to help contribute to my blog? or one of the projects in my repos, GitHub is the place to be!
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li className={contactStyles.contactoption}>
+                    <a href="https://twitter.com/@faeselsaeed" rel="noopener noreferrer" target="_blank">
+                        <div className={contactStyles.content}>
+                            <div className={contactStyles.contenticon}>
+                                <FiTwitter></FiTwitter>
+                            </div>
+                            <p>
+                                Twitter is the best place to contact be for anything else, whether its something random or you just want to chat im happy to DM here.
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ol>
         </Layout>
     )
 }
