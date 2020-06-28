@@ -27,7 +27,7 @@ const ContactPage = () => {
                     </a>
                 </li>
                 <li className={contactStyles.contactoption}>
-                    <a href="https://www.linkedin.com/in/faesel-saeed-a97b1614" rel="noopener noreferrer" target="_blank">
+                    <a href="https://github.com/faesel/" rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiGithub></FiGithub>
