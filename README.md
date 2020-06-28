@@ -37,3 +37,7 @@ Code is designed to make use of github pages
 Link:
 
 https://faesel.github.io/faesel-blog/
+
+## SEO
+
+https://github.com/nfl/react-helmet
