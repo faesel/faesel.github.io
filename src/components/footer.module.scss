@@ -1,3 +1,21 @@
 .footer {
     margin-top: 3rem;
 }
+
+.social {
+    font-size: 1rem;
+
+    a {
+        text-decoration: none;
+        color: black;    
+        margin-right: 15px;
+    }
+
+    a:hover {
+        color: red;
+    }
+}
+
+.copyright {
+    
+}
