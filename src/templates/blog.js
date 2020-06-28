@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
 
 import Layout from "../components/layout"
@@ -17,9 +16,6 @@ export const query = graphql`
         ) {
             title
             datePublished(formatString: "MMMM Do, YYYY")
-            body {
-                json
-            }
             bodym {
               childMarkdownRemark {
                 html
@@ -30,16 +26,6 @@ export const query = graphql`
 `
 
 const Blog = props => {
-  const options = {
-    renderNode: {
-      "embedded-asset-block": (node) => {
-        const alt = node.data.target.fields.title['en-GB']
-        const url = node.data.target.fields.file['en-GB'].url
-        return <img alt={alt} src={url} />
-      }
-    }
-  }
-
   deckDeckGoHighlightElement();
 
   return (
@@ -47,10 +33,6 @@ const Blog = props => {
       <Head title={props.data.contentfulBlog.title}/>
       <h1>{props.data.contentfulBlog.title}</h1>
       <p>{props.data.contentfulBlog.datePublished}</p>
-
-      { props.data.contentfulBlog.body && (
-        documentToReactComponents(props.data.contentfulBlog.body.json, options)
-      )}
 
       { props.data.contentfulBlog.bodym && (
         <div dangerouslySetInnerHTML={{ 

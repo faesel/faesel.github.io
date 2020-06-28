@@ -1,7 +1,8 @@
 .container {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1000px;
     padding: 1rem;
+    padding-bottom: 0px; //To allow the footer to be flush
 
     display: flex;
     flex-direction: column;
