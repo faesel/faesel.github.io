@@ -1,11 +1,9 @@
-.posts {
+.contactbox {
     list-style-type: none;
     margin: 0;
 }
 
-.post {
-    margin: 1rem 0;
-
+.contactoption {
     a {
         background: #f4f4f4;
         color: #000000;
@@ -18,16 +16,13 @@
         background: #e4e4e4;
     }
 
-    h2 {
-        margin-bottom: 0;
-    }
+    .content {
+        flex-direction: flex;
+        padding:20px;
 
-    p {
-        color: #777777;
-        font-size: .8rem;
-    }
-    
-    .postdate {
-        font-style: italic;
+        .contenticon {
+            font-size: 2rem;
+            padding-bottom: 10px;
+        }
     }
 }

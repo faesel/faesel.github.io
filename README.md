@@ -18,6 +18,16 @@ https://docs.deckdeckgo.com/components/code/
 Link to gatsby docs here:
 https://www.gatsbyjs.org/packages/gatsby-remark-highlight-code/#theme
 
+## 🎨 Typography & Icons
+
+Typography
+
+https://www.gatsbyjs.org/docs/typography-js/
+
+Icons 
+
+https://react-icons.github.io/react-icons/icons?name=fi
+
 ## 💫 Deploy
 
 Code is designed to make use of github pages

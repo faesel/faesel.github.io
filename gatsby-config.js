@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        title: 'Faesel Saeed',
+        title: 'FAESEL.COM',
         author: 'Faesel Saeed'
     },
     plugins: [
@@ -43,6 +43,12 @@ module.exports = {
                     },
                 ]
             }
-        }
+        },
+        {
+            resolve: `gatsby-plugin-typography`,
+            options: {
+                pathToConfigModule: `src/fonts/typography`,
+            },
+        },
     ]
 }

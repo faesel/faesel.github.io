@@ -1,3 +1,30 @@
 .footer {
     margin-top: 3rem;
 }
+
+.social {
+    font-size: 1rem;
+    background-color: #333;
+    padding: 20px;
+
+    a {
+        text-decoration: none;
+        color: white;    
+        padding:20px;
+    }
+
+    a:hover {
+        color: red;
+    }
+}
+
+.copyright {
+    background-color: #2b2b2b;
+
+    p {
+        color: white;
+        padding: 20px;
+        padding-left: 40px;
+        font-size: 0.5rem;
+    }
+}

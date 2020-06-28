@@ -8,8 +8,9 @@ const AboutPage = () => {
     return (
         <Layout>
             <Head title="About"/>
-            <p>Im a software engineer</p>
-            <p><Link to="/contact">Want to work with me? Reach out.</Link></p>
+            <h1>About</h1>
+            <p>I am a software developer with a strong passion for technology and all things new. I specialise in delivering web-based & enterprise solutions and love new challenges. I take great pride in keeping up to date with current development practices and instilling them within my working environment.</p>
+            <p><Link to="/contact">Want to work with me?</Link></p>
         </Layout>
     )
 }
