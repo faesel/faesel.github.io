@@ -13,12 +13,15 @@ module.exports = {
             }
         },
         {
-            resolve: `gatsby-plugin-google-analytics`,
+            resolve: `gatsby-plugin-gtag`,
             options: {
-                trackingId: process.env.GOOGLE_TRACKING_ID,
-                head: true,
-                anonymize: true
-            },
+              // your google analytics tracking id
+              trackingId: process.env.GOOGLE_TRACKING_ID,
+              // Puts tracking script in the head instead of the body
+              head: false,
+              // enable ip anonymization
+              anonymize: true,
+            }
         },
         'gatsby-plugin-sass',
         {
