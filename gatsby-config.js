@@ -68,12 +68,12 @@ module.exports = {
                 query: `
                 {
                     site {
-                    siteMetadata {
-                        title
-                        description
-                        siteUrl
-                        site_url: siteUrl
-                    }
+                        siteMetadata {
+                            title
+                            description
+                            siteUrl
+                            site_url: siteUrl
+                        }
                     }
                 }`,
                 feeds: [
@@ -81,11 +81,11 @@ module.exports = {
                         serialize: ({ query: { site, allContentfulBlog } }) => {
                             return allContentfulBlog.edges.map(edge => {
                                 return Object.assign({}, edge.node, {
-                                    title: edges.node.title,
+                                    title: edge.node.title,
                                     description: edge.node.bodym.childMarkdownRemark.excerpt,
                                     date: edge.node.datePublished,
-                                    url: site.siteMetadata.siteUrl + edge.node.slug,
-                                    guid: site.siteMetadata.siteUrl + edge.node.slug,
+                                    url: `${site.siteMetadata.siteUrl}/blog/${edge.node.slug}`,
+                                    guid: edge.node.bodym.childMarkdownRemark.id,
                                     custom_elements: [{ "content:encoded": edge.node.bodym.childMarkdownRemark.html }],
                                 })
                             })
@@ -102,8 +102,9 @@ module.exports = {
                                 node {
                                     title
                                     slug
-                                    datePublished(formatString: "MMMM Do, YYYY")
+                                    datePublished(formatString: "ddd, DD MMM YYYY HH:mm:ss ZZ")
                                     bodym {
+                                        id,
                                         childMarkdownRemark {
                                             excerpt(pruneLength: 200)
                                             html
