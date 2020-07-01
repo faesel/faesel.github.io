@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 01 Jul 2020 17:26:22 GMT</lastBuildDate><item><title><![CDATA[Making a Azure poison queue Slack notifier]]></title><description><![CDATA[I'm currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is…]]></description><link>https://www.faesel.comazure-poison-queue-notifier</link><guid isPermaLink="false">https://www.faesel.comazure-poison-queue-notifier</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;I&apos;m currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party&apos;s (or our code) fail to send the message. &lt;/p&gt;
+&lt;p&gt;Since we are connecting into 3rd party&apos;s you can almost guarantee there&apos;s going to be some form of failure. So its always good practice to leverage on this type of architecture to handle the unknown. We have the following setup:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Website &gt; Storage Queue &gt; Web Job &gt; Send Grid&lt;/li&gt;
+&lt;li&gt;Website &gt; Storage Queue &gt; Web Job &gt; Twillio&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When a failure occurs, queue messages are automatically moved from the
+message queue into a poison queue, these queues are always suffixed with &quot;poison&quot; (MS really wanted to highlight how toxic your problems are) like so:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;email - For normal operation&lt;/li&gt;
+&lt;li&gt;email-poison - Messages moved here when a failure occurs&lt;/li&gt;
+&lt;li&gt;sms&lt;/li&gt;
+&lt;li&gt;sms-poison&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Gaining visibility of what&apos;s in a poison queue is really important in knowing
+the health of your system. So I embarked upon a task in seeking out an
+alert setting buried deep somewhere in the Azure portal to help surface
+any messages going into the poison queue. I knew this would be a metric
+alert of some kind either in the &apos;Storage Account&apos;, &apos;Alerts&apos; or perhaps
+even &apos;Application Insights&apos; blade. &lt;/p&gt;
+&lt;p&gt;After having spent a while searching for it as well as posting this Stack Overflow question (it wasn&apos;t a popular one..), I started doubting whether it even existed!&lt;/p&gt;
+&lt;p&gt;I even tried the search box at the top of the azure dashboard as a last ditch effort, hoping it will provide answers. You think this would
+exists somewhere (if it does and my eyes have deceived me please do get
+in touch) or at the very least be visible and easily findable? Alas this was not the case..&lt;/p&gt;
+&lt;p&gt;So I decided to do something about it, &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;why not have an Azure function that takes a storage account and looks through all the queues to check if any poison queue messages exist. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Whilst were at it we could also check if messages are stacking up in the non-poison queues (just in-case a Webjob has been turned off or cant process a certain message), and even provide the content of a problematic queue message. Since our team uses slack for communication I decided to send the notification to Slack. Below are the steps I took:&lt;/p&gt;
+&lt;h1&gt;Step 1 - Setting up slack&lt;/h1&gt;
+&lt;p&gt;Setting up slack is quick and easy, just create a &apos;poison-queue&apos; channel, and create a new integration in the custom integrations section (Note your gonna have to get admin access to do this (I have provided a link at the bottom of this article as its nested deep in their UI). An integration is essentially a web hook endpoint for us to post JSON data to (I have added a link for Slacks JSON format below too, as well as a message builder to help customise the look and feel).&lt;/p&gt;
+&lt;p&gt;The picture below show where you can get your web hook URL from.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/1y3YcZQRnN6yhsilboTyhL/5c9fad66a9601cc851c9377d26198258/slackwebhook.jpg&quot; alt=&quot;Azure Queue Notifier - Slack Integration&quot;&gt;&lt;/p&gt;
+&lt;h1&gt;Step 2 - Create your Azure Function&lt;/h1&gt;
+&lt;p&gt;Since this is not a tutorial on Azure Functions, I&apos;m going to skip going into detail here. Microsoft however have provided some great documentation on this (with pictures!) to help you out. Links are at the end until MS break them. By the way your gonna need a cron expression to define the timeframe for this function to work in, if you hate cron as much as I do worry not! Use my cron expression for a daily sobering alert at 9:00 - 0 0 9 * * *&lt;/p&gt;
+&lt;h1&gt;Step 3 - Create your slack message structure&lt;/h1&gt;
+&lt;p&gt;Next we can create the basic structure needed for our Slack message, expressed as a C# class. My class is actually quite simple and missing quite a few properties, to get a sense of all the customisations Slack offers have a look at the links below.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;#r &amp;quot;Newtonsoft.Json&amp;quot;
+
+#load &amp;quot;Attachments.csx&amp;quot;
+
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
+public sealed class SlackMessage
+{
+    public SlackMessage()
+    {
+        Attachments = new List&amp;lt;Attachments&amp;gt;();
+    }
+
+    [JsonProperty(&amp;quot;channel&amp;quot;)]
+    public string Channel { get; set; }
+
+    [JsonProperty(&amp;quot;username&amp;quot;)]
+    public string UserName { get; set; }
+
+    [JsonProperty(&amp;quot;text&amp;quot;)]
+    public string Text { get; set; }
+
+    [JsonProperty(&amp;quot;attachments&amp;quot;)]
+    public List&amp;lt;Attachments&amp;gt; Attachments { get; set; }
+
+    [JsonProperty(&amp;quot;icon_emoji&amp;quot;)]
+    public string Icon
+    {
+        get { return &amp;quot;:computer:&amp;quot;; }
+    }
+}
+
+#r &amp;quot;Newtonsoft.Json&amp;quot;
+
+using Newtonsoft.Json;
+
+public class Attachments
+{
+    [JsonProperty(&amp;quot;color&amp;quot;)]
+    public string Colour { get; set; }
+
+    [JsonProperty(&amp;quot;title&amp;quot;)]
+    public string Title { get; set; }
+
+    [JsonProperty(&amp;quot;text&amp;quot;)]
+    public string Text { get; set; }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Remember to create these classes as .csx files for the Azure function to understand them.&lt;/p&gt;
+&lt;h1&gt;Step 4 - Create a slack client to post the message&lt;/h1&gt;
+&lt;p&gt;Now that we have our message structure we can create a class to serialize and post the JSON to Slack using the Webhook created in &lt;strong&gt;Step 1&lt;/strong&gt;, below is the code to do this,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;#r &amp;quot;Newtonsoft.Json&amp;quot;
+#r &amp;quot;System.Web.Extensions&amp;quot;
+#r &amp;quot;System.Web&amp;quot;
+
+#load &amp;quot;SlackMessage.csx&amp;quot;
+#load &amp;quot;Attachments.csx&amp;quot;
+
+using System.Net;
+using Newtonsoft.Json;
+using System.Collections.Specialized;
+
+public class SlackClient
+{
+    public static readonly string WebHook = @&amp;quot;https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXX&amp;quot;;
+
+    public void SendMessage(SlackMessage message)
+    {
+        string payloadJson = JsonConvert.SerializeObject(message);
+        
+        using (WebClient client = new WebClient())
+        {
+            NameValueCollection data = new NameValueCollection();
+            data[&amp;quot;payload&amp;quot;] = payloadJson;
+            client.UploadValues(WebHook, &amp;quot;POST&amp;quot;, data);
+        }
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Its good practice to move the Webhook URL into the settings file, for simplicity I have included it into this class.&lt;/p&gt;
+&lt;h1&gt;Step 5 - Queue Checker&lt;/h1&gt;
+&lt;p&gt;Next we need to add code to loop through any connections string we pass it, check all the queues and send messages if we think there&apos;s something wrong.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;#r &amp;quot;Microsoft.WindowsAzure.Storage&amp;quot;
+
+#load &amp;quot;SlackClient.csx&amp;quot;
+#load &amp;quot;SlackMessage.csx&amp;quot;
+#load &amp;quot;Attachments.csx&amp;quot;
+
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+
+public class PoisonQueueChecker
+{
+    public void CheckPoisonQueues(Dictionary&amp;lt;string, string&amp;gt; storageConnectionStrings)
+    {
+        var slackClient = new SlackClient();
+        var slackMessage = new SlackMessage { Text = &amp;quot;Poison Queue Alerts&amp;quot;, Channel = &amp;quot;poison-queue&amp;quot; };
+
+        foreach (var storageConnectionString in storageConnectionStrings)
+        {
+            var storageCredentials = new StorageCredentials(storageConnectionString.Key, storageConnectionString.Value);
+            var storageAccount = new CloudStorageAccount(storageCredentials, true);
+            var queueClient = storageAccount.CreateCloudQueueClient();
+
+            var queues = queueClient.ListQueues();
+            foreach (var queue in queues)
+            {
+                queue.FetchAttributes();
+                //Gets the total messages in the queue
+                var queueCount = queue.ApproximateMessageCount;
+
+                if (queueCount &amp;gt; 0)
+                {
+                    var isPoisonQueue = queue.Name.EndsWith(&amp;quot;poison&amp;quot;);
+                    var attachment = new Attachments();
+                    attachment.Title = $&amp;quot;Queue: {queue.Name}, Message Count: {queueCount}&amp;quot;;
+                    attachment.Colour = isPoisonQueue ? &amp;quot;danger&amp;quot; : &amp;quot;warning&amp;quot;;
+
+                    //Note the peek function will not dequeue the message
+                    var message = queue.PeekMessage();
+                    attachment.Text = $@&amp;quot;Insertion Time: {message.InsertionTime}, Sample Contents:\n&amp;quot; +
+                                        $&amp;quot; {message.AsString}&amp;quot;;                        
+
+                    slackMessage.Attachments.Add(attachment);
+                }
+            }
+
+            //Add a message showing all is well
+            if (!slackMessage.Attachments.Any())
+            {
+                slackMessage.Attachments.Add(new Attachments { Title = &amp;quot;All queues are operational and empty&amp;quot;, Colour = &amp;quot;good&amp;quot; });
+            }
+        }
+
+        slackClient.SendMessage(slackMessage);
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h1&gt;Step 6 - Being it all together&lt;/h1&gt;
+&lt;p&gt;Final step is to hook up the functions run method like so:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;#load &amp;quot;PoisonQueueChecker.csx&amp;quot;
+
+using System;
+using System.Collections.Generic;
+
+public static void Run(TimerInfo myTimer, TraceWriter log)
+{
+    log.Info($&amp;quot;C# Timer trigger function executed at: {DateTime.Now}&amp;quot;);
+
+    var storageConnectionStrings = new Dictionary();
+    storageConnectionStrings.Add(&amp;quot;storagename&amp;quot;, &amp;quot;storagekey&amp;quot;);
+
+    var poisonQueueChecker = new PoisonQueueChecker();
+    poisonQueueChecker.CheckPoisonQueues(storageConnectionStrings);
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;And that&apos;s it, 9 O&apos;clock tomorrow you can finally start gaining visibility of those poison queues and start worrying about those dodgy lines of code causing your messages to be poisoned.&lt;/p&gt;
+&lt;h1&gt;Helpful Links&lt;/h1&gt;
+&lt;p&gt;Custom Integrations&lt;/p&gt;
+&lt;p&gt;https://&amp;#x3C;&lt;yourslackgroupname&gt;&gt;.slack.com/apps/manage/custom-integrations&lt;/p&gt;
+&lt;p&gt;Customising your slack message&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://api.slack.com/docs/messages/builder&quot;&gt;https://api.slack.com/docs/messages/builder&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;How to send a slack message to your web hook:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://api.slack.com/custom-integrations/incoming-webhooks&quot;&gt;https://api.slack.com/custom-integrations/incoming-webhooks&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;How to create a azure function:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function&quot;&gt;https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;How to code up a azure function:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-csharp&quot;&gt;https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-csharp&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Fix poor project structure with convention based programming]]></title><description><![CDATA[Having looked at a number of projects in my lifetime, I always come across classes named something like "CustomerService" with similar variations (usually in the same project calling each other…]]></description><link>https://www.faesel.comconvention-based-programming</link><guid isPermaLink="false">https://www.faesel.comconvention-based-programming</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;Having looked at a number of projects in my lifetime, I always come across classes named something like &quot;CustomerService&quot; with similar variations (usually in the same project calling each other) ranging from &quot;CustomerProvider / Helper /Manager / Store / etc...&quot;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors - PhilKarlton&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;As a new developer working on a project it becomes really hard to figure out what the structure is, and in the case of adding code what to name classes. Naming and structure always seem to be a developers achilles heel(almost akin to superman and kryptonite).&lt;/p&gt;
+&lt;p&gt;So, I wanted to come up with a solution to the problem, something more structured that helps facilitate better naming and structuring and the way I decided to do this is through dependency injection. &lt;/p&gt;
+&lt;p&gt;By now we are all familiar with Inversion of control, and comfortable using it to decouple dependencies within our applications. Most of us have dabbled with the usual suspects CastleWindsor, AutoFaq, Ninject to name a few. &lt;/p&gt;
+&lt;p&gt;One thing people don’t realise is we can also utilise these frameworks to enforce good structure as well as unit test the structure itself to ensure new developers don’t stray from the named path. For the examples below I&apos;m going to use Castle Windsor.&lt;/p&gt;
+&lt;h1&gt;Step 1 – Define the structure and start naming the onion layers&lt;/h1&gt;
+&lt;p&gt;The codebases of yester-year were usually architected using a n-tier structure typically following the pattern: &lt;/p&gt;
+&lt;p&gt;Presentation Layer (Controller) &gt; Business Layer (Service) &gt; Data Layer (Repository)&lt;/p&gt;
+&lt;p&gt;As time progressed new patterns emerged the structure became more complex however we still try to adopt some form of onion layering within the application. Whether it’s one onion or many within a single solution we should always strive to define what the layers are in the application.&lt;/p&gt;
+&lt;p&gt;So, to start we should define:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What the onion layer is named (forming groups of similar classes).&lt;/li&gt;
+&lt;li&gt;What the responsibility of each layer is.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;Step 2 – Create your conventions&lt;/h1&gt;
+&lt;p&gt;Now that we have some understanding of the layers, we can start defining them in code. I use an empty interface to do this. Note Castle distinguishes these layers as &apos;Conventions&apos;.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;/// A class that contains business logic, it also does not directly access any data source.
+public interface IService
+{
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Note the interface has no bearing on logic, and does not alter how the app behaves. It’s simply used as a marker to distinguish the layers of the application. A small description is also provided to define what the responsibility of the layer is. These conventions are also a way to document the structure of the application.&lt;/p&gt;
+&lt;h1&gt;Step 3 – Install all dependency’s using the convention.&lt;/h1&gt;
+&lt;p&gt;Now that we have a convention we can blanket install all classes subscribing to that convention, if your using castle Windsor there is a slight difference in how this is done depending on whether you apply the convention directly on the class itself or if you apply it to another interface.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Applying it to an interface&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;/// A class that contains business logic, it also does not directly access any data source.
+public interface IService
+{
+}
+
+/// Blanket install all IServies
+container.Register(Classes.FromAssembly(Assembly.Load(&amp;quot;Assembly name goes here&amp;quot;))
+    .BasedOn(IService)
+    .WithService.AllInterfaces()
+    .LifestyleSingleton());
+
+/// Example usage
+public interface ICustomerService : IService
+public class CustomerService : ICustomerService&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;&lt;strong&gt;Applying it to a class&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When applying it to class the installation has a slight difference.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;/// A class that contains a business rule, it validates whether the rule has been met
+public interface IRule
+{
+ string ApplyRule();
+}
+
+container.Register(Classes.FromAssembly(Assembly.Load(&amp;quot;Assembly name goes here&amp;quot;))
+ .BasedOn(IRule)
+ .WithService.Base()
+ .LifestyleSingleton());
+
+public class CustomerRule : IRule&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;When creating a new class that fits within a pre-defined convention installation becomes a walk in the park, just apply the convention interface and you’re done.&lt;/p&gt;
+&lt;h1&gt;Step 4 – Unit testing structure&lt;/h1&gt;
+&lt;p&gt;Now that we have our convention setup and we are installing all classes with that convention we can apply a unit tests that will check against the structure. We are testing on two things here:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Only Services should have a‘Service’ Suffix&lt;/li&gt;
+&lt;li&gt;Only Services should exist in a ‘Service’ namespace&lt;/li&gt;
+&lt;/ol&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;[TestFixture]
+public class TestSolutionConventionTests
+{
+    [SetUp]
+    public void Setup()
+    {
+        // Register all dependencys in the project using castle
+        RegisterDependencies(); 
+    }
+
+    [Test]
+    public void OnlyServices_HaveServiceSuffix()
+    {
+        // Get access to IWindsorContainer
+        var container = DependencyResolver.Container; 
+        // Get all classes in the application where the name ends with Service (using reflection).
+        var allServices = GetPublicClassesFromApplicationAssembly(c =&amp;gt; c.Name.EndsWith(&amp;quot;Service&amp;quot;), &amp;quot;Assembly name where service exists goes here&amp;quot;);
+        // Get all services installed within castles container that use the interface IService
+        var registeredServices = GetImplementationTypesFor(typeof(IService), container);
+
+        // Assert the names all match and are equal
+        allServices.ToList().Should().Equal(registeredManagers, (ac, rc) =&amp;gt; ac.Name == rc.Name);
+    }
+
+    [Test]
+    public void OnlyServices_LiveInServicesNamespace()
+    {
+        var container = DependencyResolver.Container; 
+        // Get all classes in the application where the namespace contains Service
+        var allServices = GetPublicClassesFromApplicationAssembly(c =&amp;gt; c.Namespace.Contains(&amp;quot;Service&amp;quot;), &amp;quot;Assembly name where service exists goes here&amp;quot;);
+        var registeredServices = GetImplementationTypesFor(typeof(IService), container);
+
+        allServices.ToList().Should().Equal(registeredManager, (ac, rc) =&amp;gt; ac.Name == rc.Name);
+    }
+
+    private Type[] GetPublicClassesFromApplicationAssembly(Predicate where, string assemblyName)
+    {
+        return Assembly.Load(assemblyName).GetExportedTypes()
+            .Where(t =&amp;gt; t.IsClass)
+            .Where(t =&amp;gt; t.IsAbstract == false)
+            .Where(where.Invoke)
+            .OrderBy(t =&amp;gt; t.Name)
+            .ToArray();
+    }
+
+    private Type[] GetImplementationTypesFor(Type type, IWindsorContainer container)
+    {
+        return container.Kernel.GetAssignableHandlers(type)
+            .Select(h =&amp;gt; h.ComponentModel.Implementation)
+            .OrderBy(t =&amp;gt; t.Name)
+            .ToArray();
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Picture below describes what these unit tests protect against:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5DsNc00VzOuEgttxz02Wh0/a5d882981f31c1fad410cea2e30af5dd/conventionexample.jpg&quot; alt=&quot;Convention Based Programming - Unit tests&quot;&gt;&lt;/p&gt;
+&lt;h1&gt;Step 5 – Introducing new conventions&lt;/h1&gt;
+&lt;p&gt;As your solution evolves you’re going to come across certain scenarios where the responsibilities of a class don’t fit into the conventions defined (as we have a list of conventions with descriptions it’s easy to distinguish if a new convention is needed). These scenarios will mainly occur at the beginning phase of a new application (as its rapidly evolving) and as conventions get defined you will find that having to define a new one will become an increasingly rare activity.&lt;/p&gt;
+&lt;p&gt;This process should mitigate the scenario of having a customer/service/manager/provider…&lt;/p&gt;
+&lt;h1&gt;Step 6 – Sharing conventions across projects unified code base&lt;/h1&gt;
+&lt;p&gt;Once we’ve established some conventions for a project we can easily extract these out into a separate project and package it as a NuGet package. This allows us to apply the conventions to other solutions giving us a unified structure that looks the same from one solution to another.&lt;/p&gt;
+&lt;p&gt;New developers will surely appreciate this, and as a co-worker sitting next to them the wtf count will be below uncomfortable thresholds!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Splitting NUnit Unit Tests With TeamCity To Decrease CI Time]]></title><description><![CDATA[This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your…]]></description><link>https://www.faesel.comnunit-test-ci-split</link><guid isPermaLink="false">https://www.faesel.comnunit-test-ci-split</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;p&gt;This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your tests to break down the CI Builds (typically used to run different categories in parallel) or to separate slow running tests into a separate build, all in the aim of speeding up the feedback cycle for developers. So to create a category you simple add a category attribute to either a test or a test fixture like so:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;[Category(&amp;quot;CategoryOne&amp;quot;)] 
+[TestFixture] 
+public void FunkyMethod() 
+{ 
+    string pointless = &amp;quot;this is code&amp;quot;; 
+} 
+
+[Category(&amp;quot;CategoryFour&amp;quot;)] 
+[TestFixture] 
+public class UpgradeControllerTests 
+{ 
+  ...&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;When segregating tests sometimes you will find a tests intersects multiple categories, in this case you can add multiple attributes. Later on we will see the different types of expressions you are able to enter when running the tests through TeamCity. Below is an example of using multiple categories&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;[Category(&amp;quot;CategoryOne&amp;quot;)] 
+[Category(&amp;quot;CategoryTwo&amp;quot;)] 
+[Test] 
+public void FunkyMethod() 
+{ 
+    string pointless = &amp;quot;this is code&amp;quot;; 
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;So far creating categories like this is fine however having magic strings all over your code is not great. So to fix this we can create a custom attribute which does exactly the same thing as shown below. The custom attribute inherits from CategoryAttribute.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;//Used for a test fixture 
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)] 
+public sealed class CategoryFiveAttribute : CategoryAttribute { } 
+//Used for a test 
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)] 
+public sealed class CategoryThreeAttribute : CategoryAttribute { }&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Now that we have the attributes ready we can use them like so.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;[TestFixture, CategoryFiveAttribute] 
+public class SignOutControllerTests 
+{ 
+  ...&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;To configure team city to run certain categories is fairly straightforward. Start by creating a Build step with the runner type set to “NUnit”.  Under Run tests from select your test project dll file. And then under Nunit categories include list the categories you want to test out by writing&lt;/p&gt;
+&lt;p&gt;/Include: CategoryOne&lt;/p&gt;
+&lt;p&gt;Note that you can also do the inverse and exclude certain tests by adding the following in the section named Nunit categories exclude&lt;/p&gt;
+&lt;p&gt;/Exclude: CategoryOne&lt;/p&gt;
+&lt;p&gt;NUnit also supports quite complex expressions, to see a full list click here (section “Specifying test categories to include or exclude”). &lt;/p&gt;
+&lt;p&gt;A screenshot is included for a full list of settings.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/56EtPebPnDplF4gswxjpJH/f4ac2ffe01af7d3933838d4425d26bc8/teamcitytestcategory.png&quot; alt=&quot;Nunit Test - Teamcity&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Once you have this in place your unit tests will run with lightening speed.&lt;/p&gt;</content:encoded></item></channel></rss>
