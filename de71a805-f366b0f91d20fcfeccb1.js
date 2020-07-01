@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{rCLJ:function(t,i,n){"use strict";n.d(i,"a",(function(){return c}));var a=n("Lnxd"),c=function(t){return Object(a.a)({tag:"svg",attr:{version:"1.2",baseProfile:"tiny",viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M7.5 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm0-6c-1.103 0-2 .897-2 2s.897 2 2 2 2-.897 2-2-.897-2-2-2zM16.5 8c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4z"}}]})(t)};c.displayName="TiSocialFlickr"}}]);
+//# sourceMappingURL=de71a805-f366b0f91d20fcfeccb1.js.map
