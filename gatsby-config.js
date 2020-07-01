@@ -4,14 +4,6 @@ module.exports = {
         author: 'Faesel Saeed'
     },
     plugins: [
-        {
-            resolve: `gatsby-plugin-google-analytics`,
-            options: {
-                trackingId: process.env.GOOGLE_TRACKING_ID,
-                head: true,
-                anonymize: true
-            },
-        },
         'gatsby-plugin-react-helmet',
         {
             resolve: 'gatsby-source-contentful',
@@ -19,6 +11,14 @@ module.exports = {
                 spaceId: process.env.CONTENTFUL_SPACE_ID,
                 accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
             }
+        },
+        {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+                trackingId: process.env.GOOGLE_TRACKING_ID,
+                head: true,
+                anonymize: true
+            },
         },
         'gatsby-plugin-sass',
         {
