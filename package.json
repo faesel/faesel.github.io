@@ -19,6 +19,7 @@
     "@contentful/rich-text-react-renderer": "^13.4.0",
     "@deckdeckgo/highlight-code": "^1.1.1",
     "gatsby": "^2.23.11",
+    "gatsby-plugin-google-analytics": "^2.3.6",
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-sass": "^2.3.6",
     "gatsby-plugin-sharp": "^2.6.14",

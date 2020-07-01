@@ -4,6 +4,12 @@ module.exports = {
         author: 'Faesel Saeed'
     },
     plugins: [
+        {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+              trackingId: process.env.GOOGLETRACKINGID,
+            },
+        },
         'gatsby-plugin-react-helmet',
         {
             resolve: 'gatsby-source-contentful',
