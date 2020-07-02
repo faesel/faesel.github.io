@@ -45,3 +45,7 @@ https://github.com/nfl/react-helmet
 ## Background patterns 
 
 https://www.toptal.com/designers/subtlepatterns/page/6/
+
+## Ideas 
+
+https://24ways.org/2012/how-to-make-your-site-look-half-decent/
