@@ -12,10 +12,18 @@ const BlogPage = () => {
                 edges {
                     node {
                         title
+                        tags
+                        hero {
+                            file {
+                                url
+                            }
+                            title
+                        }
                         slug
                         datePublished(formatString:"MMMM Do, YYYY")
                         bodym {
                             childMarkdownRemark { 
+                                timeToRead
                                 excerpt(pruneLength: 300)
                             }
                         }
