@@ -10,12 +10,12 @@ module.exports = {
         {
             resolve: `gatsby-plugin-gtag`,
             options: {
-              // your google analytics tracking id
-              trackingId: process.env.GOOGLE_TRACKING_ID,
-              // Puts tracking script in the head instead of the bod
-              head: true,
-              // enable ip anonymization
-              anonymize: true,
+                // your google analytics tracking id
+                trackingId: process.env.GOOGLE_TRACKING_ID,
+                // Puts tracking script in the head instead of the bod
+                head: true,
+                // enable ip anonymization
+                anonymize: true,
             }
         },
         {
@@ -125,5 +125,37 @@ module.exports = {
                 ],
             },
         },
+        {
+            resolve: `gatsby-plugin-sitemap`,
+            options: {
+                output: `/sitemap.xml`,
+                exclude: [],
+                query: `
+                {
+                    site {
+                        siteMetadata {
+                            siteUrl
+                        }
+                    }
+            
+                    allSitePage {
+                    nodes {
+                        path
+                    }
+                    }
+                }`,
+                resolveSiteUrl: ({ site, allSitePage }) => {
+                    return site.siteMetadata.siteUrl
+                },
+                serialize: ({ site, allSitePage }) =>
+                    allSitePage.nodes.map(node => {
+                        return {
+                            url: `${site.siteMetadata.siteUrl}${node.path}`,
+                            changefreq: `daily`,
+                            priority: 0.7,
+                        }
+                    })
+            }
+        }
     ]
 }

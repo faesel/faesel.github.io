@@ -41,3 +41,7 @@ https://faesel.github.io/faesel-blog/
 ## SEO
 
 https://github.com/nfl/react-helmet
+
+## Background patterns 
+
+https://www.toptal.com/designers/subtlepatterns/page/6/
