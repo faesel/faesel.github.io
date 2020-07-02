@@ -16,9 +16,17 @@ export const query = graphql`
             }
         ) {
             title
+            tags
+    				hero {
+              file {
+                url
+              }
+              title
+            }
             datePublished(formatString: "MMMM Do, YYYY")
             bodym {
               childMarkdownRemark {
+                timeToRead
                 html
               }
             }
@@ -38,8 +46,15 @@ const Blog = props => {
     <Layout>
       <Head title={props.data.contentfulBlog.title}/>
       <h1>{props.data.contentfulBlog.title}</h1>
-      <p>{props.data.contentfulBlog.datePublished}</p>
-
+      <p>Date Published: {props.data.contentfulBlog.datePublished} Reading Time: {props.data.contentfulBlog.bodym.childMarkdownRemark.timeToRead} minutes</p>
+      <ol className="tags">
+        {props.data.contentfulBlog.tags.map(tag => {
+          return (
+            <li className="tag">{tag}</li>
+            )
+          })}
+      </ol>
+      <img src={props.data.contentfulBlog.hero.file.url} alt={props.data.contentfulBlog.hero.title}></img>
       { props.data.contentfulBlog.bodym && (
         <div dangerouslySetInnerHTML={{ 
           __html: props.data.contentfulBlog.bodym.childMarkdownRemark.html }}>
