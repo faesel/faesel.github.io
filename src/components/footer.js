@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { FiTwitter, FiLinkedin, FiGithub,  } from "react-icons/fi";
+import { FiTwitter, FiLinkedin, FiGithub, FiRss  } from "react-icons/fi";
 import { TiSocialFlickr } from "react-icons/ti"
 
 import footerStyles from './footer.module.scss'
@@ -24,6 +24,7 @@ const Footer = () => {
                 <a href="https://www.linkedin.com/in/faesel-saeed-a97b1614" rel="noopener noreferrer" target="_blank"><FiLinkedin /> Linked In</a>
                 <a href="https://github.com/faesel" rel="noopener noreferrer" target="_blank"><FiGithub /> GitHub</a>
                 <a href="https://www.flickr.com/photos/faesel/" rel="noopener noreferrer" target="_blank"><TiSocialFlickr /> Flickr</a>
+                <a href="/rss.xml"><FiRss></FiRss> RSS</a>
             </div>
 
 
