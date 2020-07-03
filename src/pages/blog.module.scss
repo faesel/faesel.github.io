@@ -31,3 +31,24 @@
         font-style: italic;
     }
 }
+
+.tags {
+    list-style: none;
+    margin: 0;
+    overflow: hidden; 
+    padding: 0;
+    padding-bottom: 10px;
+}
+
+.tags li {
+    float: left; 
+}
+  
+.tag {
+    background: #333;
+    color: white;
+    display: inline-block;
+    padding: 0 20px 0 23px;
+    margin: 0 10px 10px 0;
+    text-decoration: none;
+}
