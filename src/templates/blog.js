@@ -46,7 +46,7 @@ const Blog = props => {
     <Layout>
       <Head title={props.data.contentfulBlog.title}/>
       <h1>{props.data.contentfulBlog.title}</h1>
-      <p>Date Published: {props.data.contentfulBlog.datePublished} Reading Time: {props.data.contentfulBlog.bodym.childMarkdownRemark.timeToRead} minutes</p>
+      <p><b>Date Published:</b> {props.data.contentfulBlog.datePublished} <b>Reading Time:</b> {props.data.contentfulBlog.bodym.childMarkdownRemark.timeToRead} minutes</p>
       <ol className="tags">
         {props.data.contentfulBlog.tags.map(tag => {
           return (
