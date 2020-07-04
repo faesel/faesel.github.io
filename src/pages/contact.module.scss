@@ -7,15 +7,15 @@
 
 .contactoption {
     a {
-        background: $light-white-gray;
-        color: $black;
+        background: $panel;
+        color: $dark-coal;
         display: block;
         padding: 1rem;
         text-decoration: none;
     }
 
     a:hover {
-        background: $light-gray;
+        background: $panel-hover;
     }
 
     .content {
