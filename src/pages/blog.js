@@ -43,16 +43,16 @@ const BlogPage = () => {
                         <li className={blogStyles.post}>
                             <Link to={`/blog/${edge.node.slug}`}>
                                 <h2>{edge.node.title}</h2>
-                                <p className={blogStyles.postdate}><b>Date Published: </b>{edge.node.datePublished} <b>Reading Time:</b> {edge.node.bodym.childMarkdownRemark.timeToRead} minutes</p>
+                                <p><b>Date Published: </b>{edge.node.datePublished} <b>Reading Time:</b> {edge.node.bodym.childMarkdownRemark.timeToRead} minutes</p>
                                 <p></p>
                                 <img src={edge.node.hero.file.url} alt={edge.node.hero.title}></img>
                                 <p>{edge.node.bodym.childMarkdownRemark.excerpt}</p>
                                 <ol className={blogStyles.tags}>
-                                    {edge.node.tags.map(tag => {
-                                    return (
-                                        <li className={blogStyles.tag}>{tag}</li>
+                                    {edge.node.tags.map(tag =>
+                                        (
+                                            <li className={blogStyles.tag}>{tag}</li>
                                         )
-                                    })}
+                                    )}
                                 </ol>
                             </Link>
                         </li>

@@ -1,3 +1,5 @@
+@import '../styles/colours.scss';
+
 .posts {
     list-style-type: none;
     margin: 0;
@@ -7,15 +9,15 @@
     margin: 1rem 0;
 
     a {
-        background: #f4f4f4;
-        color: #000000;
+        background: $panel;
+        color: $dark-coal;
         display: block;
         padding: 1rem;
         text-decoration: none;
     }
 
     a:hover {
-        background: #e4e4e4;
+        background: $panel-hover;
     }
 
     h2 {
@@ -23,12 +25,8 @@
     }
 
     p {
-        color: #777777;
+        color: $dark-coal;
         font-size: 1rem;
-    }
-    
-    .postdate {
-        font-style: italic;
     }
 }
 
@@ -45,8 +43,8 @@
 }
   
 .tag {
-    background: #333;
-    color: white;
+    background: $dark-coal;
+    color: $white;
     display: inline-block;
     padding: 0 20px 0 23px;
     margin: 0 10px 10px 0;
