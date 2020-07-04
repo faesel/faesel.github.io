@@ -1,9 +1,15 @@
+@import '../styles/colours.scss';
+
 .header {
     padding: 1rem 0 2.5rem;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .title {
-    color: #000000;
+    color: $black;
     font-size: 3rem;
     text-decoration: none;
     font-weight: bolder;
@@ -14,7 +20,7 @@
 }
 
 .nav-item {
-    color: white;
+    color: $white;
     font-size: .9rem;
     display: inline-block;
 
@@ -25,29 +31,29 @@
 }
 
 .nav-item:hover {
-    color: black;
+    color: $black;
 }
 
 .active-nav-item {
-    color: black;
+    color: $black;
 }
 
 .nav1 {
-    background-color: #264653
+    background-color: $blue
 }
 
 .nav2 {
-    background-color: #2a9d8f;
+    background-color: $green;
 }
 
 .nav3 {
-    background-color: #e9c46a;
+    background-color: $yellow;
 }
 
 .nav4 {
-    background-color: #f4a261;
+    background-color: $orange;
 }
 
 .nav5 {
-    background-color: #e76f51;
+    background-color: $dark-orange;
 }
