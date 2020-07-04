@@ -1,5 +1,5 @@
 .header {
-    padding: 1rem 0 3rem;
+    padding: 1rem 0 2.5rem;
 }
 
 .title {
@@ -10,25 +10,44 @@
 }
 
 .nav-list {
-    display: flex;
-    list-style-type: none;
     margin: 0;
 }
 
 .nav-item {
-    color: #999999;
+    color: white;
     font-size: .9rem;
-    text-decoration: none;
-    
+    display: inline-block;
+
     h4 {
         margin-right: 1.3rem;
+        padding: 10px;
     }
 }
 
 .nav-item:hover {
-    color: #666666;
+    color: black;
 }
 
 .active-nav-item {
-    color: #333333;
+    color: black;
+}
+
+.nav1 {
+    background-color: #264653
+}
+
+.nav2 {
+    background-color: #2a9d8f;
+}
+
+.nav3 {
+    background-color: #e9c46a;
+}
+
+.nav4 {
+    background-color: #f4a261;
+}
+
+.nav5 {
+    background-color: #e76f51;
 }
