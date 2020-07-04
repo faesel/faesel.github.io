@@ -1,3 +1,5 @@
+@import '../styles/colours.scss';
+
 .contactbox {
     list-style-type: none;
     margin: 0;
@@ -5,15 +7,15 @@
 
 .contactoption {
     a {
-        background: #f4f4f4;
-        color: #000000;
+        background: $light-white-gray;
+        color: $black;
         display: block;
         padding: 1rem;
         text-decoration: none;
     }
 
     a:hover {
-        background: #e4e4e4;
+        background: $light-gray;
     }
 
     .content {

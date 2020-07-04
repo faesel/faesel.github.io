@@ -1,3 +1,5 @@
+@import '../styles/colours.scss';
+
 .posts {
     list-style-type: none;
     margin: 0;
@@ -7,15 +9,15 @@
     margin: 1rem 0;
 
     a {
-        background: #f4f4f4;
-        color: #000000;
+        background: $light-white-gray;
+        color: $black;
         display: block;
         padding: 1rem;
         text-decoration: none;
     }
 
     a:hover {
-        background: #e4e4e4;
+        background: $light-gray;
     }
 
     h2 {
@@ -23,7 +25,7 @@
     }
 
     p {
-        color: black;
+        color: $black;
         font-size: 1rem;
     }
 }
@@ -41,8 +43,8 @@
 }
   
 .tag {
-    background: #333;
-    color: white;
+    background: $black;
+    color: $white;
     display: inline-block;
     padding: 0 20px 0 23px;
     margin: 0 10px 10px 0;
