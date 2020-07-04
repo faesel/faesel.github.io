@@ -48,11 +48,11 @@ const BlogPage = () => {
                                 <img src={edge.node.hero.file.url} alt={edge.node.hero.title}></img>
                                 <p>{edge.node.bodym.childMarkdownRemark.excerpt}</p>
                                 <ol className={blogStyles.tags}>
-                                    {edge.node.tags.map(tag => {
-                                    return (
-                                        <li className={blogStyles.tag}>{tag}</li>
+                                    {edge.node.tags.map(tag =>
+                                        (
+                                            <li className={blogStyles.tag}>{tag}</li>
                                         )
-                                    })}
+                                    )}
                                 </ol>
                             </Link>
                         </li>

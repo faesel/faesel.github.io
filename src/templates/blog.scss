@@ -1,18 +1,21 @@
+@import '../styles/colours.scss';
+
 blockquote {
-    border:0 solid #333;
+    border:0 solid $dark-coal;
     display:block;
-    background:#fff;padding:15px 20px 15px 45px;
+    background: $white;padding:15px 20px 15px 45px;
     margin:0 0 20px;
     position:relative;
     font-family:Georgia,serif;
-    font-size:16px;
+    font-size:20px;
+    font-weight: 700;
     line-height:1.2;
-    color:#666;
+    color: $dark-orange;
     text-align:justify;
-    border-left:15px solid #000;
-    -moz-box-shadow:2px 2px 15px #ccc;
-    -webkit-box-shadow:2px 2px 15px #ccc;
-    box-shadow:2px 2px 15px #ccc
+    border-left:15px solid $dark-coal;
+    -moz-box-shadow:2px 2px 15px $shadow;
+    -webkit-box-shadow:2px 2px 15px $shadow;
+    box-shadow:2px 2px 15px $shadow
 }
 
 blockquote::before {
@@ -20,7 +23,7 @@ blockquote::before {
     font-family:Georgia,serif;
     font-size:60px;
     font-weight:bold;
-    color:#999;
+    color: $dark-orange;
     position:absolute;
     left:10px;
     top:5px
@@ -32,14 +35,13 @@ blockquote::after {
 
 blockquote a {
     text-decoration:none;
-    background:#eee;
     cursor:pointer;
     padding:0 3px;
-    color:#000
+    color: $green
 }
 
 blockquote a:hover { 
-    color:#666
+    color: $orange;
 }
 
 blockquote em { 
@@ -63,8 +65,8 @@ blockquote p{
 }
   
 .tag {
-    background: #333;
-    color: white;
+    background: $dark-coal;
+    color: $white;
     display: inline-block;
     padding: 0 20px 0 23px;
     margin: 0 10px 10px 0;

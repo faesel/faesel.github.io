@@ -48,11 +48,11 @@ const Blog = props => {
       <h1>{props.data.contentfulBlog.title}</h1>
       <p><b>Date Published:</b> {props.data.contentfulBlog.datePublished} <b>Reading Time:</b> {props.data.contentfulBlog.bodym.childMarkdownRemark.timeToRead} minutes</p>
       <ol className="tags">
-        {props.data.contentfulBlog.tags.map(tag => {
-          return (
-            <li className="tag">{tag}</li>
+        {props.data.contentfulBlog.tags.map(tag =>
+            (
+              <li className="tag">{tag}</li>
             )
-          })}
+          )}
       </ol>
       <img src={props.data.contentfulBlog.hero.file.url} alt={props.data.contentfulBlog.hero.title}></img>
       { props.data.contentfulBlog.bodym && (
