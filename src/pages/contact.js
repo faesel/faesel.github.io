@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import { FiTwitter, FiLinkedin, FiGithub } from "react-icons/fi";
 
 import Layout from "../components/layout"
@@ -6,6 +7,20 @@ import Head from "../components/head"
 import contactStyles from './contact.module.scss'
 
 const ContactPage = () => {
+    const data = useStaticQuery(graphql`
+        query {
+            site {
+                siteMetadata {
+                    social {
+                        linkedin
+                        twitter
+                        github
+                    }
+                }
+            }
+        }
+    `)
+    
     return (
         <Layout>
             <Head title="Contact"/>
@@ -15,7 +30,7 @@ const ContactPage = () => {
 
             <ol className={contactStyles.contactbox}>
                 <li className={contactStyles.contactoption}>
-                    <a href="https://www.linkedin.com/in/faesel-saeed-a97b1614" rel="noopener noreferrer" target="_blank">
+                    <a href={data.site.siteMetadata.social.linkedin} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiLinkedin></FiLinkedin>
@@ -27,7 +42,7 @@ const ContactPage = () => {
                     </a>
                 </li>
                 <li className={contactStyles.contactoption}>
-                    <a href="https://github.com/faesel/" rel="noopener noreferrer" target="_blank">
+                    <a href={data.site.siteMetadata.social.github} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiGithub></FiGithub>
@@ -39,7 +54,7 @@ const ContactPage = () => {
                     </a>
                 </li>
                 <li className={contactStyles.contactoption}>
-                    <a href="https://twitter.com/@faeselsaeed" rel="noopener noreferrer" target="_blank">
+                    <a href={data.site.siteMetadata.social.twitter} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiTwitter></FiTwitter>

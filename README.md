@@ -46,6 +46,6 @@ https://github.com/nfl/react-helmet
 
 https://www.toptal.com/designers/subtlepatterns/page/6/
 
-## Ideas 
+## Colors
 
-https://24ways.org/2012/how-to-make-your-site-look-half-decent/
+https://coolors.co/palettes/trending

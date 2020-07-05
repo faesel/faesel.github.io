@@ -1,7 +1,7 @@
 {
   "name": "faesel-blog",
   "private": true,
-  "description": "faesel-blog",
+  "description": "Gatsby blog using contentful to power the content",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
@@ -11,7 +11,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "deploy": "env-cmd -f .env.production gatsby build && gh-pages -d public -b master",
+    "publish": "env-cmd -f .env.production gatsby build && gh-pages -d public -b master",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
