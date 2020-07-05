@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { FiTwitter, FiLinkedin, FiGithub } from "react-icons/fi";
+import { FiTwitter, FiLinkedin, FiGithub, FiMail } from "react-icons/fi";
 
 import Layout from "../components/layout"
 import Head from "../components/head"
@@ -29,6 +29,18 @@ const ContactPage = () => {
             <p>I may take up to a day to get back to you if you do decide to contact me, so please be patient.</p>
 
             <ol className={contactStyles.contactbox}>
+                <li className={contactStyles.contactoption}>
+                    <a href={`mailto:${data.site.siteMetadata.social.email}`} target="_blank" rel="noreferrer">
+                        <div className={contactStyles.content}>
+                            <div className={contactStyles.contenticon}>
+                                <FiMail></FiMail>
+                            </div>
+                            <p>
+                                Im always looking forward to new opportunities, ping me if you got any. 
+                            </p>
+                        </div>
+                    </a>
+                </li>
                 <li className={contactStyles.contactoption}>
                     <a href={data.site.siteMetadata.social.linkedin} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>

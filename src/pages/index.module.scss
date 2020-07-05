@@ -1,0 +1,73 @@
+@import '../styles/colours.scss'; 
+
+.heading {
+    font-size: 3rem;
+    line-height: 4rem;
+}
+
+.subheading {
+    display: flex;
+}
+
+.subheadingphoto {
+    display: inline-block;
+    width: 50%;
+
+    img {
+        padding: 10px;
+    }
+
+}
+
+.subheadingdescription {
+    display: inline-block;
+    width: 50%;
+    font-size: 1rem;
+
+    p {
+        padding: 10px;
+    }
+}
+
+.bloglink {
+    background-color: $orange;
+    text-align: center;
+
+    p {
+        font-size: 3rem;
+        line-height: 4rem;
+        padding: 10px;
+    }
+
+    svg {
+        padding-top: 20px;   
+    }
+}
+
+.skills {
+    display: flex;
+
+    .skillitem {
+        display: inline-block;
+        width: 50%;
+        margin: 10px;
+    }
+
+    .skilliconone {
+        color: $green;
+        font-size: 3rem;
+    }
+    .skillicontwo {
+        color: $orange;
+        font-size: 3rem;
+    }
+    .skilliconthree {
+        color: $yellow;
+        font-size: 3rem;
+    }
+    .skilliconfour {
+        color: $blue;
+        font-size: 3rem;
+    }
+    
+}   
