@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
-import { FiBookOpen, FiServer, FiLayout, FiUsers, FiPenTool } from "react-icons/fi";
+import { FiBookOpen, FiServer, FiLayout, FiUsers, FiPenTool, FiPhoneCall } from "react-icons/fi";
 
 import profilePhoto from '../../static/profile.jpg'
 import indexStyles from './index.module.scss'
@@ -22,7 +22,7 @@ const IndexPage = () => {
                 </div>
             </div>
             <div className={indexStyles.bloglink}>
-                <Link to="/blog"><p>Take a look at my blog <FiBookOpen></FiBookOpen></p></Link>
+                <Link to="/blog"><p>Take a look at my blog <FiBookOpen className={indexStyles.bloglinkicon}></FiBookOpen></p></Link>
             </div>
             <div className={indexStyles.skills}>
                 <div className={indexStyles.skillitem}>
@@ -47,6 +47,12 @@ const IndexPage = () => {
                     <h2>Blog Writer</h2>
                     <p>Sometimes this content is more for myself to remember some of the harder challenges I have faced, but I also hope this content can be of use to someone else.</p>
                 </div>
+            </div>
+            <div className={indexStyles.contact}>
+                <Link to="/contact">
+                    <h2>Let's Connect <FiPhoneCall className={indexStyles.contacticon}></FiPhoneCall></h2>
+                    <p>I'm interested in chatting about code, feel free to connect with me on any of the social platforms.</p>
+                </Link>
             </div>
         </Layout>
     )
