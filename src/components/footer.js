@@ -11,6 +11,13 @@ const Footer = () => {
             site {
                 siteMetadata {
                     author
+                    social {
+                        linkedin
+                        twitter
+                        github
+                        flickr
+                    }
+                    rssFeedUrl
                 }
             }
         }
@@ -20,13 +27,12 @@ const Footer = () => {
         <footer className={footerStyles.footer}>
             
             <div className={footerStyles.social}>
-                <a href="https://twitter.com/@faeselsaeed" rel="noopener noreferrer" target="_blank"><FiTwitter /> Twitter</a>
-                <a href="https://www.linkedin.com/in/faesel-saeed-a97b1614" rel="noopener noreferrer" target="_blank"><FiLinkedin /> Linked In</a>
-                <a href="https://github.com/faesel" rel="noopener noreferrer" target="_blank"><FiGithub /> GitHub</a>
-                <a href="https://www.flickr.com/photos/faesel/" rel="noopener noreferrer" target="_blank"><TiSocialFlickr /> Flickr</a>
-                <a href="/rss.xml"><FiRss></FiRss> RSS</a>
+                <a href={data.site.siteMetadata.social.twitter} rel="noopener noreferrer" target="_blank"><FiTwitter /> Twitter</a>
+                <a href={data.site.siteMetadata.social.linkedin} rel="noopener noreferrer" target="_blank"><FiLinkedin /> Linked In</a>
+                <a href={data.site.siteMetadata.social.github} rel="noopener noreferrer" target="_blank"><FiGithub /> GitHub</a>
+                <a href={data.site.siteMetadata.social.flickr} rel="noopener noreferrer" target="_blank"><TiSocialFlickr /> Flickr</a>
+                <a href={data.site.siteMetadata.rssFeedUrl}><FiRss></FiRss> RSS</a>
             </div>
-
 
             <div className={footerStyles.copyright}>
                 <p>© Copyright 2020, {data.site.siteMetadata.author}</p>

@@ -2,8 +2,15 @@ module.exports = {
     siteMetadata: {
         title: 'FAESEL.COM',
         author: 'Faesel Saeed',
-        description: "Personal blog of Faesel Saeed",
-        siteUrl: "https://www.faesel.com"
+        description: 'Personal blog of Faesel Saeed',
+        siteUrl: 'https://www.faesel.com',
+        social: {
+            linkedin: 'https://www.linkedin.com/in/faesel-saeed-a97b1614',
+            twitter: 'https://twitter.com/@faeselsaeed',
+            github: 'https://github.com/faesel',
+            flickr: 'https://www.flickr.com/photos/faesel/'
+        },
+        rssFeedUrl: '/rss.xml'
     },
     plugins: [
         'gatsby-plugin-react-helmet',
@@ -114,13 +121,8 @@ module.exports = {
                             }
                             }
                         }`,
-                        output: "/rss.xml",
-                        title: "Faesel.Com RSS Feed",
-                        // optional configuration to insert feed reference in pages:
-                        // if `string` is used, it will be used to create RegExp and then test if pathname of
-                        // current page satisfied this regular expression;
-                        // if not provided or `undefined`, all pages will have feed reference inserted
-                        match: "^/blog/",
+                        output: '/rss.xml',
+                        title: 'Faesel.Com RSS Feed',
                     },
                 ],
             },
@@ -128,7 +130,7 @@ module.exports = {
         {
             resolve: `gatsby-plugin-sitemap`,
             options: {
-                output: `/sitemap.xml`,
+                output: '/sitemap.xml',
                 exclude: [],
                 query: `
                 {
@@ -139,9 +141,9 @@ module.exports = {
                     }
             
                     allSitePage {
-                    nodes {
-                        path
-                    }
+                        nodes {
+                            path
+                        }
                     }
                 }`,
                 resolveSiteUrl: ({ site, allSitePage }) => {
