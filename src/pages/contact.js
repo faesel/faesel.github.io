@@ -20,6 +20,8 @@ const ContactPage = () => {
             }
         }
     `)
+
+    const { social } = data.site.siteMetadata;
     
     return (
         <Layout>
@@ -30,7 +32,7 @@ const ContactPage = () => {
 
             <ol className={contactStyles.contactbox}>
                 <li className={contactStyles.contactoption}>
-                    <a href={`mailto:${data.site.siteMetadata.social.email}`} target="_blank" rel="noreferrer">
+                    <a href={`mailto:${social.email}`} target="_blank" rel="noreferrer">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiMail></FiMail>
@@ -42,7 +44,7 @@ const ContactPage = () => {
                     </a>
                 </li>
                 <li className={contactStyles.contactoption}>
-                    <a href={data.site.siteMetadata.social.linkedin} rel="noopener noreferrer" target="_blank">
+                    <a href={social.linkedin} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiLinkedin></FiLinkedin>
@@ -54,7 +56,7 @@ const ContactPage = () => {
                     </a>
                 </li>
                 <li className={contactStyles.contactoption}>
-                    <a href={data.site.siteMetadata.social.github} rel="noopener noreferrer" target="_blank">
+                    <a href={social.github} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiGithub></FiGithub>
@@ -66,7 +68,7 @@ const ContactPage = () => {
                     </a>
                 </li>
                 <li className={contactStyles.contactoption}>
-                    <a href={data.site.siteMetadata.social.twitter} rel="noopener noreferrer" target="_blank">
+                    <a href={social.twitter} rel="noopener noreferrer" target="_blank">
                         <div className={contactStyles.content}>
                             <div className={contactStyles.contenticon}>
                                 <FiTwitter></FiTwitter>
