@@ -8,17 +8,27 @@ import profilePhoto from '../../static/profile.jpg'
 import indexStyles from './index.module.scss'
 
 const IndexPage = () => {
+    const data = useStaticQuery(graphql`
+        query {
+            site {
+                siteMetadata {
+                    author
+                }
+            }
+        }
+    `)
+
     return (
         <Layout>
             <Head title="Home" />
             <h1>Home</h1>
-            <p className={indexStyles.heading}>Hi I'm Faesel Saeed, a full-stack developer, team lead & mentor.</p>
+            <p className={indexStyles.heading}>Hi I'm {data.site.siteMetadata.author}, a full-stack developer, team lead & mentor.</p>
             <div className={indexStyles.subheading}>
                 <div className={indexStyles.subheadingdescription}>
                     <p>I am a software developer with a strong passion for technology and all things new. I specialise in delivering web-based & enterprise solutions and love new challenges. I take great pride in keeping up to date with current development practices and instilling them within my working environment.</p>
                 </div>
                 <div className={indexStyles.subheadingphoto}>
-                    <img src={profilePhoto} alt="Faesel Saeed"></img>
+                    <img src={profilePhoto} alt={data.site.siteMetadata.author}></img>
                 </div>
             </div>
             <div className={indexStyles.bloglink}>
