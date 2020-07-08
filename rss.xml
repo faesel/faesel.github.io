@@ -1,4 +1,130 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 05 Jul 2020 19:04:32 GMT</lastBuildDate><item><title><![CDATA[Making a Azure poison queue Slack notifier]]></title><description><![CDATA[I'm currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is…]]></description><link>https://www.faesel.com/blog/azure-poison-queue-notifier</link><guid isPermaLink="true">https://www.faesel.com/blog/azure-poison-queue-notifier</guid><pubDate>Fri, 22 Sep 2017 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;m currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party&apos;s (or our code) fail to send the message. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 08 Jul 2020 07:30:42 GMT</lastBuildDate><item><title><![CDATA[Creating my dream tech blog with Gatsby]]></title><description><![CDATA[I'm someone who's always had my own tech blog, I've gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended…]]></description><link>https://www.faesel.com/blog/gatsby-tech-blog-starter</link><guid isPermaLink="true">https://www.faesel.com/blog/gatsby-tech-blog-starter</guid><pubDate>Tue, 07 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;m someone who&apos;s always had my own tech blog, I&apos;ve gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended on how much friction and effort it takes to write content, manage and upload photos and paste in code. &lt;/p&gt;
+&lt;p&gt;My previous revisions at its core have always been dependent on using opensource wysiwyg editors. Which for me have been deficient in several ways.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Behind the scenes, they produce HTML which always contains ghost 👻 spaces.&lt;/li&gt;
+&lt;li&gt;You always have to build in your own system to upload and manage photos.&lt;/li&gt;
+&lt;li&gt;Pasting in code and getting it to format correctly has always been difficult.
+The content I write belongs to the actual website, so every time I change or rebuild my website I have to migrate all my content across.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;With all this in mind, I wanted a solution that leverages a content management system that supports markdown. Is free and open source, and easily extendable using a modern JavaScript framework. The combination I chose contains the following,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Gatsby&lt;/strong&gt; Framework built on React that creates a really fast experience and is easily extendable.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Contentful&lt;/strong&gt; One of the leading content management systems that support markdown.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Disqus&lt;/strong&gt; One of the most popular commenting systems mainly chose this as a continuation from my previous website.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Github Pages&lt;/strong&gt; Free hosting by the GitHub guys.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Due to everything being either free or opensource, you can download the source code &lt;a href=&quot;https://github.com/faesel/gatsby-techblog-starter&quot;&gt;here&lt;/a&gt;, follow the steps in the readme or below in this article and get started with your own tech blog.&lt;/p&gt;
+&lt;h2&gt;Why use Contentful?&lt;/h2&gt;
+&lt;p&gt;If your someone like me and you don&apos;t want to be restricted to the world of WordPress websites, Contentful is the next best thing. As the name describes its a repository for your content and nothing else. Where Contentful really shines is in how easy it is to get your content out. Everything is API accessible and in a JSON format, so if I ever decide to build v4 its just a case of hooking up the CMS.&lt;/p&gt;
+&lt;p&gt;Contentful also supports writing in markdown format which is absolutely crucial if you&apos;re going to be pasting in code (as markdown supports syntax highlighting you will get the most accurate code colours when rendering).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/107DfGPIMth9cXJcd7aXNf/73b9fa04c61fbb34a5f33efda16e82d4/contentful.png&quot; alt=&quot;Contentful UI&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Why use Disqus?&lt;/h2&gt;
+&lt;p&gt;As mentioned Disqus was mainly a continuation from the previous version of my website, there are however some plus points to using Disqus. Namely the popularity (See image below), Disqus is by far the most popular commenting system out there, its also incredibly easy to get set up.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4y1BkGbHeRGvzMNEX6D0lO/d92bb715335b7119b10d8352da2e1c5e/disqus-vs-commento.png&quot; alt=&quot;Disqus vs Commento&quot;&gt;&lt;/p&gt;
+&lt;p&gt;There are some annoyances however, namely the lack of markdown support, which could be an issue if a commenter wants to post a code snippet.&lt;/p&gt;
+&lt;p&gt;Perhaps at some point I will migrate to using &lt;a href=&quot;https://commento.io/&quot;&gt;Commento&lt;/a&gt;, theres a great article comparing the two &lt;a href=&quot;https://victorzhou.com/blog/replacing-disqus/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Why GitHub pages?&lt;/h2&gt;
+&lt;p&gt;Firstly it&apos;s free hosting! What more do you want...&lt;/p&gt;
+&lt;p&gt;I have always relied on using Azure to host my pages but unless you got a Biztalk account there&apos;s a cost in doing so. Github allows you to host content on their website for absolutely free, its got two forms of public pages. &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Personal pages&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This sits under your personal repository path, so in my case my username is faesel (&lt;a href=&quot;https://github.com/faesel/&quot;&gt;https://github.com/faesel/&lt;/a&gt;), when creating a repository called &apos;faesel&apos; and enabling pages. GitHub gives you the domain &lt;a href=&quot;https://faesel.github.io&quot;&gt;https://faesel.github.io&lt;/a&gt;. What&apos;s amazing is (provided your DNS is setup correctly) they also handle SSL certificates for your behalf.&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Project pages&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Github also supports project pages which sit under a subdomain of your repository, for example a repository with the link &lt;a href=&quot;https://github.com/faesel/faesel-blog&quot;&gt;https://github.com/faesel/faesel-blog&lt;/a&gt; would resolve into public page URL for &lt;a href=&quot;https://faesel.github.io/faesel-blog&quot;&gt;https://faesel.github.io/faesel-blog&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For my blog option 1 was chosen. There is one caveat to personal pages, your published output needs to reside in master and your actual source code needs to be in another branch. The Gatsby template I have created, uses master and source as the two main branches as you can see &lt;a href=&quot;https://github.com/faesel/faesel.github.io/branches&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Why use Gatsby?&lt;/h2&gt;
+&lt;p&gt;Gatsby lightning fast when it comes to rendering pages, behind the scenes it builds up static pages which you deploy to your website. As it&apos;s designed to be a progressive web app, pre-fetching is built it, so when your cycles through different pages on your website the load times are instant.&lt;/p&gt;
+&lt;p&gt;Gatsby supports a wide range of plugins, &lt;strong&gt;2162&lt;/strong&gt; at the time of writing this article. Admittedly some of them are duplicates, but overall they have enough coverage to integrate the vast majority of 3rd party platforms. Below are some plugins I used for my blog:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-plugin-feed&lt;/strong&gt; Used for generating an RSS feed&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-plugin-sitemap&lt;/strong&gt; Used for generating a sitemap xml file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-plugin-gtag&lt;/strong&gt; Used for integrating google analytics into your blog&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-plugin-react-helmet&lt;/strong&gt; SEO plugin used for setting titles and metadata&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-plugin-sass&lt;/strong&gt; Integrating sass&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-remark-highlight-code&lt;/strong&gt; Used for highlighting code syntax&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-source-contentful&lt;/strong&gt; Used for getting data from Contentful&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gatsby-transformer-remark&lt;/strong&gt; Used for transforming markdown into HTML&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A full list of their plugins can be found &lt;a href=&quot;https://www.gatsbyjs.org/plugins/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As Gatsby is built on top of React which means extending your website&apos;s functionality is easy. In addition to this data access is all powered through GraphQL which really helps tailor the requests for data in accordance with your UI. All this is setup for you right out the box.&lt;/p&gt;
+&lt;h2&gt;How to use the blog template to create my own tech blog?&lt;/h2&gt;
+&lt;p&gt;As mentioned I have created a Gatsby blog template that you can clone yourself, setup and host all at no cost at all. The code can be found &lt;a href=&quot;https://github.com/faesel/gatsby-techblog-starter&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There are some pre-requisites we need to get through before we can begin, mainly creating accounts in the following 3rd partys.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.contentful.com/sign-up/&quot;&gt;Contentful&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://analytics.google.com/analytics/web/&quot;&gt;Google Analytics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://disqus.com/&quot;&gt;Disqus&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Step 1 - Configuring Contentful&lt;/h3&gt;
+&lt;p&gt;The first step is to configure Contentful by creating a content model. A content model represents all the building blocks required to represent a single blog post. Below is a screenshot of the content model needed:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/leOFhubn56i1CiN7MeIjK/442336bb18392148c6ac4e16ed496375/content-model.png&quot; alt=&quot;Gatsby blog content model&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Do remember to set the field &apos;BodyM&apos; as a markdown field. Once this model is in place, you can begin writing up your first markdown post.&lt;/p&gt;
+&lt;p&gt;There are two settings we need to take a note of that are needed for &lt;strong&gt;Step 2&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Space Id&lt;/li&gt;
+&lt;li&gt;Space Name&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both of these can be sourced from &lt;strong&gt;Settings&lt;/strong&gt; &gt; &lt;strong&gt;General Settings&lt;/strong&gt;, &lt;/p&gt;
+&lt;h3&gt;Step 2 - Configuring Environment Variables&lt;/h3&gt;
+&lt;p&gt;The next step is to populate your environment variables, the two Contentful keys can be accessed by following Step 1. Setting up google and Discus is optional.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;CONTENTFUL_SPACE_ID=
+CONTENTFUL_ACCESS_TOKEN=
+GOOGLE_TRACKING_ID=
+GATSBY_DISQUS_NAME=&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h3&gt;Step 3 - Configuring your gatsby config&lt;/h3&gt;
+&lt;p&gt;The gatsby config file is at the root of this project, it contains all the plugins installed into this project.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;module.exports = {
+    siteMetadata: {
+        title: &amp;#39;FAESEL.COM&amp;#39;,
+        author: &amp;#39;Faesel Saeed&amp;#39;,
+        description: &amp;#39;Welcome to my great blog&amp;#39;,
+        siteUrl: &amp;#39;https://www.faesel.com&amp;#39;, //Use the fully qualified url
+        social: {
+            twitter: &amp;#39;https://twitter.com/@faeselsaeed&amp;#39;, //Use the fully qualified url
+            linkedin: &amp;#39;https://www.linkedin.com/....&amp;#39;,
+            github: &amp;#39;https://github.com/....&amp;#39;,
+            flickr: &amp;#39;https://www.flickr.com/....&amp;#39;, //Feel free to remove this :)
+            email: &amp;#39;someone@gmail.com&amp;#39;
+        },
+    },
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Once This is filled in your all set to run the project!&lt;/p&gt;
+&lt;h3&gt;Step 4 - Running the project&lt;/h3&gt;
+&lt;p&gt;Begin by installing dependencies: &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;npm install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Followed by running the website:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;npm run develop&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Step 5 - Deployment&lt;/h2&gt;
+&lt;p&gt;To deploy the project begin by creating a repository containing your GitHub username &quot;faesel.github.io&quot;.&lt;/p&gt;
+&lt;p&gt;Copy all your code into a branch called &lt;strong&gt;source&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Run the following command&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;npm run publish&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The command will publish all the static files Gatsby generates into the &lt;strong&gt;master&lt;/strong&gt; branch.&lt;/p&gt;
+&lt;p&gt;To enable github pages navigate to the &lt;strong&gt;Repository&lt;/strong&gt; &gt; &lt;strong&gt;Settings&lt;/strong&gt; &gt; Scroll down to github pages and select the source branch as &lt;strong&gt;master&lt;/strong&gt;. Also at this step if you can enter in your custom domain. Once setup it should look something like this:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/1Yc9sjRgkxBBCaHx8svVIq/5f94cf13095287375f58e96648ee799f/github_pages.png&quot; alt=&quot;Github Pages&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Its as easy as that, you know have a blog whos content is powered by Contentful! ... time to blog.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5jtQ1A9KGisfOeDCLQqPdT/49d682dbf90be3495ca0c6ad31ab85e1/website.png&quot; alt=&quot;Gatsby blog template&quot;&gt;&lt;/p&gt;
+&lt;p&gt;As with all things in tech, there are some improvements that got taken off the bucket list.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Automate deployments by making use of webhooks triggered when publishing content.&lt;/li&gt;
+&lt;li&gt;Add a plugin to allow embeding content like tweets, youtube posts ect.&lt;/li&gt;
+&lt;li&gt;Add a searching mechanism&lt;/li&gt;
+&lt;li&gt;Add pagination&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The Honourable mention&lt;/h2&gt;
+&lt;p&gt;This article and the project was inspired by Andrew Mead&apos;s &lt;a href=&quot;https://www.youtube.com/watch?v=kzWIUX3CpuI&amp;#x26;list=WL&amp;#x26;index=37&amp;#x26;t=14501s&quot;&gt;&lt;strong&gt;&apos;The Great Gatsby Bootcamp&apos;&lt;/strong&gt;&lt;/a&gt; course which I highly recommend in learning the basics.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Making a Azure poison queue Slack notifier]]></title><description><![CDATA[I'm currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is…]]></description><link>https://www.faesel.com/blog/azure-poison-queue-notifier</link><guid isPermaLink="true">https://www.faesel.com/blog/azure-poison-queue-notifier</guid><pubDate>Fri, 22 Sep 2017 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;m currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party&apos;s (or our code) fail to send the message. &lt;/p&gt;
 &lt;p&gt;Since we are connecting into 3rd party&apos;s you can almost guarantee there&apos;s going to be some form of failure. So its always good practice to leverage on this type of architecture to handle the unknown. We have the following setup:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Website &gt; Storage Queue &gt; Web Job &gt; Send Grid&lt;/li&gt;
