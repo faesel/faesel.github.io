@@ -155,7 +155,7 @@ module.exports = {
                     allSitePage.nodes.map(node => {
                         return {
                             url: `${site.siteMetadata.siteUrl}${node.path}`,
-                            changefreq: `daily`,
+                            changefreq: `weekly`,
                             priority: 0.7,
                         }
                     })
