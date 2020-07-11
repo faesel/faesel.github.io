@@ -31,16 +31,12 @@ const Head = ({ title, ogTitle, ogUrl, ogDescription, ogImageUrl, ogImageAlt, og
 
                 <meta property="og:locale" content="en_GB" />
                 <meta property="og:site_name" content={data.site.siteMetadata.title} />
-
-                <meta name="og:title" content={ogTitle}></meta>
-                <meta name="og:url" content={ogUrl}></meta>
-                <meta name="og:description" content={ogDescription}></meta>
-                <meta name="og:image" content={ogImageUrl}></meta>
-                <meta name="og:image:alt" content={ogImageAlt}></meta>
-
+                <meta property="og:title" content={ogTitle}></meta>
+                <meta property="og:url" content={ogUrl}></meta>
+                <meta property="og:description" content={ogDescription}></meta>
+                <meta property="og:image" content={ogImageUrl}></meta>
+                <meta property="og:image:alt" content={ogImageAlt}></meta>
                 <meta property="og:type" content={ogType} />
-                
-                
             </Helmet>
         </>
     )
