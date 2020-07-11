@@ -32,7 +32,7 @@ export const query = graphql`
             datePublished(formatString: "MMMM Do, YYYY")
             bodym {
               childMarkdownRemark {
-                excerpt(pruneLength: 300)
+                excerpt(pruneLength: 50)
                 timeToRead
                 html
               }
@@ -57,7 +57,9 @@ const Blog = props => {
         ogDescription={props.data.contentfulBlog.bodym.childMarkdownRemark.excerpt}
         ogUrl={`${props.data.site.siteMetadata.siteUrl}/blog/${props.data.contentfulBlog.slug}`}
         ogImageUrl={props.data.contentfulBlog.hero.file.url}
-        ogImageAlt={props.data.contentfulBlog.hero.title} />
+        ogImageAlt={props.data.contentfulBlog.hero.title} 
+        ogType='article' />
+
       <h1>{props.data.contentfulBlog.title}</h1>
       <p><b>Date Published:</b> {props.data.contentfulBlog.datePublished} <b>Reading Time:</b> {props.data.contentfulBlog.bodym.childMarkdownRemark.timeToRead} minutes</p>
       <ol className="tags">
