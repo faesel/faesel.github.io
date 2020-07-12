@@ -96,7 +96,7 @@ const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type, da
 
                 <meta name="twitter:card" content="summary_large_image"></meta>
                 <meta name="twitter:site" contact={data.site.siteMetadata.social.twitterUsername}></meta>
-                <meta name="twitter:creator" content={data.site.siteMetadata.twitterUsername}></meta>
+                <meta name="twitter:creator" content={data.site.siteMetadata.social.twitterUsername}></meta>
                 <meta name="twitter:title" content={title}></meta>
                 <meta name="twitter:description" content={description}></meta>
                 <meta name="twitter:image" content={imageUrl}></meta>
