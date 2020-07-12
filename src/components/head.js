@@ -11,6 +11,7 @@ const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type, da
                 siteMetadata {
                     siteUrl,
                     title,
+                    description,
                     author,
                     social {
                         twitterUsername
@@ -84,6 +85,8 @@ const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type, da
             <Helmet>
                 <link rel="icon" href={favicon} />
                 
+                <meta name="description" content={description}></meta>
+
                 <script type="application/ld+json">
                     {JSON.stringify(ldJsonBreadcrumb)}
                 </script>
