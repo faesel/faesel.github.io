@@ -1,4 +1,299 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 12 Jul 2020 08:55:55 GMT</lastBuildDate><item><title><![CDATA[Creating my dream tech blog with GatsbyJS]]></title><description><![CDATA[I'm someone who's always had my own tech blog, I've gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended…]]></description><link>https://www.faesel.com/blog/gatsby-tech-blog-starter</link><guid isPermaLink="true">https://www.faesel.com/blog/gatsby-tech-blog-starter</guid><pubDate>Tue, 07 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;m someone who&apos;s always had my own tech blog, I&apos;ve gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended on how much friction and effort it takes to write content, manage and upload photos and paste in code. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 12 Jul 2020 11:37:20 GMT</lastBuildDate><item><title><![CDATA[GatsbyJS SEO and Open Graph with Helmet]]></title><description><![CDATA[I recently recreated my blog in GatsbyJs, you can download a template of it here gatsby-techblog-starter. In the joy of sharing its simplicity to the world, I tweet about my intro article with a link…]]></description><link>https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</link><guid isPermaLink="true">https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</guid><pubDate>Sat, 11 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I recently recreated my blog in GatsbyJs, you can download a template of it here &lt;a href=&quot;https://github.com/faesel/gatsby-techblog-starter&quot;&gt;gatsby-techblog-starter&lt;/a&gt;. In the joy of sharing its simplicity to the world, I tweet about my &lt;a href=&quot;https://www.faesel.com/blog/gatsby-tech-blog-starter&quot;&gt;intro article&lt;/a&gt; with a link to my website. To my dismay, I noticed the tweet was lacking a lot of formatting and information on the link... would you even see that link 👀?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/37l0W6HYcNXrTDrAbMDJSn/04d9b245622621d5b0eafaf59657ea07/twitter-no-opengraph.png&quot; alt=&quot;Twitter without opengraph&quot;&gt;&lt;/p&gt;
+&lt;p&gt;I realised the secret sauce I was missing was called &lt;strong&gt;Open Graph Protocol&lt;/strong&gt;. From the &lt;a href=&quot;https://ogp.me/&quot;&gt;specifications website&lt;/a&gt; itself, &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In essence its the mata tags you see below, that sites like Twitter, Linked In, Facebook use to correctly render an enriched link of the page on their website,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;&amp;lt;meta data-react-helmet=&amp;quot;true&amp;quot; name=&amp;quot;twitter:card&amp;quot; content=&amp;quot;summary_large_image&amp;quot;&amp;gt;
+&amp;lt;meta data-react-helmet=&amp;quot;true&amp;quot; name=&amp;quot;twitter:site&amp;quot; contact=&amp;quot;@faeselsaeed&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:creator&amp;quot; content=&amp;quot;&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:title&amp;quot; content=&amp;quot;Creating my dream tech blog with GatsbyJS&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:description&amp;quot; content=&amp;quot;I&amp;#39;m someone who&amp;#39;s always had my own tech blog, I…&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:image&amp;quot; content=&amp;quot;//images.ctfassets.net/wjg1udsw901v/6hjsGXkoyitmyiEuBdeTP2/c77e74af9235ac775f18836e2de07cac/gatsby-logo.jpg&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+
+&amp;lt;meta property=&amp;quot;og:site_name&amp;quot; content=&amp;quot;&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:title&amp;quot; content=&amp;quot;Creating my dream tech blog with GatsbyJS&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:url&amp;quot; content=&amp;quot;https://www.faesel.com/blog/gatsby-tech-blog-starter&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:description&amp;quot; content=&amp;quot;I&amp;#39;m someone who&amp;#39;s always had my own tech blog, I…&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:image&amp;quot; content=&amp;quot;//images.ctfassets.net/wjg1udsw901v/6hjsGXkoyitmyiEuBdeTP2/c77e74af9235ac775f18836e2de07cac/gatsby-logo.jpg&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:image:alt&amp;quot; content=&amp;quot;Gatsby JS&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:type&amp;quot; content=&amp;quot;article&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;This article is about how I used &lt;a href=&quot;https://helmetjs.github.io/&quot;&gt;Helmet JS&lt;/a&gt; to improve my sites shareability and improving its SEO capabilities.&lt;/p&gt;
+&lt;h2&gt;Step 1 - Install those dependencies&lt;/h2&gt;
+&lt;p&gt;The dependencies we are interested in are as follows:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;npm intall gatsby-plugin-react-helmet react-helmet&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;You can read more about the gatsby plugin &lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-plugin-react-helmet/&quot;&gt;here&lt;/a&gt; along with more detailed information on Helmet js and all its supported tabs &lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Step 2 - Store your constant&apos;s in your gatsby config&lt;/h2&gt;
+&lt;p&gt;When creating a Gatsby website we always have a config file in the root of the project called &lt;strong&gt;gatsby-config.js&lt;/strong&gt;, from here we can add various plugins like so,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;module.exports = {
+    plugins: [
+        &amp;#39;gatsby-plugin-react-helmet&amp;#39;
+    ]
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;This config file is also the place to store all you common reusable information in Gatsby&apos;s predefined &lt;strong&gt;siteMetadata&lt;/strong&gt; tag (this tag makes it accessible through GraphQl). We will be using this later on to populate our head with various information.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;json&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;module.exports = {
+    siteMetadata: {
+        title: &amp;#39;FAESEL.COM&amp;#39;,
+        author: &amp;#39;Faesel Saeed&amp;#39;,
+        description: &amp;#39;Personal blog of Faesel Saeed&amp;#39;,
+        siteUrl: &amp;#39;https://www.faesel.com&amp;#39;,
+        social: {
+            linkedin: &amp;#39;https://www.linkedin.com/in/faesel-saeed-a97b1614&amp;#39;,
+            twitter: &amp;#39;https://twitter.com/@faeselsaeed&amp;#39;,
+            twitterUsername: &amp;#39;@faeselsaeed&amp;#39;,
+            github: &amp;#39;https://github.com/faesel&amp;#39;,
+            flickr: &amp;#39;https://www.flickr.com/photos/faesel/&amp;#39;,
+            email: &amp;#39;faesel@outlook.com&amp;#39;
+        },
+        rssFeedUrl: &amp;#39;/rss.xml&amp;#39;
+    },
+    ...
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2&gt;Step 3 - Create your head component&lt;/h2&gt;
+&lt;p&gt;Now that we have all our static information in the config we can query this out using GraphQl through the objects &gt; &lt;strong&gt;site&lt;/strong&gt; &gt; &lt;strong&gt;siteMetadata&lt;/strong&gt;. We can also import in &lt;strong&gt;Helmet&lt;/strong&gt; and start building up our Head meta data. My Head component looks like this,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;import React from &amp;#39;react&amp;#39;
+import { Helmet } from &amp;#39;react-helmet&amp;#39;
+import { useStaticQuery, graphql } from &amp;#39;gatsby&amp;#39;
+
+import favicon from &amp;#39;../../static/favicon.ico&amp;#39;
+
+const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type datePublished }) =&amp;gt; {
+    const data = useStaticQuery(graphql`
+        query {
+            site {
+                siteMetadata {
+                    siteUrl,
+                    title,
+                    author,
+                    social {
+                        twitterUsername
+                    }
+                }
+            }
+        }
+    `)
+
+    return (
+        &amp;lt;&amp;gt;
+            &amp;lt;Helmet title={`${pageTitle} | ${data.site.siteMetadata.title}`} /&amp;gt;
+            &amp;lt;Helmet&amp;gt;
+                &amp;lt;link rel=&amp;quot;icon&amp;quot; href={favicon} /&amp;gt;
+
+                &amp;lt;meta name=&amp;quot;twitter:card&amp;quot; content=&amp;quot;summary_large_image&amp;quot;&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta name=&amp;quot;twitter:site&amp;quot; contact={data.site.siteMetadata.social.twitterUsername}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta name=&amp;quot;twitter:creator&amp;quot; content={data.site.siteMetadata.twitterUsername}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta name=&amp;quot;twitter:title&amp;quot; content={title}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta name=&amp;quot;twitter:description&amp;quot; content={description}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta name=&amp;quot;twitter:image&amp;quot; content={imageUrl}&amp;gt;&amp;lt;/meta&amp;gt;
+
+                &amp;lt;meta property=&amp;quot;og:locale&amp;quot; content=&amp;quot;en_GB&amp;quot; /&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:site_name&amp;quot; content={data.site.siteMetadata.title} /&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:title&amp;quot; content={title}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:url&amp;quot; content={url}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:description&amp;quot; content={description}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:image&amp;quot; content={imageUrl}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:image:alt&amp;quot; content={imageAlt}&amp;gt;&amp;lt;/meta&amp;gt;
+                &amp;lt;meta property=&amp;quot;og:type&amp;quot; content={type} /&amp;gt;
+            &amp;lt;/Helmet&amp;gt;
+        &amp;lt;/&amp;gt;
+    )
+}
+
+export default Head&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;(Note some of the properties get fleshed out later on in the article)&lt;/p&gt;
+&lt;p&gt;The Helmet component injects in HTML tags into the head of the HTML document. To understand what the tags represent within the Helmet component, and to see a full range of what&apos;s available use the following two links.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://ogp.me/&quot;&gt;Tags from Open Graph&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup&quot;&gt;Tags from Twitter&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Step 3 - Using your head component&lt;/h2&gt;
+&lt;p&gt;Using your head component is quite straight forward, its more a case of working out where to source all your properties. Here&apos;s what my page looks like,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;import React from &amp;quot;react&amp;quot;
+import { graphql } from &amp;quot;gatsby&amp;quot;
+import Layout from &amp;quot;../components/layout&amp;quot;
+import Head from &amp;quot;../components/head&amp;quot;
+
+// Add some code here to get all your data from markdown, cms etc.
+
+const Blog = props =&amp;gt; {
+  return (
+    &amp;lt;Layout&amp;gt;
+      &amp;lt;Head 
+        pageTitle={props.data.title}
+        title={props.data.title}
+        description={props.data.bodym.childMarkdownRemark.excerpt}
+        url={`${props.data.site.siteMetadata.siteUrl}/blog/${props.data.slug}`}
+        imageUrl={props.data.hero.file.url}
+        imageAlt={props.data.hero.title} 
+        type=&amp;#39;article&amp;#39; 
+        datePublished={props.data.contentfulBlog.iso8601DatePublished}/&amp;gt;
+
+      &amp;lt;h1&amp;gt;My Great Blog Post&amp;lt;/h1&amp;gt;
+      ...
+    &amp;lt;/Layout&amp;gt;
+  )
+}
+
+export default Blog&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2&gt;Step 4 - Go further with JSON-LD and Linked data&lt;/h2&gt;
+&lt;p&gt;So far so great, we have enough here for most social media sites to understand the structure of our data and to use this to correctly format the information on a consuming website. But what do search engines use?&lt;/p&gt;
+&lt;p&gt;The answer is &lt;a href=&quot;https://json-ld.org/&quot;&gt;Json-ld and linked data&lt;/a&gt;, best explained by the specs website itself,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JSON-LD is a lightweight Linked Data format. It is easy for humans to read and write. It is based on the already successful JSON format and provides a way to help JSON data interoperate at Web-scale. JSON-LD is an ideal data format for programming environments, REST Web services, and unstructured databases such as Apache CouchDB and MongoDB.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;and,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Linked Data empowers people that publish and use information on the Web. It is a way to create a network of standards-based, machine-readable data across Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To sum it up in one sentence &lt;em&gt;we are using JSON data to create structured information so that websites can deep link with each other&lt;/em&gt;. With this in mind our head component looks like this:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;import React from &amp;#39;react&amp;#39;
+import { Helmet } from &amp;#39;react-helmet&amp;#39;
+import { useStaticQuery, graphql } from &amp;#39;gatsby&amp;#39;
+
+const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type, datePublished }) =&amp;gt; {
+    const data = useStaticQuery(graphql`
+        query {
+            site {
+                siteMetadata {
+                    siteUrl,
+                    title,
+                    author,
+                    social {
+                        twitterUsername
+                    }
+                }
+            }
+        }
+    `)
+
+    const ldJsonBreadcrumb = {
+        &amp;#39;@context&amp;#39;: &amp;#39;https://schema.org&amp;#39;,
+        &amp;#39;@type&amp;#39;: &amp;#39;BreadcrumbList&amp;#39;,
+        &amp;#39;itemListElement&amp;#39;: [{
+            &amp;#39;@type&amp;#39;: &amp;#39;ListItem&amp;#39;,
+            &amp;#39;position&amp;#39;: 1,
+            &amp;#39;name&amp;#39;: &amp;#39;Home&amp;#39;,
+            &amp;#39;item&amp;#39;: `${data.site.siteMetadata.siteUrl}/home`
+        },{
+            &amp;#39;@type&amp;#39;: &amp;#39;ListItem&amp;#39;,
+            &amp;#39;position&amp;#39;: 2,
+            &amp;#39;name&amp;#39;: &amp;#39;Blog&amp;#39;,
+            &amp;#39;item&amp;#39;: `${data.site.siteMetadata.siteUrl}/blog`
+        },{
+            &amp;#39;@type&amp;#39;: &amp;#39;ListItem&amp;#39;,
+            &amp;#39;position&amp;#39;: 3,
+            &amp;#39;name&amp;#39;: &amp;#39;Projects&amp;#39;,
+            &amp;#39;item&amp;#39;: `${data.site.siteMetadata.siteUrl}/projects`
+        },{
+            &amp;#39;@type&amp;#39;: &amp;#39;ListItem&amp;#39;,
+            &amp;#39;position&amp;#39;: 4,
+            &amp;#39;name&amp;#39;: &amp;#39;Contact&amp;#39;,
+            &amp;#39;item&amp;#39;: `${data.site.siteMetadata.siteUrl}/contact`
+        }]
+      };
+
+    const jsonldArticle = {
+        &amp;#39;@context&amp;#39;: &amp;#39;http://schema.org&amp;#39;,
+        &amp;#39;@type&amp;#39;: `${type}`,
+        &amp;#39;description&amp;#39;: `${description}`,
+        &amp;#39;image&amp;#39;: {
+            &amp;#39;@type&amp;#39;: &amp;#39;ImageObject&amp;#39;,
+            &amp;#39;url&amp;#39;: `${imageUrl}`
+        },
+        &amp;#39;mainEntityOfPage&amp;#39;: {
+            &amp;#39;@type&amp;#39;: &amp;#39;WebPage&amp;#39;,
+            &amp;#39;@id&amp;#39;: `${data.site.siteMetadata.siteUrl}`
+         },
+        &amp;#39;inLanguage&amp;#39;: &amp;#39;en&amp;#39;,
+        &amp;#39;name&amp;#39;: `${title}`,
+        &amp;#39;headline&amp;#39;: `${title}`,
+        &amp;#39;url&amp;#39;: `${url}`,
+        &amp;#39;datePublished&amp;#39;: `${datePublished}`,
+        &amp;#39;dateModified&amp;#39;: `${datePublished}`,
+        &amp;#39;author&amp;#39;: {
+            &amp;#39;@type&amp;#39;: &amp;#39;Person&amp;#39;,
+            &amp;#39;name&amp;#39;: `${data.site.siteMetadata.author}`
+        },
+        &amp;#39;publisher&amp;#39; : {
+            &amp;#39;@type&amp;#39;: &amp;#39;Organization&amp;#39;,
+            &amp;#39;name&amp;#39;: `${data.site.siteMetadata.author}`,
+            &amp;#39;logo&amp;#39;: {
+                &amp;#39;@type&amp;#39;: &amp;#39;ImageObject&amp;#39;,
+                &amp;#39;url&amp;#39;: `https://images.ctfassets.net/wjg1udsw901v/4RI5COhSqeYFCbvzYFeFZW/af52277ab41da56c1be5f72f316befe9/logo.png`
+            }
+        }
+    };
+
+    return (
+        &amp;lt;&amp;gt;
+            &amp;lt;Helmet&amp;gt;
+                {/* other head elements go here */}
+      
+                &amp;lt;script type=&amp;quot;application/ld+json&amp;quot;&amp;gt;
+                    {JSON.stringify(ldJsonBreadcrumb)}
+                &amp;lt;/script&amp;gt;
+                
+                {type === &amp;#39;article&amp;#39; &amp;amp;&amp;amp; (
+                   &amp;lt;script type=&amp;quot;application/ld+json&amp;quot;&amp;gt;
+                        {JSON.stringify(jsonldArticle)}
+                    &amp;lt;/script&amp;gt;
+                )}
+  
+                {/* Meta properties go here */}
+                
+            &amp;lt;/Helmet&amp;gt;
+        &amp;lt;/&amp;gt;
+    )
+}
+
+export default Head&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;For more information on the structure you can read up on the &lt;a href=&quot;https://www.w3.org/2018/jsonld-cg-reports/json-ld/#introduction&quot;&gt;W3C Json-LD specification document&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To get an idea of the full range of tags available take a look at these two links (in the case of my website I only use &lt;strong&gt;BreadcrumbList&lt;/strong&gt; and &lt;strong&gt;Article&lt;/strong&gt; types depending on what content you have you may show something else).&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://schema.org/BreadcrumbList&quot;&gt;BreadcrumbList&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://schema.org/Article&quot;&gt;Article&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Do note for the property &lt;strong&gt;datePublished&lt;/strong&gt; you need to format your dates in &lt;a href=&quot;https://en.wikipedia.org/wiki/ISO_8601&quot;&gt;ISO-8601&lt;/a&gt; format. To save you a trip in google this up you can use the GraphQl query snippet below. The format definition comes from &lt;a href=&quot;https://momentjs.com/&quot;&gt;Moment JS&lt;/a&gt; which Gatsby is using under the hood.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;iso8601DatePublished: datePublished(formatString: &amp;quot;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;quot;)&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2&gt;Step 5 - Validating your tags&lt;/h2&gt;
+&lt;p&gt;There are actually various websites we can use to validate your tags and data. When building my website I used the following sources.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://search.google.com/structured-data/testing-tool/u/0/&quot;&gt;Googles link for testing json-ld&lt;/a&gt;, testing and validating tool for JSON-LD. It goes as far as telling you if there are any missing tags.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://metatags.io/&quot;&gt;Matatags.io&lt;/a&gt;, great for previewing how you website links will render on all the social media websites&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Creating my dream tech blog with GatsbyJS]]></title><description><![CDATA[I'm someone who's always had my own tech blog, I've gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended…]]></description><link>https://www.faesel.com/blog/gatsby-tech-blog-starter</link><guid isPermaLink="true">https://www.faesel.com/blog/gatsby-tech-blog-starter</guid><pubDate>Tue, 07 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;m someone who&apos;s always had my own tech blog, I&apos;ve gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended on how much friction and effort it takes to write content, manage and upload photos and paste in code. &lt;/p&gt;
 &lt;p&gt;My previous revisions at its core have always been dependent on using opensource wysiwyg editors. Which for me have been deficient in several ways.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Behind the scenes, they produce HTML which always contains ghost 👻 spaces.&lt;/li&gt;
