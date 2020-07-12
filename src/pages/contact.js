@@ -15,6 +15,7 @@ const ContactPage = () => {
                         linkedin
                         twitter
                         github
+                        email
                     }
                 }
             }
@@ -22,7 +23,7 @@ const ContactPage = () => {
     `)
 
     const { social } = data.site.siteMetadata;
-    
+
     return (
         <Layout>
             <Head siteTitle="Contact"/>
