@@ -86,6 +86,7 @@ const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type, da
                 <link rel="icon" href={favicon} />
                 
                 <meta name="description" content={description}></meta>
+                <meta name="referrer" content="no-referrer-when-downgrade"></meta>
 
                 <script type="application/ld+json">
                     {JSON.stringify(ldJsonBreadcrumb)}
