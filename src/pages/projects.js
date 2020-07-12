@@ -7,7 +7,7 @@ import projectStyles from './projects.module.scss'
 const ProjectsPage = () => {
     return (
         <Layout>
-            <Head siteTitle="Projects"/>
+            <Head pageTitle="Projects"/>
             <h1>Projects</h1>
             <ol className={projectStyles.projectbox}>
                 <li className={projectStyles.contactoption}>
