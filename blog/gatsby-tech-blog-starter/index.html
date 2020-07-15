@@ -79,13 +79,19 @@ The content I write belongs to the actual website, so every time I change or reb
 <h3>Step 1 - Configuring Contentful</h3>
 <p>The first step is to configure Contentful by creating a content model. A content model represents all the building blocks required to represent a single blog post. Below is a screenshot of the content model needed:</p>
 <p><img src="//images.ctfassets.net/wjg1udsw901v/leOFhubn56i1CiN7MeIjK/442336bb18392148c6ac4e16ed496375/content-model.png" alt="Gatsby blog content model"></p>
-<p>Do remember to set the field 'BodyM' as a markdown field. Once this model is in place, you can begin writing up your first markdown post.</p>
+<p>If your creating it manually do remember to set the field 'BodyM' as a markdown field. Once this model is in place, you can begin writing up your first markdown post. To create this model programatically you can run the following command:</p>
+
+        <deckgo-highlight-code   terminal="carbon" line-numbers="true" >
+          <code slot="code">npm run setup SPACE_ID CONTENTFUL_MANAGEMENT_TOKEN</code>
+        </deckgo-highlight-code>
+      
+<p>The management token can be sourced from <strong>Settings</strong> > <strong>API Keys</strong> > <strong>Content management tokens</strong></p>
 <p>There are two settings we need to take a note of that are needed for <strong>Step 2</strong></p>
 <ul>
 <li>Space Id</li>
-<li>Space Name</li>
+<li>Space Access Token</li>
 </ul>
-<p>Both of these can be sourced from <strong>Settings</strong> > <strong>General Settings</strong>, </p>
+<p>Both of these can be sourced from <strong>Settings</strong> > <strong>API Keys</strong> > <strong>Content delivery / preview tokens</strong>, </p>
 <h3>Step 2 - Configuring Environment Variables</h3>
 <p>The next step is to populate your environment variables, the two Contentful keys can be accessed by following Step 1. Setting up google and Discus is optional.</p>
 
