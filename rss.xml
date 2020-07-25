@@ -1,4 +1,143 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 19 Jul 2020 13:27:52 GMT</lastBuildDate><item><title><![CDATA[GatsbyJS SEO and Open Graph with Helmet]]></title><description><![CDATA[I recently recreated my blog in GatsbyJs, you can download a template of it here gatsby-techblog-starter. In the joy of sharing its simplicity to the world, I tweet about my intro article with a link…]]></description><link>https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</link><guid isPermaLink="true">https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</guid><pubDate>Sat, 11 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I recently recreated my blog in GatsbyJs, you can download a template of it here &lt;a href=&quot;https://github.com/faesel/gatsby-techblog-starter&quot;&gt;gatsby-techblog-starter&lt;/a&gt;. In the joy of sharing its simplicity to the world, I tweet about my &lt;a href=&quot;https://www.faesel.com/blog/gatsby-tech-blog-starter&quot;&gt;intro article&lt;/a&gt; with a link to my website. To my dismay, I noticed the tweet was lacking a lot of formatting and information on the link... would you even see that link 👀?&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 25 Jul 2020 14:12:15 GMT</lastBuildDate><item><title><![CDATA[Evolving your Windows Terminal using Powershell libraries]]></title><description><![CDATA[As a windows user the terminal experience has always been lacking, up till the new windows terminal was released. Incorporating WSL (Windows Subsystem for Lynx) really helped bridge that gap as it…]]></description><link>https://www.faesel.com/blog/evolving-windows-terminal</link><guid isPermaLink="true">https://www.faesel.com/blog/evolving-windows-terminal</guid><pubDate>Fri, 24 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As a windows user the terminal experience has always been lacking, up till the new &lt;a href=&quot;https://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&amp;#x26;activetab=pivot:overviewtab&quot;&gt;windows terminal&lt;/a&gt; was released. Incorporating &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/wsl/install-win10&quot;&gt;WSL (Windows Subsystem for Lynx)&lt;/a&gt; really helped bridge that gap as it opens up console experience that makes use of &lt;strong&gt;apt-get&lt;/strong&gt; use the plethora of packages available. &lt;/p&gt;
+&lt;p&gt;Having tried using this for react apps I found the experience really slow when building apps. Running the same app in Powershell would start up in a fraction of the time. This got me thinking..&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Can I evolve my Powershell console experience in the same way I can with WSL?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Looking at &lt;a href=&quot;https://www.powershellgallery.com/&quot;&gt;Powershells Gallery&lt;/a&gt;, they have a total of &lt;strong&gt;7,091&lt;/strong&gt; unique packages. There must be some things here we can use.&lt;/p&gt;
+&lt;p&gt;This article is about my journey from reading this blog post &lt;a href=&quot;https://www.hanselman.com/blog/HowToMakeAPrettyPromptInWindowsTerminalWithPowerlineNerdFontsCascadiaCodeWSLAndOhmyposh.aspx&quot;&gt;&quot;How to make a pretty prompt in Windows Terminal with Powerline, Nerd Fonts, Cascadia Code, WSL, and oh-my-posh&quot;&lt;/a&gt; by Scott Hanselman, to taking the experience one step further to evolve my terminal. Video on it here:&lt;/p&gt;
+&lt;p&gt;&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube-nocookie.com/embed/lu__oGZVT98?rel=0&quot; frameBorder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowFullScreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;This article assumes you have already read Hanselman&apos;s article and kitted your terminal out with the following (if not do so):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Added Cascadia Ligature Font, for more compact and expressive text.&lt;/li&gt;
+&lt;li&gt;Added oh-my-posh, for better git branch information.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Making use of your Powershell profile&lt;/h2&gt;
+&lt;p&gt;Before your Powershell window starts, any code in your Powershell profile is executed first. You can find your profile directory location by typing the following in your console,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;$PROFILE&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;It&apos;s from this file we can begin importing in scripts and adding custom functions. If you followed the prerequisites, your profile file will be mostly empty except perhaps a command to set the theme in oh-my-posh.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;Set-Theme Paradox&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2&gt;Incorporating packages&lt;/h2&gt;
+&lt;p&gt;Before we start importing packages we need to get &lt;strong&gt;PowerShellGet&lt;/strong&gt; setup, installation steps can be found here &lt;a href=&quot;https://docs.microsoft.com/en-gb/powershell/scripting/gallery/installing-psget?view=powershell-7&quot;&gt;Installing PowerShellGet&lt;/a&gt;. Once complete you can start installing scripts like so,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;Install-Module -Name WifiTools &lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;That&apos;s it, you can actually start checking your wifi signal with &lt;code&gt;Show-WifiState&lt;/code&gt; 📶! Aside from wifi tools here are some choice selections, some of these are recommended as it helps create building blocks for your own custom scripts:&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Terminal-Icons/0.1.1&quot;&gt;1. Terminal Icons&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Terminal-Icons/0.1.1&quot;&gt;Terminal-Icons&lt;/a&gt; really helps improve visibility when navigating. It also allows you to format your directory list wide so that you can see all the files and folders without scrolling down.&lt;/p&gt;
+&lt;p&gt;You can activate it in your Powershell profile by adding the following import&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;Import-Module -Name Terminal-Icons&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;And that&apos;s it! witness the beauty:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5GsSsHw0n1zQ2ST9ItYIM6/1f8e2a1d08542fdfaa24acc1b35dbc02/terminal-icons.png&quot; alt=&quot;Terminal Icons&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Tree/1.0.1&quot;&gt;2. Tree&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Tree/1.0.1&quot;&gt;Tree&lt;/a&gt; helps with directory discover and searching by printing in (as the name suggests) a tree structure. I alias this package and mainly use it for listing and searching, below is what you need in your Powershell profile,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;Install-Module -Name Tree &lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;# Shows a tree structure of the current directory (excluding folders you want to ignore)
+function treels {
+    Get-ChildItemTree . -I &amp;#39;node_modules|bin|obj|.git|.vs&amp;#39;
+}
+
+# Searches the current directory for a pattern (wildcards * are accepted) and returns the tree view with matching files
+function treef ([string] $pattern) {
+    Get-ChildItemTree . -P $pattern -I &amp;#39;node_modules|bin|obj|.git|.vs&amp;#39;
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Example showing a directory:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/2TiqouIH6bTQ4U6quojGO7/0c1d294bac92233dd453300b482afb93/TreeList.png&quot; alt=&quot;Tree Directory List&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Example search for a file:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/p7NOrYHf5oRdLz9IqwDzR/7de6b06b6233dc5d308dead818926593/TreeSearch.png&quot; alt=&quot;Tree Search&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/BurntToast/0.7.1&quot;&gt;3. Burnt Toast&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/BurntToast/0.7.1&quot;&gt;BurntToast&lt;/a&gt; great package to notify yourself of any long running tasks. It hooks into the native windows toast notification system and has a plethora of options. One ideal use for this is cloning a repo (I&apos;m talking about that repo dating back to the dinosaurs 🐉) since it lets you kick it off and automatically get a notification when done. &lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;Install-Module -Name BurntToast&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;# clones a repo and notify with a toast
+function clonem([string] $url) {
+    git clone $url
+    New-BurntToastNotification -AppLogo &amp;#39;C:\Icons\completed.png&amp;#39; -Text &amp;quot;Finished!&amp;quot;, &amp;#39;Finished cloning repo&amp;#39;
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;I also find it great for scheduling in reminders, this one is dependent on a function which I import at the top of the profile &lt;a href=&quot;https://github.com/Windos/BurntToast/blob/master/Examples/Example05/New-ToastReminder.ps1&quot;&gt;code example found here&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;# IMPORT CUSTOM FILES
+. &amp;quot;C:\Users\faese\Documents\WindowsPowerShell\Custom\BurntToast.ps1&amp;quot;
+
+# trigger a remind after x minuites with some custom text
+function reminder([int]$minuites, [string]$text) {
+    New-ToastReminder -AppLogo &amp;#39;C:\Icons\reminder.png&amp;#39; -Minutes $minuites -ReminderTitle &amp;#39;Reminder Reminder!&amp;#39; -ReminderText $text
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Example to ensure you never eggless,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4zg5SUqQ14zjuZE6QArrj0/6f2809c3942708f89aea47dd3c815bdb/reminder.png&quot; alt=&quot;Toast Reminder&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/ColoredText/1.0.6&quot;&gt;4. ColoredText&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This library essentially allows you to print in different colours pure and simple. I mainly use this as a confirmation line when chaining together several commands so your eye just looks for coloured text to look for completion.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;Install-Module -Name ColoredText&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;# create a new branch
+function newb([string]$branchName){
+    git branch $branchName
+    git checkout $branchName --track
+
+    $message = &amp;quot;Finished creating branch: &amp;quot; + $branchName
+
+    cprint black $message on rainbow print
+}
+
+# publish branch
+function publish {
+    $branchName = git rev-parse --abbrev-ref HEAD
+    git push --set-upstream origin $branchName
+
+    $message = &amp;quot;Finished publishing branch: &amp;quot; + $branchName
+
+    cprint black $message on rainbow print
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/6IctC3h57SGaYFmQelmlx4/2840d80d68895fe0dde359b64328c345/coloredtext.png&quot; alt=&quot;Colored Text&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;Some other honourable mentions&lt;/h3&gt;
+&lt;p&gt;Below are some other honourable mentions that I needed more time to investigate,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/ps-menu/1.0.6&quot;&gt;PS Menu&lt;/a&gt;, allows you to create a multi-select menu of options.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/WTToolBox/1.6.0&quot;&gt;WTToolBox&lt;/a&gt;, helps manage your windows terminal, I was mainly going to use this to get a list of shortcuts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Download my profile code here&lt;/h2&gt;
+&lt;p&gt;You can download my complete profile code &lt;a href=&quot;https://github.com/faesel/terminal-profile&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;I&apos;m still on a path of discovery with Powershell, I&apos;ve seen some great packages that can help make my terminal experience fast and efficient. However, I do feel I&apos;m at the very beginning of this journey and with the continued improvements to WSL, I may flip flop to the Linux side.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GatsbyJS SEO and Open Graph with Helmet]]></title><description><![CDATA[I recently recreated my blog in GatsbyJs, you can download a template of it here gatsby-techblog-starter. In the joy of sharing its simplicity to the world, I tweet about my intro article with a link…]]></description><link>https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</link><guid isPermaLink="true">https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</guid><pubDate>Sat, 11 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I recently recreated my blog in GatsbyJs, you can download a template of it here &lt;a href=&quot;https://github.com/faesel/gatsby-techblog-starter&quot;&gt;gatsby-techblog-starter&lt;/a&gt;. In the joy of sharing its simplicity to the world, I tweet about my &lt;a href=&quot;https://www.faesel.com/blog/gatsby-tech-blog-starter&quot;&gt;intro article&lt;/a&gt; with a link to my website. To my dismay, I noticed the tweet was lacking a lot of formatting and information on the link... would you even see that link 👀?&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/37l0W6HYcNXrTDrAbMDJSn/04d9b245622621d5b0eafaf59657ea07/twitter-no-opengraph.png&quot; alt=&quot;Twitter without opengraph&quot;&gt;&lt;/p&gt;
 &lt;p&gt;I realised the secret sauce I was missing was called &lt;strong&gt;Open Graph Protocol&lt;/strong&gt;. From the &lt;a href=&quot;https://ogp.me/&quot;&gt;specifications website&lt;/a&gt; itself, &lt;/p&gt;
 &lt;blockquote&gt;
