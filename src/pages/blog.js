@@ -44,7 +44,7 @@ const BlogPage = () => {
                         <li className={blogStyles.post}>
                             <Link to={`/blog/${edge.node.slug}`}>
                                 <h2>{edge.node.title}</h2>
-                                <p><b><FiCalendar title="Calendar" /></b>{edge.node.datePublished}&nbsp;&nbsp;<b><FiClock title="Reading Time" /></b> {edge.node.bodym.childMarkdownRemark.timeToRead} Minutes</p>
+                                <p><FiCalendar title="Date Published"/> {edge.node.datePublished}&nbsp;&nbsp;<FiClock title="Reading Time" /> {edge.node.bodym.childMarkdownRemark.timeToRead} Minutes</p>
                                 <img src={`https:${edge.node.hero.file.url}`} alt={edge.node.hero.title}></img>
                                 <p>{edge.node.bodym.childMarkdownRemark.excerpt}</p>
                                 <ol className={blogStyles.tags}>
