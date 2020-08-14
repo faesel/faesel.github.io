@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
+    "gatsby-plugin-remove-trailing-slashes": "^2.3.11",
     "gh-pages": "^3.0.0",
     "prettier": "^1.19.1"
   }
