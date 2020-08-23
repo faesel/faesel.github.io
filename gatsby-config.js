@@ -153,7 +153,7 @@ module.exports = {
                             }
                         }`,
                         output: '/rss.xml',
-                        title: 'Faesel.Com RSS Feed',
+                        title: 'Faesel.com - Full-Stack Blogger',
                     },
                 ],
             },
