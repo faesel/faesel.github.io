@@ -1,4 +1,293 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.Com RSS Feed]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 02 Aug 2020 12:26:59 GMT</lastBuildDate><item><title><![CDATA[Evolving your Windows Terminal using Powershell libraries]]></title><description><![CDATA[As a windows user the terminal experience has always been lacking, up till the new windows terminal was released. Incorporating WSL (Windows Subsystem for Lynx) really helped bridge that gap as it…]]></description><link>https://www.faesel.com/blog/evolving-windows-terminal</link><guid isPermaLink="true">https://www.faesel.com/blog/evolving-windows-terminal</guid><pubDate>Fri, 24 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As a windows user the terminal experience has always been lacking, up till the new &lt;a href=&quot;https://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&amp;#x26;activetab=pivot:overviewtab&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;windows terminal&lt;/a&gt; was released. Incorporating &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/wsl/install-win10&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;WSL (Windows Subsystem for Lynx)&lt;/a&gt; really helped bridge that gap as it opens up console experience that makes use of &lt;strong&gt;apt-get&lt;/strong&gt; use the plethora of packages available. &lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 08 Sep 2020 13:09:54 GMT</lastBuildDate><item><title><![CDATA[.NET & GRPC What they forgot to tell you]]></title><description><![CDATA[As an engineer, I have always had a heavy reliance on REST'ful API's for passing information between applications. With the introduction of open API specification now in version 3.0.3, integration has…]]></description><link>https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you</link><guid isPermaLink="true">https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you</guid><pubDate>Mon, 07 Sep 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As an engineer, I have always had a heavy reliance on REST&apos;ful API&apos;s for passing information between applications. With the introduction of &lt;a href=&quot;https://swagger.io/specification/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;open API specification&lt;/a&gt; now in version 3.0.3, integration has never been easier. The push to break monoliths into microservices has further boosted its usage, however I always found one size never fits all.&lt;/p&gt;
+&lt;h2 id=&quot;where-rest-falls-down-&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#where-rest-falls-down-&quot; aria-label=&quot;where rest falls down  permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Where REST falls down 👎&lt;/h2&gt;
+&lt;p&gt;RESTful services have many shortfalls built in, if you&apos;re in my boat and most of the time your creating services and working on client applications. Having to tailor a client library to call those services has always been a tiresome task. 3rd party tooling like &lt;a href=&quot;https://github.com/RicoSuter/NSwag&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Nswag&lt;/a&gt; made some attempt to fix this problem however I still find breaking changes between versions that make huge changesets across all your endpoints. If your working across multiple languages like C# and Javascript your work doubles up. &lt;/p&gt;
+&lt;p&gt;There are also encumbrances experienced when mixing batch/bulk operations, overnight jobs with REST&apos;ful APIs. Leading to complex solutions that auto scale or spread load over time. Having to go through each request-response cycle on bulk is just in-efficient.&lt;/p&gt;
+&lt;p&gt;In most cases, responses are also in the form of JSON which is designed to cater for human readability at the expense of being inefficient. If you talking machine to machine readability is not a concern?  &lt;/p&gt;
+&lt;p&gt;Lets also not mention those endless subjective PR threads trying to decide whats RESTful and whats not 😇.&lt;/p&gt;
+&lt;h2 id=&quot;can-grpc-fill-the-gaps-🤷♂️&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#can-grpc-fill-the-gaps-%F0%9F%A4%B7%E2%99%82%EF%B8%8F&quot; aria-label=&quot;can grpc fill the gaps 🤷♂️ permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Can GRPC fill the gaps 🤷‍♂️&lt;/h2&gt;
+&lt;p&gt;If you experienced the REST&apos;ful pains above, GRPC&apos;s got your back. To get a quick demonstration of its capabilities, I recommend &lt;a href=&quot;http://wildermuth.com/2020/07/09/gRPC-Talk-at-netPonto&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Shawn Wildermuth&apos;s gRPC Talk at netPonto User Group (2020)&lt;/a&gt; he explains it in a easy to understand way.&lt;/p&gt;
+&lt;p&gt;&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube-nocookie.com/embed/3wUtQb6C7to?rel=0&quot; frameBorder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowFullScreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;To sum up its capabilities it has two key differences to REST (if your already familiar with this, skip to section &lt;a href=&quot;www.faesel.com/blog/dotnet-grpc-forgot-to-mention#things-to-look-into-&quot;&gt;&lt;strong&gt;Things to look into&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&quot;1-proto-files&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-proto-files&quot; aria-label=&quot;1 proto files permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Proto files&lt;/h3&gt;
+&lt;p&gt;Proto files contain the definition of your API in a structured spec compliant way. The code below shows a simple &lt;em&gt;GreetingsService&lt;/em&gt; with a basic request and response.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;syntax = &amp;quot;proto3&amp;quot;;
+
+option csharp_namespace = &amp;quot;HelloService&amp;quot;;
+
+service GreetingsService {
+    rpc GetHello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+    int32 HelloCount = 1;
+}
+
+message HelloResponse {
+    string HelloDescription = 1;
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Proto files can then be used to transpile code &lt;a href=&quot;https://grpc.io/docs/languages/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;into many languages&lt;/a&gt;. When transpiling we have the option to either create code for a &lt;strong&gt;server&lt;/strong&gt; or &lt;strong&gt;client&lt;/strong&gt;. Code generation creates a base class &lt;strong&gt;GreetingsServiceBase&lt;/strong&gt; for us (it&apos;s generated in the bin folder on build time). Eventually, you end up with a service that looks like this:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;using Grpc.Core;
+using HelloServer;
+using System.Threading.Tasks;
+
+namespace TaxServer.Services
+{
+    public class HelloGrpcService : GreetingsService.GreetingsServiceBase
+    {
+        public override async Task&amp;lt;HelloResponse&amp;gt; GetHello(HelloRequest request, ServerCallContext context)
+        {
+            return new HelloResponse { HelloDescription = $&amp;quot;{request.HelloCount} Hellos to you!&amp;quot; };
+        }
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The act of sharing and distributing proto files means that consuming clients can easily create their own client code and be completely agnostic of language.&lt;/p&gt;
+&lt;h3 id=&quot;2-defining-requestresponse-lifecycle&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-defining-requestresponse-lifecycle&quot; aria-label=&quot;2 defining requestresponse lifecycle permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Defining request/response lifecycle&lt;/h3&gt;
+&lt;p&gt;GRPC allows you to change its request/response lifecycle, it has 4 options described below,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Unary RPC&apos;s&lt;/strong&gt;: Unary RPCs where the client sends a single request to the server and gets a single response back.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Server Streaming RPC&apos;s&lt;/strong&gt;: Server streaming RPCs where the client sends a request to the server and gets a stream to read a sequence of messages back.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Client Streaming RPC&apos;s&lt;/strong&gt;: Client streaming RPCs where the client writes a sequence of messages and sends them to the server, again using a provided stream.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bi-Directional Streaming RPC&apos;s&lt;/strong&gt;: Bidirectional streaming RPCs where both sides send a sequence of messages using a read-write stream.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://grpc.io/docs/what-is-grpc/core-concepts/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;&lt;em&gt;Taken from GRPC.io&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;These additional modes are more suited for batch processing over your traditional request/response lifecycle.&lt;/p&gt;
+&lt;h2 id=&quot;things-to-look-into-&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#things-to-look-into-&quot; aria-label=&quot;things to look into  permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Things to look into ✅&lt;/h2&gt;
+&lt;p&gt;So far so great, getting to this point is relatively easy and straightforward. Problem is all the tutorials seem to end at this point 😟. To have a live API several additional concerns need to be addressed. My list was as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Check how we can consume/distribute .proto files&lt;/li&gt;
+&lt;li&gt;How to create a health checking probe for a GRPC service&lt;/li&gt;
+&lt;li&gt;How to version endpoints&lt;/li&gt;
+&lt;li&gt;Can a .NET Framework client app consume a .NET Core GRPC server?&lt;/li&gt;
+&lt;li&gt;How to debug with tools, call an endpoint&lt;/li&gt;
+&lt;li&gt;Authentication and authorization&lt;/li&gt;
+&lt;li&gt;Can you call the service from a browser?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;1-check-how-we-can-consumedistribute-proto-files&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-check-how-we-can-consumedistribute-proto-files&quot; aria-label=&quot;1 check how we can consumedistribute proto files permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Check how we can consume/distribute .proto files&lt;/h3&gt;
+&lt;p&gt;There are two different approaches to achieve this, mainly dependent on whether your service is internal or external public facing.&lt;/p&gt;
+&lt;h4 id=&quot;option-1---with-nuget-packages&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#option-1---with-nuget-packages&quot; aria-label=&quot;option 1   with nuget packages permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Option 1 - With nuget packages&lt;/h4&gt;
+&lt;p&gt;Option one is to distribute your proto files using Nuget packages. This solution is recommended in the situation where you are using GRPC for internal services. Your solution structure would look something like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;HelloService.Protos&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hello.protos&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HelloService.Server&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Server code ... &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In this case we would use a Nuspec file to package the .protos and output it into the following structure in the client app. Considering you could be consuming more than one GRPC service it might make sense to create subfolders to know where the proto file comes from.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HelloClient
+/Protos/&lt;strong&gt;service name goes gere&lt;/strong&gt;/Hello.protos&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;From here the client application can generate its client service code using the protofile. If you want to go one step further there is a dotnet command you can use to integrate the proto file into the &lt;strong&gt;.csproj&lt;/strong&gt; file using a &lt;a href=&quot;https://docs.microsoft.com/en-us/aspnet/core/grpc/dotnet-grpc?view=aspnetcore-3.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;dotnet command&lt;/a&gt; which can be triggered after the installation of the package.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;dotnet grpc add-file Hello.proto&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h4 id=&quot;option-2---with-a-discovery-endpoint&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#option-2---with-a-discovery-endpoint&quot; aria-label=&quot;option 2   with a discovery endpoint permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Option 2 - With a discovery endpoint&lt;/h4&gt;
+&lt;p&gt;This approach is recommended if your GRPC service is a service meant for external consumers. The idea behind this approach is to expose which services/endpoints are available. The method is dependent on the &lt;a href=&quot;https://www.nuget.org/packages/Grpc.Reflection/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;&lt;strong&gt;Grpc.Reflection&lt;/strong&gt;&lt;/a&gt; Nuget package.&lt;/p&gt;
+&lt;p&gt;The general approach is outlined &lt;a href=&quot;https://github.com/grpc/grpc/blob/master/doc/csharp/server_reflection.md&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;
+&lt;h3 id=&quot;2-how-to-create-a-health-checking-probe-for-a-grpc-service&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-how-to-create-a-health-checking-probe-for-a-grpc-service&quot; aria-label=&quot;2 how to create a health checking probe for a grpc service permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. How to create a health checking probe for a GRPC service&lt;/h3&gt;
+&lt;p&gt;Health checking prob endpoints are useful for monitoring uptime as well as managing containers when services are unresponsive. GRPC specification has a defined structure for creating your health checking endpoint called the &lt;a href=&quot;https://github.com/grpc/grpc/blob/master/doc/health-checking.md&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;&lt;strong&gt;GRPC Health Checking Protocol&lt;/strong&gt;&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;However, since we are using asp.net core we can get away from this and rely on middleware to do this for us with little code.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public void ConfigureServices(IServiceCollection services)
+{
+  services.AddGrpc();
+  services.AddHealthChecks();
+  ...
+}
+
+public void Configure(IApplicationBuilder app)
+{
+  app.UseEndpoints(endpoints =&amp;gt;
+  {
+    endpoints.MapHealthChecks(&amp;quot;/healthz&amp;quot;);
+    ...
+  });
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Now when running locally &lt;strong&gt;&lt;a href=&quot;https://localhost:5001/healthz&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;https://localhost:5001/healthz&lt;/a&gt;&lt;/strong&gt; we can get a 200 response. Here is what the output logs look like:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;      Request starting HTTP/2 GET https://localhost:5001/healthz
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint &amp;#39;Health checks&amp;#39;
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint &amp;#39;Health checks&amp;#39;
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 19.056ms 200 text/plain&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h3 id=&quot;3-how-to-version-endpoints&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#3-how-to-version-endpoints&quot; aria-label=&quot;3 how to version endpoints permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. How to version endpoints&lt;/h3&gt;
+&lt;p&gt;The problem of versioning is easily solved using namespaces, it&apos;s just a case of incorporating your version number into the namespace like so,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;option csharp_namespace = &amp;quot;HelloService.v1&amp;quot;;&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;For each version, you would have different proto files and different service implementations. When inheriting from the base we can be specific on the version we need.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Server Code&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class HelloGrpcService : HelloService.v1.GreetingsService.GreetingsServiceBase
+{
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;&lt;strong&gt;Client Code&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The namespaces segregate the types so it just works out.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;//Version 1
+using var channel = GrpcChannel.ForAddress(&amp;quot;https://localhost:5001&amp;quot;);
+var client = new HelloService.v1.GreetingsService.GreetingsServiceClient(channel);
+var response = await client.GetHello(new HelloService.v1.HelloRequest() { 
+      HelloCount = 1
+});
+
+//Version 2
+using var channel2 = GrpcChannel.ForAddress(&amp;quot;https://localhost:5001&amp;quot;);
+var client2 = new HelloService.v2.GreetingsService.GreetingsServiceClient(channel);
+var response2 = await client2.GetHello(new HelloService.v2.HelloRequest() {
+      HelloCount = 2
+});&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h3 id=&quot;4-can-a-net-framework-client-app-consume-a-net-core-grpc-server&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#4-can-a-net-framework-client-app-consume-a-net-core-grpc-server&quot; aria-label=&quot;4 can a net framework client app consume a net core grpc server permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. Can a .NET Framework client app consume a .NET Core GRPC server?&lt;/h3&gt;
+&lt;p&gt;Turns out it can yes, however ... as GRPC is built upon HTTP/2 which is not supported in .net framework, making secure connections to your API is not possible. The client code for .net framework is very similar, we just pass a &lt;strong&gt;ChannelCredentials.Insecure&lt;/strong&gt; option in when building the client.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;var channel = new Channel(&amp;quot;127.0.0.1&amp;quot;, 5000, ChannelCredentials.Insecure);
+var client = new GreetingsService.GreetingsServiceClient(channel);&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h3 id=&quot;5-how-to-debug-with-tools-call-an-endpoint&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#5-how-to-debug-with-tools-call-an-endpoint&quot; aria-label=&quot;5 how to debug with tools call an endpoint permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5. How to debug with tools, call an endpoint&lt;/h3&gt;
+&lt;p&gt;If you&apos;re like me and you&apos;ve come from a REST background your most likely used to polished tools like Postman or Insomnia to test out your endpoints. Sadly these tools don&apos;t support GRPC 😢... yet anyway...&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://github.com/grpc-ecosystem/awesome-grpc#lang-cs&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;GRPC Tooling Community&lt;/a&gt; is still in its infancy. There are however some new players that are emerging that get the job done, most notably for me BloomRPC. &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/6p6bGkCU7Tpa3tMwPsoRxO/adb23285ed92ea9c2c757ef62a4600a9/BloomRPC.png&quot; alt=&quot;BloomRPC&quot;&gt;&lt;/p&gt;
+&lt;p&gt;After importing in your proto files you get a great swagger-esk UI that automatically build up your request body from your proto file.&lt;/p&gt;
+&lt;h3 id=&quot;6-authentication-and-authorization&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#6-authentication-and-authorization&quot; aria-label=&quot;6 authentication and authorization permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;6. Authentication and authorization&lt;/h3&gt;
+&lt;p&gt;Because we are working under the guise of asp.net core we can take advantage of its authentication middleware. The following authentication methods are supported.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Azure Active Directory&lt;/li&gt;
+&lt;li&gt;Client Certificate&lt;/li&gt;
+&lt;li&gt;IdentityServer&lt;/li&gt;
+&lt;li&gt;JWT Token&lt;/li&gt;
+&lt;li&gt;OAuth 2.0&lt;/li&gt;
+&lt;li&gt;OpenID Connect&lt;/li&gt;
+&lt;li&gt;WS-Federation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Below is a simple code example of authenticating a JWT token with an identity service. As you can see its no different from a REST service.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public void ConfigureServices(IServiceCollection services)
+{
+    var authority = &amp;quot;https://myidentityserver.com&amp;quot;;
+
+    services
+        .AddAuthentication(&amp;quot;Bearer&amp;quot;)
+        .AddJwtBearer(&amp;quot;Bearer&amp;quot;, options =&amp;gt;
+        {
+            options.Authority = authority;
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+            };
+            options.ConfigurationManager = new ConfigurationManager&amp;lt;OpenIdConnectConfiguration&amp;gt;
+            (
+                metadataAddress: authority + &amp;quot;/.well-known/openid-configuration&amp;quot;,
+                configRetriever: new OpenIdConnectConfigurationRetriever(),
+                docRetriever: new HttpDocumentRetriever { RequireHttps = false }
+            );
+            options.Events = new JwtBearerEvents
+            {
+                OnTokenValidated = context =&amp;gt;
+                {
+                    var ci = (ClaimsIdentity)context.Principal.Identity;
+                    var authHeader = context.Request.Headers[&amp;quot;Authorization&amp;quot;];
+                    var token = authHeader.FirstOrDefault()?.Substring(7);
+                    if (token != null)
+                    {
+                        ci.AddClaim(new Claim(&amp;quot;token&amp;quot;, token));
+                    }
+
+                    return Task.CompletedTask;
+                }
+            };
+        });
+
+    services.AddAuthorization();
+    ...
+}
+
+public void Configure(IApplicationBuilder app)
+{
+    app.UseAuthentication();
+    app.UseAuthorization();
+    ...
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Below is output from an authenticated request:&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;      Request starting HTTP/2 POST https://localhost:5001/HelloGrpcService.GreetingsService/GetHello application/grpc
+info: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[2]
+      Successfully validated the token.
+info: Microsoft.AspNetCore.Authorization.DefaultAuthorizationService[1]
+      Authorization was successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint &amp;#39;gRPC - /HelloGrpcService.GreetingsService/GetHello&amp;#39;
+Request parameter 1
+Request came from test-client-id
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint &amp;#39;gRPC - /HelloGrpcService.GreetingsService/GetHello&amp;#39;
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 5865.2411ms 200 application/grpc&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h3 id=&quot;7-can-you-call-the-service-from-a-browser&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#7-can-you-call-the-service-from-a-browser&quot; aria-label=&quot;7 can you call the service from a browser permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;7. Can you call the service from a browser?&lt;/h3&gt;
+&lt;p&gt;Currently, as it stands the answer is no, browsers don&apos;t offer fine-grained control over API requests to support GRPC. However, there is some light at the end of the tunnel.&lt;/p&gt;
+&lt;p&gt;Back in 2016 Google started working on a specification for &quot;GRPC for the browser&quot;. You can read more about it &lt;a href=&quot;https://grpc.io/blog/state-of-grpc-web/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt; but in essence,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The basic idea is to have the browser send normal HTTP requests (with Fetch or XHR) and have a small proxy in front of the gRPC server to translate the requests and responses to something the browser can use - grpc.io&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In the C# world, Microsoft has an implementation of this specification in their docs, &lt;a href=&quot;https://docs.microsoft.com/en-gb/aspnet/core/grpc/browser?view=aspnetcore-3.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Use gRPC in browser apps&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There are some disclaimers to this, as gRPC supports streaming and bidirectional requests this addition is only recommended for unary requests. Due to this limiting factor helpers are present to turn it on and off for services when setting up GRPC services in the startup,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;endpoints.MapGrpcService&amp;lt;HelloGrpcService&amp;gt;().EnableGrpcWeb().RequireCors(&amp;quot;AllowAll&amp;quot;);&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;What I find particularly interesting is that the problem grpc-web solves is similar to the problems we have with .net framework (https/2 is not supported). Could this perhaps be an answer to getting secure requests working? ... sadly not yet! at the moment its not possible as grpc-web was was built on .net standard 2.1 so .net framework is not supported. Perhaps there might be movement on this in time to come.&lt;/p&gt;
+&lt;h2 id=&quot;things-i-missed-out&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#things-i-missed-out&quot; aria-label=&quot;things i missed out permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Things I missed out&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Integration Testing, im a big back of using in memory testing with Test Server it would be interesting to see if this works with a GRPC service.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;useful-links&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#useful-links&quot; aria-label=&quot;useful links permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Useful Links&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/grpc/grpc/tree/master/src/csharp&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;C# Examples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/grpc/grpc-dotnet/tree/master/examples&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;More c# examples&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Evolving your Windows Terminal using Powershell libraries]]></title><description><![CDATA[As a windows user the terminal experience has always been lacking, up till the new windows terminal was released. Incorporating WSL (Windows Subsystem for Lynx) really helped bridge that gap as it…]]></description><link>https://www.faesel.com/blog/evolving-windows-terminal</link><guid isPermaLink="true">https://www.faesel.com/blog/evolving-windows-terminal</guid><pubDate>Fri, 24 Jul 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As a windows user the terminal experience has always been lacking, up till the new &lt;a href=&quot;https://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&amp;#x26;activetab=pivot:overviewtab&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;windows terminal&lt;/a&gt; was released. Incorporating &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/wsl/install-win10&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;WSL (Windows Subsystem for Lynx)&lt;/a&gt; really helped bridge that gap as it opens up console experience that makes use of &lt;strong&gt;apt-get&lt;/strong&gt; use the plethora of packages available. &lt;/p&gt;
 &lt;p&gt;Having tried using this for react apps I found the experience really slow when building apps. Running the same app in Powershell would start up in a fraction of the time. This got me thinking..&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Can I evolve my Powershell console experience in the same way I can with WSL?&lt;/p&gt;
