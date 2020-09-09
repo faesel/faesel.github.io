@@ -170,8 +170,20 @@ namespace TaxServer.Services
 <h4 id="option-2---with-a-discovery-endpoint" style="position:relative;"><a href="#option-2---with-a-discovery-endpoint" aria-label="option 2   with a discovery endpoint permalink" class="auto-link-header before"><svg aria-hidden="true" height="40" width="40" version="1.1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Option 2 - With a discovery endpoint</h4>
 <p>This approach is recommended if your GRPC service is a service meant for external consumers. The idea behind this approach is to expose which services/endpoints are available. The method is dependent on the <a href="https://www.nuget.org/packages/Grpc.Reflection/" target="_blank" rel="nofollow"><strong>Grpc.Reflection</strong></a> Nuget package.</p>
 <p>The general approach is outlined <a href="https://github.com/grpc/grpc/blob/master/doc/csharp/server_reflection.md" target="_blank" rel="nofollow">here</a>. </p>
+<p>Once implemented it allows you to use an endpoint from the server code to generate your client code. Dotnet has a <a href="https://www.nuget.org/packages/dotnet-grpc-cli/" target="_blank" rel="nofollow">GRPC CLI tool</a>, that can read from a server reflection endpoint and produce a proto file out of it. The command looks like this,</p>
+
+        <deckgo-highlight-code   terminal="carbon" line-numbers="true" >
+          <code slot="code">dotnet grpc-cli dump https://localhost:5001 Reflection.HelloService</code>
+        </deckgo-highlight-code>
+      
+<p>You can also write the proto file to disk using this command</p>
+
+        <deckgo-highlight-code   terminal="carbon" line-numbers="true" >
+          <code slot="code">dotnet grpc-cli dump http://localhost:10042 Reflection.HelloService -o ./prot</code>
+        </deckgo-highlight-code>
+      
 <h3 id="2-how-to-create-a-health-checking-probe-for-a-grpc-service" style="position:relative;"><a href="#2-how-to-create-a-health-checking-probe-for-a-grpc-service" aria-label="2 how to create a health checking probe for a grpc service permalink" class="auto-link-header before"><svg aria-hidden="true" height="40" width="40" version="1.1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. How to create a health checking probe for a GRPC service</h3>
-<p>Health checking prob endpoints are useful for monitoring uptime as well as managing containers when services are unresponsive. GRPC specification has a defined structure for creating your health checking endpoint called the <a href="https://github.com/grpc/grpc/blob/master/doc/health-checking.md" target="_blank" rel="nofollow"><strong>GRPC Health Checking Protocol</strong></a>. </p>
+<p>Health checking probe endpoints are useful for monitoring uptime as well as managing containers when services are unresponsive. GRPC specification has a defined structure for creating your health checking endpoint called the <a href="https://github.com/grpc/grpc/blob/master/doc/health-checking.md" target="_blank" rel="nofollow"><strong>GRPC Health Checking Protocol</strong></a>. </p>
 <p>However, since we are using asp.net core we can get away from this and rely on middleware to do this for us with little code.</p>
 
         <deckgo-highlight-code   terminal="carbon" line-numbers="true" >
@@ -349,7 +361,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 <p>What I find particularly interesting is that the problem grpc-web solves is similar to the problems we have with .net framework (https/2 is not supported). Could this perhaps be an answer to getting secure requests working? ... sadly not yet! at the moment its not possible as grpc-web was was built on .net standard 2.1 so .net framework is not supported. Perhaps there might be movement on this in time to come.</p>
 <h2 id="things-i-missed-out" style="position:relative;"><a href="#things-i-missed-out" aria-label="things i missed out permalink" class="auto-link-header before"><svg aria-hidden="true" height="40" width="40" version="1.1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Things I missed out</h2>
 <ol>
-<li>Integration Testing, im a big back of using in memory testing with Test Server it would be interesting to see if this works with a GRPC service.</li>
+<li>Integration Testing, im a big fan of using in memory testing with Test Server it would be interesting to see if this works with a GRPC service.</li>
 </ol>
 <h2 id="useful-links" style="position:relative;"><a href="#useful-links" aria-label="useful links permalink" class="auto-link-header before"><svg aria-hidden="true" height="40" width="40" version="1.1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Useful Links</h2>
 <ol>
