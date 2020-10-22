@@ -19,6 +19,15 @@ const ProjectsPage = () => {
                         </div>
                     </a>
                 </li>
+                <li className={projectStyles.contactoption}>
+                    <a href="https://github.com/faesel/az-lazy" target="_blank" rel="noreferrer">
+                        <div className={projectStyles.content}>
+                            <p>
+                                Azure CLI tool for managing everything in azure storage
+                            </p>
+                        </div>
+                    </a>
+                </li>
             </ol>
         </Layout>
     )
