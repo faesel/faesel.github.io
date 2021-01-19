@@ -32,7 +32,7 @@ https://react-icons.github.io/react-icons/icons?name=fi
 
 Code is designed to make use of github pages
 
-1. To clean out temp files - `npm run deploy`
+1. To clean out temp files - `npm run publish`
 
 Link:
 
