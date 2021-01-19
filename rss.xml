@@ -1,4 +1,277 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 18 Dec 2020 17:25:32 GMT</lastBuildDate><item><title><![CDATA[My journey of creating a .NET CLI tool]]></title><description><![CDATA[Why I started building a CLI As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also…]]></description><link>https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</link><guid isPermaLink="true">https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</guid><pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;why-i-started-building-a-cli&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#why-i-started-building-a-cli&quot; aria-label=&quot;why i started building a cli permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Why I started building a CLI&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 19 Jan 2021 11:37:10 GMT</lastBuildDate><item><title><![CDATA[Adding environments to ASP.NET Core with React.js SPA]]></title><description><![CDATA[Recently I started working on a project that was created from the ASP.NET SPA template for react. It's one of the templates you get by default with dotnet and can be created by running dotnet new…]]></description><link>https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</link><guid isPermaLink="true">https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</guid><pubDate>Tue, 19 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Recently I started working on a project that was created from the &lt;strong&gt;ASP.NET SPA template for react&lt;/strong&gt;. It&apos;s one of the templates you get by default with dotnet and can be created by running &lt;code&gt;dotnet new react&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The template creates a dotnet webapp which is designed to be an API backend and links it with a react project to power the UI. When running the project from dotnet, static files are built from the react project and served up.&lt;/p&gt;
+&lt;p&gt;In terms of running the application with different environments, the dotnet perspective is fairly straight forward as we can simply use the environment variable &lt;code&gt;ASPNETCORE_ENVIRONMENT&lt;/code&gt;. But the question is how do we pass this variable to the SPA so that we can shift between different environments?&lt;/p&gt;
+&lt;p&gt;Having trawled the internet I didn&apos;t see any examples, so I decided to create my own!&lt;/p&gt;
+&lt;h1 id=&quot;understanding-the-aspnet-spa-template-&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#understanding-the-aspnet-spa-template-&quot; aria-label=&quot;understanding the aspnet spa template  permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Understanding the ASP.NET spa template 🔍&lt;/h1&gt;
+&lt;p&gt;Let&apos;s begin by creating a boilerplate solution with &lt;code&gt;dotnet new react&lt;/code&gt;. Once the solution is created we end up with a backend API with a &lt;code&gt;WeatherForecastController&lt;/code&gt;, and a front end app located in the &lt;code&gt;ClientApp&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/65iH6wUZxUc6JSNON5gWTK/a704de8ffa2dd0d4a33eef19ebf92390/folder-structure.png&quot; alt=&quot;Dotnet SPA Folder Structure&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Since this is an integrated spa, from the root of the project we are able to &lt;code&gt;dotnet run&lt;/code&gt; and spin up not only the dotnet project but also the react spa.&lt;/p&gt;
+&lt;h2 id=&quot;client-app&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#client-app&quot; aria-label=&quot;client app permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Client App&lt;/h2&gt;
+&lt;p&gt;The client app itself is in a completely segregated app, there&apos;s nothing special added here to make it all connect up. All your standard commands to &lt;code&gt;npm install/build&lt;/code&gt; are all available to you. In fact, the template has been build based on the implementation of &lt;code&gt;create-react-app&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You can also start up the project from here with &lt;code&gt;npm run start&lt;/code&gt; command which will spin up a development server &lt;strong&gt;independent of your backend code&lt;/strong&gt;. The execution and configuration is handled for us using &lt;code&gt;react-scripts&lt;/code&gt; which was designed to help set up react projects without stress, featuring things like hot module reloading, deployment builds etc ... all standard-issue so far. So you get these npm scripts setup for you,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;start&amp;quot;: &amp;quot;rimraf ./build &amp;amp;&amp;amp; react-scripts start&amp;quot;,
+    &amp;quot;build&amp;quot;: &amp;quot;react-scripts build&amp;quot;,
+    &amp;quot;test&amp;quot;: &amp;quot;cross-env CI=true react-scripts test --env=jsdom&amp;quot;,
+    &amp;quot;eject&amp;quot;: &amp;quot;react-scripts eject&amp;quot;,
+    &amp;quot;lint&amp;quot;: &amp;quot;eslint ./src/&amp;quot;
+  },&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2 id=&quot;startup-class&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#startup-class&quot; aria-label=&quot;startup class permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Startup Class&lt;/h2&gt;
+&lt;p&gt;The glue that connects the backend to the frontend can be found in the &lt;code&gt;Startup.cs&lt;/code&gt; class. Working from top down the first code block of interest is within the &lt;em&gt;ConfigureServices&lt;/em&gt; function,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;services.AddSpaStaticFiles(configuration =&amp;gt;
+{
+  configuration.RootPath = &amp;quot;ClientApp/build&amp;quot;;
+});&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;This block essentially tells your dotnet app where to find the static resources (production builds) of your spa within its bin folder. So running the command &lt;code&gt;dotnet publish --configuration Release&lt;/code&gt; creates a &lt;strong&gt;ClientApp/Build&lt;/strong&gt; folder with a production optimised (ie npm run build) version of our SPA, the root path simply points to this.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4tIwYVA6pYWrGctHAzMXHT/d0836b601480a1962a7693bf4cd8b653/spa-build-folder.png&quot; alt=&quot;clientapp-build-folder&quot;&gt;&lt;/p&gt;
+&lt;p&gt;The next block to notice is in the &lt;em&gt;Configure&lt;/em&gt; function,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;app.UseEndpoints(endpoints =&amp;gt;
+{
+    endpoints.MapControllerRoute(
+        name: &amp;quot;default&amp;quot;,
+        pattern: &amp;quot;{controller}/{action=Index}/{id?}&amp;quot;);
+});
+
+app.UseSpa(spa =&amp;gt;
+{
+    spa.Options.SourcePath = &amp;quot;ClientApp&amp;quot;;
+
+    if (env.IsDevelopment())
+    {
+        spa.UseReactDevelopmentServer(npmScript: &amp;quot;start&amp;quot;);
+    }
+});&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;There are two things that are happening here, the first is that we have dotnet server side routing connected up (with app.UseEndpoints() middleware), this means that upon receiving a HTTP request server-side routing will always take priority over client-side routing. If server-side routes fall through without matching an endpoint, we use the app.UseSpa() middleware to redirect all requests to the default page (which is your index.html file triggering the spa to load).&lt;/p&gt;
+&lt;p&gt;The next point is that from here we can also configure the location of our client-side source code, and the command we need to use to run our react spa as a development server when debugging.&lt;/p&gt;
+&lt;h2 id=&quot;msbuild--running-npm-commands&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#msbuild--running-npm-commands&quot; aria-label=&quot;msbuild  running npm commands permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;MSBuild &amp;#x26; Running NPM Commands&lt;/h2&gt;
+&lt;p&gt;The remaining magic is all located in the .csproj file we got 2 core components here the first is the Debug target,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;&amp;lt;Target Name=&amp;quot;DebugEnsureNodeEnv&amp;quot; BeforeTargets=&amp;quot;Build&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Debug&amp;#39; And !Exists(&amp;#39;$(SpaRoot)node_modules&amp;#39;) &amp;quot;&amp;gt;
+  &amp;lt;!-- Ensure Node.js is installed --&amp;gt;
+  &amp;lt;Exec Command=&amp;quot;node --version&amp;quot; ContinueOnError=&amp;quot;true&amp;quot;&amp;gt;
+    &amp;lt;Output TaskParameter=&amp;quot;ExitCode&amp;quot; PropertyName=&amp;quot;ErrorCode&amp;quot; /&amp;gt;
+  &amp;lt;/Exec&amp;gt;
+  &amp;lt;Error Condition=&amp;quot;&amp;#39;$(ErrorCode)&amp;#39; != &amp;#39;0&amp;#39;&amp;quot; Text=&amp;quot;Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE.&amp;quot; /&amp;gt;
+  &amp;lt;Message Importance=&amp;quot;high&amp;quot; Text=&amp;quot;Restoring dependencies using &amp;#39;npm&amp;#39;. This may take several minutes...&amp;quot; /&amp;gt;
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm install&amp;quot; /&amp;gt;
+&amp;lt;/Target&amp;gt;&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;This chunky block of code runs an &lt;code&gt;npm install&lt;/code&gt; command before building your dotnet application. It also features a nice check to ensure you got Node.js installed (I guess for the backend people 😁). It does this with the &lt;code&gt;&amp;#x3C;Exec WorkingDirectory=&quot;$(SpaRoot)&quot; Command=&quot;npm install&quot; /&gt;&lt;/code&gt; command runner (note SpaRoot is defined a the top as a static property pointing to &lt;strong&gt;ClientApp\&lt;/strong&gt;).&lt;/p&gt;
+&lt;p&gt;The second part is the publish target,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;&amp;lt;Target Name=&amp;quot;PublishRunWebpack&amp;quot; AfterTargets=&amp;quot;ComputeFilesToPublish&amp;quot;&amp;gt;
+  &amp;lt;!-- As part of publishing, ensure the JS resources are freshly built in production mode --&amp;gt;
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm install&amp;quot; /&amp;gt;
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm run build&amp;quot; /&amp;gt;
+
+  &amp;lt;!-- Include the newly-built files in the publish output --&amp;gt;
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;DistFiles Include=&amp;quot;$(SpaRoot)build\**&amp;quot; /&amp;gt;
+    &amp;lt;ResolvedFileToPublish Include=&amp;quot;@(DistFiles-&amp;gt;&amp;#39;%(FullPath)&amp;#39;)&amp;quot; Exclude=&amp;quot;@(ResolvedFileToPublish)&amp;quot;&amp;gt;
+      &amp;lt;RelativePath&amp;gt;%(DistFiles.Identity)&amp;lt;/RelativePath&amp;gt;
+      &amp;lt;CopyToPublishDirectory&amp;gt;PreserveNewest&amp;lt;/CopyToPublishDirectory&amp;gt;
+      &amp;lt;ExcludeFromSingleFile&amp;gt;true&amp;lt;/ExcludeFromSingleFile&amp;gt;
+    &amp;lt;/ResolvedFileToPublish&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+&amp;lt;/Target&amp;gt;&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Again fairly similar concept running a publish first installs dependencies then builds the project. The build artefacts get created in the &lt;strong&gt;ClientApp\build&lt;/strong&gt; folder. The item group block then ensures the build assets are included in your &lt;strong&gt;bin\ClientApp\build&lt;/strong&gt; folder.&lt;/p&gt;
+&lt;h2 id=&quot;summary&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#summary&quot; aria-label=&quot;summary permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Summary&lt;/h2&gt;
+&lt;p&gt;So to summarise, when running in debug mode&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We npm install dependencies&lt;/li&gt;
+&lt;li&gt;Build and run the dotnet app&lt;/li&gt;
+&lt;li&gt;Run an npm development server&lt;/li&gt;
+&lt;li&gt;Begin routing all calls to the backend, and where it fails to the default client page.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In the case of a published application&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We create a published version of the dotnet application&lt;/li&gt;
+&lt;li&gt;We npm install dependencies&lt;/li&gt;
+&lt;li&gt;We create a production build of the spa in the folder &lt;strong&gt;ClientApp\build&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Static files from the spa are included in the output&lt;/li&gt;
+&lt;li&gt;Running the application now has a packaged version of the spa its static files are served up upon running the backend. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This is all well and great so far... but the react app gets pre built.. what if we need to run it as part of a different environment? Currently, it&apos;s all running off a single &lt;code&gt;.env&lt;/code&gt; file!&lt;/p&gt;
+&lt;h1 id=&quot;adding-environments-&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#adding-environments-&quot; aria-label=&quot;adding environments  permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Adding environments 🆕&lt;/h1&gt;
+&lt;p&gt;Below is my solution for getting environments running across the stack, it also conforms to the dev-ops ethos of,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Build once and deploy many times.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;install-the-dependencies&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#install-the-dependencies&quot; aria-label=&quot;install the dependencies permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Install the dependencies&lt;/h2&gt;
+&lt;p&gt;To being adding environments we first need to ensure our npm app can support it. For this, we will use the well know &lt;a href=&quot;https://www.npmjs.com/package/env-cmd&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;env-cmd&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;We will also be needing something to manipulate the build folders generated by react-scripts. Since all operating systems are equipped with CLI commands to rename/remove files we don&apos;t need anything special to do this. However, because these commands differ from one operating system to the next, it&apos;s always a good practice to use something like &lt;a href=&quot;https://www.npmjs.com/package/shx&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;shx&lt;/a&gt; to ensure it works cross-platform.&lt;/p&gt;
+&lt;p&gt;So let&apos;s start with running the install command in the ClientApp folder,&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm install env-cmd shx --save-dev&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;add-your-environment-files&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#add-your-environment-files&quot; aria-label=&quot;add your environment files permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Add your environment files&lt;/h2&gt;
+&lt;p&gt;Next let&apos;s start creating some environment files, the file structure should look something like this, with the .env file containing settings shared across all the environments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.env&lt;/li&gt;
+&lt;li&gt;.env.staging&lt;/li&gt;
+&lt;li&gt;.env.production&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any key on these files need to be prefixed with &lt;code&gt;REACT_APP_&lt;/code&gt; this is a safety feature build in,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You must create custom environment variables beginning with REACT&lt;em&gt;APP&lt;/em&gt;. Any other variables except NODE_ENV will be ignored to avoid accidentally exposing a private key on the machine that could have the same name.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For now, let&apos;s add just add an environment variable that tells us which environment we are in. Do this for both production and staging .env files.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;REACT_APP_ENV=&amp;#39;production&amp;#39;&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;To show our environment on the page lets also create a &lt;em&gt;config.js&lt;/em&gt; file, that accesses the environment variable.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;export const config = {
+    ENVIRONMENT: process.env.REACT_APP_ENV 
+};&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;And finally output it to the page,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;import React, { Component } from &amp;#39;react&amp;#39;;
+import { Container } from &amp;#39;reactstrap&amp;#39;;
+import { NavMenu } from &amp;#39;./NavMenu&amp;#39;;
+import { config } from &amp;#39;../config&amp;#39;;
+
+export class Layout extends Component {
+  static displayName = Layout.name;
+
+  render () {
+    return (
+      &amp;lt;div&amp;gt;
+        {config.ENVIRONMENT}
+        &amp;lt;NavMenu /&amp;gt;
+        &amp;lt;Container&amp;gt;
+          {this.props.children}
+        &amp;lt;/Container&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2 id=&quot;add-your-build-scripts&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#add-your-build-scripts&quot; aria-label=&quot;add your build scripts permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Add your build scripts&lt;/h2&gt;
+&lt;p&gt;Build scripts are now needed to trigger the environments, we need to make the following amends to the npm scripts section,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;  &amp;quot;scripts&amp;quot;: {
+    &amp;quot;build:staging&amp;quot;: &amp;quot;env-cmd -f .env.staging react-scripts build &amp;amp;&amp;amp; shx rm -rf staging &amp;amp;&amp;amp; shx cp -r build staging&amp;quot;,
+    &amp;quot;build:production&amp;quot;: &amp;quot;env-cmd -f .env.production react-scripts build &amp;amp;&amp;amp; shx rm -rf production &amp;amp;&amp;amp; shx cp -r build production&amp;quot;,
+    &amp;quot;start:staging&amp;quot;: &amp;quot;rimraf ./build &amp;amp;&amp;amp; env-cmd -f .env.staging react-scripts start&amp;quot;,
+    &amp;quot;start:production&amp;quot;: &amp;quot;rimraf ./build &amp;amp;&amp;amp; env-cmd -f .env.production react-scripts start&amp;quot;,
+  }&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The scripts prefixed with &lt;em&gt;build&lt;/em&gt; are using env-cmd with its respective environment file to create a production build of the app. The shx part is then firstly removing the folder staging/production then copying the &lt;em&gt;build&lt;/em&gt; files react-script creates into an environment specific folder.&lt;/p&gt;
+&lt;p&gt;Similarly the scripts prefixed with &lt;em&gt;start&lt;/em&gt; run the app using a certain environment. Note if your trying to run this from the dotnet app, you will need to change the Startup.cs &gt; UseReactDevelopmentServer function to,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;spa.UseReactDevelopmentServer(npmScript: &amp;quot;start:production&amp;quot;);&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Now that this is set up, running the app should show the environment variables.&lt;/p&gt;
+&lt;h2 id=&quot;modifying-your-csproj&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#modifying-your-csproj&quot; aria-label=&quot;modifying your csproj permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Modifying your .csproj&lt;/h2&gt;
+&lt;p&gt;The next step is to get this working with &lt;code&gt;dotnet publish&lt;/code&gt;! To do this we need to modify the &lt;strong&gt;PublishRunWebpack&lt;/strong&gt; target in the .csproj file to,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;&amp;lt;Target Name=&amp;quot;PublishRunWebpack&amp;quot; AfterTargets=&amp;quot;ComputeFilesToPublish&amp;quot;&amp;gt;
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm install&amp;quot;/&amp;gt;
+
+  &amp;lt;Message Importance=&amp;quot;high&amp;quot; Text=&amp;quot;Started building staging version of the spa ...&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Release&amp;#39; &amp;quot;/&amp;gt;
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm run build:staging&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Release&amp;#39; &amp;quot;/&amp;gt;
+  &amp;lt;Message Importance=&amp;quot;high&amp;quot; Text=&amp;quot;Started building production version of the spa ...&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Release&amp;#39; &amp;quot;/&amp;gt;
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm run build:production&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Release&amp;#39; &amp;quot;/&amp;gt;
+
+  &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm run build&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Debug&amp;#39; &amp;quot; /&amp;gt;
+  &amp;lt;ItemGroup&amp;gt;
+    &amp;lt;DistFiles Include=&amp;quot;$(SpaRoot)build\**&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Debug&amp;#39; &amp;quot; /&amp;gt;
+    &amp;lt;DistFiles Include=&amp;quot;$(SpaRoot)staging\**&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Release&amp;#39; &amp;quot; /&amp;gt;
+    &amp;lt;DistFiles Include=&amp;quot;$(SpaRoot)production\**&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Release&amp;#39; &amp;quot; /&amp;gt;
+    &amp;lt;ResolvedFileToPublish Include=&amp;quot;@(DistFiles-&amp;gt;&amp;#39;%(FullPath)&amp;#39;)&amp;quot; Exclude=&amp;quot;@(ResolvedFileToPublish)&amp;quot;&amp;gt;
+      &amp;lt;RelativePath&amp;gt;%(DistFiles.Identity)&amp;lt;/RelativePath&amp;gt;
+      &amp;lt;CopyToPublishDirectory&amp;gt;PreserveNewest&amp;lt;/CopyToPublishDirectory&amp;gt;
+      &amp;lt;ExcludeFromSingleFile&amp;gt;true&amp;lt;/ExcludeFromSingleFile&amp;gt;
+    &amp;lt;/ResolvedFileToPublish&amp;gt;
+  &amp;lt;/ItemGroup&amp;gt;
+&amp;lt;/Target&amp;gt;&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;To summarise what&apos;s happening here, when building in debug mode we are continuing to use the &lt;code&gt;npm run build&lt;/code&gt; command to create a production build and the spa files get stored in the build folder &lt;code&gt;$(SpaRoot)build\**&lt;/code&gt;. The output looks like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;bin&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Release&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;publish&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ClientApp&lt;/li&gt;
+&lt;li&gt;build
+-spa files go here!   &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However in release mode we now create two versions of the spa (one for each environment) using out new npm environment builds, &lt;code&gt;npm run build:staging&lt;/code&gt; and  &lt;code&gt;npm run build:production&lt;/code&gt;. The builds also get moved to their corresponding folders.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;bin&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Release&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;publish&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ClientApp&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;staging&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;staging spa files go here!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;production&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;production spa files go here!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once thats setup you can test it out with &lt;code&gt;dotnet publish --configuration Release&lt;/code&gt;, the build output should look something like this,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/6gBCaZH5bJ6vaNW2wf8QPD/7b1fcf59b5a716760ebf49c95aaaab85/BuildExample.png&quot; alt=&quot;build-output-spa&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;modifying-your-startupcs&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#modifying-your-startupcs&quot; aria-label=&quot;modifying your startupcs permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Modifying your startup.cs&lt;/h2&gt;
+&lt;p&gt;The final step is to modify your Startup.cs file to switch out which spa to use based on the environment variable,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;services.AddSpaStaticFiles(configuration =&amp;gt; configuration.RootPath = WebHostEnvironment.IsDevelopment()
+                ? &amp;quot;ClientApp/build&amp;quot;
+                : $&amp;quot;ClientApp/{WebHostEnvironment.EnvironmentName}&amp;quot;);&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h1 id=&quot;how-to-deploy-&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-deploy-&quot; aria-label=&quot;how to deploy  permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to deploy 🚀&lt;/h1&gt;
+&lt;p&gt;Deployment is now a simple case of running &lt;code&gt;dotnet publish --configuration Release&lt;/code&gt;, once the published artefacts are deployed the app can now take its environment and run the appropriate spa. Build once and deploy anywhere!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[My journey of creating a .NET CLI tool]]></title><description><![CDATA[Why I started building a CLI As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also…]]></description><link>https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</link><guid isPermaLink="true">https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</guid><pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;why-i-started-building-a-cli&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#why-i-started-building-a-cli&quot; aria-label=&quot;why i started building a cli permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Why I started building a CLI&lt;/h1&gt;
 &lt;p&gt;As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also widespread from leveraging queues on a basic console app to storing uploaded images from a web application.&lt;/p&gt;
 &lt;p&gt;Typically as an engineer, I have always interfaced with azure storage using &lt;a href=&quot;https://azure.microsoft.com/en-gb/features/storage-explorer/#features&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Azure Storage Manager&lt;/a&gt;, but as a UI tool, its always been two clicks away from the information I need or was just slow to navigate. &lt;/p&gt;
 &lt;p&gt;So I ended up taking my destiny into my own hands and built a CLI tool called &lt;a href=&quot;https://github.com/faesel/az-lazy&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Az-Lazy&lt;/a&gt;.&lt;/p&gt;
