@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
 import { DiscussionEmbed } from "disqus-react"
 import { FiCalendar, FiClock } from "react-icons/fi";
-
+import { EmailShareButton, EmailIcon, TwitterShareButton, TwitterIcon, FacebookIcon, FacebookShareButton, RedditIcon, RedditShareButton, LinkedinIcon, LinkedinShareButton, PocketIcon, PocketShareButton } from "react-share";
 import Layout from "../components/layout"
 import Head from "../components/head"
 
@@ -72,6 +72,35 @@ const Blog = props => {
             )
           )}
       </ol>
+      <div className="sharebox">
+        <div className="sharebox-title">
+          SHARE
+        </div>
+        <EmailShareButton subject={props.data.contentfulBlog.title} body="testbody">
+          <EmailIcon>
+          </EmailIcon> 
+        </EmailShareButton>
+        <TwitterShareButton title={props.data.contentfulBlog.title}>
+          <TwitterIcon>
+          </TwitterIcon>
+        </TwitterShareButton>
+        <FacebookShareButton quote={props.data.contentfulBlog.bodym.childMarkdownRemark.excerpt}>
+          <FacebookIcon>
+          </FacebookIcon>
+        </FacebookShareButton>
+        <RedditShareButton title={props.data.contentfulBlog.title}>
+          <RedditIcon>
+          </RedditIcon>
+        </RedditShareButton>
+        <LinkedinShareButton source={"www.faesel.com"} title={props.data.contentfulBlog.title} summary={props.data.contentfulBlog.bodym.childMarkdownRemark.excerpt}>
+          <LinkedinIcon>
+          </LinkedinIcon>
+        </LinkedinShareButton>
+        <PocketShareButton title={props.data.contentfulBlog.title}>
+          <PocketIcon>
+          </PocketIcon>
+        </PocketShareButton>
+      </div>
       <img src={`https:${props.data.contentfulBlog.hero.file.url}`} alt={props.data.contentfulBlog.hero.title}></img>
       { props.data.contentfulBlog.bodym && (
         <div dangerouslySetInnerHTML={{ 

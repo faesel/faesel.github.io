@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
 import { FiCalendar, FiClock } from "react-icons/fi";
-
 import Layout from '../components/layout'
 import Head from "../components/head"
 import blogStyles from './blog.module.scss'
