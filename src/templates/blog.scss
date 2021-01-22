@@ -88,31 +88,3 @@ blockquote p{
     margin: 0 10px 10px 0;
     text-decoration: none;
 }
-
-.sharebox {
-    @media screen and (min-width: 720px) {
-        position: block;
-        top:0%;
-        margin-right: 10px;
-        flex-direction: row;
-    }
-
-    @media screen and (min-width: 1150px) {
-        left: 0px;
-        position: fixed;
-        top: 20%;
-        margin-left: 10px;
-        flex-direction: column;
-        max-width: 64px;
-    }
-}
-
-.sharebox-social {
-    @media screen and (min-width: 720px) {
-        margin-right: 10px;
-    }
-}
-
-.sharebox-title {
-    font-weight: bolder;
-}
