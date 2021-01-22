@@ -2,9 +2,12 @@ import React from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
-import { FiBookOpen, FiServer, FiLayout, FiUsers, FiPenTool, FiPhoneCall } from "react-icons/fi";
+import { FiBookOpen, FiServer, FiLayout, FiUsers, FiPenTool } from "react-icons/fi";
 
 import profilePhoto from '../../static/profile.jpg'
+import azlazyPhoto from '../../static/projects/azlazy/azlazy.png'
+import gatsbyTemplate from '../../static/projects/gatsby-template/gatsbyTemplate.png'
+
 import indexStyles from './index.module.scss'
 
 const IndexPage = () => {
@@ -23,7 +26,6 @@ const IndexPage = () => {
     return (
         <Layout>
             <Head pageTitle="Home" />
-            <h1>Home</h1>
             <p className={indexStyles.heading}>Hi I'm {author}, a full-stack developer, team lead & mentor.</p>
             <div className={indexStyles.subheading}>
                 <div className={indexStyles.subheadingdescription}>
@@ -33,9 +35,31 @@ const IndexPage = () => {
                     <img src={profilePhoto} alt={author}></img>
                 </div>
             </div>
-            <div className={indexStyles.bloglink}>
-                <Link to="/blog"><p>Take a look at my blog <FiBookOpen className={indexStyles.bloglinkicon}></FiBookOpen></p></Link>
+            <p className={indexStyles.heading}>My projects...</p>
+            <div className={indexStyles.projectone}>
+                <div>
+                    <a target="_blank" rel="noreferrer" href={"https://github.com/faesel/az-lazy"}>
+                        <img src={azlazyPhoto} alt="Az Lazy"></img>
+                    </a>
+                </div>
+                <div className={indexStyles.projectonecontent}>
+                    <h3>Az-Lazy - The go-to CLI for Azure storage</h3>
+                    <p>Check out my CLI tool Az-Lazy, it provides a command line interface to quickly manage and make changes to azure storage queues, blobs and tables. The inspiration for this project was to move away from using Azure Storage Manager and provide a faster CLI experience for developers.</p>
+                </div>
             </div>
+            <div className={indexStyles.projecttwo}>
+                <div className={indexStyles.projecttwocontent}>
+                    <h3>Gatsby Techblog Starter Template</h3>
+                    <p>Checkout my tech blog template built with Gatsby, Contentful and Disqus. Its free to use for anyone this includes all costs aside from a custom domain (which is optional), and really easy to configure.</p>
+                </div>
+                <div>
+                    <a target="_blank" rel="noreferrer" href={"https://github.com/faesel/gatsby-techblog-starter"}>
+                        <img src={gatsbyTemplate} alt="Gatsby Project Starter Template"></img>
+                    </a>
+                </div>
+            </div>
+            <br></br>
+            <p className={indexStyles.heading}>What I do...</p>
             <div className={indexStyles.skills}>
                 <div className={indexStyles.skillitem}>
                     <FiServer className={indexStyles.skilliconone}></FiServer>
@@ -60,11 +84,9 @@ const IndexPage = () => {
                     <p>Sometimes this content is more for myself to remember some of the harder challenges I have faced, but I also hope this content can be of use to someone else.</p>
                 </div>
             </div>
-            <div className={indexStyles.contact}>
-                <Link to="/contact">
-                    <h2>Let's Connect <FiPhoneCall className={indexStyles.contacticon}></FiPhoneCall></h2>
-                    <p>I'm interested in chatting about code, feel free to connect with me on any of the social platforms.</p>
-                </Link>
+            <p className={indexStyles.heading}>Im also a writer...</p>
+            <div className={indexStyles.bloglink}>
+                <Link to="/blog"><p>Take a look at my blog <FiBookOpen className={indexStyles.bloglinkicon}></FiBookOpen></p></Link>
             </div>
         </Layout>
     )

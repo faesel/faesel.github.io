@@ -42,6 +42,7 @@
         font-size: 3rem;
         line-height: 4rem;
         padding: 10px;
+        padding-bottom: 15px;
     }
 
     svg {
@@ -102,5 +103,40 @@
 
     .contacticon {
         font-size: 2.5rem;
+    }
+}
+
+.projectone {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    
+    img {
+        min-width: 200px;
+        min-height: 200px;
+        border: 30px solid $dark-orange;
+    }
+
+    .projectonecontent {
+        padding: 10px;
+        padding-left: 20px;
+    }
+}
+
+.projecttwo {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    
+    img {
+        min-width: 250px;
+        min-height: 200px;
+        border: 30px solid $blue;
+
+    }
+
+    .projecttwocontent {
+        padding: 10px;
+        padding-right: 20px;
     }
 }
