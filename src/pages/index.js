@@ -49,7 +49,7 @@ const IndexPage = () => {
             </div>
             <div className={indexStyles.projecttwo}>
                 <div className={indexStyles.projecttwocontent}>
-                    <h3>Gatsby Techblog Starter Template</h3>
+                    <h3>Gatsby tech blog starter template</h3>
                     <p>Checkout my tech blog template built with Gatsby, Contentful and Disqus. Its free to use for anyone this includes all costs aside from a custom domain (which is optional), and really easy to configure.</p>
                 </div>
                 <div>
