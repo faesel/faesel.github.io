@@ -83,7 +83,7 @@ const IndexPage = () => {
                     <p>Sometimes this content is more for myself to remember some of the harder challenges I have faced, but I also hope this content can be of use to someone else.</p>
                 </div>
             </div>
-            <p className={indexStyles.headingminor}>Have a look around...</p>
+            <p className={indexStyles.headingminor}>Have a look...</p>
             <div className={indexStyles.bloglink}>
                 <Link to="/blog"><p>Take a look at my blog <FiBookOpen className={indexStyles.bloglinkicon}></FiBookOpen></p></Link>
             </div>
