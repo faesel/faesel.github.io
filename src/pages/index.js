@@ -35,7 +35,7 @@ const IndexPage = () => {
                     <img src={profilePhoto} alt={author}></img>
                 </div>
             </div>
-            <p className={indexStyles.heading}>My projects...</p>
+            <p className={indexStyles.headingminor}>My projects...</p>
             <div className={indexStyles.projectone}>
                 <div>
                     <a target="_blank" rel="noreferrer" href={"https://github.com/faesel/az-lazy"}>
@@ -58,8 +58,7 @@ const IndexPage = () => {
                     </a>
                 </div>
             </div>
-            <br></br>
-            <p className={indexStyles.heading}>What I do...</p>
+            <p className={indexStyles.headingminor}>What I do...</p>
             <div className={indexStyles.skills}>
                 <div className={indexStyles.skillitem}>
                     <FiServer className={indexStyles.skilliconone}></FiServer>
@@ -84,7 +83,7 @@ const IndexPage = () => {
                     <p>Sometimes this content is more for myself to remember some of the harder challenges I have faced, but I also hope this content can be of use to someone else.</p>
                 </div>
             </div>
-            <p className={indexStyles.heading}>Im also a writer...</p>
+            <p className={indexStyles.headingminor}>Have a look around...</p>
             <div className={indexStyles.bloglink}>
                 <Link to="/blog"><p>Take a look at my blog <FiBookOpen className={indexStyles.bloglinkicon}></FiBookOpen></p></Link>
             </div>
