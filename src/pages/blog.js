@@ -32,24 +32,34 @@ const BlogPage = () => {
             }
         }
     `)
-
+    
     return (
         <Layout>
             <Head pageTitle="Blog"/>
             <h1>Blog</h1>
             <ol className={blogStyles.posts}>
                 {data.allContentfulBlog.edges.map((edge) => {
+                    const blogInfo = {
+                        title: edge.node.title,
+                        datePublished: edge.node.datePublished,
+                        imageUrl: `https:${edge.node.hero.file.url}`,
+                        imageAlt: edge.node.hero.title,
+                        description: edge.node.bodym.childMarkdownRemark.excerpt,
+                        slug: edge.node.slug,
+                        timeToRead: edge.node.bodym.childMarkdownRemark.timeToRead
+                    }
+
                     return (
                         <li className={blogStyles.post}>
-                            <Link to={`/blog/${edge.node.slug}`}>
-                                <h2>{edge.node.title}</h2>
-                                <p><FiCalendar title="Date Published"/> {edge.node.datePublished}&nbsp;&nbsp;<FiClock title="Reading Time" /> {edge.node.bodym.childMarkdownRemark.timeToRead} Minutes</p>
-                                <img src={`https:${edge.node.hero.file.url}`} alt={edge.node.hero.title}></img>
-                                <p>{edge.node.bodym.childMarkdownRemark.excerpt}</p>
+                            <Link to={`/blog/${blogInfo.slug}`}>
+                                <h2>{blogInfo.title}</h2>
+                                <p><FiCalendar title="Date Published"/> {blogInfo.datePublished}&nbsp;&nbsp;<FiClock title="Reading Time" /> {blogInfo.timeToRead} Minutes</p>
+                                <img src={blogInfo.imageUrl} alt={blogInfo.imageAlt}></img>
+                                <p>{blogInfo.description}</p>
                                 <ol className={blogStyles.tags}>
-                                    {edge.node.tags.map(tag =>
+                                    {edge.node.tags.map((tag, index) =>
                                         (
-                                            <li className={blogStyles.tag}>{tag}</li>
+                                            <li key={index} className={blogStyles.tag}>{tag}</li>
                                         )
                                     )}
                                 </ol>
