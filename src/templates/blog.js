@@ -89,7 +89,7 @@ const Blog = props => {
       
       <img src={blogContent.imageUrl} alt={blogContent.imageAlt}></img>
       { blogContent.content && (
-        <div dangerouslySetInnerHTML={{ 
+        <div className="article" dangerouslySetInnerHTML={{ 
           __html: blogContent.content.childMarkdownRemark.html }}>
         </div>
       )}

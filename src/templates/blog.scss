@@ -87,3 +87,14 @@ blockquote p{
     margin: 0 10px 10px 0;
     text-decoration: none;
 }
+
+.article {
+    img {
+        -moz-box-shadow:2px 2px 15px $shadow;
+        -webkit-box-shadow:2px 2px 15px $shadow;
+        box-shadow:2px 2px 15px $shadow;
+        
+        display: block;
+        margin: auto;
+    }
+}
