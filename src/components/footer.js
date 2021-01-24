@@ -1,12 +1,12 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { FiTwitter, FiLinkedin, FiGithub, FiRss  } from "react-icons/fi";
-import { TiSocialFlickr } from "react-icons/ti"
+import { FiTwitter, FiLinkedin, FiGithub, FiRss } from 'react-icons/fi'
+import { TiSocialFlickr } from 'react-icons/ti'
 
 import footerStyles from './footer.module.scss'
 
 const Footer = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
         query {
             site {
                 siteMetadata {
@@ -23,9 +23,9 @@ const Footer = () => {
         }
     `)
 
-    return (
+  return (
         <footer className={footerStyles.footer}>
-            
+
             <div className={footerStyles.social}>
                 <a href={data.site.siteMetadata.social.twitter} rel="noopener noreferrer" target="_blank"><FiTwitter /> Twitter</a>
                 <a href={data.site.siteMetadata.social.linkedin} rel="noopener noreferrer" target="_blank"><FiLinkedin /> Linked In</a>
@@ -39,7 +39,7 @@ const Footer = () => {
             </div>
 
         </footer>
-    )
+  )
 }
 
 export default Footer

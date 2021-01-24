@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
-import { FiBookOpen, FiServer, FiLayout, FiUsers, FiPenTool } from "react-icons/fi";
+import { FiBookOpen, FiServer, FiLayout, FiUsers, FiPenTool } from 'react-icons/fi'
 
 import profilePhoto from '../../static/profile.jpg'
 import azlazyPhoto from '../../static/projects/azlazy/azlazy.png'
@@ -11,7 +11,7 @@ import gatsbyTemplate from '../../static/projects/gatsby-template/gatsbyTemplate
 import indexStyles from './index.module.scss'
 
 const IndexPage = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
         query {
             site {
                 siteMetadata {
@@ -20,10 +20,10 @@ const IndexPage = () => {
             }
         }
     `)
-    
-    const { author } = data.site.siteMetadata;
 
-    return (
+  const { author } = data.site.siteMetadata
+
+  return (
         <Layout>
             <Head pageTitle="Home" />
             <p className={indexStyles.heading}>Hi I'm {author}, a full-stack developer, team lead & mentor.</p>
@@ -38,7 +38,7 @@ const IndexPage = () => {
             <p className={indexStyles.headingminor}>My projects...</p>
             <div className={indexStyles.projectone}>
                 <div>
-                    <a target="_blank" rel="noreferrer" href={"https://github.com/faesel/az-lazy"}>
+                    <a target="_blank" rel="noreferrer" href={'https://github.com/faesel/az-lazy'}>
                         <img src={azlazyPhoto} alt="Az Lazy"></img>
                     </a>
                 </div>
@@ -53,7 +53,7 @@ const IndexPage = () => {
                     <p>Checkout my tech blog template built with Gatsby, Contentful and Disqus. Its free to use for anyone this includes all costs aside from a custom domain (which is optional), and really easy to configure.</p>
                 </div>
                 <div>
-                    <a target="_blank" rel="noreferrer" href={"https://github.com/faesel/gatsby-techblog-starter"}>
+                    <a target="_blank" rel="noreferrer" href={'https://github.com/faesel/gatsby-techblog-starter'}>
                         <img src={gatsbyTemplate} alt="Gatsby Project Starter Template"></img>
                     </a>
                 </div>
@@ -88,7 +88,7 @@ const IndexPage = () => {
                 <Link to="/blog"><p>Take a look at my blog <FiBookOpen className={indexStyles.bloglinkicon}></FiBookOpen></p></Link>
             </div>
         </Layout>
-    )
+  )
 }
 
 export default IndexPage

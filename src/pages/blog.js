@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
-import { FiCalendar, FiClock } from "react-icons/fi";
+import { FiCalendar, FiClock } from 'react-icons/fi'
 import Layout from '../components/layout'
-import Head from "../components/head"
+import Head from '../components/head'
 import blogStyles from './blog.module.scss'
 
 const BlogPage = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
         query {
             allContentfulBlog ( sort: { fields: datePublished, order: DESC } ) {
                 edges {
@@ -32,24 +32,24 @@ const BlogPage = () => {
             }
         }
     `)
-    
-    return (
+
+  return (
         <Layout>
             <Head pageTitle="Blog"/>
             <h1>Blog</h1>
             <ol className={blogStyles.posts}>
                 {data.allContentfulBlog.edges.map((edge) => {
-                    const blogInfo = {
-                        title: edge.node.title,
-                        datePublished: edge.node.datePublished,
-                        imageUrl: `https:${edge.node.hero.file.url}`,
-                        imageAlt: edge.node.hero.title,
-                        description: edge.node.bodym.childMarkdownRemark.excerpt,
-                        slug: edge.node.slug,
-                        timeToRead: edge.node.bodym.childMarkdownRemark.timeToRead
-                    }
+                  const blogInfo = {
+                    title: edge.node.title,
+                    datePublished: edge.node.datePublished,
+                    imageUrl: `https:${edge.node.hero.file.url}`,
+                    imageAlt: edge.node.hero.title,
+                    description: edge.node.bodym.childMarkdownRemark.excerpt,
+                    slug: edge.node.slug,
+                    timeToRead: edge.node.bodym.childMarkdownRemark.timeToRead
+                  }
 
-                    return (
+                  return (
                         <li className={blogStyles.post}>
                             <Link to={`/blog/${blogInfo.slug}`}>
                                 <h2>{blogInfo.title}</h2>
@@ -58,18 +58,18 @@ const BlogPage = () => {
                                 <p>{blogInfo.description}</p>
                                 <ol className={blogStyles.tags}>
                                     {edge.node.tags.map((tag, index) =>
-                                        (
+                                      (
                                             <li key={index} className={blogStyles.tag}>{tag}</li>
-                                        )
+                                      )
                                     )}
                                 </ol>
                             </Link>
                         </li>
-                    )
+                  )
                 })}
             </ol>
         </Layout>
-    )
+  )
 }
 
 export default BlogPage

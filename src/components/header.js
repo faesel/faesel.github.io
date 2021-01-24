@@ -1,9 +1,8 @@
-import React from "react"
-import { Link, graphql, useStaticQuery } from "gatsby"
-import { FiActivity } from "react-icons/fi";
+import React from 'react'
+import { Link, graphql, useStaticQuery } from 'gatsby'
+import { FiActivity } from 'react-icons/fi'
 
-
-import headerStyles from "./header.module.scss"
+import headerStyles from './header.module.scss'
 
 const Header = () => {
   const data = useStaticQuery(graphql`

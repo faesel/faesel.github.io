@@ -1,13 +1,13 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { FiTwitter, FiLinkedin, FiGithub, FiMail } from "react-icons/fi";
+import { FiTwitter, FiLinkedin, FiGithub, FiMail } from 'react-icons/fi'
 
-import Layout from "../components/layout"
-import Head from "../components/head"
+import Layout from '../components/layout'
+import Head from '../components/head'
 import contactStyles from './contact.module.scss'
 
 const ContactPage = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
         query {
             site {
                 siteMetadata {
@@ -22,9 +22,9 @@ const ContactPage = () => {
         }
     `)
 
-    const { social } = data.site.siteMetadata;
+  const { social } = data.site.siteMetadata
 
-    return (
+  return (
         <Layout>
             <Head pageTitle="Contact"/>
             <h1>Contact Me</h1>
@@ -39,7 +39,7 @@ const ContactPage = () => {
                                 <FiMail></FiMail>
                             </div>
                             <p>
-                                Im always looking forward to new opportunities, ping me if you got any. 
+                                Im always looking forward to new opportunities, ping me if you got any.
                             </p>
                         </div>
                     </a>
@@ -82,7 +82,7 @@ const ContactPage = () => {
                 </li>
             </ol>
         </Layout>
-    )
+  )
 }
 
 export default ContactPage

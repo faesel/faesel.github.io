@@ -1,12 +1,12 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
-import { DiscussionEmbed } from "disqus-react"
-import { FiCalendar, FiClock } from "react-icons/fi";
-import SharePanel from "../components/sharePanel";
+import React from 'react'
+import { graphql } from 'gatsby'
+import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
+import { DiscussionEmbed } from 'disqus-react'
+import { FiCalendar, FiClock } from 'react-icons/fi'
+import SharePanel from '../components/sharePanel'
 
-import Layout from "../components/layout"
-import Head from "../components/head"
+import Layout from '../components/layout'
+import Head from '../components/head'
 
 import './blog.scss'
 
@@ -45,11 +45,11 @@ export const query = graphql`
 `
 
 const Blog = props => {
-  deckDeckGoHighlightElement();
+  deckDeckGoHighlightElement()
 
   const disqusConfig = {
     shortname: process.env.GATSBY_DISQUS_NAME,
-    config: { identifier: props.data.contentfulBlog.title },
+    config: { identifier: props.data.contentfulBlog.title }
   }
 
   const blogContent = {
@@ -67,13 +67,13 @@ const Blog = props => {
 
   return (
     <Layout>
-      <Head 
+      <Head
         pageTitle={blogContent.title}
         title={blogContent.title}
         description={blogContent.description}
         url={blogContent.url}
         imageUrl={blogContent.imageUrl}
-        imageAlt={blogContent.imageAlt} 
+        imageAlt={blogContent.imageAlt}
         type='article'
         datePublished={blogContent.datePublishedIso8601} />
 
@@ -81,16 +81,15 @@ const Blog = props => {
       <p><FiCalendar title="Date Published" /> {blogContent.datePublished}&nbsp;&nbsp;<FiClock title="Reading Time" /> {blogContent.timeToRead} Minutes</p>
       <ol className="tags">
         {blogContent.tags.map((tag, index) =>
-            (
+          (
               <li key={index} className="tag">{tag}</li>
-            )
-          )}
+          )
+        )}
       </ol>
-      
+
       <img src={blogContent.imageUrl} alt={blogContent.imageAlt}></img>
       { blogContent.content && (
-        <div className="article" dangerouslySetInnerHTML={{ 
-          __html: blogContent.content.childMarkdownRemark.html }}>
+        <div className="article" dangerouslySetInnerHTML={{ __html: blogContent.content.childMarkdownRemark.html }}>
         </div>
       )}
 

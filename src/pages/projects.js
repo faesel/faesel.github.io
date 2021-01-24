@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Layout from "../components/layout"
+import Layout from '../components/layout'
 import Head from '../components/head'
 import projectStyles from './projects.module.scss'
 
@@ -8,7 +8,7 @@ import azlazyPhoto from '../../static/projects/azlazy/azlazy.png'
 import gatsbyTemplate from '../../static/projects/gatsby-template/gatsbyTemplate.png'
 
 const ProjectsPage = () => {
-    return (
+  return (
         <Layout>
             <Head pageTitle="Projects" />
             <h1>Projects</h1>
@@ -18,7 +18,7 @@ const ProjectsPage = () => {
                         <div className={projectStyles.content}>
                             <img src={azlazyPhoto} alt="Az Lazy"></img>
                             <h2>Az-Lazy - The go-to CLI for Azure storage</h2>
-                            
+
                             <p>
                                 Check out my CLI tool Az-Lazy, it provides a command line interface to quickly manage and make changes to azure storage queues, blobs and tables. The inspiration for this project was to move away from using Azure Storage Manager and provide a faster CLI experience for developers.
                             </p>
@@ -39,7 +39,7 @@ const ProjectsPage = () => {
 
             </ol>
         </Layout>
-    )
+  )
 }
 
 export default ProjectsPage
