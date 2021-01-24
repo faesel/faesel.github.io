@@ -25,7 +25,7 @@ export const query = graphql`
             title,
             slug
             tags
-    				hero {
+            hero {
               file {
                 url
               }
