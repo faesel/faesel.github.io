@@ -10,6 +10,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "lint": "eslint --ext .scss,.js src/",
+    "lint:fix": "npm run lint -- --fix",
     "clean": "gatsby clean",
     "publish": "env-cmd -f .env.production gatsby build && gh-pages -d public -b master",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
