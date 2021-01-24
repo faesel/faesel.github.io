@@ -38,7 +38,7 @@ const BlogPage = () => {
             <Head pageTitle="Blog"/>
             <h1>Blog</h1>
             <ol className={blogStyles.posts}>
-                {data.allContentfulBlog.edges.map((edge) => {
+                {data.allContentfulBlog.edges.map((edge, index) => {
                   const blogInfo = {
                     title: edge.node.title,
                     datePublished: edge.node.datePublished,
@@ -50,7 +50,7 @@ const BlogPage = () => {
                   }
 
                   return (
-                        <li className={blogStyles.post}>
+                        <li key={index} className={blogStyles.post}>
                             <Link to={`/blog/${blogInfo.slug}`}>
                                 <h2>{blogInfo.title}</h2>
                                 <p><FiCalendar title="Date Published"/> {blogInfo.datePublished}&nbsp;&nbsp;<FiClock title="Reading Time" /> {blogInfo.timeToRead} Minutes</p>

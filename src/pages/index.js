@@ -26,7 +26,7 @@ const IndexPage = () => {
   return (
         <Layout>
             <Head pageTitle="Home" />
-            <p className={indexStyles.heading}>Hi I'm {author}, a full-stack developer, team lead & mentor.</p>
+            <p className={indexStyles.heading}>Hi I&apos;m {author}, a full-stack developer, team lead & mentor.</p>
             <div className={indexStyles.subheading}>
                 <div className={indexStyles.subheadingdescription}>
                     <p>I am a software developer with a strong passion for technology and all things new. I specialise in delivering web-based & enterprise solutions and love new challenges. I take great pride in keeping up to date with current development practices and instilling them within my working environment.</p>
@@ -68,7 +68,7 @@ const IndexPage = () => {
                 <div className={indexStyles.skillitem}>
                     <FiLayout className={indexStyles.skillicontwo}></FiLayout>
                     <h2>Front End Development</h2>
-                    <p>Ive always found the fast moving pase of front-end technology fascinating. As library's have started to mature I have begun to invest more time working on library's within the React echo system.  And lets not forget the black magic that is CSS.</p>
+                    <p>Ive always found the fast moving pase of front-end technology fascinating. As library&apos;s have started to mature I have begun to invest more time working on library&apos;s within the React echo system.  And lets not forget the black magic that is CSS.</p>
                 </div>
             </div>
             <div className={indexStyles.skills}>
