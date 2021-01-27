@@ -3,34 +3,34 @@ import { EmailShareButton, EmailIcon, TwitterShareButton, TwitterIcon, FacebookI
 
 import shareboxStyles from './sharePanel.module.scss'
 
-const SharePanel = ({imageurl, imagealt, url, title, source, summary}) => {
+const SharePanel = ({heroImageUrl, heroImageAlt, url, title, source, summary}) => {
     return (
         <div className={shareboxStyles.sharebox}>
             <div className={shareboxStyles.shareboxtitle}>
                 SHARE
             </div>
 
-            <EmailShareButton className={shareboxStyles.shareboxsocial} imageAlt={imagealt} imageUrl={imageurl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
+            <EmailShareButton className={shareboxStyles.shareboxsocial} imageAlt={heroImageAlt} imageUrl={heroImageUrl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
                 <EmailIcon>
                 </EmailIcon> 
             </EmailShareButton>
-            <TwitterShareButton className={shareboxStyles.shareboxsocial} imageAlt={imagealt} imageUrl={imageurl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
+            <TwitterShareButton className={shareboxStyles.shareboxsocial} imageAlt={heroImageAlt} imageUrl={heroImageUrl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
                 <TwitterIcon>
                 </TwitterIcon>
             </TwitterShareButton>
-            <FacebookShareButton className={shareboxStyles.shareboxsocial} imageAlt={imagealt} imageUrl={imageurl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
+            <FacebookShareButton className={shareboxStyles.shareboxsocial} imageAlt={heroImageAlt} imageUrl={heroImageUrl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
                 <FacebookIcon>
                 </FacebookIcon>
             </FacebookShareButton>
-            <RedditShareButton className={shareboxStyles.shareboxsocial} imageAlt={imagealt} imageUrl={imageurl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
+            <RedditShareButton className={shareboxStyles.shareboxsocial} imageAlt={heroImageAlt} imageUrl={heroImageUrl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
                 <RedditIcon>
                 </RedditIcon>
             </RedditShareButton>
-            <LinkedinShareButton className={shareboxStyles.shareboxsocial} imageAlt={imagealt} imageUrl={imageurl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
+            <LinkedinShareButton className={shareboxStyles.shareboxsocial} imageAlt={heroImageAlt} imageUrl={heroImageUrl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
                 <LinkedinIcon>
                 </LinkedinIcon>
             </LinkedinShareButton>
-            <PocketShareButton className={shareboxStyles.shareboxsocial} imageAlt={imagealt} imageUrl={imageurl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
+            <PocketShareButton className={shareboxStyles.shareboxsocial} imageAlt={heroImageAlt} imageUrl={heroImageUrl} url={url} source={source} title={title} quote={summary} summary={summary} subject={title}>
                 <PocketIcon>
                 </PocketIcon>
             </PocketShareButton>

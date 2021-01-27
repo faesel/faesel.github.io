@@ -4,6 +4,7 @@ import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/
 import { DiscussionEmbed } from "disqus-react"
 import { FiCalendar, FiClock } from "react-icons/fi";
 import SharePanel from "../components/sharePanel";
+import RelatedArticles from "../components/relatedArticles";
 
 import Layout from "../components/layout"
 import Head from "../components/head"
@@ -11,7 +12,7 @@ import Head from "../components/head"
 import './blog.scss'
 
 export const query = graphql`
-    query($slug: String!) {
+    query($slug: String!, $tags: [String!]) {
         site {
           siteMetadata {
             siteUrl
@@ -41,6 +42,24 @@ export const query = graphql`
               }
             }
         }
+        related: allContentfulBlog(
+          filter: { slug: { ne: $slug }, tags: { in: $tags } }
+          sort: { fields: datePublished, order: DESC }
+          limit: 5
+        ){
+           edges {
+            node {
+              title
+              slug
+              hero {
+                file {
+                  url
+                }
+                title
+              }
+            }
+          }
+        }
     }
 `
 
@@ -62,7 +81,14 @@ const Blog = props => {
     datePublishedIso8601: props.data.contentfulBlog.iso8601DatePublished,
     datePublished: props.data.contentfulBlog.datePublished,
     tags: props.data.contentfulBlog.tags,
-    content: props.data.contentfulBlog.bodym
+    content: props.data.contentfulBlog.bodym,
+    related: props.data.related.edges.map(related => ({
+        title: related.node.title,
+        url: `${props.data.site.siteMetadata.siteUrl}/blog/${related.node.slug}` ,
+        imageUrl: `https:${related.node.hero.file.url}`,
+        imageAlt: related.node.hero.title
+      }
+    ))
   }
 
   return (
@@ -95,8 +121,8 @@ const Blog = props => {
       )}
 
       <SharePanel
-        imageurl={blogContent.imageUrl}
-        imagealt={blogContent.imageAlt}
+        heroImageUrl={blogContent.imageUrl}
+        heroImageAlt={blogContent.imageAlt}
         url={blogContent.url}
         title={blogContent.title}
         source={'www.faesel.com'}
@@ -104,6 +130,12 @@ const Blog = props => {
       </SharePanel>
 
       <DiscussionEmbed {...disqusConfig} />
+
+      <hr></hr>
+
+      <h2>RELATED ARTICLES</h2>
+
+      <RelatedArticles relatedArticles={blogContent.related}></RelatedArticles>
 
     </Layout>
   )
