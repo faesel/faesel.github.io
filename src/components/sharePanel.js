@@ -1,7 +1,20 @@
-import React from 'react'
-import { EmailShareButton, EmailIcon, TwitterShareButton, TwitterIcon, FacebookIcon, FacebookShareButton, RedditIcon, RedditShareButton, LinkedinIcon, LinkedinShareButton, PocketIcon, PocketShareButton } from "react-share";
+import React from "react"
+import {
+  EmailShareButton,
+  EmailIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  FacebookIcon,
+  FacebookShareButton,
+  RedditIcon,
+  RedditShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  PocketIcon,
+  PocketShareButton,
+} from "react-share"
 
-import shareboxStyles from './sharePanel.module.scss'
+import shareboxStyles from "./sharePanel.module.scss"
 
 const SharePanel = ({heroImageUrl, heroImageAlt, url, title, source, summary}) => {
     return (

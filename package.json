@@ -10,6 +10,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "lint": "eslint --ext .js src/",
+    "lint:fix": "npm run lint -- --fix",
     "clean": "gatsby clean",
     "publish": "env-cmd -f .env.production gatsby build && gh-pages -d public -b master",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
@@ -25,6 +27,7 @@
     "gatsby-plugin-manifest": "^2.4.21",
     "gatsby-plugin-offline": "^3.2.21",
     "gatsby-plugin-react-helmet": "^3.3.6",
+    "gatsby-plugin-remove-trailing-slashes": "^2.9.0",
     "gatsby-plugin-sass": "^2.3.6",
     "gatsby-plugin-sharp": "^2.6.14",
     "gatsby-plugin-sitemap": "^2.4.10",
@@ -51,7 +54,14 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "gatsby-plugin-remove-trailing-slashes": "^2.3.11",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.22.0",
     "gh-pages": "^3.0.0",
     "prettier": "^1.19.1"
   }
