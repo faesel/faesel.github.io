@@ -16,15 +16,22 @@ import {
 
 import shareboxStyles from "./sharePanel.module.scss"
 
-const SharePanel = ({ imageurl, imagealt, url, title, source, summary }) => {
+const SharePanel = ({
+  heroImageUrl,
+  heroImageAlt,
+  url,
+  title,
+  source,
+  summary,
+}) => {
   return (
     <div className={shareboxStyles.sharebox}>
       <div className={shareboxStyles.shareboxtitle}>SHARE</div>
 
       <EmailShareButton
         className={shareboxStyles.shareboxsocial}
-        imageAlt={imagealt}
-        imageUrl={imageurl}
+        imageAlt={heroImageAlt}
+        imageUrl={heroImageUrl}
         url={url}
         source={source}
         title={title}
@@ -36,8 +43,8 @@ const SharePanel = ({ imageurl, imagealt, url, title, source, summary }) => {
       </EmailShareButton>
       <TwitterShareButton
         className={shareboxStyles.shareboxsocial}
-        imageAlt={imagealt}
-        imageUrl={imageurl}
+        imageAlt={heroImageAlt}
+        imageUrl={heroImageUrl}
         url={url}
         source={source}
         title={title}
@@ -49,8 +56,8 @@ const SharePanel = ({ imageurl, imagealt, url, title, source, summary }) => {
       </TwitterShareButton>
       <FacebookShareButton
         className={shareboxStyles.shareboxsocial}
-        imageAlt={imagealt}
-        imageUrl={imageurl}
+        imageAlt={heroImageAlt}
+        imageUrl={heroImageUrl}
         url={url}
         source={source}
         title={title}
@@ -62,8 +69,8 @@ const SharePanel = ({ imageurl, imagealt, url, title, source, summary }) => {
       </FacebookShareButton>
       <RedditShareButton
         className={shareboxStyles.shareboxsocial}
-        imageAlt={imagealt}
-        imageUrl={imageurl}
+        imageAlt={heroImageAlt}
+        imageUrl={heroImageUrl}
         url={url}
         source={source}
         title={title}
@@ -75,8 +82,8 @@ const SharePanel = ({ imageurl, imagealt, url, title, source, summary }) => {
       </RedditShareButton>
       <LinkedinShareButton
         className={shareboxStyles.shareboxsocial}
-        imageAlt={imagealt}
-        imageUrl={imageurl}
+        imageAlt={heroImageAlt}
+        imageUrl={heroImageUrl}
         url={url}
         source={source}
         title={title}
@@ -88,8 +95,8 @@ const SharePanel = ({ imageurl, imagealt, url, title, source, summary }) => {
       </LinkedinShareButton>
       <PocketShareButton
         className={shareboxStyles.shareboxsocial}
-        imageAlt={imagealt}
-        imageUrl={imageurl}
+        imageAlt={heroImageAlt}
+        imageUrl={heroImageUrl}
         url={url}
         source={source}
         title={title}
