@@ -11,18 +11,14 @@ import Head from "../components/head"
 import "./blog.scss"
 
 export const query = graphql`
-query($slug: String!, $tags: [String!]) {
-  site {
-    siteMetadata {
-      siteUrl
-    }
-  }
-  contentfulBlog (
-      slug: {
-          eq: $slug
+  query($slug: String!, $tags: [String!]) {
+    site {
+      siteMetadata {
+        siteUrl
       }
-  ) {
-      title,
+    }
+    contentfulBlog(slug: { eq: $slug }) {
+      title
       slug
       tags
       hero {
@@ -32,7 +28,9 @@ query($slug: String!, $tags: [String!]) {
         title
       }
       datePublished(formatString: "MMMM Do, YYYY")
-      iso8601DatePublished: datePublished(formatString: "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")
+      iso8601DatePublished: datePublished(
+        formatString: "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
+      )
       bodym {
         childMarkdownRemark {
           excerpt(pruneLength: 50)
@@ -40,26 +38,26 @@ query($slug: String!, $tags: [String!]) {
           html
         }
       }
-  }
-  related: allContentfulBlog(
-    filter: { slug: { ne: $slug }, tags: { in: $tags } }
-    sort: { fields: datePublished, order: DESC }
-    limit: 5
-  ){
-     edges {
-      node {
-        title
-        slug
-        hero {
-          file {
-            url
-          }
+    }
+    related: allContentfulBlog(
+      filter: { slug: { ne: $slug }, tags: { in: $tags } }
+      sort: { fields: datePublished, order: DESC }
+      limit: 5
+    ) {
+      edges {
+        node {
           title
+          slug
+          hero {
+            file {
+              url
+            }
+            title
+          }
         }
       }
     }
   }
-}
 `
 
 const Blog = props => {
@@ -82,12 +80,11 @@ const Blog = props => {
     tags: props.data.contentfulBlog.tags,
     content: props.data.contentfulBlog.bodym,
     related: props.data.related.edges.map(related => ({
-        title: related.node.title,
-        url: `${props.data.site.siteMetadata.siteUrl}/blog/${related.node.slug}` ,
-        imageUrl: `https:${related.node.hero.file.url}`,
-        imageAlt: related.node.hero.title
-      }
-    ))
+      title: related.node.title,
+      url: `${props.data.site.siteMetadata.siteUrl}/blog/${related.node.slug}`,
+      imageUrl: `https:${related.node.hero.file.url}`,
+      imageAlt: related.node.hero.title,
+    })),
   }
 
   return (
@@ -143,7 +140,6 @@ const Blog = props => {
       <h2>RELATED ARTICLES</h2>
 
       <RelatedArticles relatedArticles={blogContent.related}></RelatedArticles>
-
     </Layout>
   )
 }
