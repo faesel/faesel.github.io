@@ -100,7 +100,7 @@ const Blog = props => {
         datePublished={blogContent.datePublishedIso8601}
       />
 
-      <h1>{blogContent.title}</h1>
+      <span className="title">{blogContent.title}</span>
       <p>
         <FiCalendar title="Date Published" /> {blogContent.datePublished}
         &nbsp;&nbsp;
