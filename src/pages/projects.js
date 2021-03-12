@@ -11,7 +11,7 @@ const ProjectsPage = () => {
   return (
     <Layout>
       <Head pageTitle="Projects" />
-      <h1>Projects</h1>
+      <span className={projectStyles.pagetitle}>Projects</span>
       <ol className={projectStyles.projectbox}>
         <li className={projectStyles.contactoption}>
           <a

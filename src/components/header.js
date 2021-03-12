@@ -17,11 +17,11 @@ const Header = () => {
 
   return (
     <header className={headerStyles.header}>
-      <h1>
+      <span className={headerStyles.title}>
         <Link className={headerStyles.title} to="/">
           {data.site.siteMetadata.title} <FiActivity></FiActivity>
         </Link>
-      </h1>
+      </span>
       <nav>
         <div className={headerStyles.navList}>
           <Link

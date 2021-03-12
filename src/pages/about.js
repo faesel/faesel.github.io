@@ -3,12 +3,13 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Head from "../components/head"
+import aboutStyles from "./about.module.scss"
 
 const AboutPage = () => {
   return (
     <Layout>
       <Head pageTitle="About" />
-      <h1>About</h1>
+      <span className={aboutStyles.pagetitle}>About</span>
       <p>
         I am a software developer with a strong passion for technology and all
         things new. I specialise in delivering web-based & enterprise solutions
