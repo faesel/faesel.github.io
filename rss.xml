@@ -1,4 +1,405 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 12 Mar 2021 11:43:02 GMT</lastBuildDate><item><title><![CDATA[Adding environments to ASP.NET Core with React.js SPA]]></title><description><![CDATA[Recently I started working on a project that was created from the ASP.NET SPA template for react. It's one of the templates you get by default with dotnet and can be created by running dotnet new…]]></description><link>https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</link><guid isPermaLink="true">https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</guid><pubDate>Tue, 19 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Recently I started working on a project that was created from the &lt;strong&gt;ASP.NET SPA template for react&lt;/strong&gt;. It&apos;s one of the templates you get by default with dotnet and can be created by running &lt;code&gt;dotnet new react&lt;/code&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 05 Apr 2021 15:06:17 GMT</lastBuildDate><item><title><![CDATA[ASP.NET GraphQL server with Hot Chocolate]]></title><description><![CDATA[Starting my journey with GraphQL Up till now, I've always heavily relied on RESTfull services to power API's, this recently got widened with GRPC which you can read about in my article .NET & GRPC…]]></description><link>https://www.faesel.com/blog/aspnet-graphql-server-with-hot-chocolate</link><guid isPermaLink="true">https://www.faesel.com/blog/aspnet-graphql-server-with-hot-chocolate</guid><pubDate>Sun, 04 Apr 2021 23:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;starting-my-journey-with-graphql&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#starting-my-journey-with-graphql&quot; aria-label=&quot;starting my journey with graphql permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Starting my journey with GraphQL&lt;/h1&gt;
+&lt;p&gt;Up till now, I&apos;ve always heavily relied on RESTfull services to power API&apos;s, this recently got widened with GRPC which you can read about in my article &lt;a href=&quot;https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;.NET &amp;#x26; GRPC What they forgot to tell you&lt;/a&gt;. GraphQL was the third final frontier that needed exploring 🥾...until now.&lt;/p&gt;
+&lt;p&gt;Having looked at it a year back the implementations for .NET were in their infancy, which meant that your server would only be as good as the framework you choose. Fast forward to 2021, &lt;a href=&quot;https://github.com/ChilliCream/hotchocolate&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Chilli Creams Hotchocolate&lt;/a&gt; has gained some serious ground and makes GraphQL an appealing proposition for developers.&lt;/p&gt;
+&lt;p&gt;In this article I hope to cover two main points,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How REST is designed to break backend engineers&lt;/li&gt;
+&lt;li&gt;How GraphQL saves the day&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;your-typical-rest-scenario&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#your-typical-rest-scenario&quot; aria-label=&quot;your typical rest scenario permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Your typical REST scenario&lt;/h1&gt;
+&lt;p&gt;Let&apos;s paint the scene, your a backend engineer who&apos;s creating an endpoint for showing a list of cats. With your battle-tested REST knowledge, you set out to create your first basic endpoint in the &lt;code&gt;CatsController&lt;/code&gt; that returns all cats and the front end engineer is ready to integrate it into his UI.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;// api/cats
+[HttpGet]
+public async Task&amp;lt;IActionResult&amp;gt; GetCats()
+{
+    using (var context = contextFactory.CreateDbContext())
+    {
+        var cats = await context.Cats.ToListAsync();
+
+        if(cat != null)
+            return Ok(cats);
+    }
+
+    return NoContent();
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The app soon becomes a hit! your product manager decides to expand the functionality to filter by cat descriptions and to create a new cat information page. Getting to work you expand the endpoints for the front end engineers to use.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;//api/cats/1
+[HttpGet]
+[Route(&amp;quot;{id}&amp;quot;)]
+public async Task&amp;lt;IActionResult&amp;gt; GetCatsById([FromRoute] int id)
+{
+    using (var context = contextFactory.CreateDbContext())
+    {
+        var cats = await context.Cats.FirstOrDefaultAsync(x =&amp;gt; x.Id == id);
+
+        if(cats != null)
+            return Ok(cats);
+    }
+
+    return NoContent();
+}
+
+// api/cats/description/brown
+[HttpGet]
+[Route(&amp;quot;description/{description}&amp;quot;)]
+public async Task&amp;lt;IActionResult&amp;gt; GetCatsByDescription([FromRoute] string description)
+{
+    using (var context = contextFactory.CreateDbContext())
+    {
+        var cats = await context.Cats.Where(x =&amp;gt; x.Description.Contains(description)).ToListAsync();
+
+        if(cats != null)
+            return Ok(payload);
+    }
+
+    return NoContent();
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The cycle continues with product owners coming up with more feature requests and at the bottom of the pile, you got the backend engineer being reactive to all the changes. By the time you&apos;ve wrapped up the project your left with a code smell of 10+ endpoints 💩.&lt;/p&gt;
+&lt;p&gt;The situation further degrades after a year when the UI gets redesigned and features are culled based on user usage. You end up with random floating endpoints because quite frankly no one audits their endpoints for dead code.&lt;/p&gt;
+&lt;p&gt;This is where GraphQL steps in, it switches the responsibility of an engineer from anticipating and creating endpoints to simply upfront displaying everything that&apos;s available with declarative meaning.&lt;/p&gt;
+&lt;h1 id=&quot;hot-chocolate-net-graphql-server-framework&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#hot-chocolate-net-graphql-server-framework&quot; aria-label=&quot;hot chocolate net graphql server framework permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Hot Chocolate (.NET GraphQL server framework)&lt;/h1&gt;
+&lt;p&gt;Hot chocolate is one of the leading implementations of a GraphQL server, one important thing to note when choosing a framework is that your implementation will only be as good as the framework you choose. As the &lt;a href=&quot;http://spec.graphql.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;GraphQL specification&lt;/a&gt; progresses you want a framework that keeps up to date with the changes... Hot Chocolate does that.&lt;/p&gt;
+&lt;p&gt;To understand the basics of Hot Chocolate I recommend &lt;a href=&quot;https://www.youtube.com/user/binarythistle&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;&lt;strong&gt;Les Jackson&apos;s&lt;/strong&gt;&lt;/a&gt; free course on youtube. It is a bit lengthy at 3 Hours and 45 Minutes but it allows you to create an ASP.NET implementation from scratch and understand basic concepts like Querys, Mutations and Subscriptions. By the end of the course, you have a GraphQL service that can do CRUD actions (do 👍 his video it&apos;s great!).&lt;/p&gt;
+&lt;p&gt;&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube-nocookie.com/embed/HuN94qNwQmM?rel=0&quot; frameBorder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowFullScreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;The source code he produces can also be found on his &lt;a href=&quot;https://github.com/binarythistle/S04E01---.NET-5-GraphQL-API&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;github repo&lt;/a&gt;. The source code is a great starting point as it creates a docker image containing an MSSQL database. The solution itself already has Entity Framework and Hot Chocolate bootstrapped, with two entities to test with.&lt;/p&gt;
+&lt;p&gt;On top of this &lt;a href=&quot;https://github.com/ChilliCream/hotchocolate/blob/main/src/BananaCakePop&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Banana Cake Pop 🍌&lt;/a&gt; is also integrated which allows you to query your server through a browser (similar to swagger).&lt;/p&gt;
+&lt;p&gt;As well as &lt;a href=&quot;https://github.com/APIs-guru/graphql-voyager&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;GraphQL Voyager 🚀&lt;/a&gt; (do checkout the &lt;a href=&quot;https://apis.guru/graphql-voyager/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;live demo&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;To understand the remainder of the article it&apos;s important to have some basic knowledge of Hot Chocolate.&lt;/p&gt;
+&lt;h1 id=&quot;graphql-voyager&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#graphql-voyager&quot; aria-label=&quot;graphql voyager permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;GraphQl Voyager&lt;/h1&gt;
+&lt;p&gt;Whilst this is an addition to what&apos;s being discussed, it&apos;s worth briefly mentioning. Voyager helps facilitate the move of a backend engineer from creating and documenting prescriptive REST endpoints to simply becoming a harbour of documentation and entities.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The marker of a quality API has shifted from creating a subjectively RESTfull API and how well it&apos;s documented to ... just how well it&apos;s documented 📝.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Here&apos;s a taste of what is looks like for our API,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/8f7Kb65mDXS5ZBSA4At50/08bcdb6bfe661bdb50965e7b9e8d5a81/graphql-voyager.png&quot; alt=&quot;Graphql Voyager&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;what-they-forgot-to-mention&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#what-they-forgot-to-mention&quot; aria-label=&quot;what they forgot to mention permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;What they forgot to mention&lt;/h1&gt;
+&lt;p&gt;Up till now what we have discussed fits the 80% CRUD usecase, however as we know API&apos;s that are in the wild also deal with a range of other responsibilities. The remainder of this article is to shed some light on how this is done.&lt;/p&gt;
+&lt;h2 id=&quot;how-to-version-your-api&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-version-your-api&quot; aria-label=&quot;how to version your api permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to version your API&lt;/h2&gt;
+&lt;p&gt;The typical versioning strategy for REST is to version using URLs &lt;code&gt;https://api.cats.com/v1&lt;/code&gt; (when developers can be bothered). However with GraphQL as your only ever posting to a single endpoint that strategy is no longer a prefered solution.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;While there&apos;s nothing that prevents a GraphQL service from being versioned just like any other REST API, GraphQL takes a strong opinion on avoiding versioning by providing the tools for the continuous evolution of a GraphQL schema.
+&lt;em&gt;&lt;a href=&quot;https://graphql.org/learn/best-practices/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Taken from GraphQL Best Practices&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Before we begin on how to version, there are some distinct points to note.&lt;/p&gt;
+&lt;p&gt;Non-breaking changes can continue as they would with REST, adding properties to entities (as you would with response models in REST), continues to be a way to evolve your API. Similarly adding new query types to your GraphQL server is also deemed as a non-breaking change, and is equivalent to adding new endpoints in REST.&lt;/p&gt;
+&lt;p&gt;GraphQL aids in breaking changes caused due to nullability as &lt;strong&gt;everything&lt;/strong&gt; unless specified is treated as nullable. This leads to upfront resilience on the front end to missing data, the &lt;code&gt;id: Int!&lt;/code&gt; in the example below cannot be null.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;type Cats {
+  id: Int!
+  name: String
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Eventually, we do still hit circumstances where a breaking change is needed. In these situations we have two strategies. The first as &lt;a href=&quot;https://chillicream.com/docs/hotchocolate/defining-a-schema/versioning/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Chilli Cream Docs&lt;/a&gt; specify is to add deprecated flags to old properties and begin to shift usage to new versions.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class CatsType : ObjectType&amp;lt;Cats&amp;gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&amp;lt;Cats&amp;gt; descriptor)
+    {
+        descriptor.Description(&amp;quot;Represents commands available on a platform&amp;quot;);
+
+        descriptor.Field(x =&amp;gt; x.Name).Deprecated(&amp;quot;This is no longer used, use FirstName and LastName&amp;quot;);
+        descriptor.Field(x =&amp;gt; x.FirstName);
+        descriptor.Field(x =&amp;gt; x.LastName);
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;For client developers, this then creates warnings when using a deprecated property.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/2BkWWBcz1UAAU9fFVavBGQ/c812ee032ddcd8eb600b165616f68e5b/Screenshot_2021-03-26_153337.png&quot; alt=&quot;Depricated GraphQL property&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Whilst this approach works over time it could create a lot of noise if you have many deprecated properties, an alternative approach is to split the entity entirely, use different classes between the two versions. Here is an example, we start by creating two query types,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public record CatResponse1(int Id, string Name);
+public record CatResponse2(int Id, string FirstName, string LastName);&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Both of these would contain their own Code First type files&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class CatType1 : ObjectType&amp;lt;CatResponse1&amp;gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&amp;lt;CatResponse1&amp;gt; descriptor)
+    {
+        descriptor.Description(&amp;quot;Represents cats!&amp;quot;);
+
+        descriptor.Field(x =&amp;gt; x.Name)
+            .Description(&amp;quot;Represents the name of the cat&amp;quot;)
+            .Deprecated(&amp;quot;This is no longer used, use FirstName and LastName from Cat2&amp;quot;);
+    }
+}
+
+public class CatType2 : ObjectType&amp;lt;CatResponse2&amp;gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&amp;lt;CatResponse2&amp;gt; descriptor)
+    {
+        descriptor.Description(&amp;quot;Represents cats!&amp;quot;);
+
+        descriptor.Field(x =&amp;gt; x.FirstName)
+            .Description(&amp;quot;Represents the name firstname of the cat&amp;quot;);
+        descriptor.Field(x =&amp;gt; x.LastName)
+            .Description(&amp;quot;Represents the name lastname of the cat&amp;quot;);
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The final piece of code is to use the intermediary response models. Under the hood we are still using the same EF entity.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class Query
+{
+    [UseDbContext(typeof(AppDbContext))]
+    [UseFiltering]
+    [UseSorting]
+    public IQueryable&amp;lt;CatResponse1&amp;gt; GetCat1([ScopedService] AppDbContext context)
+    {
+        var cats = context.Cats;
+
+        return cats.Select(x =&amp;gt; new CatResponse1(x.Id, x.Name));
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    [UseFiltering]
+    [UseSorting]
+    public IQueryable&amp;lt;CatResponse2&amp;gt; GetCat2([ScopedService] AppDbContext context)
+    {
+        var cats = context.Cats;
+
+        return cats.Select(x =&amp;gt; new CatResponse2(x.Id, x.FirstName, x.LastName));
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;These changes now allow us to split our models, the two can be queried independently.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4RSPAHISSIpKS3qFfZbRq1/b53386073d0e86bc0e14a95b30ff857a/versioned-entities.png&quot; alt=&quot;Versioned types&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;how-to-do-authentication&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-do-authentication&quot; aria-label=&quot;how to do authentication permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to do Authentication&lt;/h2&gt;
+&lt;p&gt;Since Hot Chocolate works on top of ASP.NET we can leverage on all the traditional Authentication pipelines we use for REST, nothing changes! To demonstrate this I&apos;m going to extend the base implementation with a basic authentication mechanism using a header value &lt;code&gt;x-api-key&lt;/code&gt; and a key defined in the &lt;code&gt;appsettings.json&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;adding-key-based-authentication&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#adding-key-based-authentication&quot; aria-label=&quot;adding key based authentication permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Adding key-based authentication&lt;/h3&gt;
+&lt;p&gt;To begin let&apos;s first add basic app settings to hold our authentication key (this represents the key the client will pass to the server to authentication their request), and create a class to deserialise into using &lt;code&gt;IOptions&lt;/code&gt; interface.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;//Code goes into appsettings.json
+&amp;quot;AuthenticationSettings&amp;quot;: {
+    &amp;quot;AuthenticationToken&amp;quot;: &amp;quot;secret123&amp;quot;
+}
+
+//New class to serialize into
+public class AuthenticationSettings
+{
+    public string AuthenticationToken { get; set; }
+}
+
+//Register the configuration in Startup.cs &amp;gt; ConfigureServices function
+services.Configure&amp;lt;AuthenticationSettings&amp;gt;(Configuration.GetSection(nameof(AuthenticationSettings)));&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Next we will create authentication scheme options as follows,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class ApiKeyAuthenticationOptions : AuthenticationSchemeOptions
+{
+    public const string DefaultScheme = &amp;quot;KeyBasedScheme&amp;quot;;
+    public string Scheme =&amp;gt; DefaultScheme;
+    public string AuthenticationType = DefaultScheme;
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The next part is where the crux of the code is, the &lt;code&gt;AuthenticationHandler&lt;/code&gt; is what determines whether the request was correctly authenticated. On a successful attempt, it populates the ClaimsPrinciple.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class ApiKeyAuthenticationHandler : AuthenticationHandler&amp;lt;ApiKeyAuthenticationOptions&amp;gt;
+{
+    private const string ProblemDetailsContentType = &amp;quot;application/problem+json&amp;quot;;
+    private const string AuthenticationHeaderName = &amp;quot;x-api-key&amp;quot;;
+    private readonly AuthenticationSettings AuthenticationSettings;
+
+    public ApiKeyAuthenticationHandler(
+        IOptionsMonitor&amp;lt;ApiKeyAuthenticationOptions&amp;gt; options,
+        ILoggerFactory logger,
+        UrlEncoder encoder,
+        ISystemClock clock,
+        IOptions&amp;lt;AuthenticationSettings&amp;gt; authenticationSettings) : base(options, logger, encoder, clock)
+    {
+        AuthenticationSettings = authenticationSettings.Value;
+    }
+
+    protected override Task&amp;lt;AuthenticateResult&amp;gt; HandleAuthenticateAsync()
+    {
+        if (!Request.Headers.TryGetValue(AuthenticationHeaderName, out var apiKeyHeaderValues))
+        {
+            return Task.FromResult(AuthenticateResult.NoResult());
+        }
+
+        var providedApiKey = apiKeyHeaderValues.FirstOrDefault();
+
+        if (apiKeyHeaderValues.Count == 0 || string.IsNullOrWhiteSpace(providedApiKey))
+        {
+            return Task.FromResult(AuthenticateResult.NoResult());
+        }
+
+        var isMatchingKey = providedApiKey.Equals(AuthenticationSettings.AuthenticationToken);
+
+        if (isMatchingKey)
+        {
+            var claims = new List&amp;lt;Claim&amp;gt; {
+                //Add your claims here
+            };
+            var identity = new ClaimsIdentity(claims, Options.AuthenticationType);
+            var identities = new List&amp;lt;ClaimsIdentity&amp;gt; { identity };
+            var principal = new ClaimsPrincipal(identities);
+            var ticket = new AuthenticationTicket(principal, Options.Scheme);
+
+            return Task.FromResult(AuthenticateResult.Success(ticket));
+        }
+
+        return Task.FromResult(AuthenticateResult.Fail(&amp;quot;Invalid API Key provided.&amp;quot;));
+    }
+
+    protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
+    {
+        Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+        Response.ContentType = ProblemDetailsContentType;
+        var problemDetails = new { Information = &amp;quot;Unauthorized&amp;quot; };
+
+        await Response.WriteAsync(JsonSerializer.Serialize(problemDetails));
+    }
+
+    protected override async Task HandleForbiddenAsync(AuthenticationProperties properties)
+    {
+        Response.StatusCode = (int)HttpStatusCode.Forbidden;
+        Response.ContentType = ProblemDetailsContentType;
+        var problemDetails = new { Information = &amp;quot;Forbidden&amp;quot; };
+
+        await Response.WriteAsync(JsonSerializer.Serialize(problemDetails));
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;The final part need is to register this in our startup class, below are the two bits of code needed. Once we have this in place the &lt;code&gt;[Authorize]&lt;/code&gt; tag will work for regular REST requests, any request sent without an &lt;code&gt;x-api-key&lt;/code&gt; value of &apos;secret123&apos; will be rejected. The next step is to see how we replicate this in GraphQL.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public void ConfigureServices(IServiceCollection services)
+{
+    ...
+    services.AddAuthentication(options =&amp;gt;
+    {
+        options.DefaultAuthenticateScheme = ApiKeyAuthenticationOptions.DefaultScheme;
+        options.DefaultChallengeScheme = ApiKeyAuthenticationOptions.DefaultScheme;
+    }).AddScheme&amp;lt;ApiKeyAuthenticationOptions, ApiKeyAuthenticationHandler&amp;gt;(
+        ApiKeyAuthenticationOptions.DefaultScheme,
+        null
+    );
+    services.AddAuthorization();
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    ...
+    app.UseAuthentication();
+    app.UseAuthorization();
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h3 id=&quot;authenticating-a-graphql-entity&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#authenticating-a-graphql-entity&quot; aria-label=&quot;authenticating a graphql entity permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Authenticating a GraphQl Entity&lt;/h3&gt;
+&lt;p&gt;Authentication in GraphQL works by authorizing individual models, to begin we first need to add the HotChocolate Authorization package &lt;code&gt;HotChocolate.AspNetCore.Authorization&lt;/code&gt; and enable it in the &lt;code&gt;Startup.cs&lt;/code&gt; class, its a one-liner,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;services.AddAuthorizeDirectiveType()&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Now similar to the &lt;code&gt;[Authorize]&lt;/code&gt; tag we use for REST we can enable Authorization in for our individual ObjectTypes by adding a simple &lt;code&gt;descriptor.Authorize()&lt;/code&gt; call.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;public class CatType1 : ObjectType&amp;lt;CatResponse1&amp;gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&amp;lt;CatResponse1&amp;gt; descriptor)
+    {
+        descriptor.Authorize();
+        ...
+    }
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Once this has been added making calls without the header will return an unauthenticated result that looks like this,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;{
+  &amp;quot;errors&amp;quot;: [
+    {
+      &amp;quot;message&amp;quot;: &amp;quot;The current user is not authorized to access this resource.&amp;quot;,
+      &amp;quot;locations&amp;quot;: [
+        {
+          &amp;quot;line&amp;quot;: 3,
+          &amp;quot;column&amp;quot;: 5
+        }
+      ],
+      &amp;quot;path&amp;quot;: [
+        &amp;quot;cat1&amp;quot;,
+        1,
+        &amp;quot;id&amp;quot;
+      ],
+      &amp;quot;extensions&amp;quot;: {
+        &amp;quot;code&amp;quot;: &amp;quot;AUTH_NOT_AUTHENTICATED&amp;quot;
+      }
+    },
+    ...&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2 id=&quot;how-to-do-authorisation&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-do-authorisation&quot; aria-label=&quot;how to do authorisation permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to do Authorisation&lt;/h2&gt;
+&lt;p&gt;Extending the code to work with Authorization is also a quick change, in this example we will authorize based on the user&apos;s role. To begin we will extend our &lt;code&gt;ApiKeyAuthenticationHandler&lt;/code&gt; to populate a claim when the authentication key has matched,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;var claims = new List&amp;lt;Claim&amp;gt; {
+    new Claim(&amp;quot;http://schemas.microsoft.com/ws/2008/06/identity/claims/role&amp;quot;, &amp;quot;Admin&amp;quot;)
+};&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Next we can pass a list of accepted roles into the ObjectType &lt;code&gt;CatType1&lt;/code&gt;, in this example I have intentionally added a role that doesn&apos;t exist.&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;var roles = new string[] { &amp;quot;NotAdmin&amp;quot; };
+descriptor.Authorize(roles);&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;Making a request now will spark an unauthorized error,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;{
+  &amp;quot;errors&amp;quot;: [
+    {
+      &amp;quot;message&amp;quot;: &amp;quot;The current user is not authorized to access this resource.&amp;quot;,
+      &amp;quot;locations&amp;quot;: [
+        {
+          &amp;quot;line&amp;quot;: 3,
+          &amp;quot;column&amp;quot;: 5
+        }
+      ],
+      &amp;quot;path&amp;quot;: [
+        &amp;quot;cat1&amp;quot;,
+        1,
+        &amp;quot;id&amp;quot;
+      ],
+      &amp;quot;extensions&amp;quot;: {
+        &amp;quot;code&amp;quot;: &amp;quot;AUTH_NOT_AUTHORIZED&amp;quot;
+      }
+    },
+    ...&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;h2 id=&quot;how-does-logging-work&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-does-logging-work&quot; aria-label=&quot;how does logging work permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How does logging work&lt;/h2&gt;
+&lt;p&gt;Regarding logging Chilli Cream has created a guide to adding an &lt;code&gt;AddDiagnosticEventListener&lt;/code&gt; that&apos;s able to trace incoming requests, check out the article &lt;a href=&quot;https://chillicream.com/blog/2021/01/10/hot-chocolate-logging&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Log Your Queries While Building a GraphQL Server&lt;/a&gt;. It would be interesting to create an example that&apos;s &lt;code&gt;OpenTelemetry&lt;/code&gt; compliant... perhaps that&apos;s one for another day (this articles getting a bit long 😩).&lt;/p&gt;
+&lt;h1 id=&quot;conclusion&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#conclusion&quot; aria-label=&quot;conclusion permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;That&apos;s it folks! We&apos;ve seen that the Hot Chocolate implementation nicely fulfils not just the 80% crud use case but can also deal with the other responsibilities we typically see with our REST services in the wild.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Adding environments to ASP.NET Core with React.js SPA]]></title><description><![CDATA[Recently I started working on a project that was created from the ASP.NET SPA template for react. It's one of the templates you get by default with dotnet and can be created by running dotnet new…]]></description><link>https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</link><guid isPermaLink="true">https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</guid><pubDate>Tue, 19 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Recently I started working on a project that was created from the &lt;strong&gt;ASP.NET SPA template for react&lt;/strong&gt;. It&apos;s one of the templates you get by default with dotnet and can be created by running &lt;code&gt;dotnet new react&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The template creates a dotnet webapp which is designed to be an API backend and links it with a react project to power the UI. When running the project from dotnet, static files are built from the react project and served up.&lt;/p&gt;
 &lt;p&gt;In terms of running the application with different environments, the dotnet perspective is fairly straight forward as we can simply use the environment variable &lt;code&gt;ASPNETCORE_ENVIRONMENT&lt;/code&gt;. But the question is how do we pass this variable to the SPA so that we can shift between different environments?&lt;/p&gt;
 &lt;p&gt;Having trawled the internet I didn&apos;t see any examples, so I decided to create my own!&lt;/p&gt;
