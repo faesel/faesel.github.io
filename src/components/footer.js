@@ -28,7 +28,7 @@ const Footer = () => {
       <div className={footerStyles.social}>
         <a
           href={data.site.siteMetadata.social.twitter}
-          rel="noopener noreferrer"
+          rel="me"
           target="_blank"
         >
           <FiTwitter /> Twitter
@@ -42,7 +42,7 @@ const Footer = () => {
         </a>
         <a
           href={data.site.siteMetadata.social.github}
-          rel="noopener noreferrer"
+          rel="me"
           target="_blank"
         >
           <FiGithub /> GitHub
