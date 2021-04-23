@@ -100,46 +100,54 @@ const Blog = props => {
         datePublished={blogContent.datePublishedIso8601}
       />
 
-      <span className="title">{blogContent.title}</span>
-      <p>
-        <FiCalendar title="Date Published" /> {blogContent.datePublished}
-        &nbsp;&nbsp;
-        <FiClock title="Reading Time" /> {blogContent.timeToRead} Minutes
-      </p>
-      <ol className="tags">
-        {blogContent.tags.map((tag, index) => (
-          <li key={index} className="tag">
-            {tag}
-          </li>
-        ))}
-      </ol>
+      <article className="h-card">
+        <span className="p-name title">{blogContent.title}</span>
+        <p>
+          <FiCalendar title="Date Published" /> {blogContent.datePublished}
+          &nbsp;&nbsp;
+          <FiClock title="Reading Time" /> {blogContent.timeToRead} Minutes
+        </p>
+        <ol className="tags">
+          {blogContent.tags.map((tag, index) => (
+            <li key={index} className="tag">
+              {tag}
+            </li>
+          ))}
+        </ol>
 
-      <img src={blogContent.imageUrl} alt={blogContent.imageAlt}></img>
-      {blogContent.content && (
-        <div
-          className="article"
-          dangerouslySetInnerHTML={{
-            __html: blogContent.content.childMarkdownRemark.html,
-          }}
-        ></div>
-      )}
+        <img
+          className="u-photo"
+          src={blogContent.imageUrl}
+          alt={blogContent.imageAlt}
+        ></img>
+        {blogContent.content && (
+          <div
+            className="p-summary e-content article"
+            dangerouslySetInnerHTML={{
+              __html: blogContent.content.childMarkdownRemark.html,
+            }}
+          ></div>
+        )}
 
-      <SharePanel
-        heroImageUrl={blogContent.imageUrl}
-        heroImageAlt={blogContent.imageAlt}
-        url={blogContent.url}
-        title={blogContent.title}
-        source={"www.faesel.com"}
-        summary={blogContent.description}
-      ></SharePanel>
+        <SharePanel
+          heroImageUrl={blogContent.imageUrl}
+          heroImageAlt={blogContent.imageAlt}
+          url={blogContent.url}
+          title={blogContent.title}
+          source={"www.faesel.com"}
+          summary={blogContent.description}
+        ></SharePanel>
 
-      <DiscussionEmbed {...disqusConfig} />
+        <DiscussionEmbed {...disqusConfig} />
 
-      <hr></hr>
+        <hr></hr>
 
-      <h2>RELATED ARTICLES</h2>
+        <h2>RELATED ARTICLES</h2>
 
-      <RelatedArticles relatedArticles={blogContent.related}></RelatedArticles>
+        <RelatedArticles
+          relatedArticles={blogContent.related}
+        ></RelatedArticles>
+      </article>
     </Layout>
   )
 }
