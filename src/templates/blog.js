@@ -104,7 +104,7 @@ const Blog = props => {
         <a
           rel="me"
           className="u-url"
-          style="display:none"
+          style={{ display: "none" }}
           url={blogContent.url}
         ></a>
         <span className="p-name title">{blogContent.title}</span>
