@@ -100,7 +100,7 @@ const Blog = props => {
         datePublished={blogContent.datePublishedIso8601}
       />
 
-      <article className="h-card">
+      <article className="h-entry">
         <a
           rel="me"
           className="u-url"
