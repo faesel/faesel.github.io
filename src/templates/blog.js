@@ -101,6 +101,12 @@ const Blog = props => {
       />
 
       <article className="h-card">
+        <a
+          rel="me"
+          className="u-url"
+          style="display:none"
+          url={blogContent.url}
+        ></a>
         <span className="p-name title">{blogContent.title}</span>
         <p>
           <FiCalendar title="Date Published" /> {blogContent.datePublished}

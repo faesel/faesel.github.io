@@ -4,7 +4,7 @@ import relatedArticleStyle from "./relatedArticle.module.scss"
 const RelatedArticle = ({ title, url, heroImageUrl, heroImageAlt }) => {
   return (
     <div className={relatedArticleStyle.box}>
-      <a rel="me" className="u-url" href={url}>
+      <a href={url}>
         <img
           className={relatedArticleStyle.boximage}
           height={100}
