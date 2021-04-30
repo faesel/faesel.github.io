@@ -106,7 +106,7 @@ const Blog = props => {
           },
           {
             name: `${blogContent.title}`,
-            url: `/blog/${blogContent.slug}`,
+            url: `blog/${blogContent.slug}`,
           },
         ]}
       />
