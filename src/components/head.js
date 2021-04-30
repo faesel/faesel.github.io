@@ -13,6 +13,7 @@ const Head = ({
   imageAlt,
   type,
   datePublished,
+  breadcrumbList,
 }) => {
   const data = useStaticQuery(graphql`
     query {
@@ -34,30 +35,21 @@ const Head = ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: `${data.site.siteMetadata.siteUrl}/home`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: `${data.site.siteMetadata.siteUrl}/blog`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Projects",
-        item: `${data.site.siteMetadata.siteUrl}/projects`,
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Contact",
-        item: `${data.site.siteMetadata.siteUrl}/contact`,
-      },
+      breadcrumbList
+        ? breadcrumbList.map((breadcrumb, index) => {
+            return {
+              "@type": "ListItem",
+              position: index + 1,
+              name: breadcrumb.name,
+              item: `${data.site.siteMetadata.siteUrl}/${breadcrumb.url}`,
+            }
+          })
+        : {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: `${data.site.siteMetadata.siteUrl}/home`,
+          },
     ],
   }
 

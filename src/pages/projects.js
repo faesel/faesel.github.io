@@ -10,7 +10,15 @@ import gatsbyTemplate from "../../static/projects/gatsby-template/gatsbyTemplate
 const ProjectsPage = () => {
   return (
     <Layout>
-      <Head pageTitle="Projects" />
+      <Head
+        pageTitle="Projects"
+        breadcrumbList={[
+          {
+            name: "Projects",
+            url: "Projects",
+          },
+        ]}
+      />
       <span className={projectStyles.pagetitle}>Projects</span>
       <ol className={projectStyles.projectbox}>
         <li className={projectStyles.contactoption}>

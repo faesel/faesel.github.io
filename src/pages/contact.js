@@ -26,7 +26,15 @@ const ContactPage = () => {
 
   return (
     <Layout>
-      <Head pageTitle="Contact" />
+      <Head
+        pageTitle="Contact"
+        breadcrumbList={[
+          {
+            name: "Contact",
+            url: "Contact",
+          },
+        ]}
+      />
       <span className={contactStyles.pagetitle}>Contact Me</span>
 
       <p>

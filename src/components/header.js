@@ -36,7 +36,7 @@ const Header = () => {
             activeClassName={headerStyles.activeNavItem}
             to="/blog"
           >
-            <h4 className={headerStyles.nav2}>BLOG</h4>
+            <h4 className={`${headerStyles.nav2} pulse`}>BLOG</h4>
           </Link>
           <Link
             className={headerStyles.navItem}

@@ -35,7 +35,15 @@ const BlogPage = () => {
 
   return (
     <Layout>
-      <Head pageTitle="Blog" />
+      <Head
+        pageTitle="Blog"
+        breadcrumbList={[
+          {
+            name: "Blog",
+            url: "Blog",
+          },
+        ]}
+      />
       <span className={blogStyles.pagetitle}>Blog</span>
       <ol className={blogStyles.posts}>
         {data.allContentfulBlog.edges.map((edge, index) => {

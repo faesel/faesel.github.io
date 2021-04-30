@@ -31,7 +31,15 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <Head pageTitle="Home" />
+      <Head
+        pageTitle="Home"
+        breadcrumbList={[
+          {
+            name: "Home",
+            url: "Home",
+          },
+        ]}
+      />
       <article className="h-card">
         <p className={indexStyles.heading}>
           Hi I&apos;m {author}, a full-stack developer, team lead & mentor.
@@ -41,8 +49,8 @@ const IndexPage = () => {
             <p>
               I am a software developer with a strong passion for technology and
               all things new. I specialise in delivering web-based & enterprise
-              solutions and love new challenges. I take great pride in keeping up
-              to date with current development practices and instilling them
+              solutions and love new challenges. I take great pride in keeping
+              up to date with current development practices and instilling them
               within my working environment.
             </p>
           </div>
@@ -64,11 +72,11 @@ const IndexPage = () => {
           <div className={indexStyles.projectonecontent}>
             <h3>Az-Lazy - The go-to CLI for Azure storage</h3>
             <p>
-              Check out my CLI tool Az-Lazy, it provides a command line interface
-              to quickly manage and make changes to azure storage queues, blobs
-              and tables. The inspiration for this project was to move away from
-              using Azure Storage Manager and provide a faster CLI experience for
-              developers.
+              Check out my CLI tool Az-Lazy, it provides a command line
+              interface to quickly manage and make changes to azure storage
+              queues, blobs and tables. The inspiration for this project was to
+              move away from using Azure Storage Manager and provide a faster
+              CLI experience for developers.
             </p>
           </div>
         </div>
@@ -102,10 +110,10 @@ const IndexPage = () => {
             <h2>Backend Development</h2>
             <p>
               A backend developer of 10 Years + experience, server side
-              development has always been the backbone of my experience. With the
-              spectrum of responsibilities now widened by the Dev-Ops movement,
-              creating infrastructure as code has widened my scope and interest in
-              the field.
+              development has always been the backbone of my experience. With
+              the spectrum of responsibilities now widened by the Dev-Ops
+              movement, creating infrastructure as code has widened my scope and
+              interest in the field.
             </p>
           </div>
           <div className={indexStyles.skillitem}>
@@ -114,8 +122,8 @@ const IndexPage = () => {
             <p>
               Ive always found the fast moving pase of front-end technology
               fascinating. As library&apos;s have started to mature I have begun
-              to invest more time working on library&apos;s within the React echo
-              system. And lets not forget the black magic that is CSS.
+              to invest more time working on library&apos;s within the React
+              echo system. And lets not forget the black magic that is CSS.
             </p>
           </div>
         </div>
@@ -125,9 +133,9 @@ const IndexPage = () => {
             <h2>Tech Lead</h2>
             <p>
               Throughout my career ive had multiple opportunities building and
-              refining teams as well as company culture. I have always considered
-              training up a apprentice developer to a well respected engineer as
-              one of my greatest achievements.
+              refining teams as well as company culture. I have always
+              considered training up a apprentice developer to a well respected
+              engineer as one of my greatest achievements.
             </p>
           </div>
           <div className={indexStyles.skillitem}>
@@ -135,8 +143,8 @@ const IndexPage = () => {
             <h2>Blog Writer</h2>
             <p>
               Sometimes this content is more for myself to remember some of the
-              harder challenges I have faced, but I also hope this content can be
-              of use to someone else.
+              harder challenges I have faced, but I also hope this content can
+              be of use to someone else.
             </p>
           </div>
         </div>

@@ -73,6 +73,7 @@ const Blog = props => {
     description: props.data.contentfulBlog.bodym.childMarkdownRemark.excerpt,
     timeToRead: props.data.contentfulBlog.bodym.childMarkdownRemark.timeToRead,
     url: `${props.data.site.siteMetadata.siteUrl}/blog/${props.data.contentfulBlog.slug}`,
+    slug: props.data.contentfulBlog.slug,
     imageUrl: `https:${props.data.contentfulBlog.hero.file.url}`,
     imageAlt: props.data.contentfulBlog.hero.title,
     datePublishedIso8601: props.data.contentfulBlog.iso8601DatePublished,
@@ -98,6 +99,16 @@ const Blog = props => {
         imageAlt={blogContent.imageAlt}
         type="article"
         datePublished={blogContent.datePublishedIso8601}
+        breadcrumbList={[
+          {
+            name: "Blog",
+            url: "Blog",
+          },
+          {
+            name: `${blogContent.title}`,
+            url: `/blog/${blogContent.slug}`,
+          },
+        ]}
       />
 
       <article className="h-entry">
