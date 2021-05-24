@@ -1,4 +1,193 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 30 Apr 2021 15:35:58 GMT</lastBuildDate><item><title><![CDATA[How to Deconstruct objects in C# like we do in Javascript]]></title><description><![CDATA[I've been using C# for about a decade now, and every now and again I discover something that surprises me. This week it's the ability to deconstruct as we do in Javascript (and I'm not talking about…]]></description><link>https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</link><guid isPermaLink="true">https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</guid><pubDate>Thu, 08 Apr 2021 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;ve been using C# for about a decade now, and every now and again I discover something that surprises me. This week it&apos;s the ability to deconstruct as we do in Javascript (and I&apos;m not talking about using Tuples!).&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 24 May 2021 06:31:25 GMT</lastBuildDate><item><title><![CDATA[Why every developer needs to use Obsidian]]></title><description><![CDATA[As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically…]]></description><link>https://www.faesel.com/blog/why-every-developer-needs-to-use-obsidian</link><guid isPermaLink="true">https://www.faesel.com/blog/why-every-developer-needs-to-use-obsidian</guid><pubDate>Sun, 23 May 2021 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically. Maintaining a cognitive memory across all the different CLI&apos;s, languages/frameworks etc in today&apos;s setting is no small feat.&lt;/p&gt;
+&lt;p&gt;Over time i&apos;ve found that if you want something to stick you have to write it down, and if it doesn&apos;t stick (or un-sticks over time) you need some notes to look back at it. As my brain 🧠 ages these notes have become invaluable, and the need for quality notes over rushed pasted snippets has become more of a priority.&lt;/p&gt;
+&lt;p&gt;Due to this I decided to revisit and reassess how I learn, and in doing so I ended up discovering &lt;a href=&quot;https://obsidian.md/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Obsidian&lt;/a&gt; which has been a game changer for me. This article is an engineers perspective of creating dev notes to aid in learning and recollection.&lt;/p&gt;
+&lt;h1 id=&quot;my-old-setup&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#my-old-setup&quot; aria-label=&quot;my old setup permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;My old setup&lt;/h1&gt;
+&lt;p&gt;Prior to &lt;a href=&quot;https://obsidian.md/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Obsidian&lt;/a&gt; my note taking activities all occurred in OneNote, I had both my personal notes as well as learning notes around different technologies all in one place split by sections.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/o5aNPcsMQrTCGBp8ffbJY/454ecc55a38b36a53093897c1bc32181/OneNote_Structure.png&quot; alt=&quot;OneNote Structure&quot;&gt;
+&lt;em&gt;My programming category would contain a new section per technology&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The notes themself&apos;s contained a mixture of,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Images (mostly diagrams)&lt;/li&gt;
+&lt;li&gt;Paragraphs&lt;/li&gt;
+&lt;li&gt;Code snippets (sure you can use gists or a repo, but i want context with my code snippets and i want it to be searchable)&lt;/li&gt;
+&lt;li&gt;Links to articles, tools, documentation links ect.&lt;/li&gt;
+&lt;li&gt;Youtube links usually tutorials&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However I realized that there are some serious shortcomings with OneNote, and these problems are replicated across its competitors too, like Notion or Evernote. Heres my list,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Code pasted in is never pure code, they always add markup on top to render which means copying and pasting out adds characters or unwanted proprietary formatting&lt;/li&gt;
+&lt;li&gt;Diagrams are always disconnected, hard to edit. They are usually pasted in images from other tools.&lt;/li&gt;
+&lt;li&gt;I don&apos;t have any version tracking, history or backup.&lt;/li&gt;
+&lt;li&gt;Pasting and editing is distracting with as styling gets pasted in from the source.&lt;/li&gt;
+&lt;li&gt;There are no connections in my notes, linking is not possible.&lt;/li&gt;
+&lt;li&gt;I dont truly own any of the content, i will forever be tied to whatever I write in.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The list can go on, but you get the idea...&lt;/p&gt;
+&lt;h1 id=&quot;how-obsidian-makes-it-better&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-obsidian-makes-it-better&quot; aria-label=&quot;how obsidian makes it better permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How Obsidian makes it better&lt;/h1&gt;
+&lt;p&gt;Obsidian is part of a next generation in IDE&apos;s designed specifically for research and note taking in their own words they describe it as,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A second brain, for you, forever. Obsidian is a powerful knowledge base that works on top of a local folder of plain text Markdown files.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Its the VS code of markdown... no quite literally. At its base it provides a really smooth cross platform writing experience with some key features,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Markdown editing, you get all the benefits of being able to easily style without leaving your keyboard, as well as encorperating code snippets easily.&lt;/li&gt;
+&lt;li&gt;Tagging and creating links (backlinks) across your markdown files&lt;/li&gt;
+&lt;li&gt;Graph view (more on that later)&lt;/li&gt;
+&lt;li&gt;Powerful built in search&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And just like VS code its got a rich plugin ecosystem that&apos;s powered by opensource github projects that greatly extend its usability and allows you to mold the app to your liking.&lt;/p&gt;
+&lt;h2 id=&quot;you-own-what-you-write&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#you-own-what-you-write&quot; aria-label=&quot;you own what you write permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;You own what you write&lt;/h2&gt;
+&lt;p&gt;Obsidian uses local markdown files that are stored on your own computers file system. There is no proprietary formatting, encoding etc, what you create is just standard markdown files (.md) and a bunch of folders.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/7CdSonGKup7xhgpkBtucs7/5ff5b1baababda93c470bebee41bb464/Obsidian_File_Structure.png&quot; alt=&quot;Obsidian File Structure&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Why is this important you might ask?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It means the notes you painstakingly curate are not locked into a single echo-system, you can shift between them as long as whatever your shifting to supports markdown.&lt;/li&gt;
+&lt;li&gt;You also get greater control over how you backup and manage change tracking.&lt;/li&gt;
+&lt;li&gt;You have greater control over the privacy of what you write, in a world full of breaches a shift away from centralized cloud storage is refreshing. &lt;em&gt;harshibar&lt;/em&gt; sums it up nicely with this video,&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube-nocookie.com/embed/HhWUjp5pD0g?rel=0&quot; frameBorder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowFullScreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;h2 id=&quot;works-with-git&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#works-with-git&quot; aria-label=&quot;works with git permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Works with git&lt;/h2&gt;
+&lt;p&gt;Obsidian doesn&apos;t support git right out the box, it requires a community plugin called &lt;a href=&quot;https://github.com/denolehov/obsidian-git&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Obsidian Git&lt;/a&gt;. However after having installed the plugin you end up with the greatest change tracking/archiving tool at your disposal.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/gTn99qeodAoxHw1ybqvZg/a504f3b5e0547c47475d2071fb3ab076/Obsidian_Git.png&quot; alt=&quot;Obsidian Git&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Whilst the extension is fairly simple in that its mainly for pushing changes to a selected branch. It offers enough functionality to be out of your way. Dealing with more advanced scenarios like merge conflicts might need to resort to the CLI.&lt;/p&gt;
+&lt;h2 id=&quot;mermaid&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#mermaid&quot; aria-label=&quot;mermaid permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Mermaid&lt;/h2&gt;
+&lt;p&gt;As a visual thinker who thinks takes more information in from pictures than words the expression &lt;em&gt;a picture speaks a thousand words&lt;/em&gt; really hits home. In the past I would always use free tools like &lt;a href=&quot;www/draw.io&quot;&gt;draw.io&lt;/a&gt; to make diagrams then paste in the exported jpg&apos;s into my notes.&lt;/p&gt;
+&lt;p&gt;As a process I always found this really disconnected, and its even more jarring when you need to make edits and go through the whole export to jpeg flow all over again. I also find with these tools getting boxes to line up with connecting lines in a way that doesn&apos;t look a mess is incredibly fiddly and time consuming.&lt;/p&gt;
+&lt;p&gt;One later evolution of this was &lt;a href=&quot;https://plantuml.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Plant UML&lt;/a&gt; which moves away from drawing diagrams to scripting, take this plantUML file as an example,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;@startuml
+
+left to right direction
+
+actor Guest as g
+
+package Professional {
+  actor Chef as c
+  actor &amp;quot;Food Critic&amp;quot; as fc
+}
+
+package Restaurant {
+  usecase &amp;quot;Eat Food&amp;quot; as UC1
+  usecase &amp;quot;Pay for Food&amp;quot; as UC2
+  usecase &amp;quot;Drink&amp;quot; as UC3
+  usecase &amp;quot;Review&amp;quot; as UC4
+}
+
+fc --&amp;gt; UC4
+g --&amp;gt; UC1
+g --&amp;gt; UC2
+g --&amp;gt; UC3
+
+@enduml&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;&lt;em&gt;Taken from the plantUML&apos;s &lt;a href=&quot;https://plantuml.com/use-case-diagram&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;usecase examples&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The above script produces the following diagram, note that the formatting/spacing and styling is all governed by plantUML syntax... there is absolutely no drawing involved.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5jHzAIn4XYzmeeWbhn4yto/3154d97c8ed3f0c4456d3e7850ae6311/plantuml-example.png&quot; alt=&quot;PlantUML Example&quot;&gt;&lt;/p&gt;
+&lt;p&gt;The benefit of this approach is you now have a change tracked diagram that can sit somewhere with your documentation (and as a bonus it formats everything for you). Aside from exporting the script as a .png making edits couldn&apos;t be easier.&lt;/p&gt;
+&lt;p&gt;Whilst PlantUML is great it still take you away from your markdown document as you need to separately create the diagram and later paste in a link to the exported image. A later evolution on this is &lt;a href=&quot;https://mermaid-js.github.io/mermaid/#/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Mermaid&lt;/a&gt; which is similar to PlantUML but works within markdown as a code block. Having diagrams integrated means you no longer need to export diagrams to jpeg when adding to a markdown file... their just there. Here is an example,&lt;/p&gt;
+
+        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;stateDiagram-v2
+[*] --&amp;gt; Still
+Still --&amp;gt; [*]
+
+Still --&amp;gt; Moving
+Moving --&amp;gt; Still
+Moving --&amp;gt; Crash
+Crash --&amp;gt; [*]&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+      
+&lt;p&gt;&lt;em&gt;Taken from Mermaids &lt;a href=&quot;https://mermaid-js.github.io/mermaid/#/stateDiagram&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;state diagram example&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The script produces the following diagram, note that this screenshot was taken directly from Obsidian as it supports Mermaid out right out the box.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/3TdRha2qj11tFdfT1ULT7Y/725f09affa9ed12f05a62957ab88fc34/mermaid-diagram-example.png&quot; alt=&quot;Mermaid Diagram Example&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;creating-a-open-graph-of-knowledge&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#creating-a-open-graph-of-knowledge&quot; aria-label=&quot;creating a open graph of knowledge permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Creating a open graph of knowledge!&lt;/h2&gt;
+&lt;p&gt;Obsidian has the ability of collating all the connections through back-linking and tagging your document to produce a networked graph. Take a look at my graph so far,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/pIYQ7RoXi4eYUW05zkrdn/d81b648ee4f721150b58c4c2fe46d643/obsidian-graph-zoomedout.png&quot; alt=&quot;Obsidian Graph Zoomed Out&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Here&apos;s another picture of it zoomed in, you can see all the connecting notes, as well all the connecting hash tags.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/3Ojk2IEqZ2d3qsT0sOliii/94ec4178cfb7d1f9c5e76a67e80b0d0e/obsidian-graph-zoomedin.png&quot; alt=&quot;Obsidian Graph Zoomed In&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Admittedly whilst this looks really cool i haven&apos;t made much use out of this so far. It could be because I always target specific topics to learn and research into them rather than just free write so there&apos;s no real discovery of connections happening. In a team setting however the graph view could be really useful for content discovery especially when its cross cutting (like filtering on any article that&apos;s tagged with infrastructure).&lt;/p&gt;
+&lt;h1 id=&quot;plugins&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#plugins&quot; aria-label=&quot;plugins permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Plugins&lt;/h1&gt;
+&lt;p&gt;Obsidian has a wide list of plugins, I thought it would be useful for someone new to Obsidian to get a sense of how its functionality can be extended. Below are some choice selections I use personally,&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Github Link&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Advanced Tables&lt;/td&gt;
+&lt;td&gt;Adds better navigation and formatting for markdown tables&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/tgrosinger/advanced-tables-obsidian&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;advanced-tables-obsidian&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Syntax Highlight&lt;/td&gt;
+&lt;td&gt;Adds highlighting of code blocks within the editor view&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/deathau/cm-editor-syntax-highlight-obsidian&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Syntax Highlight&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Markdown prettifier&lt;/td&gt;
+&lt;td&gt;Fixes and formats your markdown file&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/cristianvasquez/obsidian-prettify&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Markdown prettifier&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Mind Map&lt;/td&gt;
+&lt;td&gt;Creates mind map view of your document&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/lynchjames/obsidian-mind-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Mind Map&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Natural Language Dates&lt;/td&gt;
+&lt;td&gt;Allows you to easily add dates into your markdown file&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/argenos/nldates-obsidian&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Natural Language Dates&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Note Refactor&lt;/td&gt;
+&lt;td&gt;Allows you to extract a piece of markdown into its own file&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/lynchjames/note-refactor-obsidian&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Note Refactor&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Obsidian Git&lt;/td&gt;
+&lt;td&gt;Adds support for git, allows you to push changes to your repository&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/denolehov/obsidian-git&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Obsidian Git&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Outliner&lt;/td&gt;
+&lt;td&gt;Adds better list manipulation, also allows you to fold lists&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/vslinko/obsidian-outliner&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Outliner&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Paste URL into selection&lt;/td&gt;
+&lt;td&gt;Allows you to paste a link over text and auto format it&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/denolehov/obsidian-url-into-selection&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Paste URL into selection&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Reading Time&lt;/td&gt;
+&lt;td&gt;More for the blog authors, gives you a reading time for your markdown file&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/avr/obsidian-reading-time&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Readming Time&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Recent Files&lt;/td&gt;
+&lt;td&gt;Adds a panel showing recent opened files&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/tgrosinger/recent-files-obsidian&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Recent Files&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Sliding Panes&lt;/td&gt;
+&lt;td&gt;More of a UI change, allows you to slide between files&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://github.com/deathau/sliding-panes-obsidian&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Sliding Panes&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&quot;themes&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#themes&quot; aria-label=&quot;themes permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Themes&lt;/h1&gt;
+&lt;p&gt;Obsidian also supports a bunch of themes and looks utterly glorious, I use a theme called &lt;em&gt;Atom&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/2Zj4rlGwr1ZaOxxVfb0eP7/968dcaae0e3ca7f49781ed334fe30424/Obsidian.png&quot; alt=&quot;Obsidian&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;conclusion&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#conclusion&quot; aria-label=&quot;conclusion permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Obsidian has really refreshed how I work to a modern standard. Hopefully this has given a good overview of the benefits from a engineers perspective.&lt;/p&gt;
+&lt;p&gt;The only caveat to Obsidian is the lack of mobile apps (its currently being worked on, check out there roadmap on &lt;a href=&quot;https://trello.com/b/Psqfqp7I/obsidian-roadmap&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Trello&lt;/a&gt;). But to be honest I haven&apos;t really felt the need for it as im always learning whilst on my computer.&lt;/p&gt;
+&lt;p&gt;Obsidian is free try use (and fully functional with its free tier), they also have some paid tiers and boltons, so do check it out!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[How to Deconstruct objects in C# like we do in Javascript]]></title><description><![CDATA[I've been using C# for about a decade now, and every now and again I discover something that surprises me. This week it's the ability to deconstruct as we do in Javascript (and I'm not talking about…]]></description><link>https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</link><guid isPermaLink="true">https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</guid><pubDate>Thu, 08 Apr 2021 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;ve been using C# for about a decade now, and every now and again I discover something that surprises me. This week it&apos;s the ability to deconstruct as we do in Javascript (and I&apos;m not talking about using Tuples!).&lt;/p&gt;
 &lt;p&gt;Below is a simple example of deconstruction taking place to draw out the power, and defence property for our Trex object,&lt;/p&gt;
 
         &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
