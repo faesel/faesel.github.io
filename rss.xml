@@ -1,4 +1,180 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 24 May 2021 06:31:25 GMT</lastBuildDate><item><title><![CDATA[Why every developer needs to use Obsidian]]></title><description><![CDATA[As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically…]]></description><link>https://www.faesel.com/blog/why-every-developer-needs-to-use-obsidian</link><guid isPermaLink="true">https://www.faesel.com/blog/why-every-developer-needs-to-use-obsidian</guid><pubDate>Sun, 23 May 2021 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically. Maintaining a cognitive memory across all the different CLI&apos;s, languages/frameworks etc in today&apos;s setting is no small feat.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Faesel.com - Full-Stack Blogger]]></title><description><![CDATA[Personal blog of Faesel Saeed]]></description><link>https://www.faesel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 17 Mar 2023 16:15:30 GMT</lastBuildDate><item><title><![CDATA[Electron & New Relic Integration Using Open Telemetry]]></title><description><![CDATA[Introduction Recently I encountered a scenario where I needed to integrate New Relic into my Electron application. New Relic supports a number of integration types our the box, some of the more…]]></description><link>https://www.faesel.com/blog/electron-newrelic-integration-using-open-telemetry</link><guid isPermaLink="true">https://www.faesel.com/blog/electron-newrelic-integration-using-open-telemetry</guid><pubDate>Fri, 17 Mar 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;introduction&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#introduction&quot; aria-label=&quot;introduction permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Recently I encountered a scenario where I needed to integrate New Relic into my Electron application. New Relic supports a number of integration types our the box, some of the more heavily used ones are,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;APM Agents - Primary used for backend tracking, most of the documentation will point to integrating in this style.&lt;/li&gt;
+&lt;li&gt;Browser Agent - Used for front end client side logging.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Integrating the browser agent was a simple task of adding a logging script to the HTML page hosting the app ... easy so far. Because Electron is effectively loading up a chromium browser, the browser agent should work as normal. The APM Agent on the other hand was a different story, after having scoured the internet I found that its currently not supported with Electron. In fact if you look at the documentation for Electron, there is a suspicious absence of logging documentation. This might be down to the unique way Electrons IPC channels (inter-process-communication, allows for backend and front end communication using an event based model) work.&lt;/p&gt;
+&lt;p&gt;Due to this I knew we would require a manual approach to logging, this is where Open Telemetry comes into play. Using Open Telemetry we can bootstrap the app on startup and start manually adding tracing logs in any backend IPC handler. Since most logging providers now support Open Telemetry, including New Relic we have a mechanism to export out logs out.&lt;/p&gt;
+&lt;p&gt;This article was created as a complete guide to the approach mentioned above. Due to the lack of examples and documentation online I hope this article comes in use for someone. In the example below I was using Electron with Vite and Typescript.&lt;/p&gt;
+&lt;h1 id=&quot;installing-dependencies&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#installing-dependencies&quot; aria-label=&quot;installing dependencies permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Installing Dependencies&lt;/h1&gt;
+&lt;p&gt;To get started open telemetry has a couple of packages that need installing,&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;bash&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;npm install @opentelemetry/api
+npm install @opentelemetry/auto-instrumentations-node
+npm install @opentelemetry/exporter-trace-otlp-http
+npm install @opentelemetry/instrumentation
+npm install @opentelemetry/resources
+npm install @opentelemetry/semantic-conventions&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;h1 id=&quot;bootstrapping-the-app&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#bootstrapping-the-app&quot; aria-label=&quot;bootstrapping the app permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Bootstrapping the App&lt;/h1&gt;
+&lt;p&gt;The first step to integration is to connect into the startup process of Electron and instrument our Open Telemetry tracer. As Open Telemetry allows you to export your logs to multiple 3rd parties the example below will first show you how to get started with Jaeger an open source tracing sink and then expand this to New Relic.&lt;/p&gt;
+&lt;h2 id=&quot;hooking-into-startup&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#hooking-into-startup&quot; aria-label=&quot;hooking into startup permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Hooking into Startup&lt;/h2&gt;
+&lt;p&gt;The first part of coding is to hook into the startup process your application. Electron conveniently has a &lt;code&gt;whenReady()&lt;/code&gt; function that is called when electron has finished initialising. We can make use of this function to register our tracer.&lt;/p&gt;
+&lt;p&gt;Let&apos;s first start by creating a &lt;code&gt;tracing.ts&lt;/code&gt; file in the root of the application. In this file we will have two functions, one to register a tracer and another to get the tracer. We are also going to pass through some useful information to the tracer like the application version, and operating system so that all our logs have some base information they can relay back to New Relic.&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;export const registerTracer = (appVersion: string, operatingSystem: string): void =&amp;gt; {
+	//Registration code here
+}
+
+export const getTracer = (): Tracer =&amp;gt; {
+	//Code to get tracer here
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;p&gt;Next we can call the register function on startup,&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;import { app } from &amp;quot;electron&amp;quot;
+
+app.whenReady().then(() =&amp;gt; {
+	//For me this is the version defined in my package.json
+	const appVersion = app.getVersion();
+	//Part of NodeJS&amp;#39;s way of detirmining the platform
+	const operatingSystem = process.platform;
+
+	registerTracer(appVersion, operatingSystem);
+});&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;h2 id=&quot;configuring-the-tracer&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#configuring-the-tracer&quot; aria-label=&quot;configuring the tracer permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Configuring the Tracer&lt;/h2&gt;
+&lt;p&gt;Now that we have some functions to hook into we can flesh them out with our configuration. For ease of copy and paste im going to first code dump and the file then explain each part.&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;/*tracing.ts*/
+import { BatchSpanProcessor } from &amp;quot;@opentelemetry/sdk-trace-base&amp;quot;;
+import { Resource } from &amp;quot;@opentelemetry/resources&amp;quot;;
+import { SemanticResourceAttributes } from &amp;quot;@opentelemetry/semantic-conventions&amp;quot;;
+import {
+  NodeTracerProvider,
+  SimpleSpanProcessor,
+} from &amp;quot;@opentelemetry/sdk-trace-node&amp;quot;;
+import { registerInstrumentations } from &amp;quot;@opentelemetry/instrumentation&amp;quot;;
+import { OTLPTraceExporter } from &amp;quot;@opentelemetry/exporter-trace-otlp-http&amp;quot;;
+
+import opentelemetry, { Tracer } from &amp;quot;@opentelemetry/api&amp;quot;;
+import { getNodeAutoInstrumentations } from &amp;quot;@opentelemetry/auto-instrumentations-node&amp;quot;;
+
+const NEWRELIC_APP_NAME = &amp;quot;APP NAME GOES HERE&amp;quot;;
+const IS_DEVELOPMENT = import.meta.env.DEV;
+
+export const registerTracer = (appVersion: string, operatingSystem: string): void =&amp;gt; {
+  registerInstrumentations({
+    instrumentations: [
+      getNodeAutoInstrumentations(),
+      //TODO: Add an instrumentation library here when electron is supported
+    ],
+  });
+
+  const resource = Resource.default().merge(
+    new Resource({
+      [SemanticResourceAttributes.SERVICE_NAME]: NEWRELIC_APP_NAME,
+      [SemanticResourceAttributes.SERVICE_VERSION]: appVersion,
+      [SemanticResourceAttributes.OS_NAME]: operatingSystem,
+    })
+  );
+
+  const provider = new NodeTracerProvider({
+    resource: resource,
+  });
+
+  const otlpExporter = new OTLPTraceExporter({
+	//Jaeger tracing url
+	url: &amp;#39;http://localhost:4318/v1/traces&amp;#39;
+  });
+
+  const processor = IS_DEVELOPMENT
+    ? new SimpleSpanProcessor(otlpExporter)
+    : new BatchSpanProcessor(otlpExporter);
+
+  provider.addSpanProcessor(processor);
+  provider.register();
+};&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;p&gt;&lt;em&gt;Note &lt;code&gt;import.meta.env&lt;/code&gt; is just Vite&apos;s way of getting hold of environment variables.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;You might firstly notice that there is a &lt;code&gt;TODO&lt;/code&gt; in the code, if and when Electron supports a plugin style integration with open telemetry, the &lt;code&gt;instrumentations&lt;/code&gt; array will be the place to add it. For now we are manually instrumenting the app.&lt;/p&gt;
+&lt;p&gt;The resources section is given to use using the &lt;code&gt;@opentelemetry/resources&lt;/code&gt; and &lt;code&gt;@opentelemetry/semantic-conventions&lt;/code&gt; packages. It allows us to define some base properties we want to show in all our tracing logs. Obvious things like the app version, and operating systems (especially if your targeting multiple systems) are really useful bits of information to add. There are also some built in attributes for Kubernetes and oddly enough AWS (with some generic ones for other cloud providers).&lt;/p&gt;
+&lt;p&gt;In terms of the &lt;code&gt;OTLPTraceExporter&lt;/code&gt; block, as we opted to do our tracing using HTTP (GRPC is also an option) with the package &lt;code&gt;@opentelemetry/exporter-trace-otlp-http&lt;/code&gt; i have added some basic settings for Jaeger. Note that you can add a number of exporters here, and we will also be extending this to include New Relic.&lt;/p&gt;
+&lt;p&gt;The final part in question is the processors themselves, open telemetry has a few options on how you might want to push your logs to 3rd parties. Ive opted to use a &lt;code&gt;SimpleSpanProcessor&lt;/code&gt; when running the app locally so that my logs are immediately pushed to the servers when testing things out. However in production im making use of a &lt;code&gt;BatchSpanProcessor&lt;/code&gt; that batches a group of logs and then pushes them in one go. This helps reduce network traffic of the app.&lt;/p&gt;
+&lt;h2 id=&quot;exposing-a-tracer&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#exposing-a-tracer&quot; aria-label=&quot;exposing a tracer permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Exposing a Tracer&lt;/h2&gt;
+&lt;p&gt;In order to get an actual tracer we can get an instance from the global tracing provider using the &lt;code&gt;getTracer()&lt;/code&gt; function. This tracer object then allows us to create logs in the shape of a &lt;code&gt;snap&lt;/code&gt;. It is advised to call &lt;code&gt;getTracer&lt;/code&gt; every time you need to start logging as opposed to maintaining your own instance.&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;export const GetTracer = () : Tracer =&amp;gt; {
+  return opentelemetry.trace.getTracer(NEWRELIC_APP_NAME);
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;h1 id=&quot;adding-a-tracing-example&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#adding-a-tracing-example&quot; aria-label=&quot;adding a tracing example permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Adding a Tracing Example&lt;/h1&gt;
+&lt;p&gt;Now that we have added all our logging code we can finally create an actual log entry. To do this we can create a new span, in which we can raise new events and record exceptions. In the example below i&apos;ve added some logging to an IPC handler.&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;import { ipcMain } from &amp;#39;electron&amp;#39;
+import { GetTracer } from &amp;#39;./tracing&amp;#39;
+
+const createWindow = () =&amp;gt; {
+	//Create new browser window
+	ipcMain.handle(&amp;quot;getDinosaurs&amp;quot;, async () =&amp;gt; {
+		await GetTracer().startActiveSpan(&amp;quot;getDinosaurs&amp;quot;, async (span) =&amp;gt; {
+			//await getDinosaurs()
+
+			//Record one or many events in your code blocks
+			span.addEvent(&amp;quot;receivedDinosaur&amp;quot;, { name: dinoName  });
+			//Record exceptions in your code block
+			span.recordException(new Error(`Ops their all extinct!`));
+			span.end();
+		});
+	});
+}&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;h1 id=&quot;testing-with-jaeger&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#testing-with-jaeger&quot; aria-label=&quot;testing with jaeger permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Testing with Jaeger&lt;/h1&gt;
+&lt;p&gt;To test this out with Jaeger you can first execute the following docker command to create a new instance of Jaeger with OTLP enabled.&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;bash&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;docker run -d --name jaeger \
+  -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
+  -e COLLECTOR_OTLP_ENABLED=true \
+  -p 6831:6831/udp \
+  -p 6832:6832/udp \
+  -p 5778:5778 \
+  -p 16686:16686 \
+  -p 4317:4317 \
+  -p 4318:4318 \
+  -p 14250:14250 \
+  -p 14268:14268 \
+  -p 14269:14269 \
+  -p 9411:9411 \
+  jaegertracing/all-in-one:latest&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;p&gt;Once up and running you can navigate to the default UI url &lt;a href=&quot;http://localhost:16686/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;http://localhost:16686/&lt;/a&gt; to start viewing your logs. It order to get something showing up you will need to run the app and begin pushing some logs to Jaeger.&lt;/p&gt;
+&lt;h1 id=&quot;setting-up-new-relic&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#setting-up-new-relic&quot; aria-label=&quot;setting up new relic permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Setting up New Relic&lt;/h1&gt;
+&lt;p&gt;Everything is now setup from a code perspective, its time to create everything we need in New Relic. This step is quite quick and painless, a new key can be created from the API Keys section. Once there follow the &lt;strong&gt;Create a Key&lt;/strong&gt; button. The form requires the following,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Account - Set this to whatever you want&lt;/li&gt;
+&lt;li&gt;Key Type - Set this to &lt;strong&gt;Ingest - Licence&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Name - Set this to whatever you want, however it does make sense to match this up with the service name set in the section &quot;Configuring the Tracer&quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/3Eg3DL2escQx6jZdQsZYBQ/973a748bad74f91ecac6bd711f31f37a/new-relic-adding-new-api-key.png&quot; alt=&quot;new-relic-adding-new-api-key&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Once thats created you should get an option to copy the key which is passed into your &lt;code&gt;OTLPTraceExporter&lt;/code&gt;. As for the URL you can find New Relics OTLP endpoints on this &lt;a href=&quot;https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/get-started/opentelemetry-set-up-your-app/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;link&lt;/a&gt;. Now that we have the settings needed we can change the &lt;code&gt;OTLPTraceExporter&lt;/code&gt; to include the New Relic settings.&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;const otlpExporter = new OTLPTraceExporter({
+	url: &amp;#39;https://otlp.nr-data.net:443&amp;#39;,
+	headers: {
+	  &amp;quot;api-key&amp;quot;: `API KEY GOES HERE`,
+	},
+});&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;p&gt;Once setup you will need to send your first log before anything appears in New Relic. Once you have results will show up in APM &amp;#x26; Services &gt; Services - OpenTelemetry &gt; Click on your app name &gt; Distributed Tracing. You can drill down to view the span events and attributes.&lt;/p&gt;
+&lt;p&gt;New Relic also has a second method of viewing your logs through the use of NRQL queries. You can query your data by visiting &lt;strong&gt;Query Your Data&lt;/strong&gt; and entering the following query,&lt;/p&gt;
+&lt;deckgo-highlight-code language=&quot;sql&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+          &lt;code slot=&quot;code&quot;&gt;SELECT *
+FROM SpanEvent WHERE span.id IN ( 
+	SELECT id FROM Span WHERE otel.library.name = &amp;#39;YOUR APP NAME HERE&amp;#39;
+)&lt;/code&gt;
+        &lt;/deckgo-highlight-code&gt;
+&lt;p&gt;And thats it, hope this was useful for someone! Before you get integrating note that there might be some logging providers that have a much easier integration with New Relic, &lt;a href=&quot;https://docs.sentry.io/platforms/javascript/guides/electron/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;sentry.io&lt;/a&gt; seems like one of them.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Why every developer needs to use Obsidian]]></title><description><![CDATA[As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically…]]></description><link>https://www.faesel.com/blog/why-every-developer-needs-to-use-obsidian</link><guid isPermaLink="true">https://www.faesel.com/blog/why-every-developer-needs-to-use-obsidian</guid><pubDate>Sun, 23 May 2021 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically. Maintaining a cognitive memory across all the different CLI&apos;s, languages/frameworks etc in today&apos;s setting is no small feat.&lt;/p&gt;
 &lt;p&gt;Over time i&apos;ve found that if you want something to stick you have to write it down, and if it doesn&apos;t stick (or un-sticks over time) you need some notes to look back at it. As my brain 🧠 ages these notes have become invaluable, and the need for quality notes over rushed pasted snippets has become more of a priority.&lt;/p&gt;
 &lt;p&gt;Due to this I decided to revisit and reassess how I learn, and in doing so I ended up discovering &lt;a href=&quot;https://obsidian.md/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Obsidian&lt;/a&gt; which has been a game changer for me. This article is an engineers perspective of creating dev notes to aid in learning and recollection.&lt;/p&gt;
 &lt;h1 id=&quot;my-old-setup&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#my-old-setup&quot; aria-label=&quot;my old setup permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;My old setup&lt;/h1&gt;
@@ -54,8 +230,7 @@
 &lt;p&gt;As a visual thinker who thinks takes more information in from pictures than words the expression &lt;em&gt;a picture speaks a thousand words&lt;/em&gt; really hits home. In the past I would always use free tools like &lt;a href=&quot;www/draw.io&quot;&gt;draw.io&lt;/a&gt; to make diagrams then paste in the exported jpg&apos;s into my notes.&lt;/p&gt;
 &lt;p&gt;As a process I always found this really disconnected, and its even more jarring when you need to make edits and go through the whole export to jpeg flow all over again. I also find with these tools getting boxes to line up with connecting lines in a way that doesn&apos;t look a mess is incredibly fiddly and time consuming.&lt;/p&gt;
 &lt;p&gt;One later evolution of this was &lt;a href=&quot;https://plantuml.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Plant UML&lt;/a&gt; which moves away from drawing diagrams to scripting, take this plantUML file as an example,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;@startuml
 
 left to right direction
@@ -81,14 +256,12 @@ g --&amp;gt; UC3
 
 @enduml&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;&lt;em&gt;Taken from the plantUML&apos;s &lt;a href=&quot;https://plantuml.com/use-case-diagram&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;usecase examples&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The above script produces the following diagram, note that the formatting/spacing and styling is all governed by plantUML syntax... there is absolutely no drawing involved.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5jHzAIn4XYzmeeWbhn4yto/3154d97c8ed3f0c4456d3e7850ae6311/plantuml-example.png&quot; alt=&quot;PlantUML Example&quot;&gt;&lt;/p&gt;
 &lt;p&gt;The benefit of this approach is you now have a change tracked diagram that can sit somewhere with your documentation (and as a bonus it formats everything for you). Aside from exporting the script as a .png making edits couldn&apos;t be easier.&lt;/p&gt;
 &lt;p&gt;Whilst PlantUML is great it still take you away from your markdown document as you need to separately create the diagram and later paste in a link to the exported image. A later evolution on this is &lt;a href=&quot;https://mermaid-js.github.io/mermaid/#/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Mermaid&lt;/a&gt; which is similar to PlantUML but works within markdown as a code block. Having diagrams integrated means you no longer need to export diagrams to jpeg when adding to a markdown file... their just there. Here is an example,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;stateDiagram-v2
 [*] --&amp;gt; Still
 Still --&amp;gt; [*]
@@ -98,7 +271,6 @@ Moving --&amp;gt; Still
 Moving --&amp;gt; Crash
 Crash --&amp;gt; [*]&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;&lt;em&gt;Taken from Mermaids &lt;a href=&quot;https://mermaid-js.github.io/mermaid/#/stateDiagram&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;state diagram example&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The script produces the following diagram, note that this screenshot was taken directly from Obsidian as it supports Mermaid out right out the box.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/3TdRha2qj11tFdfT1ULT7Y/725f09affa9ed12f05a62957ab88fc34/mermaid-diagram-example.png&quot; alt=&quot;Mermaid Diagram Example&quot;&gt;&lt;/p&gt;
@@ -189,8 +361,7 @@ Crash --&amp;gt; [*]&lt;/code&gt;
 &lt;p&gt;The only caveat to Obsidian is the lack of mobile apps (its currently being worked on, check out there roadmap on &lt;a href=&quot;https://trello.com/b/Psqfqp7I/obsidian-roadmap&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Trello&lt;/a&gt;). But to be honest I haven&apos;t really felt the need for it as im always learning whilst on my computer.&lt;/p&gt;
 &lt;p&gt;Obsidian is free try use (and fully functional with its free tier), they also have some paid tiers and boltons, so do check it out!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[How to Deconstruct objects in C# like we do in Javascript]]></title><description><![CDATA[I've been using C# for about a decade now, and every now and again I discover something that surprises me. This week it's the ability to deconstruct as we do in Javascript (and I'm not talking about…]]></description><link>https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</link><guid isPermaLink="true">https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</guid><pubDate>Thu, 08 Apr 2021 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I&apos;ve been using C# for about a decade now, and every now and again I discover something that surprises me. This week it&apos;s the ability to deconstruct as we do in Javascript (and I&apos;m not talking about using Tuples!).&lt;/p&gt;
 &lt;p&gt;Below is a simple example of deconstruction taking place to draw out the power, and defence property for our Trex object,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;const trex = {
     statistics: {
         power: 10,
@@ -208,14 +379,12 @@ console.log(`Power ${power}, Defence ${defence}`);
 //const power = trex.statistics.power;
 //const defence = trex.statistics.defence;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;As Mozilla&apos;s definition states,&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Destructuring assignment&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;It&apos;s a powerful syntactical sugar, especially in the scenarios where you have a nested object with long names. As deconstruction can lead to cleaner, more readable code its uses are great on large object types. Now let&apos;s take a look at the same thing but in C#,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;namespace deconstruction
 {
     public record Statistics(int Power, int Defence);
@@ -240,10 +409,8 @@ console.log(`Power ${power}, Defence ${defence}`);
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Ok admittedly it&apos;s not as elegant as its Javascript counterpart as we need to define what we want to deconstruct upfront as well as have a function for each combination 😬! but it&apos;s still got its uses... check it out,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;using System;
 
 namespace deconstruction
@@ -265,7 +432,6 @@ namespace deconstruction
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Who knows what other hidden gems 💎 lie buried with the Microsoft docs!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ASP.NET GraphQL server with Hot Chocolate]]></title><description><![CDATA[Starting my journey with GraphQL Up till now, I've always heavily relied on RESTfull services to power API's, this recently got widened with GRPC which you can read about in my article .NET & GRPC…]]></description><link>https://www.faesel.com/blog/aspnet-graphql-server-with-hot-chocolate</link><guid isPermaLink="true">https://www.faesel.com/blog/aspnet-graphql-server-with-hot-chocolate</guid><pubDate>Sun, 04 Apr 2021 23:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;starting-my-journey-with-graphql&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#starting-my-journey-with-graphql&quot; aria-label=&quot;starting my journey with graphql permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Starting my journey with GraphQL&lt;/h1&gt;
 &lt;p&gt;Up till now, I&apos;ve always heavily relied on RESTfull services to power API&apos;s, this recently got widened with GRPC which you can read about in my article &lt;a href=&quot;https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;.NET &amp;#x26; GRPC What they forgot to tell you&lt;/a&gt;. GraphQL was the third final frontier that needed exploring 🥾...until now.&lt;/p&gt;
 &lt;p&gt;Having looked at it a year back the implementations for .NET were in their infancy, which meant that your server would only be as good as the framework you choose. Fast forward to 2021, &lt;a href=&quot;https://github.com/ChilliCream/hotchocolate&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Chilli Creams Hotchocolate&lt;/a&gt; has gained some serious ground and makes GraphQL an appealing proposition for developers.&lt;/p&gt;
@@ -276,8 +442,7 @@ namespace deconstruction
 &lt;/ul&gt;
 &lt;h1 id=&quot;your-typical-rest-scenario&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#your-typical-rest-scenario&quot; aria-label=&quot;your typical rest scenario permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Your typical REST scenario&lt;/h1&gt;
 &lt;p&gt;Let&apos;s paint the scene, your a backend engineer who&apos;s creating an endpoint for showing a list of cats. With your battle-tested REST knowledge, you set out to create your first basic endpoint in the &lt;code&gt;CatsController&lt;/code&gt; that returns all cats and the front end engineer is ready to integrate it into his UI.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;// api/cats
 [HttpGet]
 public async Task&amp;lt;IActionResult&amp;gt; GetCats()
@@ -293,10 +458,8 @@ public async Task&amp;lt;IActionResult&amp;gt; GetCats()
     return NoContent();
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The app soon becomes a hit! your product manager decides to expand the functionality to filter by cat descriptions and to create a new cat information page. Getting to work you expand the endpoints for the front end engineers to use.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;//api/cats/1
 [HttpGet]
 [Route(&amp;quot;{id}&amp;quot;)]
@@ -329,7 +492,6 @@ public async Task&amp;lt;IActionResult&amp;gt; GetCatsByDescription([FromRoute] 
     return NoContent();
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The cycle continues with product owners coming up with more feature requests and at the bottom of the pile, you got the backend engineer being reactive to all the changes. By the time you&apos;ve wrapped up the project your left with a code smell of 10+ endpoints 💩.&lt;/p&gt;
 &lt;p&gt;The situation further degrades after a year when the UI gets redesigned and features are culled based on user usage. You end up with random floating endpoints because quite frankly no one audits their endpoints for dead code.&lt;/p&gt;
 &lt;p&gt;This is where GraphQL steps in, it switches the responsibility of an engineer from anticipating and creating endpoints to simply upfront displaying everything that&apos;s available with declarative meaning.&lt;/p&gt;
@@ -359,17 +521,14 @@ public async Task&amp;lt;IActionResult&amp;gt; GetCatsByDescription([FromRoute] 
 &lt;p&gt;Before we begin on how to version, there are some distinct points to note.&lt;/p&gt;
 &lt;p&gt;Non-breaking changes can continue as they would with REST, adding properties to entities (as you would with response models in REST), continues to be a way to evolve your API. Similarly adding new query types to your GraphQL server is also deemed as a non-breaking change, and is equivalent to adding new endpoints in REST.&lt;/p&gt;
 &lt;p&gt;GraphQL aids in breaking changes caused due to nullability as &lt;strong&gt;everything&lt;/strong&gt; unless specified is treated as nullable. This leads to upfront resilience on the front end to missing data, the &lt;code&gt;id: Int!&lt;/code&gt; in the example below cannot be null.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;type Cats {
   id: Int!
   name: String
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Eventually, we do still hit circumstances where a breaking change is needed. In these situations we have two strategies. The first as &lt;a href=&quot;https://chillicream.com/docs/hotchocolate/defining-a-schema/versioning/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Chilli Cream Docs&lt;/a&gt; specify is to add deprecated flags to old properties and begin to shift usage to new versions.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class CatsType : ObjectType&amp;lt;Cats&amp;gt;
 {
     protected override void Configure(IObjectTypeDescriptor&amp;lt;Cats&amp;gt; descriptor)
@@ -382,19 +541,15 @@ public async Task&amp;lt;IActionResult&amp;gt; GetCatsByDescription([FromRoute] 
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;For client developers, this then creates warnings when using a deprecated property.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/2BkWWBcz1UAAU9fFVavBGQ/c812ee032ddcd8eb600b165616f68e5b/Screenshot_2021-03-26_153337.png&quot; alt=&quot;Depricated GraphQL property&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Whilst this approach works over time it could create a lot of noise if you have many deprecated properties, an alternative approach is to split the entity entirely, use different classes between the two versions. Here is an example, we start by creating two query types,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public record CatResponse1(int Id, string Name);
 public record CatResponse2(int Id, string FirstName, string LastName);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Both of these would contain their own Code First type files&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class CatType1 : ObjectType&amp;lt;CatResponse1&amp;gt;
 {
     protected override void Configure(IObjectTypeDescriptor&amp;lt;CatResponse1&amp;gt; descriptor)
@@ -420,10 +575,8 @@ public class CatType2 : ObjectType&amp;lt;CatResponse2&amp;gt;
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The final piece of code is to use the intermediary response models. Under the hood we are still using the same EF entity.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class Query
 {
     [UseDbContext(typeof(AppDbContext))]
@@ -447,15 +600,13 @@ public class CatType2 : ObjectType&amp;lt;CatResponse2&amp;gt;
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;These changes now allow us to split our models, the two can be queried independently.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4RSPAHISSIpKS3qFfZbRq1/b53386073d0e86bc0e14a95b30ff857a/versioned-entities.png&quot; alt=&quot;Versioned types&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;how-to-do-authentication&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-do-authentication&quot; aria-label=&quot;how to do authentication permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to do Authentication&lt;/h2&gt;
 &lt;p&gt;Since Hot Chocolate works on top of ASP.NET we can leverage on all the traditional Authentication pipelines we use for REST, nothing changes! To demonstrate this I&apos;m going to extend the base implementation with a basic authentication mechanism using a header value &lt;code&gt;x-api-key&lt;/code&gt; and a key defined in the &lt;code&gt;appsettings.json&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&quot;adding-key-based-authentication&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#adding-key-based-authentication&quot; aria-label=&quot;adding key based authentication permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Adding key-based authentication&lt;/h3&gt;
 &lt;p&gt;To begin let&apos;s first add basic app settings to hold our authentication key (this represents the key the client will pass to the server to authentication their request), and create a class to deserialise into using &lt;code&gt;IOptions&lt;/code&gt; interface.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;//Code goes into appsettings.json
 &amp;quot;AuthenticationSettings&amp;quot;: {
     &amp;quot;AuthenticationToken&amp;quot;: &amp;quot;secret123&amp;quot;
@@ -470,10 +621,8 @@ public class AuthenticationSettings
 //Register the configuration in Startup.cs &amp;gt; ConfigureServices function
 services.Configure&amp;lt;AuthenticationSettings&amp;gt;(Configuration.GetSection(nameof(AuthenticationSettings)));&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Next we will create authentication scheme options as follows,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class ApiKeyAuthenticationOptions : AuthenticationSchemeOptions
 {
     public const string DefaultScheme = &amp;quot;KeyBasedScheme&amp;quot;;
@@ -481,10 +630,8 @@ services.Configure&amp;lt;AuthenticationSettings&amp;gt;(Configuration.GetSectio
     public string AuthenticationType = DefaultScheme;
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The next part is where the crux of the code is, the &lt;code&gt;AuthenticationHandler&lt;/code&gt; is what determines whether the request was correctly authenticated. On a successful attempt, it populates the ClaimsPrinciple.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class ApiKeyAuthenticationHandler : AuthenticationHandler&amp;lt;ApiKeyAuthenticationOptions&amp;gt;
 {
     private const string ProblemDetailsContentType = &amp;quot;application/problem+json&amp;quot;;
@@ -552,10 +699,8 @@ services.Configure&amp;lt;AuthenticationSettings&amp;gt;(Configuration.GetSectio
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The final part need is to register this in our startup class, below are the two bits of code needed. Once we have this in place the &lt;code&gt;[Authorize]&lt;/code&gt; tag will work for regular REST requests, any request sent without an &lt;code&gt;x-api-key&lt;/code&gt; value of &apos;secret123&apos; will be rejected. The next step is to see how we replicate this in GraphQL.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public void ConfigureServices(IServiceCollection services)
 {
     ...
@@ -577,17 +722,13 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     app.UseAuthorization();
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;authenticating-a-graphql-entity&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#authenticating-a-graphql-entity&quot; aria-label=&quot;authenticating a graphql entity permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Authenticating a GraphQl Entity&lt;/h3&gt;
 &lt;p&gt;Authentication in GraphQL works by authorizing individual models, to begin we first need to add the HotChocolate Authorization package &lt;code&gt;HotChocolate.AspNetCore.Authorization&lt;/code&gt; and enable it in the &lt;code&gt;Startup.cs&lt;/code&gt; class, its a one-liner,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;services.AddAuthorizeDirectiveType()&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Now similar to the &lt;code&gt;[Authorize]&lt;/code&gt; tag we use for REST we can enable Authorization in for our individual ObjectTypes by adding a simple &lt;code&gt;descriptor.Authorize()&lt;/code&gt; call.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class CatType1 : ObjectType&amp;lt;CatResponse1&amp;gt;
 {
     protected override void Configure(IObjectTypeDescriptor&amp;lt;CatResponse1&amp;gt; descriptor)
@@ -597,10 +738,8 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Once this has been added making calls without the header will return an unauthenticated result that looks like this,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;{
   &amp;quot;errors&amp;quot;: [
     {
@@ -622,26 +761,20 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     },
     ...&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;how-to-do-authorisation&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-do-authorisation&quot; aria-label=&quot;how to do authorisation permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to do Authorisation&lt;/h2&gt;
 &lt;p&gt;Extending the code to work with Authorization is also a quick change, in this example we will authorize based on the user&apos;s role. To begin we will extend our &lt;code&gt;ApiKeyAuthenticationHandler&lt;/code&gt; to populate a claim when the authentication key has matched,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;var claims = new List&amp;lt;Claim&amp;gt; {
     new Claim(&amp;quot;http://schemas.microsoft.com/ws/2008/06/identity/claims/role&amp;quot;, &amp;quot;Admin&amp;quot;)
 };&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Next we can pass a list of accepted roles into the ObjectType &lt;code&gt;CatType1&lt;/code&gt;, in this example I have intentionally added a role that doesn&apos;t exist.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;var roles = new string[] { &amp;quot;NotAdmin&amp;quot; };
 descriptor.Authorize(roles);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Making a request now will spark an unauthorized error,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;{
   &amp;quot;errors&amp;quot;: [
     {
@@ -663,7 +796,6 @@ descriptor.Authorize(roles);&lt;/code&gt;
     },
     ...&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;how-does-logging-work&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-does-logging-work&quot; aria-label=&quot;how does logging work permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How does logging work&lt;/h2&gt;
 &lt;p&gt;Regarding logging Chilli Cream has created a guide to adding an &lt;code&gt;AddDiagnosticEventListener&lt;/code&gt; that&apos;s able to trace incoming requests, check out the article &lt;a href=&quot;https://chillicream.com/blog/2021/01/10/hot-chocolate-logging&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Log Your Queries While Building a GraphQL Server&lt;/a&gt;. It would be interesting to create an example that&apos;s &lt;code&gt;OpenTelemetry&lt;/code&gt; compliant... perhaps that&apos;s one for another day (this articles getting a bit long 😩).&lt;/p&gt;
 &lt;h1 id=&quot;conclusion&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#conclusion&quot; aria-label=&quot;conclusion permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Conclusion&lt;/h1&gt;
@@ -678,8 +810,7 @@ descriptor.Authorize(roles);&lt;/code&gt;
 &lt;h2 id=&quot;client-app&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#client-app&quot; aria-label=&quot;client app permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Client App&lt;/h2&gt;
 &lt;p&gt;The client app itself is in a completely segregated app, there&apos;s nothing special added here to make it all connect up. All your standard commands to &lt;code&gt;npm install/build&lt;/code&gt; are all available to you. In fact, the template has been build based on the implementation of &lt;code&gt;create-react-app&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;You can also start up the project from here with &lt;code&gt;npm run start&lt;/code&gt; command which will spin up a development server &lt;strong&gt;independent of your backend code&lt;/strong&gt;. The execution and configuration is handled for us using &lt;code&gt;react-scripts&lt;/code&gt; which was designed to help set up react projects without stress, featuring things like hot module reloading, deployment builds etc ... all standard-issue so far. So you get these npm scripts setup for you,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;  &amp;quot;scripts&amp;quot;: {
     &amp;quot;start&amp;quot;: &amp;quot;rimraf ./build &amp;amp;&amp;amp; react-scripts start&amp;quot;,
     &amp;quot;build&amp;quot;: &amp;quot;react-scripts build&amp;quot;,
@@ -688,22 +819,18 @@ descriptor.Authorize(roles);&lt;/code&gt;
     &amp;quot;lint&amp;quot;: &amp;quot;eslint ./src/&amp;quot;
   },&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;startup-class&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#startup-class&quot; aria-label=&quot;startup class permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Startup Class&lt;/h2&gt;
 &lt;p&gt;The glue that connects the backend to the frontend can be found in the &lt;code&gt;Startup.cs&lt;/code&gt; class. Working from top down the first code block of interest is within the &lt;em&gt;ConfigureServices&lt;/em&gt; function,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;services.AddSpaStaticFiles(configuration =&amp;gt;
 {
   configuration.RootPath = &amp;quot;ClientApp/build&amp;quot;;
 });&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;This block essentially tells your dotnet app where to find the static resources (production builds) of your spa within its bin folder. So running the command &lt;code&gt;dotnet publish --configuration Release&lt;/code&gt; creates a &lt;strong&gt;ClientApp/Build&lt;/strong&gt; folder with a production optimised (ie npm run build) version of our SPA, the root path simply points to this.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4tIwYVA6pYWrGctHAzMXHT/d0836b601480a1962a7693bf4cd8b653/spa-build-folder.png&quot; alt=&quot;clientapp-build-folder&quot;&gt;&lt;/p&gt;
 &lt;p&gt;The next block to notice is in the &lt;em&gt;Configure&lt;/em&gt; function,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;app.UseEndpoints(endpoints =&amp;gt;
 {
     endpoints.MapControllerRoute(
@@ -721,13 +848,11 @@ app.UseSpa(spa =&amp;gt;
     }
 });&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;There are two things that are happening here, the first is that we have dotnet server side routing connected up (with app.UseEndpoints() middleware), this means that upon receiving a HTTP request server-side routing will always take priority over client-side routing. If server-side routes fall through without matching an endpoint, we use the app.UseSpa() middleware to redirect all requests to the default page (which is your index.html file triggering the spa to load).&lt;/p&gt;
 &lt;p&gt;The next point is that from here we can also configure the location of our client-side source code, and the command we need to use to run our react spa as a development server when debugging.&lt;/p&gt;
 &lt;h2 id=&quot;msbuild--running-npm-commands&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#msbuild--running-npm-commands&quot; aria-label=&quot;msbuild  running npm commands permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;MSBuild &amp;#x26; Running NPM Commands&lt;/h2&gt;
 &lt;p&gt;The remaining magic is all located in the .csproj file we got 2 core components here the first is the Debug target,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;&amp;lt;Target Name=&amp;quot;DebugEnsureNodeEnv&amp;quot; BeforeTargets=&amp;quot;Build&amp;quot; Condition=&amp;quot; &amp;#39;$(Configuration)&amp;#39; == &amp;#39;Debug&amp;#39; And !Exists(&amp;#39;$(SpaRoot)node_modules&amp;#39;) &amp;quot;&amp;gt;
   &amp;lt;!-- Ensure Node.js is installed --&amp;gt;
   &amp;lt;Exec Command=&amp;quot;node --version&amp;quot; ContinueOnError=&amp;quot;true&amp;quot;&amp;gt;
@@ -738,11 +863,9 @@ app.UseSpa(spa =&amp;gt;
   &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm install&amp;quot; /&amp;gt;
 &amp;lt;/Target&amp;gt;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;This chunky block of code runs an &lt;code&gt;npm install&lt;/code&gt; command before building your dotnet application. It also features a nice check to ensure you got Node.js installed (I guess for the backend people 😁). It does this with the &lt;code&gt;&amp;#x3C;Exec WorkingDirectory=&quot;$(SpaRoot)&quot; Command=&quot;npm install&quot; /&gt;&lt;/code&gt; command runner (note SpaRoot is defined a the top as a static property pointing to &lt;strong&gt;ClientApp\&lt;/strong&gt;).&lt;/p&gt;
 &lt;p&gt;The second part is the publish target,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;&amp;lt;Target Name=&amp;quot;PublishRunWebpack&amp;quot; AfterTargets=&amp;quot;ComputeFilesToPublish&amp;quot;&amp;gt;
   &amp;lt;!-- As part of publishing, ensure the JS resources are freshly built in production mode --&amp;gt;
   &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm install&amp;quot; /&amp;gt;
@@ -759,7 +882,6 @@ app.UseSpa(spa =&amp;gt;
   &amp;lt;/ItemGroup&amp;gt;
 &amp;lt;/Target&amp;gt;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Again fairly similar concept running a publish first installs dependencies then builds the project. The build artefacts get created in the &lt;strong&gt;ClientApp\build&lt;/strong&gt; folder. The item group block then ensures the build assets are included in your &lt;strong&gt;bin\ClientApp\build&lt;/strong&gt; folder.&lt;/p&gt;
 &lt;h2 id=&quot;summary&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#summary&quot; aria-label=&quot;summary permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Summary&lt;/h2&gt;
 &lt;p&gt;So to summarise, when running in debug mode&lt;/p&gt;
@@ -800,22 +922,17 @@ app.UseSpa(spa =&amp;gt;
 &lt;p&gt;You must create custom environment variables beginning with REACT&lt;em&gt;APP&lt;/em&gt;. Any other variables except NODE_ENV will be ignored to avoid accidentally exposing a private key on the machine that could have the same name.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;For now, let&apos;s add just add an environment variable that tells us which environment we are in. Do this for both production and staging .env files.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;REACT_APP_ENV=&amp;#39;production&amp;#39;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;To show our environment on the page lets also create a &lt;em&gt;config.js&lt;/em&gt; file, that accesses the environment variable.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;export const config = {
     ENVIRONMENT: process.env.REACT_APP_ENV 
 };&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;And finally output it to the page,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;import React, { Component } from &amp;#39;react&amp;#39;;
 import { Container } from &amp;#39;reactstrap&amp;#39;;
 import { NavMenu } from &amp;#39;./NavMenu&amp;#39;;
@@ -837,11 +954,9 @@ export class Layout extends Component {
   }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;add-your-build-scripts&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#add-your-build-scripts&quot; aria-label=&quot;add your build scripts permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Add your build scripts&lt;/h2&gt;
 &lt;p&gt;Build scripts are now needed to trigger the environments, we need to make the following amends to the npm scripts section,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;  &amp;quot;scripts&amp;quot;: {
     &amp;quot;build:staging&amp;quot;: &amp;quot;env-cmd -f .env.staging react-scripts build &amp;amp;&amp;amp; shx rm -rf staging &amp;amp;&amp;amp; shx cp -r build staging&amp;quot;,
     &amp;quot;build:production&amp;quot;: &amp;quot;env-cmd -f .env.production react-scripts build &amp;amp;&amp;amp; shx rm -rf production &amp;amp;&amp;amp; shx cp -r build production&amp;quot;,
@@ -849,19 +964,15 @@ export class Layout extends Component {
     &amp;quot;start:production&amp;quot;: &amp;quot;rimraf ./build &amp;amp;&amp;amp; env-cmd -f .env.production react-scripts start&amp;quot;,
   }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The scripts prefixed with &lt;em&gt;build&lt;/em&gt; are using env-cmd with its respective environment file to create a production build of the app. The shx part is then firstly removing the folder staging/production then copying the &lt;em&gt;build&lt;/em&gt; files react-script creates into an environment specific folder.&lt;/p&gt;
 &lt;p&gt;Similarly the scripts prefixed with &lt;em&gt;start&lt;/em&gt; run the app using a certain environment. Note if your trying to run this from the dotnet app, you will need to change the Startup.cs &gt; UseReactDevelopmentServer function to,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;spa.UseReactDevelopmentServer(npmScript: &amp;quot;start:production&amp;quot;);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Now that this is set up, running the app should show the environment variables.&lt;/p&gt;
 &lt;h2 id=&quot;modifying-your-csproj&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#modifying-your-csproj&quot; aria-label=&quot;modifying your csproj permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Modifying your .csproj&lt;/h2&gt;
 &lt;p&gt;The next step is to get this working with &lt;code&gt;dotnet publish&lt;/code&gt;! To do this we need to modify the &lt;strong&gt;PublishRunWebpack&lt;/strong&gt; target in the .csproj file to,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;&amp;lt;Target Name=&amp;quot;PublishRunWebpack&amp;quot; AfterTargets=&amp;quot;ComputeFilesToPublish&amp;quot;&amp;gt;
   &amp;lt;Exec WorkingDirectory=&amp;quot;$(SpaRoot)&amp;quot; Command=&amp;quot;npm install&amp;quot;/&amp;gt;
 
@@ -883,7 +994,6 @@ export class Layout extends Component {
   &amp;lt;/ItemGroup&amp;gt;
 &amp;lt;/Target&amp;gt;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;To summarise what&apos;s happening here, when building in debug mode we are continuing to use the &lt;code&gt;npm run build&lt;/code&gt; command to create a production build and the spa files get stored in the build folder &lt;code&gt;$(SpaRoot)build\**&lt;/code&gt;. The output looks like this:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -932,13 +1042,11 @@ export class Layout extends Component {
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/6gBCaZH5bJ6vaNW2wf8QPD/7b1fcf59b5a716760ebf49c95aaaab85/BuildExample.png&quot; alt=&quot;build-output-spa&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;modifying-your-startupcs&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#modifying-your-startupcs&quot; aria-label=&quot;modifying your startupcs permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Modifying your startup.cs&lt;/h2&gt;
 &lt;p&gt;The final step is to modify your Startup.cs file to switch out which spa to use based on the environment variable,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;services.AddSpaStaticFiles(configuration =&amp;gt; configuration.RootPath = WebHostEnvironment.IsDevelopment()
                 ? &amp;quot;ClientApp/build&amp;quot;
                 : $&amp;quot;ClientApp/{WebHostEnvironment.EnvironmentName}&amp;quot;);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h1 id=&quot;how-to-deploy-&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#how-to-deploy-&quot; aria-label=&quot;how to deploy  permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;How to deploy 🚀&lt;/h1&gt;
 &lt;p&gt;Deployment is now a simple case of running &lt;code&gt;dotnet publish --configuration Release&lt;/code&gt;, once the published artefacts are deployed the app can now take its environment and run the appropriate spa. Build once and deploy anywhere!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[My journey of creating a .NET CLI tool]]></title><description><![CDATA[Why I started building a CLI As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also…]]></description><link>https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</link><guid isPermaLink="true">https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</guid><pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;why-i-started-building-a-cli&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#why-i-started-building-a-cli&quot; aria-label=&quot;why i started building a cli permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Why I started building a CLI&lt;/h1&gt;
 &lt;p&gt;As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also widespread from leveraging queues on a basic console app to storing uploaded images from a web application.&lt;/p&gt;
@@ -949,8 +1057,7 @@ export class Layout extends Component {
 &lt;h3 id=&quot;1-commandlineparser&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-commandlineparser&quot; aria-label=&quot;1 commandlineparser permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. &lt;a href=&quot;https://github.com/commandlineparser/commandline&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;CommandLineParser&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Whilst there are many command parsers on the market, I found this implementation particular nice to use. The end result allows you to to get a command pattern similar to most of the Microsoft dotnet tools,  &lt;code&gt;azlazy connection --list&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Defining available commands is as easy as decorating a class with attributes, and the help options for each command is automatically generated for you (azlazy addcontainer --help).&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;[Verb(&amp;quot;addcontainer&amp;quot;, HelpText = &amp;quot;Creates a new storage container&amp;quot;)]
     public class AddContainerOptions : ICommandOptions
     {
@@ -961,32 +1068,26 @@ export class Layout extends Component {
         public string PublicAccess { get; set; }
     }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;2-pastel&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-pastel&quot; aria-label=&quot;2 pastel permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. &lt;a href=&quot;https://github.com/silkfire/Pastel&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Pastel&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Splash of colour is always a sign of a great CLI experience and seeing red or green are key indicators of successful execution of a command. &lt;em&gt;Pastel&lt;/em&gt; lets you do exactly that! its got a range of preset vibrant colours to choose from and allows you to easily RGB your console output. &lt;/p&gt;
 &lt;p&gt;The extension method style syntax is also great and doesn&apos;t distract you away from the code.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;&amp;quot;You successfully deleted all your data&amp;quot;.Pastel(Color.LightGreen);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;3-consoletables&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#3-consoletables&quot; aria-label=&quot;3 consoletables permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. &lt;a href=&quot;https://github.com/khalidabuhakmeh/ConsoleTables&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;ConsoleTables&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;As Az-Lazy deals with table storeage, it was only a matter of time till i needed to output a table to the console. After a quick search on Nuget Gallery &lt;em&gt;ConsoleTables&lt;/em&gt; showed up. With a simple minimilist table implementation it was quick to get setup,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;var table = new ConsoleTable(&amp;quot;Id&amp;quot;, &amp;quot;Blob&amp;quot;, &amp;quot;Size&amp;quot;);
 table.AddRow(1, &amp;quot;dinopic1.jpg&amp;quot;, 300)
      .AddRow(2, &amp;quot;dinopic2.jpb&amp;quot;, 450);
 
 table.Write();&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;However, I later had to drop this package for something slightly more advanced (Alba.CsConsoleFormat) as I needed to word wrap large cells (particularly when displaying JSON snippets). &lt;/p&gt;
 &lt;h3 id=&quot;4-albacsconsoleformat&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#4-albacsconsoleformat&quot; aria-label=&quot;4 albacsconsoleformat permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. &lt;a href=&quot;https://github.com/Athari/CsConsoleFormat&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Alba.CsConsoleFormat&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;As mentioned above &lt;em&gt;Alba.CsConsoleFormat&lt;/em&gt; was a replacement package to render tables. With great options to not only style your table with colours but also specify word wrap options, it was a good choice for rendering large volumes of data.&lt;/p&gt;
 &lt;p&gt;I did find its syntax a little verbose to work with,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;var headerThickness = new LineThickness(LineWidth.Double, LineWidth.Single);
 
 var doc = new Document(
@@ -1010,14 +1111,12 @@ var doc = new Document(
 
 ConsoleRenderer.RenderDocument(doc);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Buy my oh my does it produce a great console table 👨‍🎨&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/tfEbNlJ8U1oqZCdmXGfq0/7d9eae3125e0c3053c4dfe91335a104e/peekmessages.png&quot; alt=&quot;CsConsoleFormat table output&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;5-litedb&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#5-litedb&quot; aria-label=&quot;5 litedb permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5. &lt;a href=&quot;https://github.com/mbdavid/LiteDB&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;LiteDb&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;One of the requirements of Az-Lazy was to store a list of connections to be reused at any time. Since CLI&apos;s don&apos;t have any state, I needed a lightweight storage mechanism that can easily ship with the tool.&lt;/p&gt;
 &lt;p&gt;In comes &lt;em&gt;LiteDb&lt;/em&gt;! With its entity framework style CRUD syntax, I really felt at home with this framework,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;// Create your POCO class
 public class Dinosaur
 {
@@ -1042,7 +1141,6 @@ using(var db = new LiteDatabase(@&amp;quot;DinoDb.db&amp;quot;))
     var oldDinosaurs = col.Find(x =&amp;gt; x.Age &amp;gt; 50);
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Since &lt;em&gt;LiteDb&lt;/em&gt; stores all its data into one file, from a tool perspective it ensures your not littering your client&apos;s computer with files.&lt;/p&gt;
 &lt;h1 id=&quot;packages-used-now&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#packages-used-now&quot; aria-label=&quot;packages used now permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Packages used now&lt;/h1&gt;
 &lt;h3 id=&quot;1-commandlineparser-1&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-commandlineparser-1&quot; aria-label=&quot;1 commandlineparser 1 permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. &lt;a href=&quot;https://github.com/commandlineparser/commandline&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;CommandLineParser&lt;/a&gt;&lt;/h3&gt;
@@ -1061,8 +1159,7 @@ using(var db = new LiteDatabase(@&amp;quot;DinoDb.db&amp;quot;))
 &lt;/ul&gt;
 &lt;p&gt;After discovering this package I ended up doing a NuGet cull 🪓 which is why this list now stops at 3 (That culls still in progress as I&apos;m removing Pascal for Specters implementation).&lt;/p&gt;
 &lt;p&gt;I won&apos;t go into all the code samples for this, but here are a few, beginning with progress indicators (also note the syntax to colour the output).&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;await AnsiConsole.Progress()
     .StartAsync(async ctx =&amp;gt;
     {
@@ -1077,12 +1174,10 @@ using(var db = new LiteDatabase(@&amp;quot;DinoDb.db&amp;quot;))
         }
     });&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Check out how it looks in action, it&apos;s great for long-running tasks.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/7I5IMPuMYHvUIUyan3iNLY/d7b5e472fed4daba62218d4d2d3165ee/uploaddirectory.png&quot; alt=&quot;Upload progress bar&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Table&apos;s are also strightforward to create,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;// Create a table
 var table = new Table();
 
@@ -1097,7 +1192,6 @@ table.AddRow(new Markup(&amp;quot;[blue]Corgi[/]&amp;quot;), new Panel(&amp;quot
 // Render the table to the console
 AnsiConsole.Render(table);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h1 id=&quot;other-great-code-snippets&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#other-great-code-snippets&quot; aria-label=&quot;other great code snippets permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Other great code snippets&lt;/h1&gt;
 &lt;p&gt;The only thing lacking for me in &lt;em&gt;Specter.Console&lt;/em&gt; was display a tree structure which is useful for folder hierarchies, (there is an open issue here if you want to &lt;a href=&quot;https://github.com/spectresystems/spectre.console/issues/144&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;show your interest&lt;/a&gt;) 🙏.&lt;/p&gt;
 &lt;p&gt;To fulfil this requirement, I found a great article by Andrew Lock which renders this structure, &lt;a href=&quot;https://andrewlock.net/creating-an-ascii-art-tree-in-csharp/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Creating an ASCII-art tree in C#&lt;/a&gt;. Here&apos;s what it looks like for me,&lt;/p&gt;
@@ -1129,8 +1223,7 @@ AnsiConsole.Render(table);&lt;/code&gt;
 &lt;/ol&gt;
 &lt;h3 id=&quot;2-package-as-a-tool&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-package-as-a-tool&quot; aria-label=&quot;2 package as a tool permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Package as a tool&lt;/h3&gt;
 &lt;p&gt;What distinguishes your console app from a dotnet tool is purly the .csproj file. In particular the package as a tool option &lt;code&gt;&amp;#x3C;PackAsTool&gt;true&amp;#x3C;/PackAsTool&gt;&lt;/code&gt;, Id which needs to be unique across all the NuGet packages in the gallery &lt;code&gt;&amp;#x3C;Id&gt;azlazy&amp;#x3C;/Id&gt;&lt;/code&gt; and tool command name &lt;code&gt;&amp;#x3C;ToolCommandName&gt;azlazy&amp;#x3C;/ToolCommandName&gt;&lt;/code&gt;. The full .csproj should look like this,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;&amp;lt;Project Sdk=&amp;quot;Microsoft.NET.Sdk&amp;quot;&amp;gt;
   &amp;lt;PropertyGroup&amp;gt;
     &amp;lt;OutputType&amp;gt;Exe&amp;lt;/OutputType&amp;gt;
@@ -1164,7 +1257,6 @@ AnsiConsole.Render(table);&lt;/code&gt;
   &amp;lt;/ItemGroup&amp;gt;
 &amp;lt;/Project&amp;gt;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;&lt;em&gt;The Github links are fictional, you can replace them with your project.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;To make your package more credible in the NuGet gallery there are other fields you can fill in. For the licence and package icon, you will need to place the files in the same project, the folder structure will look something like this, &lt;/p&gt;
 &lt;p&gt;barebonescli&lt;/p&gt;
@@ -1200,14 +1292,13 @@ AnsiConsole.Render(table);&lt;/code&gt;
 &lt;p&gt;There are also encumbrances experienced when mixing batch/bulk operations, overnight jobs with REST&apos;ful APIs. Leading to complex solutions that auto scale or spread load over time. Having to go through each request-response cycle on bulk is just in-efficient.&lt;/p&gt;
 &lt;p&gt;In most cases, responses are also in the form of JSON which is designed to cater for human readability at the expense of being inefficient. If you talking machine to machine readability is not a concern?  &lt;/p&gt;
 &lt;p&gt;Lets also not mention those endless subjective PR threads trying to decide whats RESTful and whats not 😇.&lt;/p&gt;
-&lt;h2 id=&quot;can-grpc-fill-the-gaps-🤷♂️&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#can-grpc-fill-the-gaps-%F0%9F%A4%B7%E2%99%82%EF%B8%8F&quot; aria-label=&quot;can grpc fill the gaps 🤷♂️ permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Can GRPC fill the gaps 🤷‍♂️&lt;/h2&gt;
+&lt;h2 id=&quot;can-grpc-fill-the-gaps-️&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#can-grpc-fill-the-gaps-%EF%B8%8F&quot; aria-label=&quot;can grpc fill the gaps ️ permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Can GRPC fill the gaps 🤷‍♂️&lt;/h2&gt;
 &lt;p&gt;If you experienced the REST&apos;ful pains above, GRPC&apos;s got your back. To get a quick demonstration of its capabilities, I recommend &lt;a href=&quot;http://wildermuth.com/2020/07/09/gRPC-Talk-at-netPonto&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Shawn Wildermuth&apos;s gRPC Talk at netPonto User Group (2020)&lt;/a&gt; he explains it in a easy to understand way.&lt;/p&gt;
 &lt;p&gt;&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube-nocookie.com/embed/3wUtQb6C7to?rel=0&quot; frameBorder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowFullScreen&gt;&lt;/iframe&gt;&lt;/p&gt;
 &lt;p&gt;To sum up its capabilities it has two key differences to REST (if your already familiar with this, skip to section &lt;strong&gt;Things to look into&lt;/strong&gt;).&lt;/p&gt;
 &lt;h3 id=&quot;1-proto-files&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-proto-files&quot; aria-label=&quot;1 proto files permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Proto files&lt;/h3&gt;
 &lt;p&gt;Proto files contain the definition of your API in a structured spec compliant way. The code below shows a simple &lt;em&gt;GreetingsService&lt;/em&gt; with a basic request and response.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;syntax = &amp;quot;proto3&amp;quot;;
 
 option csharp_namespace = &amp;quot;HelloService&amp;quot;;
@@ -1224,10 +1315,8 @@ message HelloResponse {
     string HelloDescription = 1;
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Proto files can then be used to transpile code &lt;a href=&quot;https://grpc.io/docs/languages/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;into many languages&lt;/a&gt;. When transpiling we have the option to either create code for a &lt;strong&gt;server&lt;/strong&gt; or &lt;strong&gt;client&lt;/strong&gt;. Code generation creates a base class &lt;strong&gt;GreetingsServiceBase&lt;/strong&gt; for us (it&apos;s generated in the bin folder on build time). Eventually, you end up with a service that looks like this:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;using Grpc.Core;
 using HelloServer;
 using System.Threading.Tasks;
@@ -1243,7 +1332,6 @@ namespace TaxServer.Services
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The act of sharing and distributing proto files means that consuming clients can easily create their own client code and be completely agnostic of language.&lt;/p&gt;
 &lt;h3 id=&quot;2-defining-requestresponse-lifecycle&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-defining-requestresponse-lifecycle&quot; aria-label=&quot;2 defining requestresponse lifecycle permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Defining request/response lifecycle&lt;/h3&gt;
 &lt;p&gt;GRPC allows you to change its request/response lifecycle, it has 4 options described below,&lt;/p&gt;
@@ -1290,31 +1378,24 @@ namespace TaxServer.Services
 /Protos/&lt;strong&gt;service name goes gere&lt;/strong&gt;/Hello.protos&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;From here the client application can generate its client service code using the protofile. If you want to go one step further there is a dotnet command you can use to integrate the proto file into the &lt;strong&gt;.csproj&lt;/strong&gt; file using a &lt;a href=&quot;https://docs.microsoft.com/en-us/aspnet/core/grpc/dotnet-grpc?view=aspnetcore-3.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;dotnet command&lt;/a&gt; which can be triggered after the installation of the package.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;dotnet grpc add-file Hello.proto&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h4 id=&quot;option-2---with-a-discovery-endpoint&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#option-2---with-a-discovery-endpoint&quot; aria-label=&quot;option 2   with a discovery endpoint permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Option 2 - With a discovery endpoint&lt;/h4&gt;
 &lt;p&gt;This approach is recommended if your GRPC service is a service meant for external consumers. The idea behind this approach is to expose which services/endpoints are available. The method is dependent on the &lt;a href=&quot;https://www.nuget.org/packages/Grpc.Reflection/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;&lt;strong&gt;Grpc.Reflection&lt;/strong&gt;&lt;/a&gt; Nuget package.&lt;/p&gt;
 &lt;p&gt;The general approach is outlined &lt;a href=&quot;https://github.com/grpc/grpc/blob/master/doc/csharp/server_reflection.md&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Once implemented it allows you to use an endpoint from the server code to generate your client code. Dotnet has a &lt;a href=&quot;https://www.nuget.org/packages/dotnet-grpc-cli/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;GRPC CLI tool&lt;/a&gt;, that can read from a server reflection endpoint and produce a proto file out of it. The command looks like this,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;dotnet grpc-cli dump https://localhost:5001 Reflection.HelloService&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;You can also write the proto file to disk using this command&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;dotnet grpc-cli dump http://localhost:10042 Reflection.HelloService -o ./prot&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;2-how-to-create-a-health-checking-probe-for-a-grpc-service&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-how-to-create-a-health-checking-probe-for-a-grpc-service&quot; aria-label=&quot;2 how to create a health checking probe for a grpc service permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. How to create a health checking probe for a GRPC service&lt;/h3&gt;
 &lt;p&gt;Health checking probe endpoints are useful for monitoring uptime as well as managing containers when services are unresponsive. GRPC specification has a defined structure for creating your health checking endpoint called the &lt;a href=&quot;https://github.com/grpc/grpc/blob/master/doc/health-checking.md&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;&lt;strong&gt;GRPC Health Checking Protocol&lt;/strong&gt;&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;However, since we are using asp.net core we can get away from this and rely on middleware to do this for us with little code.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public void ConfigureServices(IServiceCollection services)
 {
   services.AddGrpc();
@@ -1331,10 +1412,8 @@ public void Configure(IApplicationBuilder app)
   });
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Now when running locally &lt;strong&gt;&lt;a href=&quot;https://localhost:5001/healthz&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;https://localhost:5001/healthz&lt;/a&gt;&lt;/strong&gt; we can get a 200 response. Here is what the output logs look like:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;      Request starting HTTP/2 GET https://localhost:5001/healthz
 info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
       Executing endpoint &amp;#39;Health checks&amp;#39;
@@ -1343,27 +1422,21 @@ info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
 info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
       Request finished in 19.056ms 200 text/plain&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;3-how-to-version-endpoints&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#3-how-to-version-endpoints&quot; aria-label=&quot;3 how to version endpoints permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. How to version endpoints&lt;/h3&gt;
 &lt;p&gt;The problem of versioning is easily solved using namespaces, it&apos;s just a case of incorporating your version number into the namespace like so,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;option csharp_namespace = &amp;quot;HelloService.v1&amp;quot;;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;For each version, you would have different proto files and different service implementations. When inheriting from the base we can be specific on the version we need.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Server Code&lt;/strong&gt;&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public class HelloGrpcService : HelloService.v1.GreetingsService.GreetingsServiceBase
 {
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;&lt;strong&gt;Client Code&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The namespaces segregate the types so it just works out.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;//Version 1
 using var channel = GrpcChannel.ForAddress(&amp;quot;https://localhost:5001&amp;quot;);
 var client = new HelloService.v1.GreetingsService.GreetingsServiceClient(channel);
@@ -1378,15 +1451,12 @@ var response2 = await client2.GetHello(new HelloService.v2.HelloRequest() {
       HelloCount = 2
 });&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;4-can-a-net-framework-client-app-consume-a-net-core-grpc-server&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#4-can-a-net-framework-client-app-consume-a-net-core-grpc-server&quot; aria-label=&quot;4 can a net framework client app consume a net core grpc server permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. Can a .NET Framework client app consume a .NET Core GRPC server?&lt;/h3&gt;
 &lt;p&gt;Turns out it can yes, however ... as GRPC is built upon HTTP/2 which is not supported in .net framework, making secure connections to your API is not possible. The client code for .net framework is very similar, we just pass a &lt;strong&gt;ChannelCredentials.Insecure&lt;/strong&gt; option in when building the client.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;var channel = new Channel(&amp;quot;127.0.0.1&amp;quot;, 5000, ChannelCredentials.Insecure);
 var client = new GreetingsService.GreetingsServiceClient(channel);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;5-how-to-debug-with-tools-call-an-endpoint&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#5-how-to-debug-with-tools-call-an-endpoint&quot; aria-label=&quot;5 how to debug with tools call an endpoint permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5. How to debug with tools, call an endpoint&lt;/h3&gt;
 &lt;p&gt;If you&apos;re like me and you&apos;ve come from a REST background your most likely used to polished tools like Postman or Insomnia to test out your endpoints. Sadly these tools don&apos;t support GRPC 😢... yet anyway...&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&quot;https://github.com/grpc-ecosystem/awesome-grpc#lang-cs&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;GRPC Tooling Community&lt;/a&gt; is still in its infancy. There are however some new players that are emerging that get the job done, most notably for me BloomRPC. &lt;/p&gt;
@@ -1404,8 +1474,7 @@ var client = new GreetingsService.GreetingsServiceClient(channel);&lt;/code&gt;
 &lt;li&gt;WS-Federation&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Below is a simple code example of authenticating a JWT token with an identity service. As you can see its no different from a REST service.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;public void ConfigureServices(IServiceCollection services)
 {
     var authority = &amp;quot;https://myidentityserver.com&amp;quot;;
@@ -1454,10 +1523,8 @@ public void Configure(IApplicationBuilder app)
     ...
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Below is output from an authenticated request:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;      Request starting HTTP/2 POST https://localhost:5001/HelloGrpcService.GreetingsService/GetHello application/grpc
 info: Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler[2]
       Successfully validated the token.
@@ -1472,7 +1539,6 @@ info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
 info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
       Request finished in 5865.2411ms 200 application/grpc&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;7-can-you-call-the-service-from-a-browser&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#7-can-you-call-the-service-from-a-browser&quot; aria-label=&quot;7 can you call the service from a browser permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;7. Can you call the service from a browser?&lt;/h3&gt;
 &lt;p&gt;Currently, as it stands the answer is no, browsers don&apos;t offer fine-grained control over API requests to support GRPC. However, there is some light at the end of the tunnel.&lt;/p&gt;
 &lt;p&gt;Back in 2016 Google started working on a specification for &quot;GRPC for the browser&quot;. You can read more about it &lt;a href=&quot;https://grpc.io/blog/state-of-grpc-web/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt; but in essence,&lt;/p&gt;
@@ -1481,11 +1547,9 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 &lt;/blockquote&gt;
 &lt;p&gt;In the C# world, Microsoft has an implementation of this specification in their docs, &lt;a href=&quot;https://docs.microsoft.com/en-gb/aspnet/core/grpc/browser?view=aspnetcore-3.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Use gRPC in browser apps&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;There are some disclaimers to this, as gRPC supports streaming and bidirectional requests this addition is only recommended for unary requests. Due to this limiting factor helpers are present to turn it on and off for services when setting up GRPC services in the startup,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;endpoints.MapGrpcService&amp;lt;HelloGrpcService&amp;gt;().EnableGrpcWeb().RequireCors(&amp;quot;AllowAll&amp;quot;);&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;What I find particularly interesting is that the problem grpc-web solves is similar to the problems we have with .net framework (https/2 is not supported). Could this perhaps be an answer to getting secure requests working? ... sadly not yet! at the moment its not possible as grpc-web was was built on .net standard 2.1 so .net framework is not supported. Perhaps there might be movement on this in time to come.&lt;/p&gt;
 &lt;h2 id=&quot;things-i-missed-out&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#things-i-missed-out&quot; aria-label=&quot;things i missed out permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Things I missed out&lt;/h2&gt;
 &lt;ol&gt;
@@ -1511,44 +1575,33 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 &lt;/ul&gt;
 &lt;h2 id=&quot;making-use-of-your-powershell-profile&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#making-use-of-your-powershell-profile&quot; aria-label=&quot;making use of your powershell profile permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Making use of your Powershell profile&lt;/h2&gt;
 &lt;p&gt;Before your Powershell window starts, any code in your Powershell profile is executed first. You can find your profile directory location by typing the following in your console,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;$PROFILE&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;It&apos;s from this file we can begin importing in scripts and adding custom functions. If you followed the prerequisites, your profile file will be mostly empty except perhaps a command to set the theme in oh-my-posh.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;Set-Theme Paradox&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;incorporating-packages&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#incorporating-packages&quot; aria-label=&quot;incorporating packages permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Incorporating packages&lt;/h2&gt;
 &lt;p&gt;Before we start importing packages we need to get &lt;strong&gt;PowerShellGet&lt;/strong&gt; setup, installation steps can be found here &lt;a href=&quot;https://docs.microsoft.com/en-gb/powershell/scripting/gallery/installing-psget?view=powershell-7&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Installing PowerShellGet&lt;/a&gt;. Once complete you can start installing scripts like so,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;Install-Module -Name WifiTools &lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;That&apos;s it, you can actually start checking your wifi signal with &lt;code&gt;Show-WifiState&lt;/code&gt; 📶! Aside from wifi tools here are some choice selections, some of these are recommended as it helps create building blocks for your own custom scripts:&lt;/p&gt;
 &lt;h3 id=&quot;1-terminal-icons&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#1-terminal-icons&quot; aria-label=&quot;1 terminal icons permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Terminal-Icons/0.1.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;1. Terminal Icons&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Terminal-Icons/0.1.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Terminal-Icons&lt;/a&gt; really helps improve visibility when navigating. It also allows you to format your directory list wide so that you can see all the files and folders without scrolling down.&lt;/p&gt;
 &lt;p&gt;You can activate it in your Powershell profile by adding the following import&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;Import-Module -Name Terminal-Icons&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;And that&apos;s it! witness the beauty:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5GsSsHw0n1zQ2ST9ItYIM6/1f8e2a1d08542fdfaa24acc1b35dbc02/terminal-icons.png&quot; alt=&quot;Terminal Icons&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;2-tree&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#2-tree&quot; aria-label=&quot;2 tree permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Tree/1.0.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;2. Tree&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/Tree/1.0.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Tree&lt;/a&gt; helps with directory discover and searching by printing in (as the name suggests) a tree structure. I alias this package and mainly use it for listing and searching, below is what you need in your Powershell profile,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;Install-Module -Name Tree &lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;# Shows a tree structure of the current directory (excluding folders you want to ignore)
 function treels {
     Get-ChildItemTree . -I &amp;#39;node_modules|bin|obj|.git|.vs&amp;#39;
@@ -1559,30 +1612,24 @@ function treef ([string] $pattern) {
     Get-ChildItemTree . -P $pattern -I &amp;#39;node_modules|bin|obj|.git|.vs&amp;#39;
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Example showing a directory:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/2TiqouIH6bTQ4U6quojGO7/0c1d294bac92233dd453300b482afb93/TreeList.png&quot; alt=&quot;Tree Directory List&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Example search for a file:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/p7NOrYHf5oRdLz9IqwDzR/7de6b06b6233dc5d308dead818926593/TreeSearch.png&quot; alt=&quot;Tree Search&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;3-burnt-toast&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#3-burnt-toast&quot; aria-label=&quot;3 burnt toast permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/BurntToast/0.7.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;3. Burnt Toast&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/BurntToast/0.7.1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;BurntToast&lt;/a&gt; great package to notify yourself of any long running tasks. It hooks into the native windows toast notification system and has a plethora of options. One ideal use for this is cloning a repo (I&apos;m talking about that repo dating back to the dinosaurs 🐉) since it lets you kick it off and automatically get a notification when done. &lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;Install-Module -Name BurntToast&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;# clones a repo and notify with a toast
 function clonem([string] $url) {
     git clone $url
     New-BurntToastNotification -AppLogo &amp;#39;C:\Icons\completed.png&amp;#39; -Text &amp;quot;Finished!&amp;quot;, &amp;#39;Finished cloning repo&amp;#39;
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;I also find it great for scheduling in reminders, this one is dependent on a function which I import at the top of the profile &lt;a href=&quot;https://github.com/Windos/BurntToast/blob/master/Examples/Example05/New-ToastReminder.ps1&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;code example found here&lt;/a&gt;.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;# IMPORT CUSTOM FILES
 . &amp;quot;C:\Users\faese\Documents\WindowsPowerShell\Custom\BurntToast.ps1&amp;quot;
 
@@ -1591,18 +1638,14 @@ function reminder([int]$minuites, [string]$text) {
     New-ToastReminder -AppLogo &amp;#39;C:\Icons\reminder.png&amp;#39; -Minutes $minuites -ReminderTitle &amp;#39;Reminder Reminder!&amp;#39; -ReminderText $text
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Example to ensure you never eggless,&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/4zg5SUqQ14zjuZE6QArrj0/6f2809c3942708f89aea47dd3c815bdb/reminder.png&quot; alt=&quot;Toast Reminder&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;4-coloredtext&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#4-coloredtext&quot; aria-label=&quot;4 coloredtext permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;a href=&quot;https://www.powershellgallery.com/packages/ColoredText/1.0.6&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;4. ColoredText&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This library essentially allows you to print in different colours pure and simple. I mainly use this as a confirmation line when chaining together several commands so your eye just looks for coloured text to look for completion.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;Install-Module -Name ColoredText&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;# create a new branch
 function newb([string]$branchName){
     git branch $branchName
@@ -1623,7 +1666,6 @@ function publish {
     cprint black $message on rainbow print
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/6IctC3h57SGaYFmQelmlx4/2840d80d68895fe0dde359b64328c345/coloredtext.png&quot; alt=&quot;Colored Text&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;some-other-honourable-mentions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#some-other-honourable-mentions&quot; aria-label=&quot;some other honourable mentions permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Some other honourable mentions&lt;/h3&gt;
 &lt;p&gt;Below are some other honourable mentions that I needed more time to investigate,&lt;/p&gt;
@@ -1641,8 +1683,7 @@ function publish {
 &lt;p&gt;The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;In essence its the mata tags you see below, that sites like Twitter, Linked In, Facebook use to correctly render an enriched link of the page on their website,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;&amp;lt;meta data-react-helmet=&amp;quot;true&amp;quot; name=&amp;quot;twitter:card&amp;quot; content=&amp;quot;summary_large_image&amp;quot;&amp;gt;
 &amp;lt;meta data-react-helmet=&amp;quot;true&amp;quot; name=&amp;quot;twitter:site&amp;quot; contact=&amp;quot;@faeselsaeed&amp;quot;&amp;gt;
 &amp;lt;meta name=&amp;quot;twitter:creator&amp;quot; content=&amp;quot;&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
@@ -1658,30 +1699,24 @@ function publish {
 &amp;lt;meta property=&amp;quot;og:image:alt&amp;quot; content=&amp;quot;Gatsby JS&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;
 &amp;lt;meta property=&amp;quot;og:type&amp;quot; content=&amp;quot;article&amp;quot; data-react-helmet=&amp;quot;true&amp;quot;&amp;gt;&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;This article is about how I used &lt;a href=&quot;https://helmetjs.github.io/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Helmet JS&lt;/a&gt; to improve my sites shareability and improving its SEO capabilities.&lt;/p&gt;
 &lt;h2 id=&quot;step-1---install-those-dependencies&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-1---install-those-dependencies&quot; aria-label=&quot;step 1   install those dependencies permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 1 - Install those dependencies&lt;/h2&gt;
 &lt;p&gt;The dependencies we are interested in are as follows:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;npm intall gatsby-plugin-react-helmet react-helmet&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;You can read more about the gatsby plugin &lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-plugin-react-helmet/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt; along with more detailed information on Helmet js and all its supported tabs &lt;a href=&quot;https://github.com/nfl/react-helmet&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;step-2---store-your-constants-in-your-gatsby-config&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-2---store-your-constants-in-your-gatsby-config&quot; aria-label=&quot;step 2   store your constants in your gatsby config permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 2 - Store your constant&apos;s in your gatsby config&lt;/h2&gt;
 &lt;p&gt;When creating a Gatsby website we always have a config file in the root of the project called &lt;strong&gt;gatsby-config.js&lt;/strong&gt;, from here we can add various plugins like so,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;module.exports = {
     plugins: [
         &amp;#39;gatsby-plugin-react-helmet&amp;#39;
     ]
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;This config file is also the place to store all you common reusable information in Gatsby&apos;s predefined &lt;strong&gt;siteMetadata&lt;/strong&gt; tag (this tag makes it accessible through GraphQl). We will be using this later on to populate our head with various information.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;json&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;json&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;module.exports = {
     siteMetadata: {
         title: &amp;#39;FAESEL.COM&amp;#39;,
@@ -1701,11 +1736,9 @@ function publish {
     ...
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;step-3---create-your-head-component&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-3---create-your-head-component&quot; aria-label=&quot;step 3   create your head component permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 3 - Create your head component&lt;/h2&gt;
 &lt;p&gt;Now that we have all our static information in the config we can query this out using GraphQl through the objects &gt; &lt;strong&gt;site&lt;/strong&gt; &gt; &lt;strong&gt;siteMetadata&lt;/strong&gt;. We can also import in &lt;strong&gt;Helmet&lt;/strong&gt; and start building up our Head meta data. My Head component looks like this,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;import React from &amp;#39;react&amp;#39;
 import { Helmet } from &amp;#39;react-helmet&amp;#39;
 import { useStaticQuery, graphql } from &amp;#39;gatsby&amp;#39;
@@ -1756,7 +1789,6 @@ const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type dat
 
 export default Head&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;(Note some of the properties get fleshed out later on in the article)&lt;/p&gt;
 &lt;p&gt;The Helmet component injects in HTML tags into the head of the HTML document. To understand what the tags represent within the Helmet component, and to see a full range of what&apos;s available use the following two links.&lt;/p&gt;
 &lt;ol&gt;
@@ -1765,8 +1797,7 @@ export default Head&lt;/code&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;step-3---using-your-head-component&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-3---using-your-head-component&quot; aria-label=&quot;step 3   using your head component permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 3 - Using your head component&lt;/h2&gt;
 &lt;p&gt;Using your head component is quite straight forward, its more a case of working out where to source all your properties. Here&apos;s what my page looks like,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;import React from &amp;quot;react&amp;quot;
 import { graphql } from &amp;quot;gatsby&amp;quot;
 import Layout from &amp;quot;../components/layout&amp;quot;
@@ -1795,7 +1826,6 @@ const Blog = props =&amp;gt; {
 
 export default Blog&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;step-4---go-further-with-json-ld-and-linked-data&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-4---go-further-with-json-ld-and-linked-data&quot; aria-label=&quot;step 4   go further with json ld and linked data permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 4 - Go further with JSON-LD and Linked data&lt;/h2&gt;
 &lt;p&gt;So far so great, we have enough here for most social media sites to understand the structure of our data and to use this to correctly format the information on a consuming website. But what do search engines use?&lt;/p&gt;
 &lt;p&gt;The answer is &lt;a href=&quot;https://json-ld.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Json-ld and linked data&lt;/a&gt;, best explained by the specs website itself,&lt;/p&gt;
@@ -1807,8 +1837,7 @@ export default Blog&lt;/code&gt;
 &lt;p&gt;Linked Data empowers people that publish and use information on the Web. It is a way to create a network of standards-based, machine-readable data across Web sites. It allows an application to start at one piece of Linked Data, and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web. &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;To sum it up in one sentence &lt;em&gt;we are using JSON data to create structured information so that websites can deep link with each other&lt;/em&gt;. With this in mind our head component looks like this:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;javascript&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;import React from &amp;#39;react&amp;#39;
 import { Helmet } from &amp;#39;react-helmet&amp;#39;
 import { useStaticQuery, graphql } from &amp;#39;gatsby&amp;#39;
@@ -1911,7 +1940,6 @@ const Head = ({ pageTitle, title, url, description, imageUrl, imageAlt, type, da
 
 export default Head&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;For more information on the structure you can read up on the &lt;a href=&quot;https://www.w3.org/2018/jsonld-cg-reports/json-ld/#introduction&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;W3C Json-LD specification document&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;To get an idea of the full range of tags available take a look at these two links (in the case of my website I only use &lt;strong&gt;BreadcrumbList&lt;/strong&gt; and &lt;strong&gt;Article&lt;/strong&gt; types depending on what content you have you may show something else).&lt;/p&gt;
 &lt;ol&gt;
@@ -1919,11 +1947,9 @@ export default Head&lt;/code&gt;
 &lt;li&gt;&lt;a href=&quot;https://schema.org/Article&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Article&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Do note for the property &lt;strong&gt;datePublished&lt;/strong&gt; you need to format your dates in &lt;a href=&quot;https://en.wikipedia.org/wiki/ISO_8601&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;ISO-8601&lt;/a&gt; format. To save you a trip in google this up you can use the GraphQl query snippet below. The format definition comes from &lt;a href=&quot;https://momentjs.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;Moment JS&lt;/a&gt; which Gatsby is using under the hood.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;iso8601DatePublished: datePublished(formatString: &amp;quot;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;quot;)&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h2 id=&quot;step-5---validating-your-tags&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-5---validating-your-tags&quot; aria-label=&quot;step 5   validating your tags permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 5 - Validating your tags&lt;/h2&gt;
 &lt;p&gt;There are actually various websites we can use to validate your tags and data. When building my website I used the following sources.&lt;/p&gt;
 &lt;ul&gt;
@@ -1997,11 +2023,9 @@ The content I write belongs to the actual website, so every time I change or reb
 &lt;p&gt;The first step is to configure Contentful by creating a content model. A content model represents all the building blocks required to represent a single blog post. Below is a screenshot of the content model needed:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/leOFhubn56i1CiN7MeIjK/442336bb18392148c6ac4e16ed496375/content-model.png&quot; alt=&quot;Gatsby blog content model&quot;&gt;&lt;/p&gt;
 &lt;p&gt;If your creating it manually do remember to set the field &apos;BodyM&apos; as a markdown field. Once this model is in place, you can begin writing up your first markdown post. To create this model programatically you can run the following command:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;npm run setup SPACE_ID CONTENTFUL_MANAGEMENT_TOKEN&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;The management token can be sourced from &lt;strong&gt;Settings&lt;/strong&gt; &gt; &lt;strong&gt;API Keys&lt;/strong&gt; &gt; &lt;strong&gt;Content management tokens&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;There are two settings we need to take a note of that are needed for &lt;strong&gt;Step 2&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2011,18 +2035,15 @@ The content I write belongs to the actual website, so every time I change or reb
 &lt;p&gt;Both of these can be sourced from &lt;strong&gt;Settings&lt;/strong&gt; &gt; &lt;strong&gt;API Keys&lt;/strong&gt; &gt; &lt;strong&gt;Content delivery / preview tokens&lt;/strong&gt;, &lt;/p&gt;
 &lt;h3 id=&quot;step-2---configuring-environment-variables&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-2---configuring-environment-variables&quot; aria-label=&quot;step 2   configuring environment variables permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 2 - Configuring Environment Variables&lt;/h3&gt;
 &lt;p&gt;The next step is to populate your environment variables, the two Contentful keys can be accessed by following Step 1. Setting up google and Discus is optional.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;CONTENTFUL_SPACE_ID=
 CONTENTFUL_ACCESS_TOKEN=
 GOOGLE_TRACKING_ID=
 GATSBY_DISQUS_NAME=&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h3 id=&quot;step-3---configuring-your-gatsby-config&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-3---configuring-your-gatsby-config&quot; aria-label=&quot;step 3   configuring your gatsby config permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 3 - Configuring your gatsby config&lt;/h3&gt;
 &lt;p&gt;The gatsby config file is at the root of this project, it contains all the plugins installed into this project.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code   terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;module.exports = {
     siteMetadata: {
         title: &amp;#39;FAESEL.COM&amp;#39;,
@@ -2039,7 +2060,6 @@ GATSBY_DISQUS_NAME=&lt;/code&gt;
     },
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Once This is filled in your all set to run the project!&lt;/p&gt;
 &lt;h3 id=&quot;step-4---running-the-project&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-4---running-the-project&quot; aria-label=&quot;step 4   running the project permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 4 - Running the project&lt;/h3&gt;
 &lt;p&gt;Begin by installing dependencies: &lt;/p&gt;
@@ -2103,8 +2123,7 @@ in touch) or at the very least be visible and easily findable? Alas this was not
 &lt;p&gt;Since this is not a tutorial on Azure Functions, I&apos;m going to skip going into detail here. Microsoft however have provided some great documentation on this (with pictures!) to help you out. Links are at the end until MS break them. By the way your gonna need a cron expression to define the timeframe for this function to work in, if you hate cron as much as I do worry not! Use my cron expression for a daily sobering alert at 9:00 - 0 0 9 * * *&lt;/p&gt;
 &lt;h1 id=&quot;step-3---create-your-slack-message-structure&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-3---create-your-slack-message-structure&quot; aria-label=&quot;step 3   create your slack message structure permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 3 - Create your slack message structure&lt;/h1&gt;
 &lt;p&gt;Next we can create the basic structure needed for our Slack message, expressed as a C# class. My class is actually quite simple and missing quite a few properties, to get a sense of all the customisations Slack offers have a look at the links below.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;#r &amp;quot;Newtonsoft.Json&amp;quot;
 
 #load &amp;quot;Attachments.csx&amp;quot;
@@ -2154,12 +2173,10 @@ public class Attachments
     public string Text { get; set; }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Remember to create these classes as .csx files for the Azure function to understand them.&lt;/p&gt;
 &lt;h1 id=&quot;step-4---create-a-slack-client-to-post-the-message&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-4---create-a-slack-client-to-post-the-message&quot; aria-label=&quot;step 4   create a slack client to post the message permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 4 - Create a slack client to post the message&lt;/h1&gt;
 &lt;p&gt;Now that we have our message structure we can create a class to serialize and post the JSON to Slack using the Webhook created in &lt;strong&gt;Step 1&lt;/strong&gt;, below is the code to do this,&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;#r &amp;quot;Newtonsoft.Json&amp;quot;
 #r &amp;quot;System.Web.Extensions&amp;quot;
 #r &amp;quot;System.Web&amp;quot;
@@ -2188,12 +2205,10 @@ public class SlackClient
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Its good practice to move the Webhook URL into the settings file, for simplicity I have included it into this class.&lt;/p&gt;
 &lt;h1 id=&quot;step-5---queue-checker&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-5---queue-checker&quot; aria-label=&quot;step 5   queue checker permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 5 - Queue Checker&lt;/h1&gt;
 &lt;p&gt;Next we need to add code to loop through any connections string we pass it, check all the queues and send messages if we think there&apos;s something wrong.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;#r &amp;quot;Microsoft.WindowsAzure.Storage&amp;quot;
 
 #load &amp;quot;SlackClient.csx&amp;quot;
@@ -2252,11 +2267,9 @@ public class PoisonQueueChecker
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;h1 id=&quot;step-6---being-it-all-together&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-6---being-it-all-together&quot; aria-label=&quot;step 6   being it all together permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 6 - Being it all together&lt;/h1&gt;
 &lt;p&gt;Final step is to hook up the functions run method like so:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;#load &amp;quot;PoisonQueueChecker.csx&amp;quot;
 
 using System;
@@ -2273,7 +2286,6 @@ public static void Run(TimerInfo myTimer, TraceWriter log)
     poisonQueueChecker.CheckPoisonQueues(storageConnectionStrings);
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;And that&apos;s it, 9 O&apos;clock tomorrow you can finally start gaining visibility of those poison queues and start worrying about those dodgy lines of code causing your messages to be poisoned.&lt;/p&gt;
 &lt;h1 id=&quot;helpful-links&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#helpful-links&quot; aria-label=&quot;helpful links permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Helpful Links&lt;/h1&gt;
 &lt;p&gt;Custom Integrations&lt;/p&gt;
@@ -2304,20 +2316,17 @@ public static void Run(TimerInfo myTimer, TraceWriter log)
 &lt;/ol&gt;
 &lt;h1 id=&quot;step-2--create-your-conventions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-2--create-your-conventions&quot; aria-label=&quot;step 2  create your conventions permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 2 – Create your conventions&lt;/h1&gt;
 &lt;p&gt;Now that we have some understanding of the layers, we can start defining them in code. I use an empty interface to do this. Note Castle distinguishes these layers as &apos;Conventions&apos;.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;/// A class that contains business logic, it also does not directly access any data source.
 public interface IService
 {
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Note the interface has no bearing on logic, and does not alter how the app behaves. It’s simply used as a marker to distinguish the layers of the application. A small description is also provided to define what the responsibility of the layer is. These conventions are also a way to document the structure of the application.&lt;/p&gt;
 &lt;h1 id=&quot;step-3--install-all-dependencys-using-the-convention&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-3--install-all-dependencys-using-the-convention&quot; aria-label=&quot;step 3  install all dependencys using the convention permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 3 – Install all dependency’s using the convention.&lt;/h1&gt;
 &lt;p&gt;Now that we have a convention we can blanket install all classes subscribing to that convention, if your using castle Windsor there is a slight difference in how this is done depending on whether you apply the convention directly on the class itself or if you apply it to another interface.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Applying it to an interface&lt;/strong&gt;&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;/// A class that contains business logic, it also does not directly access any data source.
 public interface IService
 {
@@ -2333,11 +2342,9 @@ container.Register(Classes.FromAssembly(Assembly.Load(&amp;quot;Assembly name go
 public interface ICustomerService : IService
 public class CustomerService : ICustomerService&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;&lt;strong&gt;Applying it to a class&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When applying it to class the installation has a slight difference.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;/// A class that contains a business rule, it validates whether the rule has been met
 public interface IRule
 {
@@ -2351,7 +2358,6 @@ container.Register(Classes.FromAssembly(Assembly.Load(&amp;quot;Assembly name go
 
 public class CustomerRule : IRule&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;When creating a new class that fits within a pre-defined convention installation becomes a walk in the park, just apply the convention interface and you’re done.&lt;/p&gt;
 &lt;h1 id=&quot;step-4--unit-testing-structure&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-4--unit-testing-structure&quot; aria-label=&quot;step 4  unit testing structure permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 4 – Unit testing structure&lt;/h1&gt;
 &lt;p&gt;Now that we have our convention setup and we are installing all classes with that convention we can apply a unit tests that will check against the structure. We are testing on two things here:&lt;/p&gt;
@@ -2359,8 +2365,7 @@ public class CustomerRule : IRule&lt;/code&gt;
 &lt;li&gt;Only Services should have a‘Service’ Suffix&lt;/li&gt;
 &lt;li&gt;Only Services should exist in a ‘Service’ namespace&lt;/li&gt;
 &lt;/ol&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;[TestFixture]
 public class TestSolutionConventionTests
 {
@@ -2415,7 +2420,6 @@ public class TestSolutionConventionTests
     }
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Picture below describes what these unit tests protect against:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;//images.ctfassets.net/wjg1udsw901v/5DsNc00VzOuEgttxz02Wh0/a5d882981f31c1fad410cea2e30af5dd/conventionexample.jpg&quot; alt=&quot;Convention Based Programming - Unit tests&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;step-5--introducing-new-conventions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-5--introducing-new-conventions&quot; aria-label=&quot;step 5  introducing new conventions permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 5 – Introducing new conventions&lt;/h1&gt;
@@ -2424,8 +2428,7 @@ public class TestSolutionConventionTests
 &lt;h1 id=&quot;step-6--sharing-conventions-across-projects-unified-code-base&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#step-6--sharing-conventions-across-projects-unified-code-base&quot; aria-label=&quot;step 6  sharing conventions across projects unified code base permalink&quot; class=&quot;auto-link-header before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;40&quot; width=&quot;40&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Step 6 – Sharing conventions across projects unified code base&lt;/h1&gt;
 &lt;p&gt;Once we’ve established some conventions for a project we can easily extract these out into a separate project and package it as a NuGet package. This allows us to apply the conventions to other solutions giving us a unified structure that looks the same from one solution to another.&lt;/p&gt;
 &lt;p&gt;New developers will surely appreciate this, and as a co-worker sitting next to them the wtf count will be below uncomfortable thresholds!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Splitting NUnit Unit Tests With TeamCity To Decrease CI Time]]></title><description><![CDATA[This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your…]]></description><link>https://www.faesel.com/blog/nunit-test-ci-split</link><guid isPermaLink="true">https://www.faesel.com/blog/nunit-test-ci-split</guid><pubDate>Fri, 31 Mar 2017 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your tests to break down the CI Builds (typically used to run different categories in parallel) or to separate slow running tests into a separate build, all in the aim of speeding up the feedback cycle for developers. So to create a category you simple add a category attribute to either a test or a test fixture like so:&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;[Category(&amp;quot;CategoryOne&amp;quot;)] 
 [TestFixture] 
 public void FunkyMethod() 
@@ -2439,10 +2442,8 @@ public class UpgradeControllerTests
 { 
   ...&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;When segregating tests sometimes you will find a tests intersects multiple categories, in this case you can add multiple attributes. Later on we will see the different types of expressions you are able to enter when running the tests through TeamCity. Below is an example of using multiple categories&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;[Category(&amp;quot;CategoryOne&amp;quot;)] 
 [Category(&amp;quot;CategoryTwo&amp;quot;)] 
 [Test] 
@@ -2451,10 +2452,8 @@ public void FunkyMethod()
     string pointless = &amp;quot;this is code&amp;quot;; 
 }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;So far creating categories like this is fine however having magic strings all over your code is not great. So to fix this we can create a custom attribute which does exactly the same thing as shown below. The custom attribute inherits from CategoryAttribute.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;//Used for a test fixture 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)] 
 public sealed class CategoryFiveAttribute : CategoryAttribute { } 
@@ -2462,16 +2461,13 @@ public sealed class CategoryFiveAttribute : CategoryAttribute { }
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)] 
 public sealed class CategoryThreeAttribute : CategoryAttribute { }&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;Now that we have the attributes ready we can use them like so.&lt;/p&gt;
-
-        &lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
+&lt;deckgo-highlight-code language=&quot;csharp&quot;  terminal=&quot;carbon&quot; line-numbers=&quot;true&quot; &gt;
           &lt;code slot=&quot;code&quot;&gt;[TestFixture, CategoryFiveAttribute] 
 public class SignOutControllerTests 
 { 
   ...&lt;/code&gt;
         &lt;/deckgo-highlight-code&gt;
-      
 &lt;p&gt;To configure team city to run certain categories is fairly straightforward. Start by creating a Build step with the runner type set to “NUnit”.  Under Run tests from select your test project dll file. And then under Nunit categories include list the categories you want to test out by writing&lt;/p&gt;
 &lt;p&gt;/Include: CategoryOne&lt;/p&gt;
 &lt;p&gt;Note that you can also do the inverse and exclude certain tests by adding the following in the section named Nunit categories exclude&lt;/p&gt;
