@@ -35,13 +35,22 @@ export default async function HomePage() {
       
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Welcome to My Tech Blog</h1>
+          <h1 className={styles.heroTitle}>
+            Hi, I'm <span className={styles.highlight}>{siteConfig.author.name}</span>
+          </h1>
           <p className={styles.heroSubtitle}>
-            Exploring technology, coding, and digital innovation
+            Software Developer & Tech Enthusiast. 
+            <br />
+            Welcome to my digital garden where I share insights on technology, coding, and innovation.
           </p>
-          <Link href="/blog" className={styles.heroButton}>
-            Explore Articles
-          </Link>
+          <div className={styles.heroButtons}>
+            <Link href="/blog" className={styles.heroButtonPrimary}>
+              Read the Blog
+            </Link>
+            <Link href="/projects" className={styles.heroButtonSecondary}>
+              View Projects
+            </Link>
+          </div>
         </div>
       </section>
 
