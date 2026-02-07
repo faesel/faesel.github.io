@@ -1,0 +1,187 @@
+1:"$Sreact.fragment"
+3:I[22016,["/_next/static/chunks/3524fbacef1ef8c0.js"],""]
+4:I[5500,["/_next/static/chunks/3524fbacef1ef8c0.js"],"Image"]
+8:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/708205fa81a1891d.js"],"OutletBoundary"]
+9:"$Sreact.suspense"
+:HL["/_next/static/chunks/007625c7813019e4.css","style"]
+2:T416,{"@context":"https://schema.org","@type":"BlogPosting","headline":"Why every developer needs to use Obsidian","description":"As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to ","image":"https://images.ctfassets.net/wjg1udsw901v/78Ws2s56LgCLoxkx3Xdcsl/083d00cd84eeec428087bbab65ae3580/obsidian-logo.png","datePublished":"2021-05-24T00:00+01:00","dateModified":"2021-05-24T00:00+01:00","author":{"@type":"Person","name":"Your Name","url":"https://yourblog.com/about"},"publisher":{"@type":"Organization","name":"Tech Blog","url":"https://yourblog.com","logo":{"@type":"ImageObject","url":"https://yourblog.com/images/logo.png"}},"keywords":"obsidian, research, notes, markdown, ownership, mermaid, git, knowledge-graph, ide, plantuml, open-graph","url":"https://yourblog.com/blog/why-every-developer-needs-to-use-obsidian","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourblog.com/blog/why-every-developer-needs-to-use-obsidian"}}5:T43af,<p>As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically. Maintaining a cognitive memory across all the different CLI&#39;s, languages/frameworks etc in today&#39;s setting is no small feat.</p>
+<p>Over time i&#39;ve found that if you want something to stick you have to write it down, and if it doesn&#39;t stick (or un-sticks over time) you need some notes to look back at it. As my brain 🧠 ages these notes have become invaluable, and the need for quality notes over rushed pasted snippets has become more of a priority.</p>
+<p>Due to this I decided to revisit and reassess how I learn, and in doing so I ended up discovering <a href="https://obsidian.md/">Obsidian</a> which has been a game changer for me. This article is an engineers perspective of creating dev notes to aid in learning and recollection.</p>
+<h1>My old setup</h1>
+<p>Prior to <a href="https://obsidian.md/">Obsidian</a> my note taking activities all occurred in OneNote, I had both my personal notes as well as learning notes around different technologies all in one place split by sections.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/o5aNPcsMQrTCGBp8ffbJY/454ecc55a38b36a53093897c1bc32181/OneNote_Structure.png" alt="OneNote Structure"><br><em>My programming category would contain a new section per technology</em></p>
+<p>The notes themself&#39;s contained a mixture of,</p>
+<ul>
+<li>Images (mostly diagrams)</li>
+<li>Paragraphs</li>
+<li>Code snippets (sure you can use gists or a repo, but i want context with my code snippets and i want it to be searchable)</li>
+<li>Links to articles, tools, documentation links ect.</li>
+<li>Youtube links usually tutorials</li>
+</ul>
+<p>However I realized that there are some serious shortcomings with OneNote, and these problems are replicated across its competitors too, like Notion or Evernote. Heres my list,</p>
+<ul>
+<li>Code pasted in is never pure code, they always add markup on top to render which means copying and pasting out adds characters or unwanted proprietary formatting</li>
+<li>Diagrams are always disconnected, hard to edit. They are usually pasted in images from other tools.</li>
+<li>I don&#39;t have any version tracking, history or backup.</li>
+<li>Pasting and editing is distracting with as styling gets pasted in from the source.</li>
+<li>There are no connections in my notes, linking is not possible.</li>
+<li>I dont truly own any of the content, i will forever be tied to whatever I write in.</li>
+</ul>
+<p>The list can go on, but you get the idea...</p>
+<h1>How Obsidian makes it better</h1>
+<p>Obsidian is part of a next generation in IDE&#39;s designed specifically for research and note taking in their own words they describe it as,</p>
+<blockquote>
+<p>A second brain, for you, forever. Obsidian is a powerful knowledge base that works on top of a local folder of plain text Markdown files.</p>
+</blockquote>
+<p>Its the VS code of markdown... no quite literally. At its base it provides a really smooth cross platform writing experience with some key features,</p>
+<ul>
+<li>Markdown editing, you get all the benefits of being able to easily style without leaving your keyboard, as well as encorperating code snippets easily.</li>
+<li>Tagging and creating links (backlinks) across your markdown files</li>
+<li>Graph view (more on that later)</li>
+<li>Powerful built in search</li>
+</ul>
+<p>And just like VS code its got a rich plugin ecosystem that&#39;s powered by opensource github projects that greatly extend its usability and allows you to mold the app to your liking.</p>
+<h2>You own what you write</h2>
+<p>Obsidian uses local markdown files that are stored on your own computers file system. There is no proprietary formatting, encoding etc, what you create is just standard markdown files (.md) and a bunch of folders.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/7CdSonGKup7xhgpkBtucs7/5ff5b1baababda93c470bebee41bb464/Obsidian_File_Structure.png" alt="Obsidian File Structure"></p>
+<p>Why is this important you might ask?</p>
+<ul>
+<li>It means the notes you painstakingly curate are not locked into a single echo-system, you can shift between them as long as whatever your shifting to supports markdown.</li>
+<li>You also get greater control over how you backup and manage change tracking.</li>
+<li>You have greater control over the privacy of what you write, in a world full of breaches a shift away from centralized cloud storage is refreshing. <em>harshibar</em> sums it up nicely with this video,</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=HhWUjp5pD0g">https://www.youtube.com/watch?v=HhWUjp5pD0g</a></p>
+<h2>Works with git</h2>
+<p>Obsidian doesn&#39;t support git right out the box, it requires a community plugin called <a href="https://github.com/denolehov/obsidian-git">Obsidian Git</a>. However after having installed the plugin you end up with the greatest change tracking/archiving tool at your disposal.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/gTn99qeodAoxHw1ybqvZg/a504f3b5e0547c47475d2071fb3ab076/Obsidian_Git.png" alt="Obsidian Git"></p>
+<p>Whilst the extension is fairly simple in that its mainly for pushing changes to a selected branch. It offers enough functionality to be out of your way. Dealing with more advanced scenarios like merge conflicts might need to resort to the CLI.</p>
+<h2>Mermaid</h2>
+<p>As a visual thinker who thinks takes more information in from pictures than words the expression <em>a picture speaks a thousand words</em> really hits home. In the past I would always use free tools like <a href="www/draw.io">draw.io</a> to make diagrams then paste in the exported jpg&#39;s into my notes.</p>
+<p>As a process I always found this really disconnected, and its even more jarring when you need to make edits and go through the whole export to jpeg flow all over again. I also find with these tools getting boxes to line up with connecting lines in a way that doesn&#39;t look a mess is incredibly fiddly and time consuming.</p>
+<p>One later evolution of this was <a href="https://plantuml.com/">Plant UML</a> which moves away from drawing diagrams to scripting, take this plantUML file as an example,</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">@startuml</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">left to right direction</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">actor Guest <span class="hljs-keyword">as</span> g</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">package Professional {</span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content">  actor Chef <span class="hljs-keyword">as</span> c</span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">  actor <span class="hljs-string">&quot;Food Critic&quot;</span> <span class="hljs-keyword">as</span> fc</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">}</span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">package Restaurant {</span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">  usecase <span class="hljs-string">&quot;Eat Food&quot;</span> <span class="hljs-keyword">as</span> UC1</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">  usecase <span class="hljs-string">&quot;Pay for Food&quot;</span> <span class="hljs-keyword">as</span> UC2</span></span>
+<span class="code-line"><span class="line-number">15</span><span class="line-content">  usecase <span class="hljs-string">&quot;Drink&quot;</span> <span class="hljs-keyword">as</span> UC3</span></span>
+<span class="code-line"><span class="line-number">16</span><span class="line-content">  usecase <span class="hljs-string">&quot;Review&quot;</span> <span class="hljs-keyword">as</span> UC4</span></span>
+<span class="code-line"><span class="line-number">17</span><span class="line-content">}</span></span>
+<span class="code-line"><span class="line-number">18</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">19</span><span class="line-content"><span class="hljs-function"><span class="hljs-title">fc</span> --&gt;</span> UC4</span></span>
+<span class="code-line"><span class="line-number">20</span><span class="line-content"><span class="hljs-function"><span class="hljs-title">g</span> --&gt;</span> UC1</span></span>
+<span class="code-line"><span class="line-number">21</span><span class="line-content"><span class="hljs-function"><span class="hljs-title">g</span> --&gt;</span> UC2</span></span>
+<span class="code-line"><span class="line-number">22</span><span class="line-content"><span class="hljs-function"><span class="hljs-title">g</span> --&gt;</span> UC3</span></span>
+<span class="code-line"><span class="line-number">23</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">24</span><span class="line-content">@enduml</span></span></code></pre><p><em>Taken from the plantUML&#39;s <a href="https://plantuml.com/use-case-diagram">usecase examples</a></em></p>
+<p>The above script produces the following diagram, note that the formatting/spacing and styling is all governed by plantUML syntax... there is absolutely no drawing involved.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/5jHzAIn4XYzmeeWbhn4yto/3154d97c8ed3f0c4456d3e7850ae6311/plantuml-example.png" alt="PlantUML Example"></p>
+<p>The benefit of this approach is you now have a change tracked diagram that can sit somewhere with your documentation (and as a bonus it formats everything for you). Aside from exporting the script as a .png making edits couldn&#39;t be easier.</p>
+<p>Whilst PlantUML is great it still take you away from your markdown document as you need to separately create the diagram and later paste in a link to the exported image. A later evolution on this is <a href="https://mermaid-js.github.io/mermaid/#/">Mermaid</a> which is similar to PlantUML but works within markdown as a code block. Having diagrams integrated means you no longer need to export diagrams to jpeg when adding to a markdown file... their just there. Here is an example,</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">stateDiagram-v2</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content">[*] --&gt; Still</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">S<span class="hljs-function"><span class="hljs-title">till</span> --&gt;</span> [*]</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">S<span class="hljs-function"><span class="hljs-title">till</span> --&gt;</span> Moving</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">M<span class="hljs-function"><span class="hljs-title">oving</span> --&gt;</span> Still</span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">M<span class="hljs-function"><span class="hljs-title">oving</span> --&gt;</span> Crash</span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content">C<span class="hljs-function"><span class="hljs-title">rash</span> --&gt;</span> [*]</span></span></code></pre><p><em>Taken from Mermaids <a href="https://mermaid-js.github.io/mermaid/#/stateDiagram">state diagram example</a></em></p>
+<p>The script produces the following diagram, note that this screenshot was taken directly from Obsidian as it supports Mermaid out right out the box.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/3TdRha2qj11tFdfT1ULT7Y/725f09affa9ed12f05a62957ab88fc34/mermaid-diagram-example.png" alt="Mermaid Diagram Example"></p>
+<h2>Creating a open graph of knowledge!</h2>
+<p>Obsidian has the ability of collating all the connections through back-linking and tagging your document to produce a networked graph. Take a look at my graph so far,</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/pIYQ7RoXi4eYUW05zkrdn/d81b648ee4f721150b58c4c2fe46d643/obsidian-graph-zoomedout.png" alt="Obsidian Graph Zoomed Out"></p>
+<p>Here&#39;s another picture of it zoomed in, you can see all the connecting notes, as well all the connecting hash tags.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/3Ojk2IEqZ2d3qsT0sOliii/94ec4178cfb7d1f9c5e76a67e80b0d0e/obsidian-graph-zoomedin.png" alt="Obsidian Graph Zoomed In"></p>
+<p>Admittedly whilst this looks really cool i haven&#39;t made much use out of this so far. It could be because I always target specific topics to learn and research into them rather than just free write so there&#39;s no real discovery of connections happening. In a team setting however the graph view could be really useful for content discovery especially when its cross cutting (like filtering on any article that&#39;s tagged with infrastructure).</p>
+<h1>Plugins</h1>
+<p>Obsidian has a wide list of plugins, I thought it would be useful for someone new to Obsidian to get a sense of how its functionality can be extended. Below are some choice selections I use personally,</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Github Link</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Advanced Tables</td>
+<td>Adds better navigation and formatting for markdown tables</td>
+<td><a href="https://github.com/tgrosinger/advanced-tables-obsidian">advanced-tables-obsidian</a></td>
+</tr>
+<tr>
+<td>Syntax Highlight</td>
+<td>Adds highlighting of code blocks within the editor view</td>
+<td><a href="https://github.com/deathau/cm-editor-syntax-highlight-obsidian">Syntax Highlight</a></td>
+</tr>
+<tr>
+<td>Markdown prettifier</td>
+<td>Fixes and formats your markdown file</td>
+<td><a href="https://github.com/cristianvasquez/obsidian-prettify">Markdown prettifier</a></td>
+</tr>
+<tr>
+<td>Mind Map</td>
+<td>Creates mind map view of your document</td>
+<td><a href="https://github.com/lynchjames/obsidian-mind-map">Mind Map</a></td>
+</tr>
+<tr>
+<td>Natural Language Dates</td>
+<td>Allows you to easily add dates into your markdown file</td>
+<td><a href="https://github.com/argenos/nldates-obsidian">Natural Language Dates</a></td>
+</tr>
+<tr>
+<td>Note Refactor</td>
+<td>Allows you to extract a piece of markdown into its own file</td>
+<td><a href="https://github.com/lynchjames/note-refactor-obsidian">Note Refactor</a></td>
+</tr>
+<tr>
+<td>Obsidian Git</td>
+<td>Adds support for git, allows you to push changes to your repository</td>
+<td><a href="https://github.com/denolehov/obsidian-git">Obsidian Git</a></td>
+</tr>
+<tr>
+<td>Outliner</td>
+<td>Adds better list manipulation, also allows you to fold lists</td>
+<td><a href="https://github.com/vslinko/obsidian-outliner">Outliner</a></td>
+</tr>
+<tr>
+<td>Paste URL into selection</td>
+<td>Allows you to paste a link over text and auto format it</td>
+<td><a href="https://github.com/denolehov/obsidian-url-into-selection">Paste URL into selection</a></td>
+</tr>
+<tr>
+<td>Reading Time</td>
+<td>More for the blog authors, gives you a reading time for your markdown file</td>
+<td><a href="https://github.com/avr/obsidian-reading-time">Readming Time</a></td>
+</tr>
+<tr>
+<td>Recent Files</td>
+<td>Adds a panel showing recent opened files</td>
+<td><a href="https://github.com/tgrosinger/recent-files-obsidian">Recent Files</a></td>
+</tr>
+<tr>
+<td>Sliding Panes</td>
+<td>More of a UI change, allows you to slide between files</td>
+<td><a href="https://github.com/deathau/sliding-panes-obsidian">Sliding Panes</a></td>
+</tr>
+</tbody></table>
+<h1>Themes</h1>
+<p>Obsidian also supports a bunch of themes and looks utterly glorious, I use a theme called <em>Atom</em>.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/2Zj4rlGwr1ZaOxxVfb0eP7/968dcaae0e3ca7f49781ed334fe30424/Obsidian.png" alt="Obsidian"></p>
+<h1>Conclusion</h1>
+<p>Obsidian has really refreshed how I work to a modern standard. Hopefully this has given a good overview of the benefits from a engineers perspective.</p>
+<p>The only caveat to Obsidian is the lack of mobile apps (its currently being worked on, check out there roadmap on <a href="https://trello.com/b/Psqfqp7I/obsidian-roadmap">Trello</a>). But to be honest I haven&#39;t really felt the need for it as im always learning whilst on my computer.</p>
+<p>Obsidian is free try use (and fully functional with its free tier), they also have some paid tiers and boltons, so do check it out!</p>
+0:{"buildId":"8T5i3JDkrsj5342kUJ4OR","rsc":["$","$1","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$2"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://yourblog.com\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://yourblog.com/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Why every developer needs to use Obsidian\",\"item\":\"https://yourblog.com/blog/why-every-developer-needs-to-use-obsidian\"}]}"}}],["$","article",null,{"className":"page-module__dgei_G__article","children":[["$","$L3",null,{"href":"/blog","className":"page-module__dgei_G__backLink","children":"← Back to Blog"}],["$","header",null,{"className":"page-module__dgei_G__header","children":[["$","h1",null,{"className":"page-module__dgei_G__title","children":"Why every developer needs to use Obsidian"}],["$","div",null,{"className":"page-module__dgei_G__meta","children":["$","time",null,{"className":"page-module__dgei_G__date","dateTime":"2021-05-24T00:00+01:00","children":["📅 ","May 24, 2021"]}]}],["$","div",null,{"className":"page-module__dgei_G__tags","children":[["$","span","obsidian-0",{"className":"page-module__dgei_G__tag","children":"obsidian"}],["$","span","research-1",{"className":"page-module__dgei_G__tag","children":"research"}],["$","span","notes-2",{"className":"page-module__dgei_G__tag","children":"notes"}],["$","span","markdown-3",{"className":"page-module__dgei_G__tag","children":"markdown"}],["$","span","ownership-4",{"className":"page-module__dgei_G__tag","children":"ownership"}],["$","span","mermaid-5",{"className":"page-module__dgei_G__tag","children":"mermaid"}],["$","span","git-6",{"className":"page-module__dgei_G__tag","children":"git"}],["$","span","knowledge-graph-7",{"className":"page-module__dgei_G__tag","children":"knowledge-graph"}],["$","span","ide-8",{"className":"page-module__dgei_G__tag","children":"ide"}],["$","span","plantuml-9",{"className":"page-module__dgei_G__tag","children":"plantuml"}],["$","span","open-graph-10",{"className":"page-module__dgei_G__tag","children":"open-graph"}]]}]]}],["$","div",null,{"className":"page-module__dgei_G__heroImage","children":["$","$L4",null,{"src":"https://images.ctfassets.net/wjg1udsw901v/78Ws2s56LgCLoxkx3Xdcsl/083d00cd84eeec428087bbab65ae3580/obsidian-logo.png","alt":"Why every developer needs to use Obsidian","fill":true,"className":"page-module__dgei_G__heroImageImg","priority":true,"sizes":"(max-width: 800px) 100vw, 800px"}]}],["$","div",null,{"className":"page-module__dgei_G__content","dangerouslySetInnerHTML":{"__html":"$5"}}]]}]],["$L6"],"$L7"]}],"loading":null,"isPartial":false}
+6:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/007625c7813019e4.css","precedence":"next"}]
+7:["$","$L8",null,{"children":["$","$9",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]
+a:null

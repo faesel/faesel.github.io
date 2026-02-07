@@ -1,0 +1,231 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/3524fbacef1ef8c0.js"],""]
+3:I[5500,["/_next/static/chunks/3524fbacef1ef8c0.js"],"Image"]
+7:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/708205fa81a1891d.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+:HL["/_next/static/chunks/007625c7813019e4.css","style"]
+4:T8fa9,<p>As an engineer, I have always had a heavy reliance on REST&#39;ful API&#39;s for passing information between applications. With the introduction of <a href="https://swagger.io/specification/">open API specification</a> now in version 3.0.3, integration has never been easier. The push to break monoliths into microservices has further boosted its usage, however I always found one size never fits all.</p>
+<h2>Where REST falls down 👎</h2>
+<p>RESTful services have many shortfalls built in, if you&#39;re in my boat and most of the time your creating services and working on client applications. Having to tailor a client library to call those services has always been a tiresome task. 3rd party tooling like <a href="https://github.com/RicoSuter/NSwag">Nswag</a> made some attempt to fix this problem however I still find breaking changes between versions that make huge changesets across all your endpoints. If your working across multiple languages like C# and Javascript your work doubles up. </p>
+<p>There are also encumbrances experienced when mixing batch/bulk operations, overnight jobs with REST&#39;ful APIs. Leading to complex solutions that auto scale or spread load over time. Having to go through each request-response cycle on bulk is just in-efficient.</p>
+<p>In most cases, responses are also in the form of JSON which is designed to cater for human readability at the expense of being inefficient. If you talking machine to machine readability is not a concern?  </p>
+<p>Lets also not mention those endless subjective PR threads trying to decide whats RESTful and whats not 😇.</p>
+<h2>Can GRPC fill the gaps 🤷‍♂️</h2>
+<p>If you experienced the REST&#39;ful pains above, GRPC&#39;s got your back. To get a quick demonstration of its capabilities, I recommend <a href="http://wildermuth.com/2020/07/09/gRPC-Talk-at-netPonto">Shawn Wildermuth&#39;s gRPC Talk at netPonto User Group (2020)</a> he explains it in a easy to understand way.</p>
+<p><a href="https://www.youtube.com/watch?v=3wUtQb6C7to">https://www.youtube.com/watch?v=3wUtQb6C7to</a></p>
+<p>To sum up its capabilities it has two key differences to REST (if your already familiar with this, skip to section <strong>Things to look into</strong>).</p>
+<h3>1. Proto files</h3>
+<p>Proto files contain the definition of your API in a structured spec compliant way. The code below shows a simple <em>GreetingsService</em> with a basic request and response.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-attribute">syntax</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;proto3&quot;</span><span class="hljs-comment">;</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">option csharp_namespace <span class="hljs-operator">=</span> <span class="hljs-string">&quot;HelloService&quot;</span><span class="hljs-comment">;</span></span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">service GreetingsService {</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">    rpc GetHello (HelloRequest) returns (HelloResponse)<span class="hljs-comment">;</span></span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">}</span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">message HelloRequest {</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">    int32 HelloCount <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-comment">;</span></span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">}</span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">message HelloResponse {</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">    string HelloDescription <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-comment">;</span></span></span>
+<span class="code-line"><span class="line-number">15</span><span class="line-content">}</span></span></code></pre><p>Proto files can then be used to transpile code <a href="https://grpc.io/docs/languages/">into many languages</a>. When transpiling we have the option to either create code for a <strong>server</strong> or <strong>client</strong>. Code generation creates a base class <strong>GreetingsServiceBase</strong> for us (it&#39;s generated in the bin folder on build time). Eventually, you end up with a service that looks like this:</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-keyword">using</span> Grpc.Core;</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"><span class="hljs-keyword">using</span> HelloServer;</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content"><span class="hljs-keyword">using</span> System.Threading.Tasks;</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content"><span class="hljs-keyword">namespace</span> <span class="hljs-title">TaxServer.Services</span></span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">{</span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">HelloGrpcService</span> : <span class="hljs-title">GreetingsService.GreetingsServiceBase</span></span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content">    {</span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">async</span> Task&lt;HelloResponse&gt; <span class="hljs-title">GetHello</span>(<span class="hljs-params">HelloRequest request, ServerCallContext context</span>)</span></span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">        {</span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HelloResponse { HelloDescription = <span class="hljs-string">$&quot;<span class="hljs-subst">{request.HelloCount}</span> Hellos to you!&quot;</span> };</span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">        }</span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">    }</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">}</span></span></code></pre><p>The act of sharing and distributing proto files means that consuming clients can easily create their own client code and be completely agnostic of language.</p>
+<h3>2. Defining request/response lifecycle</h3>
+<p>GRPC allows you to change its request/response lifecycle, it has 4 options described below,</p>
+<ul>
+<li><strong>Unary RPC&#39;s</strong>: Unary RPCs where the client sends a single request to the server and gets a single response back.</li>
+<li><strong>Server Streaming RPC&#39;s</strong>: Server streaming RPCs where the client sends a request to the server and gets a stream to read a sequence of messages back.</li>
+<li><strong>Client Streaming RPC&#39;s</strong>: Client streaming RPCs where the client writes a sequence of messages and sends them to the server, again using a provided stream.</li>
+<li><strong>Bi-Directional Streaming RPC&#39;s</strong>: Bidirectional streaming RPCs where both sides send a sequence of messages using a read-write stream.</li>
+</ul>
+<p><a href="https://grpc.io/docs/what-is-grpc/core-concepts/"><em>Taken from GRPC.io</em></a></p>
+<p>These additional modes are more suited for batch processing over your traditional request/response lifecycle.</p>
+<h2>Things to look into ✅</h2>
+<p>So far so great, getting to this point is relatively easy and straightforward. Problem is all the tutorials seem to end at this point 😟. To have a live API several additional concerns need to be addressed. My list was as follows:</p>
+<ol>
+<li>Check how we can consume/distribute .proto files</li>
+<li>How to create a health checking probe for a GRPC service</li>
+<li>How to version endpoints</li>
+<li>Can a .NET Framework client app consume a .NET Core GRPC server?</li>
+<li>How to debug with tools, call an endpoint</li>
+<li>Authentication and authorization</li>
+<li>Can you call the service from a browser?</li>
+</ol>
+<h3>1. Check how we can consume/distribute .proto files</h3>
+<p>There are two different approaches to achieve this, mainly dependent on whether your service is internal or external public facing.</p>
+<h4>Option 1 - With nuget packages</h4>
+<p>Option one is to distribute your proto files using Nuget packages. This solution is recommended in the situation where you are using GRPC for internal services. Your solution structure would look something like this:</p>
+<ul>
+<li>HelloService.Protos<br>- Hello.protos</li>
+<li>HelloService.Server<br>- Server code ...</li>
+</ul>
+<p>In this case we would use a Nuspec file to package the .protos and output it into the following structure in the client app. Considering you could be consuming more than one GRPC service it might make sense to create subfolders to know where the proto file comes from.</p>
+<ul>
+<li>HelloClient<br>/Protos/<strong>service name goes gere</strong>/Hello.protos</li>
+</ul>
+<p>From here the client application can generate its client service code using the protofile. If you want to go one step further there is a dotnet command you can use to integrate the proto file into the <strong>.csproj</strong> file using a <a href="https://docs.microsoft.com/en-us/aspnet/core/grpc/dotnet-grpc?view=aspnetcore-3.1">dotnet command</a> which can be triggered after the installation of the package.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">dotnet grpc<span class="hljs-built_in"> add-file </span>Hello.proto</span></span></code></pre><h4>Option 2 - With a discovery endpoint</h4>
+<p>This approach is recommended if your GRPC service is a service meant for external consumers. The idea behind this approach is to expose which services/endpoints are available. The method is dependent on the <a href="https://www.nuget.org/packages/Grpc.Reflection/"><strong>Grpc.Reflection</strong></a> Nuget package.</p>
+<p>The general approach is outlined <a href="https://github.com/grpc/grpc/blob/master/doc/csharp/server_reflection.md">here</a>. </p>
+<p>Once implemented it allows you to use an endpoint from the server code to generate your client code. Dotnet has a <a href="https://www.nuget.org/packages/dotnet-grpc-cli/">GRPC CLI tool</a>, that can read from a server reflection endpoint and produce a proto file out of it. The command looks like this,</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">dotnet grpc-cli <span class="hljs-keyword">dump</span> https:<span class="hljs-comment">//localhost:5001 Reflection.HelloService</span></span></span></code></pre><p>You can also write the proto file to disk using this command</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">dotnet grpc-cli dump http://localhost:10042 Reflection.HelloService -o ./prot</span></span></code></pre><h3>2. How to create a health checking probe for a GRPC service</h3>
+<p>Health checking probe endpoints are useful for monitoring uptime as well as managing containers when services are unresponsive. GRPC specification has a defined structure for creating your health checking endpoint called the <a href="https://github.com/grpc/grpc/blob/master/doc/health-checking.md"><strong>GRPC Health Checking Protocol</strong></a>. </p>
+<p>However, since we are using asp.net core we can get away from this and rely on middleware to do this for us with little code.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title">ConfigureServices</span><span class="hljs-params">(IServiceCollection services)</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"></span>{</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">  services.<span class="hljs-built_in">AddGrpc</span>();</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content">  services.<span class="hljs-built_in">AddHealthChecks</span>();</span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">  ...</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">}</span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title">Configure</span><span class="hljs-params">(IApplicationBuilder app)</span></span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content"></span>{</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">  app.<span class="hljs-built_in">UseEndpoints</span>(endpoints =&gt;</span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">  {</span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">    endpoints.<span class="hljs-built_in">MapHealthChecks</span>(<span class="hljs-string">&quot;/healthz&quot;</span>);</span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">    ...</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">  });</span></span>
+<span class="code-line"><span class="line-number">15</span><span class="line-content">}</span></span></code></pre><p>Now when running locally <strong><a href="https://localhost:5001/healthz">https://localhost:5001/healthz</a></strong> we can get a 200 response. Here is what the output logs look like:</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">      Request starting HTTP/<span class="hljs-number">2</span> GET https:<span class="hljs-comment">//localhost:5001/healthz</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Routing</span><span class="hljs-selector-class">.EndpointMiddleware</span><span class="hljs-selector-attr">[0]</span></span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">      Executing endpoint <span class="hljs-string">&#x27;Health checks&#x27;</span></span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Routing</span><span class="hljs-selector-class">.EndpointMiddleware</span><span class="hljs-selector-attr">[1]</span></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">      Executed endpoint <span class="hljs-string">&#x27;Health checks&#x27;</span></span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Hosting</span><span class="hljs-selector-class">.Diagnostics</span><span class="hljs-selector-attr">[2]</span></span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">      Request finished <span class="hljs-keyword">in</span> <span class="hljs-number">19.056ms</span> <span class="hljs-number">200</span> text/plain</span></span></code></pre><h3>3. How to version endpoints</h3>
+<p>The problem of versioning is easily solved using namespaces, it&#39;s just a case of incorporating your version number into the namespace like so,</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">option csharp_namespace <span class="hljs-operator">=</span> <span class="hljs-string">&quot;HelloService.v1&quot;</span><span class="hljs-comment">;</span></span></span></code></pre><p>For each version, you would have different proto files and different service implementations. When inheriting from the base we can be specific on the version we need.</p>
+<p><strong>Server Code</strong></p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloGrpcService</span><span class="hljs-attr"> : HelloService</span>.<span class="hljs-title">v1</span>.<span class="hljs-title">GreetingsService</span>.<span class="hljs-title">GreetingsServiceBase</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"></span>{</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">}</span></span></code></pre><p><strong>Client Code</strong></p>
+<p>The namespaces segregate the types so it just works out.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-comment">//Version 1</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"><span class="hljs-keyword">using</span> <span class="hljs-built_in">var</span> channel = GrpcChannel.ForAddress(<span class="hljs-string">&quot;https://localhost:5001&quot;</span>);</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content"><span class="hljs-built_in">var</span> <span class="hljs-keyword">client</span> = <span class="hljs-keyword">new</span> HelloService.v1.GreetingsService.GreetingsServiceClient(channel);</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"><span class="hljs-built_in">var</span> response = await <span class="hljs-keyword">client</span>.GetHello(<span class="hljs-keyword">new</span> HelloService.v1.HelloRequest() { </span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">      HelloCount = <span class="hljs-number">1</span></span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">});</span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content"><span class="hljs-comment">//Version 2</span></span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content"><span class="hljs-keyword">using</span> <span class="hljs-built_in">var</span> channel2 = GrpcChannel.ForAddress(<span class="hljs-string">&quot;https://localhost:5001&quot;</span>);</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content"><span class="hljs-built_in">var</span> client2 = <span class="hljs-keyword">new</span> HelloService.v2.GreetingsService.GreetingsServiceClient(channel);</span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content"><span class="hljs-built_in">var</span> response2 = await client2.GetHello(<span class="hljs-keyword">new</span> HelloService.v2.HelloRequest() {</span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">      HelloCount = <span class="hljs-number">2</span></span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">});</span></span></code></pre><h3>4. Can a .NET Framework client app consume a .NET Core GRPC server?</h3>
+<p>Turns out it can yes, however ... as GRPC is built upon HTTP/2 which is not supported in .net framework, making secure connections to your API is not possible. The client code for .net framework is very similar, we just pass a <strong>ChannelCredentials.Insecure</strong> option in when building the client.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-built_in">var</span> channel = <span class="hljs-keyword">new</span> Channel(<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">5000</span>, ChannelCredentials.Insecure);</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"><span class="hljs-built_in">var</span> <span class="hljs-keyword">client</span> = <span class="hljs-keyword">new</span> GreetingsService.GreetingsServiceClient(channel);</span></span></code></pre><h3>5. How to debug with tools, call an endpoint</h3>
+<p>If you&#39;re like me and you&#39;ve come from a REST background your most likely used to polished tools like Postman or Insomnia to test out your endpoints. Sadly these tools don&#39;t support GRPC 😢... yet anyway...</p>
+<p>The <a href="https://github.com/grpc-ecosystem/awesome-grpc#lang-cs">GRPC Tooling Community</a> is still in its infancy. There are however some new players that are emerging that get the job done, most notably for me BloomRPC. </p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/6p6bGkCU7Tpa3tMwPsoRxO/adb23285ed92ea9c2c757ef62a4600a9/BloomRPC.png" alt="BloomRPC"></p>
+<p>After importing in your proto files you get a great swagger-esk UI that automatically build up your request body from your proto file.</p>
+<h3>6. Authentication and authorization</h3>
+<p>Because we are working under the guise of asp.net core we can take advantage of its authentication middleware. The following authentication methods are supported.</p>
+<ul>
+<li>Azure Active Directory</li>
+<li>Client Certificate</li>
+<li>IdentityServer</li>
+<li>JWT Token</li>
+<li>OAuth 2.0</li>
+<li>OpenID Connect</li>
+<li>WS-Federation</li>
+</ul>
+<p>Below is a simple code example of authenticating a JWT token with an identity service. As you can see its no different from a REST service.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> ConfigureServices(IServiceCollection services)</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content">{</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">    var authority = <span class="hljs-string">&quot;https://myidentityserver.com&quot;</span>;</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">    services</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">        .AddAuthentication(<span class="hljs-string">&quot;Bearer&quot;</span>)</span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">        .AddJwtBearer(<span class="hljs-string">&quot;Bearer&quot;</span>, <span class="hljs-keyword">options</span> =&gt;</span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content">        {</span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">            <span class="hljs-keyword">options</span>.Authority = authority;</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">            <span class="hljs-keyword">options</span>.RequireHttpsMetadata = <span class="hljs-keyword">false</span>;</span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">            <span class="hljs-keyword">options</span>.TokenValidationParameters = <span class="hljs-keyword">new</span> TokenValidationParameters</span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">            {</span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">                ValidateAudience = <span class="hljs-keyword">false</span>,</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">            };</span></span>
+<span class="code-line"><span class="line-number">15</span><span class="line-content">            <span class="hljs-keyword">options</span>.ConfigurationManager = <span class="hljs-keyword">new</span> ConfigurationManager&lt;OpenIdConnectConfiguration&gt;</span></span>
+<span class="code-line"><span class="line-number">16</span><span class="line-content">            (</span></span>
+<span class="code-line"><span class="line-number">17</span><span class="line-content">                metadataAddress: authority + <span class="hljs-string">&quot;/.well-known/openid-configuration&quot;</span>,</span></span>
+<span class="code-line"><span class="line-number">18</span><span class="line-content">                configRetriever: <span class="hljs-keyword">new</span> OpenIdConnectConfigurationRetriever(),</span></span>
+<span class="code-line"><span class="line-number">19</span><span class="line-content">                docRetriever: <span class="hljs-keyword">new</span> HttpDocumentRetriever { RequireHttps = <span class="hljs-keyword">false</span> }</span></span>
+<span class="code-line"><span class="line-number">20</span><span class="line-content">            );</span></span>
+<span class="code-line"><span class="line-number">21</span><span class="line-content">            <span class="hljs-keyword">options</span>.Events = <span class="hljs-keyword">new</span> JwtBearerEvents</span></span>
+<span class="code-line"><span class="line-number">22</span><span class="line-content">            {</span></span>
+<span class="code-line"><span class="line-number">23</span><span class="line-content">                OnTokenValidated = context =&gt;</span></span>
+<span class="code-line"><span class="line-number">24</span><span class="line-content">                {</span></span>
+<span class="code-line"><span class="line-number">25</span><span class="line-content">                    var ci = (ClaimsIdentity)context.Principal.Identity;</span></span>
+<span class="code-line"><span class="line-number">26</span><span class="line-content">                    var authHeader = context.Request.Headers[<span class="hljs-string">&quot;Authorization&quot;</span>];</span></span>
+<span class="code-line"><span class="line-number">27</span><span class="line-content">                    var token = authHeader.FirstOrDefault()?.Substring(<span class="hljs-number">7</span>);</span></span>
+<span class="code-line"><span class="line-number">28</span><span class="line-content">                    <span class="hljs-keyword">if</span> (token != <span class="hljs-keyword">null</span>)</span></span>
+<span class="code-line"><span class="line-number">29</span><span class="line-content">                    {</span></span>
+<span class="code-line"><span class="line-number">30</span><span class="line-content">                        ci.AddClaim(<span class="hljs-keyword">new</span> Claim(<span class="hljs-string">&quot;token&quot;</span>, token));</span></span>
+<span class="code-line"><span class="line-number">31</span><span class="line-content">                    }</span></span>
+<span class="code-line"><span class="line-number">32</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">33</span><span class="line-content">                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">Task</span>.CompletedTask;</span></span>
+<span class="code-line"><span class="line-number">34</span><span class="line-content">                }</span></span>
+<span class="code-line"><span class="line-number">35</span><span class="line-content">            };</span></span>
+<span class="code-line"><span class="line-number">36</span><span class="line-content">        });</span></span>
+<span class="code-line"><span class="line-number">37</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">38</span><span class="line-content">    services.AddAuthorization();</span></span>
+<span class="code-line"><span class="line-number">39</span><span class="line-content">    ...</span></span>
+<span class="code-line"><span class="line-number">40</span><span class="line-content">}</span></span>
+<span class="code-line"><span class="line-number">41</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">42</span><span class="line-content"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> Configure(IApplicationBuilder app)</span></span>
+<span class="code-line"><span class="line-number">43</span><span class="line-content">{</span></span>
+<span class="code-line"><span class="line-number">44</span><span class="line-content">    app.UseAuthentication();</span></span>
+<span class="code-line"><span class="line-number">45</span><span class="line-content">    app.UseAuthorization();</span></span>
+<span class="code-line"><span class="line-number">46</span><span class="line-content">    ...</span></span>
+<span class="code-line"><span class="line-number">47</span><span class="line-content">}</span></span></code></pre><p>Below is output from an authenticated request:</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">      Request starting HTTP/<span class="hljs-number">2</span> POST https:<span class="hljs-comment">//localhost:5001/HelloGrpcService.GreetingsService/GetHello application/grpc</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Authentication</span><span class="hljs-selector-class">.JwtBearer</span><span class="hljs-selector-class">.JwtBearerHandler</span><span class="hljs-selector-attr">[2]</span></span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">      Successfully validated the token.</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Authorization</span><span class="hljs-selector-class">.DefaultAuthorizationService</span><span class="hljs-selector-attr">[1]</span></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">      Authorization was successful.</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Routing</span><span class="hljs-selector-class">.EndpointMiddleware</span><span class="hljs-selector-attr">[0]</span></span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">      Executing endpoint <span class="hljs-string">&#x27;gRPC - /HelloGrpcService.GreetingsService/GetHello&#x27;</span></span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content">Request parameter <span class="hljs-number">1</span></span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">Request came from test-client-id</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Routing</span><span class="hljs-selector-class">.EndpointMiddleware</span><span class="hljs-selector-attr">[1]</span></span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">      Executed endpoint <span class="hljs-string">&#x27;gRPC - /HelloGrpcService.GreetingsService/GetHello&#x27;</span></span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">info: Microsoft<span class="hljs-selector-class">.AspNetCore</span><span class="hljs-selector-class">.Hosting</span><span class="hljs-selector-class">.Diagnostics</span><span class="hljs-selector-attr">[2]</span></span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">      Request finished <span class="hljs-keyword">in</span> <span class="hljs-number">5865.2411ms</span> <span class="hljs-number">200</span> application/grpc</span></span></code></pre><h3>7. Can you call the service from a browser?</h3>
+<p>Currently, as it stands the answer is no, browsers don&#39;t offer fine-grained control over API requests to support GRPC. However, there is some light at the end of the tunnel.</p>
+<p>Back in 2016 Google started working on a specification for &quot;GRPC for the browser&quot;. You can read more about it <a href="https://grpc.io/blog/state-of-grpc-web/">here</a> but in essence,</p>
+<blockquote>
+<p>The basic idea is to have the browser send normal HTTP requests (with Fetch or XHR) and have a small proxy in front of the gRPC server to translate the requests and responses to something the browser can use - grpc.io</p>
+</blockquote>
+<p>In the C# world, Microsoft has an implementation of this specification in their docs, <a href="https://docs.microsoft.com/en-gb/aspnet/core/grpc/browser?view=aspnetcore-3.1">Use gRPC in browser apps</a>.</p>
+<p>There are some disclaimers to this, as gRPC supports streaming and bidirectional requests this addition is only recommended for unary requests. Due to this limiting factor helpers are present to turn it on and off for services when setting up GRPC services in the startup,</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">endpoints<span class="hljs-selector-class">.MapGrpcService</span>&lt;HelloGrpcService&gt;()<span class="hljs-selector-class">.EnableGrpcWeb</span>()<span class="hljs-selector-class">.RequireCors</span>(&quot;AllowAll&quot;);</span></span></code></pre><p>What I find particularly interesting is that the problem grpc-web solves is similar to the problems we have with .net framework (https/2 is not supported). Could this perhaps be an answer to getting secure requests working? ... sadly not yet! at the moment its not possible as grpc-web was was built on .net standard 2.1 so .net framework is not supported. Perhaps there might be movement on this in time to come.</p>
+<h2>Things I missed out</h2>
+<ol>
+<li>Integration Testing, im a big fan of using in memory testing with Test Server it would be interesting to see if this works with a GRPC service.</li>
+</ol>
+<h2>Useful Links</h2>
+<ol>
+<li><a href="https://github.com/grpc/grpc/tree/master/src/csharp">C# Examples</a></li>
+<li><a href="https://github.com/grpc/grpc-dotnet/tree/master/examples">More c# examples</a></li>
+</ol>
+0:{"buildId":"8T5i3JDkrsj5342kUJ4OR","rsc":["$","$1","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"headline\":\".NET & GRPC What they forgot to tell you\",\"description\":\"As an engineer, I have always had a heavy reliance on REST'ful API's for passing information between applications. With the introduction of [open API specificat\",\"image\":\"https://images.ctfassets.net/wjg1udsw901v/5m1MwxccFfmDxkLKcq3dBt/b54fc31b09d0a266a3d8cd5082839976/grpc-logojpg.jpg\",\"datePublished\":\"2020-09-08T00:00+01:00\",\"dateModified\":\"2020-09-08T00:00+01:00\",\"author\":{\"@type\":\"Person\",\"name\":\"Your Name\",\"url\":\"https://yourblog.com/about\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Tech Blog\",\"url\":\"https://yourblog.com\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://yourblog.com/images/logo.png\"}},\"keywords\":\"grpc, .net, c#, asp.net, grpc-web, rest, nswag, proto-files, nuget, grpc-reflection, bloomrpc\",\"url\":\"https://yourblog.com/blog/dotnet-grpc-forgot-to-tell-you\",\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://yourblog.com/blog/dotnet-grpc-forgot-to-tell-you\"}}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://yourblog.com\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://yourblog.com/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\".NET & GRPC What they forgot to tell you\",\"item\":\"https://yourblog.com/blog/dotnet-grpc-forgot-to-tell-you\"}]}"}}],["$","article",null,{"className":"page-module__dgei_G__article","children":[["$","$L2",null,{"href":"/blog","className":"page-module__dgei_G__backLink","children":"← Back to Blog"}],["$","header",null,{"className":"page-module__dgei_G__header","children":[["$","h1",null,{"className":"page-module__dgei_G__title","children":".NET & GRPC What they forgot to tell you"}],["$","div",null,{"className":"page-module__dgei_G__meta","children":["$","time",null,{"className":"page-module__dgei_G__date","dateTime":"2020-09-08T00:00+01:00","children":["📅 ","September 8, 2020"]}]}],["$","div",null,{"className":"page-module__dgei_G__tags","children":[["$","span","grpc-0",{"className":"page-module__dgei_G__tag","children":"grpc"}],["$","span",".net-1",{"className":"page-module__dgei_G__tag","children":".net"}],["$","span","c#-2",{"className":"page-module__dgei_G__tag","children":"c#"}],["$","span","asp.net-3",{"className":"page-module__dgei_G__tag","children":"asp.net"}],["$","span","grpc-web-4",{"className":"page-module__dgei_G__tag","children":"grpc-web"}],["$","span","rest-5",{"className":"page-module__dgei_G__tag","children":"rest"}],["$","span","nswag-6",{"className":"page-module__dgei_G__tag","children":"nswag"}],["$","span","proto-files-7",{"className":"page-module__dgei_G__tag","children":"proto-files"}],["$","span","nuget-8",{"className":"page-module__dgei_G__tag","children":"nuget"}],["$","span","grpc-reflection-9",{"className":"page-module__dgei_G__tag","children":"grpc-reflection"}],["$","span","bloomrpc-10",{"className":"page-module__dgei_G__tag","children":"bloomrpc"}]]}]]}],["$","div",null,{"className":"page-module__dgei_G__heroImage","children":["$","$L3",null,{"src":"https://images.ctfassets.net/wjg1udsw901v/5m1MwxccFfmDxkLKcq3dBt/b54fc31b09d0a266a3d8cd5082839976/grpc-logojpg.jpg","alt":".NET & GRPC What they forgot to tell you","fill":true,"className":"page-module__dgei_G__heroImageImg","priority":true,"sizes":"(max-width: 800px) 100vw, 800px"}]}],["$","div",null,{"className":"page-module__dgei_G__content","dangerouslySetInnerHTML":{"__html":"$4"}}]]}]],["$L5"],"$L6"]}],"loading":null,"isPartial":false}
+5:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/007625c7813019e4.css","precedence":"next"}]
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null

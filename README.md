@@ -1,51 +1,206 @@
-2h 47 mins
+# Tech Blog - Next.js Static Website with Contentful
 
-## 🏃‍♂️ Running
+A modern, performant static blog built with Next.js 14+ and Contentful CMS. Features a clean black and white design with pastel accent colors, optimized for Core Web Vitals and accessibility.
 
-1. To run for development - `npm run develop`
-2. To clean out temp files - `npm run clean`
+## ✨ Features
 
-Urls:
+- 🚀 **Next.js 14+** with App Router and React Server Components
+- 📝 **Contentful CMS** integration for content management
+- 🎨 **Modern Design** with black/white theme and pastel accents
+- ♿ **Accessible** - WCAG 2.1 AA compliant
+- ⚡ **Performance** - Optimized for Core Web Vitals
+- 📱 **Responsive** - Mobile-first design
+- 🔍 **SEO Optimized** - Meta tags, OpenGraph, and **JSON-LD structured data**
+- 🏷️ **Tag Filtering** - Filter blog posts by tags
+- 📦 **Static Export** - Host anywhere (Netlify, Vercel, GitHub Pages, etc.)
 
-`http://localhost:8000`
-`http://localhost:8000/___graphql`
+## 📋 Pages
 
-## 👩‍💻 Rendering code
+- **Home** - Hero section with featured articles
+- **Blog** - List of all articles with tag filtering
+- **Article** - Individual blog post pages with markdown rendering
+- **Projects** - Showcase your projects
+- **About** - Information about you
+- **Contact** - Contact information and social links
 
-Code styles can be found here:
-https://docs.deckdeckgo.com/components/code/
+## 🚀 Getting Started
 
-Link to gatsby docs here:
-https://www.gatsbyjs.org/packages/gatsby-remark-highlight-code/#theme
+### Prerequisites
 
-## 🎨 Typography & Icons
+- Node.js 18+ installed
+- A Contentful account (free tier available)
+- Your Contentful Space ID and API tokens
 
-Typography
+### 1. Install Dependencies
 
-https://www.gatsbyjs.org/docs/typography-js/
+\`\`\`bash
+npm install
+\`\`\`
 
-Icons 
+### 2. Set Up Contentful
 
-https://react-icons.github.io/react-icons/icons?name=fi
+1. Create a Contentful account at https://www.contentful.com
+2. Create a new space
+3. Import the content model from the provided export.json or create a content type called "ContentufulBlog" with these fields:
+   - **hero** (Media - Asset)
+   - **title** (Text)
+   - **tags** (Text, list)
+   - **slug** (Text - unique)
+   - **datePublished** (Date & time)
+   - **bodym** (Long text)
 
-## 💫 Deploy
+### 3. Configure Environment Variables
 
-Code is designed to make use of github pages
+Copy the example environment file:
 
-1. To clean out temp files - `npm run publish`
+\`\`\`bash
+cp .env.example .env.local
+\`\`\`
 
-Link:
+Edit \`.env.local\` and add your Contentful credentials:
 
-https://faesel.github.io/faesel-blog/
+\`\`\`env
+CONTENTFUL_SPACE_ID=your_space_id
+CONTENTFUL_ACCESS_TOKEN=your_content_delivery_api_token
+CONTENTFUL_MANAGEMENT_TOKEN=your_management_token (optional)
+\`\`\`
 
-## SEO
+**Where to find these:**
+- Space ID: Settings → General Settings
+- Access Token: Settings → API keys → Content Delivery API
+- Management Token: Settings → API keys → Content Management API (optional)
 
-https://github.com/nfl/react-helmet
+### 4. Run Development Server
 
-## Background patterns 
+\`\`\`bash
+npm run dev
+\`\`\`
 
-https://www.toptal.com/designers/subtlepatterns/page/6/
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Colors
+### 5. Build for Production
 
-https://coolors.co/palettes/trending
+\`\`\`bash
+npm run build
+\`\`\`
+
+This generates a static export in the \`out\` directory.
+
+## 📁 Project Structure
+
+\`\`\`
+├── src/
+│   ├── app/                  # Next.js app directory
+│   │   ├── blog/            # Blog listing and articles
+│   │   │   └── [slug]/      # Dynamic article pages
+│   │   ├── about/           # About page
+│   │   ├── projects/        # Projects page
+│   │   ├── contact/         # Contact page
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Home page
+│   │   └── globals.css      # Global styles
+│   ├── components/          # React components
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   └── BlogCard.tsx
+│   ├── lib/                 # Utilities
+│   │   ├── contentful.ts    # Contentful client
+│   │   └── utils.ts         # Helper functions
+│   └── types/               # TypeScript types
+│       └── contentful.ts
+├── public/
+│   └── images/              # Logo and static images
+├── .env.local               # Environment variables (not committed)
+├── .env.example             # Example environment variables
+├── next.config.js           # Next.js configuration
+└── package.json
+\`\`\`
+
+## 🎨 Customization
+
+### Colors
+
+Edit the CSS variables in \`src/app/globals.css\`:
+
+\`\`\`css
+:root {
+  --color-primary: #000000;
+  --color-background: #FFFFFF;
+  --color-accent-pink: #FFB6C1;
+  --color-accent-blue: #B0E0E6;
+  --color-accent-purple: #DDA0DD;
+  --color-accent-green: #98FB98;
+}
+\`\`\`
+
+### Content
+
+- Update the About page in \`src/app/about/page.tsx\`
+- Update the Projects page in \`src/app/projects/page.tsx\`
+- Update the Contact page in \`src/app/contact/page.tsx\`
+- Edit site metadata in \`src/app/layout.tsx\`
+
+### SEO & JSON-LD
+
+- **Important:** Update \`src/lib/config.ts\` with your:
+  - Actual domain URL
+  - Author name and details
+  - Social media links
+- See \`docs/JSON-LD-GUIDE.md\` for detailed information
+- Validate structured data at https://search.google.com/test/rich-results
+
+## 🚢 Deployment
+
+### Netlify
+
+1. Connect your GitHub repository
+2. Set environment variables in Netlify dashboard
+3. Deploy!
+
+### Vercel
+
+\`\`\`bash
+npm install -g vercel
+vercel
+\`\`\`
+
+### GitHub Pages
+
+\`\`\`bash
+npm run build
+# Upload the 'out' directory to your hosting
+\`\`\`
+
+## 📊 Core Web Vitals
+
+This site is optimized for:
+- **LCP** (Largest Contentful Paint): < 2.5s
+- **FID** (First Input Delay): < 100ms
+- **CLS** (Cumulative Layout Shift): < 0.1
+
+Run Lighthouse audits to verify performance.
+
+## ♿ Accessibility
+
+- Semantic HTML structure
+- ARIA labels and roles
+- Keyboard navigation support
+- Skip-to-content link
+- Sufficient color contrast
+- Focus indicators
+
+## 📝 License
+
+MIT License - feel free to use this project for your own blog!
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📧 Support
+
+For questions or issues, please open an issue on GitHub or contact via the website.
+
+---
+
+Built with ❤️ using Next.js and Contentful

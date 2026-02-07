@@ -1,0 +1,128 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/3524fbacef1ef8c0.js"],""]
+3:I[5500,["/_next/static/chunks/3524fbacef1ef8c0.js"],"Image"]
+7:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/708205fa81a1891d.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+:HL["/_next/static/chunks/007625c7813019e4.css","style"]
+4:T3934,<p>I&#39;m someone who&#39;s always had my own tech blog, I&#39;ve gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended on how much friction and effort it takes to write content, manage and upload photos and paste in code. </p>
+<p>My previous revisions at its core have always been dependent on using opensource wysiwyg editors. Which for me have been deficient in several ways.</p>
+<ol>
+<li>Behind the scenes, they produce HTML which always contains ghost 👻 spaces.</li>
+<li>You always have to build in your own system to upload and manage photos.</li>
+<li>Pasting in code and getting it to format correctly has always been difficult.<br>The content I write belongs to the actual website, so every time I change or rebuild my website I have to migrate all my content across.</li>
+</ol>
+<p>With all this in mind, I wanted a solution that leverages a content management system that supports markdown. Is free and open source, and easily extendable using a modern JavaScript framework. The combination I chose contains the following,</p>
+<ul>
+<li><strong>Gatsby</strong> Framework built on React that creates a really fast experience and is easily extendable.</li>
+<li><strong>Contentful</strong> One of the leading content management systems that support markdown.</li>
+<li><strong>Disqus</strong> One of the most popular commenting systems mainly chose this as a continuation from my previous website.</li>
+<li><strong>Github Pages</strong> Free hosting by the GitHub guys.</li>
+</ul>
+<p>Due to everything being either free or opensource, you can download the source code <a href="https://github.com/faesel/gatsby-techblog-starter">here</a>, follow the steps in the readme or below in this article and get started with your own tech blog.</p>
+<h2>Why use Contentful?</h2>
+<p>If your someone like me and you don&#39;t want to be restricted to the world of WordPress websites, Contentful is the next best thing. As the name describes its a repository for your content and nothing else. Where Contentful really shines is in how easy it is to get your content out. Everything is API accessible and in a JSON format, so if I ever decide to build v4 its just a case of hooking up the CMS.</p>
+<p>Contentful also supports writing in markdown format which is absolutely crucial if you&#39;re going to be pasting in code (as markdown supports syntax highlighting you will get the most accurate code colours when rendering).</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/107DfGPIMth9cXJcd7aXNf/73b9fa04c61fbb34a5f33efda16e82d4/contentful.png" alt="Contentful UI"></p>
+<h2>Why use Disqus?</h2>
+<p>As mentioned Disqus was mainly a continuation from the previous version of my website, there are however some plus points to using Disqus. Namely the popularity (See image below), Disqus is by far the most popular commenting system out there, its also incredibly easy to get set up.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/4y1BkGbHeRGvzMNEX6D0lO/d92bb715335b7119b10d8352da2e1c5e/disqus-vs-commento.png" alt="Disqus vs Commento"></p>
+<p>There are some annoyances however, namely the lack of markdown support, which could be an issue if a commenter wants to post a code snippet.</p>
+<p>Perhaps at some point I will migrate to using <a href="https://commento.io/">Commento</a>, theres a great article comparing the two <a href="https://victorzhou.com/blog/replacing-disqus/">here</a>.</p>
+<h2>Why GitHub pages?</h2>
+<p>Firstly it&#39;s free hosting! What more do you want...</p>
+<p>I have always relied on using Azure to host my pages but unless you got a Biztalk account there&#39;s a cost in doing so. Github allows you to host content on their website for absolutely free, its got two forms of public pages. </p>
+<ol>
+<li>Personal pages</li>
+</ol>
+<p>This sits under your personal repository path, so in my case my username is faesel (<a href="https://github.com/faesel/">https://github.com/faesel/</a>), when creating a repository called &#39;faesel&#39; and enabling pages. GitHub gives you the domain <a href="https://faesel.github.io">https://faesel.github.io</a>. What&#39;s amazing is (provided your DNS is setup correctly) they also handle SSL certificates for your behalf.</p>
+<ol start="2">
+<li>Project pages</li>
+</ol>
+<p>Github also supports project pages which sit under a subdomain of your repository, for example a repository with the link <a href="https://github.com/faesel/faesel-blog">https://github.com/faesel/faesel-blog</a> would resolve into public page URL for <a href="https://faesel.github.io/faesel-blog">https://faesel.github.io/faesel-blog</a>.</p>
+<p>For my blog option 1 was chosen. There is one caveat to personal pages, your published output needs to reside in master and your actual source code needs to be in another branch. The Gatsby template I have created, uses master and source as the two main branches as you can see <a href="https://github.com/faesel/faesel.github.io/branches">here</a>.</p>
+<h2>Why use Gatsby?</h2>
+<p>Gatsby lightning fast when it comes to rendering pages, behind the scenes it builds up static pages which you deploy to your website. As it&#39;s designed to be a progressive web app, pre-fetching is built it, so when your cycles through different pages on your website the load times are instant.</p>
+<p>Gatsby supports a wide range of plugins, <strong>2162</strong> at the time of writing this article. Admittedly some of them are duplicates, but overall they have enough coverage to integrate the vast majority of 3rd party platforms. Below are some plugins I used for my blog:</p>
+<ul>
+<li><strong>gatsby-plugin-feed</strong> Used for generating an RSS feed</li>
+<li><strong>gatsby-plugin-sitemap</strong> Used for generating a sitemap xml file</li>
+<li><strong>gatsby-plugin-gtag</strong> Used for integrating google analytics into your blog</li>
+<li><strong>gatsby-plugin-react-helmet</strong> SEO plugin used for setting titles and metadata</li>
+<li><strong>gatsby-plugin-sass</strong> Integrating sass</li>
+<li><strong>gatsby-remark-highlight-code</strong> Used for highlighting code syntax</li>
+<li><strong>gatsby-source-contentful</strong> Used for getting data from Contentful</li>
+<li><strong>gatsby-transformer-remark</strong> Used for transforming markdown into HTML</li>
+</ul>
+<p>A full list of their plugins can be found <a href="https://www.gatsbyjs.org/plugins/">here</a></p>
+<p>As Gatsby is built on top of React which means extending your website&#39;s functionality is easy. In addition to this data access is all powered through GraphQL which really helps tailor the requests for data in accordance with your UI. All this is setup for you right out the box.</p>
+<h2>How to use the blog template to create my own tech blog?</h2>
+<p>As mentioned I have created a Gatsby blog template that you can clone yourself, setup and host all at no cost at all. The code can be found <a href="https://github.com/faesel/gatsby-techblog-starter">here</a>.</p>
+<p>There are some pre-requisites we need to get through before we can begin, mainly creating accounts in the following 3rd partys.</p>
+<ul>
+<li><a href="https://www.contentful.com/sign-up/">Contentful</a></li>
+<li><a href="https://analytics.google.com/analytics/web/">Google Analytics</a></li>
+<li><a href="https://disqus.com/">Disqus</a></li>
+</ul>
+<h3>Step 1 - Configuring Contentful</h3>
+<p>The first step is to configure Contentful by creating a content model. A content model represents all the building blocks required to represent a single blog post. Below is a screenshot of the content model needed:</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/leOFhubn56i1CiN7MeIjK/442336bb18392148c6ac4e16ed496375/content-model.png" alt="Gatsby blog content model"></p>
+<p>If your creating it manually do remember to set the field &#39;BodyM&#39; as a markdown field. Once this model is in place, you can begin writing up your first markdown post. To create this model programatically you can run the following command:</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">npm run setup SPACE_ID CONTENTFUL_MANAGEMENT_TOKEN</span></span></code></pre><p>The management token can be sourced from <strong>Settings</strong> &gt; <strong>API Keys</strong> &gt; <strong>Content management tokens</strong></p>
+<p>There are two settings we need to take a note of that are needed for <strong>Step 2</strong></p>
+<ul>
+<li>Space Id</li>
+<li>Space Access Token</li>
+</ul>
+<p>Both of these can be sourced from <strong>Settings</strong> &gt; <strong>API Keys</strong> &gt; <strong>Content delivery / preview tokens</strong>, </p>
+<h3>Step 2 - Configuring Environment Variables</h3>
+<p>The next step is to populate your environment variables, the two Contentful keys can be accessed by following Step 1. Setting up google and Discus is optional.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content">CONTENTFUL_SPACE_ID<span class="hljs-operator">=</span></span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content">CONTENTFUL_ACCESS_TOKEN<span class="hljs-operator">=</span></span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">GOOGLE_TRACKING_ID<span class="hljs-operator">=</span></span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content">GATSBY_DISQUS_NAME<span class="hljs-operator">=</span></span></span></code></pre><h3>Step 3 - Configuring your gatsby config</h3>
+<p>The gatsby config file is at the root of this project, it contains all the plugins installed into this project.</p>
+<pre><code class="hljs "><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-keyword">module</span>.exports = {</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content">    siteMetadata: {</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content">        title: <span class="hljs-symbol">&#x27;FAESEL</span>.<span class="hljs-type">COM&#x27;</span>,</span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content">        author: <span class="hljs-symbol">&#x27;Faesel</span> <span class="hljs-type">Saeed&#x27;</span>,</span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">        description: <span class="hljs-symbol">&#x27;Welcome</span> <span class="hljs-keyword">to</span> my great blog&#x27;,</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">        siteUrl: <span class="hljs-symbol">&#x27;https</span>:<span class="hljs-comment">//www.faesel.com&#x27;, //Use the fully qualified url</span></span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">        social: {</span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content">            twitter: <span class="hljs-symbol">&#x27;https</span>:<span class="hljs-comment">//twitter.com/@faeselsaeed&#x27;, //Use the fully qualified url</span></span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">            linkedin: <span class="hljs-symbol">&#x27;https</span>:<span class="hljs-comment">//www.linkedin.com/....&#x27;,</span></span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">            github: <span class="hljs-symbol">&#x27;https</span>:<span class="hljs-comment">//github.com/....&#x27;,</span></span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">            flickr: <span class="hljs-symbol">&#x27;https</span>:<span class="hljs-comment">//www.flickr.com/....&#x27;, //Feel free to remove this :)</span></span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content">            email: <span class="hljs-symbol">&#x27;someone</span>@gmail.com&#x27;</span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">        },</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">    },</span></span>
+<span class="code-line"><span class="line-number">15</span><span class="line-content">}</span></span></code></pre><p>Once This is filled in your all set to run the project!</p>
+<h3>Step 4 - Running the project</h3>
+<p>Begin by installing dependencies: </p>
+<p><strong>npm install</strong></p>
+<p>Followed by running the website:</p>
+<p><strong>npm run develop</strong></p>
+<h2>Step 5 - Deployment</h2>
+<p>To deploy the project begin by creating a repository containing your GitHub username &quot;faesel.github.io&quot;.</p>
+<p>Copy all your code into a branch called <strong>source</strong></p>
+<p>Run the following command</p>
+<p><strong>npm run publish</strong></p>
+<p>The command will publish all the static files Gatsby generates into the <strong>master</strong> branch.</p>
+<p>To enable github pages navigate to the <strong>Repository</strong> &gt; <strong>Settings</strong> &gt; Scroll down to github pages and select the source branch as <strong>master</strong>. Also at this step if you can enter in your custom domain. Once setup it should look something like this:</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/1Yc9sjRgkxBBCaHx8svVIq/5f94cf13095287375f58e96648ee799f/github_pages.png" alt="Github Pages"></p>
+<h2>Summary</h2>
+<p>Its as easy as that, you know have a blog whos content is powered by Contentful! ... time to blog.</p>
+<p><img src="//images.ctfassets.net/wjg1udsw901v/5jtQ1A9KGisfOeDCLQqPdT/49d682dbf90be3495ca0c6ad31ab85e1/website.png" alt="Gatsby blog template"></p>
+<p>As with all things in tech, there are some improvements that got taken off the bucket list.</p>
+<ul>
+<li>Automate deployments by making use of webhooks triggered when publishing content.</li>
+<li>Add a plugin to allow embeding content like tweets, youtube posts ect.</li>
+<li>Add a searching mechanism</li>
+<li>Add pagination</li>
+</ul>
+<h2>The Honourable mention</h2>
+<p>This article and the project was inspired by Andrew Mead&#39;s <a href="https://www.youtube.com/watch?v=kzWIUX3CpuI"><strong>&#39;The Great Gatsby Bootcamp&#39;</strong></a> course which I highly recommend in learning the basics.</p>
+<p><a href="https://www.youtube.com/watch?v=kzWIUX3CpuI">https://www.youtube.com/watch?v=kzWIUX3CpuI</a></p>
+0:{"buildId":"8T5i3JDkrsj5342kUJ4OR","rsc":["$","$1","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"headline\":\"Creating my dream tech blog with GatsbyJS\",\"description\":\"I'm someone who's always had my own tech blog, I've gone through two revisions already with the last revision updating out of a 1997 style book. How much I cont\",\"image\":\"https://images.ctfassets.net/wjg1udsw901v/6hjsGXkoyitmyiEuBdeTP2/c77e74af9235ac775f18836e2de07cac/gatsby-logo.jpg\",\"datePublished\":\"2020-07-08T00:00+01:00\",\"dateModified\":\"2020-07-08T00:00+01:00\",\"author\":{\"@type\":\"Person\",\"name\":\"Your Name\",\"url\":\"https://yourblog.com/about\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Tech Blog\",\"url\":\"https://yourblog.com\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://yourblog.com/images/logo.png\"}},\"keywords\":\"contentful, disqus, google-analytics, blog, react, graphql\",\"url\":\"https://yourblog.com/blog/gatsby-tech-blog-starter\",\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https://yourblog.com/blog/gatsby-tech-blog-starter\"}}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://yourblog.com\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://yourblog.com/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Creating my dream tech blog with GatsbyJS\",\"item\":\"https://yourblog.com/blog/gatsby-tech-blog-starter\"}]}"}}],["$","article",null,{"className":"page-module__dgei_G__article","children":[["$","$L2",null,{"href":"/blog","className":"page-module__dgei_G__backLink","children":"← Back to Blog"}],["$","header",null,{"className":"page-module__dgei_G__header","children":[["$","h1",null,{"className":"page-module__dgei_G__title","children":"Creating my dream tech blog with GatsbyJS"}],["$","div",null,{"className":"page-module__dgei_G__meta","children":["$","time",null,{"className":"page-module__dgei_G__date","dateTime":"2020-07-08T00:00+01:00","children":["📅 ","July 8, 2020"]}]}],["$","div",null,{"className":"page-module__dgei_G__tags","children":[["$","span","contentful-0",{"className":"page-module__dgei_G__tag","children":"contentful"}],["$","span","disqus-1",{"className":"page-module__dgei_G__tag","children":"disqus"}],["$","span","google-analytics-2",{"className":"page-module__dgei_G__tag","children":"google-analytics"}],["$","span","blog-3",{"className":"page-module__dgei_G__tag","children":"blog"}],["$","span","react-4",{"className":"page-module__dgei_G__tag","children":"react"}],["$","span","graphql-5",{"className":"page-module__dgei_G__tag","children":"graphql"}]]}]]}],["$","div",null,{"className":"page-module__dgei_G__heroImage","children":["$","$L3",null,{"src":"https://images.ctfassets.net/wjg1udsw901v/6hjsGXkoyitmyiEuBdeTP2/c77e74af9235ac775f18836e2de07cac/gatsby-logo.jpg","alt":"Creating my dream tech blog with GatsbyJS","fill":true,"className":"page-module__dgei_G__heroImageImg","priority":true,"sizes":"(max-width: 800px) 100vw, 800px"}]}],["$","div",null,{"className":"page-module__dgei_G__content","dangerouslySetInnerHTML":{"__html":"$4"}}]]}]],["$L5"],"$L6"]}],"loading":null,"isPartial":false}
+5:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/007625c7813019e4.css","precedence":"next"}]
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null
