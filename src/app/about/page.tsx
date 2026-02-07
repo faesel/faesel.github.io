@@ -34,9 +34,7 @@ export default function AboutPage() {
 
         <h2>Background</h2>
         <p>
-          I'm a passionate software developer with experience in modern web technologies.
-          I believe in writing clean, maintainable code and continuously learning new
-          skills to stay current in this ever-evolving field.
+          Experienced Staff Engineer with a proven track record of delivering high-impact digital solutions, leading engineering teams, and driving technical strategy across complex platforms. I have designed and implemented scalable architectures, improved user experiences, and optimized development processes to enable rapid growth and efficiency. My expertise spans full-stack development, system design, platform migrations, API development, and performance optimization, along with mentoring engineers and fostering collaborative cross-functional relationships. Passionate about leveraging technology to solve real business problems, I combine strong technical leadership with a hands-on approach to deliver measurable results.
         </p>
       </div>
     </div>

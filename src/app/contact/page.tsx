@@ -18,13 +18,13 @@ export default function ContactPage() {
         <div className={styles.infoItem}>
           <span className={styles.infoLabel}>📧 Email:</span>
           <span className={styles.infoValue}>
-            <a href="mailto:hello@example.com">hello@example.com</a>
+            <a href="mailto:faesel@outlook.com">faesel@outlook.com</a>
           </span>
         </div>
 
         <div className={styles.infoItem}>
           <span className={styles.infoLabel}>📍 Location:</span>
-          <span className={styles.infoValue}>Your City, Country</span>
+          <span className={styles.infoValue}>London</span>
         </div>
 
         <div className={styles.infoItem}>
