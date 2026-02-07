@@ -137,7 +137,7 @@ export default function ShareButtons({ url, title, description, variant = 'inlin
         </button>
 
         {/* Native Share (Mobile) */}
-        {typeof navigator !== 'undefined' && navigator.share && (
+        {typeof navigator !== 'undefined' && 'share' in navigator && (
           <button
             onClick={handleNativeShare}
             className={`${styles.button} ${styles.native}`}
