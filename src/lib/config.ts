@@ -18,7 +18,7 @@ export const siteConfig = {
   },
   social: {
     twitter: '@faeselsaeed',
-    github: 'https://github.com/faeselsaeed',
+    github: 'https://github.com/faesel',
     linkedin: 'https://www.linkedin.com/in/faesel-saeed-a97b1614',
   },
 };

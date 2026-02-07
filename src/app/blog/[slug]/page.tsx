@@ -5,6 +5,7 @@ import { getBlogPostBySlug, getAllSlugs } from '@/lib/contentful';
 import { parseMarkdown, formatDate, calculateReadingTime, formatReadingTime } from '@/lib/utils';
 import { JsonLd, generateBlogPostingJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonld';
 import { siteConfig, getAbsoluteUrl } from '@/lib/config';
+import ShareButtons from '@/components/ShareButtons';
 import type { BlogPostFields } from '@/types/contentful';
 import styles from './page.module.css';
 
@@ -132,9 +133,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           />
         </div>
 
+        <ShareButtons 
+          url={articleUrl}
+          title={fields.title}
+          description={fields.bodym.substring(0, 160)}
+          variant="sidebar"
+        />
+
         <div
           className={styles.content}
           dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
+
+        <ShareButtons 
+          url={articleUrl}
+          title={fields.title}
+          description={fields.bodym.substring(0, 160)}
         />
       </article>
     </>
