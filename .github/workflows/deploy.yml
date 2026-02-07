@@ -1,72 +1,47 @@
-# Quick Deployment Setup
+name: Deploy to GitHub Pages
 
-## 1️⃣ Add GitHub Secrets
+on:
+  push:
+    branches:
+      - source
+  repository_dispatch:
+    types:
+      - contentful_publish
 
-Go to: `https://github.com/faesel/faesel.github.io/settings/secrets/actions`
+permissions:
+  contents: write
 
-Add these secrets:
-- `CONTENTFUL_SPACE_ID` = (your space ID)
-- `CONTENTFUL_ACCESS_TOKEN` = (your delivery API token)
-- `NEXT_PUBLIC_GOOGLE_TRACKING_ID` = (optional, your GA4 ID)
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-## 2️⃣ Configure GitHub Pages
+    env:
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      NEXT_PUBLIC_GOOGLE_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_TRACKING_ID }}
 
-Go to: `https://github.com/faesel/faesel.github.io/settings/pages`
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v4
+        with:
+          ref: source
 
-Set:
-- Source: **Deploy from a branch**
-- Branch: **master** 
-- Folder: **/ (root)**
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
 
-## 3️⃣ Push to Source Branch
+      - name: Install dependencies
+        run: npm ci
 
-```bash
-git add .
-git commit -m "Set up GitHub Actions deployment"
-git push origin source
-```
+      - name: Build static site
+        run: npm run build
 
-This will automatically:
-- Build your Next.js site
-- Deploy to the master branch
-- Publish to faesel.github.io
-
-## 4️⃣ Set Up Contentful Webhook (Optional)
-
-### Create GitHub Token
-1. Go to: `https://github.com/settings/tokens`
-2. Generate new token (classic)
-3. Select scope: `repo`
-4. Copy the token
-
-### Add Contentful Webhook
-Go to: Contentful → Settings → Webhooks → Add webhook
-
-**URL**: `https://api.github.com/repos/faesel/faesel.github.io/dispatches`
-
-**Headers**:
-```
-Accept: application/vnd.github.v3+json
-Authorization: Bearer YOUR_GITHUB_TOKEN
-Content-Type: application/json
-```
-
-**Payload**:
-```json
-{
-  "event_type": "contentful_publish"
-}
-```
-
-**Triggers**: Publish (Entry), Publish (Asset)
-
----
-
-## That's it! 🎉
-
-Your site will now:
-- ✅ Deploy automatically on every push to source
-- ✅ Rebuild when you publish content in Contentful
-- ✅ Be live at `https://faesel.github.io`
-
-See `DEPLOYMENT.md` for detailed documentation.
+      - name: Deploy to master (GitHub Pages)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: master
+          folder: out
+          clean: true
+          clean-exclude: CNAME
