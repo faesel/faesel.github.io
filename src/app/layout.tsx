@@ -6,10 +6,13 @@ import { siteConfig, getAbsoluteUrl } from '@/lib/config';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Tech Blog',
-  description: 'A modern tech blog built with Next.js and Contentful',
-  keywords: ['blog', 'technology', 'web development', 'programming'],
-  authors: [{ name: 'Your Name' }],
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: ['blog', 'technology', 'web development', 'programming', 'software engineering'],
+  authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#000000',
   metadataBase: new URL(siteConfig.url),

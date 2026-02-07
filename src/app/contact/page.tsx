@@ -1,7 +1,8 @@
+import { siteConfig } from '@/lib/config';
 import styles from './page.module.css';
 
 export const metadata = {
-  title: 'Contact | Tech Blog',
+  title: `Contact | ${siteConfig.name}`,
   description: 'Get in touch with me',
 };
 
@@ -34,7 +35,7 @@ export default function ContactPage() {
 
       <div className={styles.socialLinks}>
         <a
-          href="https://github.com/yourusername"
+          href={siteConfig.social.github}
           className={styles.socialLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -42,7 +43,7 @@ export default function ContactPage() {
           GitHub
         </a>
         <a
-          href="https://linkedin.com/in/yourusername"
+          href={siteConfig.social.linkedin}
           className={styles.socialLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -50,7 +51,7 @@ export default function ContactPage() {
           LinkedIn
         </a>
         <a
-          href="https://twitter.com/yourusername"
+          href={`https://twitter.com/${siteConfig.social.twitter.replace('@', '')}`}
           className={styles.socialLink}
           target="_blank"
           rel="noopener noreferrer"
