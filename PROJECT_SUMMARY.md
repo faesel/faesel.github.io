@@ -29,6 +29,7 @@ A fully functional, production-ready Next.js static blog website with Contentful
 - ✅ **CSS Modules** - Scoped styling
 - ✅ **Responsive Design** - Mobile-first approach
 - ✅ **SEO Optimized** - Meta tags, OpenGraph, and **JSON-LD structured data**
+- ✅ **Google Analytics** - Optional GA4 tracking integration
 - ✅ **Accessible** - WCAG 2.1 AA compliant markup
 - ✅ **Performance** - Optimized for Core Web Vitals
 
@@ -67,7 +68,8 @@ Blog/
 │   ├── components/            # React components
 │   │   ├── Header.tsx
 │   │   ├── Footer.tsx
-│   │   └── BlogCard.tsx
+│   │   ├── BlogCard.tsx
+│   │   └── GoogleAnalytics.tsx # Google Analytics component
 │   ├── lib/                   # Utilities
 │   │   ├── contentful.ts      # Contentful client
 │   │   ├── utils.ts           # Helper functions

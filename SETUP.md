@@ -40,7 +40,16 @@ Edit `.env.local` in the root directory:
 CONTENTFUL_SPACE_ID=your_actual_space_id
 CONTENTFUL_ACCESS_TOKEN=your_actual_delivery_token
 CONTENTFUL_MANAGEMENT_TOKEN=your_management_token_optional
+
+# Google Analytics (optional)
+NEXT_PUBLIC_GOOGLE_TRACKING_ID=G-XXXXXXXXXX
 \`\`\`
+
+**Optional: Google Analytics**
+If you want to track page views and user analytics:
+1. Create a Google Analytics 4 property at https://analytics.google.com
+2. Get your Measurement ID (starts with G-)
+3. Add it to `.env.local` as shown above
 
 ### 4. Create Some Content
 

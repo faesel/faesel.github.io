@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { JsonLd, generateOrganizationJsonLd, generateWebSiteJsonLd } from '@/lib/jsonld';
 import { siteConfig, getAbsoluteUrl } from '@/lib/config';
 import './globals.css';
@@ -69,6 +70,9 @@ export default function RootLayout({
         <JsonLd data={websiteJsonLd} />
       </head>
       <body>
+        {process.env.NEXT_PUBLIC_GOOGLE_TRACKING_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_TRACKING_ID} />
+        )}
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>

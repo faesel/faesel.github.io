@@ -63,12 +63,16 @@ Edit \`.env.local\` and add your Contentful credentials:
 CONTENTFUL_SPACE_ID=your_space_id
 CONTENTFUL_ACCESS_TOKEN=your_content_delivery_api_token
 CONTENTFUL_MANAGEMENT_TOKEN=your_management_token (optional)
+
+# Google Analytics (optional)
+NEXT_PUBLIC_GOOGLE_TRACKING_ID=G-XXXXXXXXXX
 \`\`\`
 
 **Where to find these:**
 - Space ID: Settings → General Settings
 - Access Token: Settings → API keys → Content Delivery API
 - Management Token: Settings → API keys → Content Management API (optional)
+- Google Analytics ID: Google Analytics → Admin → Data Streams → Measurement ID
 
 ### 4. Run Development Server
 

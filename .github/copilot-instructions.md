@@ -71,6 +71,7 @@ faesel.github.io/
 │   │   ├── Header.tsx            # Navigation header (client component)
 │   │   ├── Footer.tsx            # Site footer
 │   │   ├── BlogCard.tsx          # Blog post preview card
+│   │   ├── GoogleAnalytics.tsx   # Google Analytics tracking component
 │   │   └── *.module.css          # Component styles
 │   ├── lib/                      # Utility functions & integrations
 │   │   ├── contentful.ts         # Contentful API client & queries
@@ -158,6 +159,7 @@ faesel.github.io/
 - **`src/components/Header.tsx`** - Navigation header (client component, mobile menu)
 - **`src/components/Footer.tsx`** - Site footer with links
 - **`src/components/BlogCard.tsx`** - Blog post preview card (reusable)
+- **`src/components/GoogleAnalytics.tsx`** - Google Analytics tracking (client component)
 
 ### Pages
 - **`src/app/page.tsx`** - Home page (featured posts)
@@ -192,11 +194,15 @@ faesel.github.io/
 CONTENTFUL_SPACE_ID=your_space_id_here
 CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 CONTENTFUL_MANAGEMENT_TOKEN=your_management_token_optional
+
+# Google Analytics (optional)
+NEXT_PUBLIC_GOOGLE_TRACKING_ID=G-XXXXXXXXXX
 ```
 
 **Where to find:**
 1. Go to Contentful → Settings → General Settings → Space ID
 2. Go to Settings → API keys → Content Delivery API → Access token
+3. Go to Google Analytics → Admin → Data Streams → Measurement ID
 
 ---
 
@@ -652,6 +658,7 @@ npm run export   # Alias for build (static export)
 CONTENTFUL_SPACE_ID          # Required - Contentful space ID
 CONTENTFUL_ACCESS_TOKEN      # Required - Content Delivery API token
 CONTENTFUL_MANAGEMENT_TOKEN  # Optional - Management API token
+NEXT_PUBLIC_GOOGLE_TRACKING_ID  # Optional - Google Analytics 4 Measurement ID (G-XXXXXXXXXX)
 ```
 
 ### Import Aliases
