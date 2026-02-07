@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogCardProps } from '@/types/contentful';
-import { formatDate } from '@/lib/utils';
+import { formatDate, formatReadingTime } from '@/lib/utils';
 import styles from './BlogCard.module.css';
 
 export default function BlogCard({
@@ -11,6 +11,7 @@ export default function BlogCard({
   tags,
   heroUrl,
   excerpt,
+  readingTime,
 }: BlogCardProps) {
   // Deduplicate tags to avoid duplicate keys
   const uniqueTags = tags ? Array.from(new Set(tags)) : [];
@@ -38,6 +39,14 @@ export default function BlogCard({
           <time className={styles.date} dateTime={datePublished}>
             📅 {formatDate(datePublished)}
           </time>
+          {readingTime && (
+            <>
+              <span className={styles.separator}>•</span>
+              <span className={styles.readingTime}>
+                ⏱️ {formatReadingTime(readingTime)}
+              </span>
+            </>
+          )}
         </div>
         
         {excerpt && <p className={styles.excerpt}>{excerpt}</p>}

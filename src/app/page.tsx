@@ -2,7 +2,7 @@ import Link from 'next/link';
 import BlogCard from '@/components/BlogCard';
 import { getAllBlogPosts } from '@/lib/contentful';
 import { BlogPostFields } from '@/types/contentful';
-import { getExcerpt } from '@/lib/utils';
+import { getExcerpt, calculateReadingTime } from '@/lib/utils';
 import { JsonLd } from '@/lib/jsonld';
 import { siteConfig, getAbsoluteUrl } from '@/lib/config';
 import styles from './page.module.css';
@@ -68,6 +68,7 @@ export default async function HomePage() {
                 tags={fields.tags}
                 heroUrl={`https:${(fields.hero as any).fields.file.url}`}
                 excerpt={getExcerpt(fields.bodym)}
+                readingTime={calculateReadingTime(fields.bodym)}
               />
             );
           })}

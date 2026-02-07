@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getBlogPostBySlug, getAllSlugs } from '@/lib/contentful';
-import { parseMarkdown, formatDate } from '@/lib/utils';
+import { parseMarkdown, formatDate, calculateReadingTime, formatReadingTime } from '@/lib/utils';
 import { JsonLd, generateBlogPostingJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonld';
 import { siteConfig, getAbsoluteUrl } from '@/lib/config';
 import type { BlogPostFields } from '@/types/contentful';
@@ -55,6 +55,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const htmlContent = parseMarkdown(fields.bodym);
   const heroUrl = `https:${(fields.hero as any).fields.file.url}`;
   const articleUrl = getAbsoluteUrl(`/blog/${slug}`);
+  const readingTime = calculateReadingTime(fields.bodym);
   
   // Deduplicate tags to avoid duplicate keys
   const uniqueTags = fields.tags ? Array.from(new Set(fields.tags)) : [];
@@ -103,6 +104,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <time className={styles.date} dateTime={fields.datePublished}>
               📅 {formatDate(fields.datePublished)}
             </time>
+            <span className={styles.separator}>•</span>
+            <span className={styles.readingTime}>
+              ⏱️ {formatReadingTime(readingTime)}
+            </span>
           </div>
 
           {uniqueTags.length > 0 && (

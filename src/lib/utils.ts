@@ -54,3 +54,29 @@ export function formatDate(dateString: string): string {
     day: 'numeric',
   }).format(date);
 }
+
+export function calculateReadingTime(text: string): number {
+  // Average reading speed: 200-250 words per minute
+  const wordsPerMinute = 225;
+  
+  // Remove markdown syntax and HTML tags for accurate word count
+  const cleanText = text
+    .replace(/[#*`[\]()]/g, '') // Remove markdown syntax
+    .replace(/<[^>]*>/g, '')     // Remove HTML tags
+    .trim();
+  
+  // Count words
+  const words = cleanText.split(/\s+/).filter(word => word.length > 0).length;
+  
+  // Calculate reading time in minutes (minimum 1 minute)
+  const minutes = Math.ceil(words / wordsPerMinute);
+  
+  return Math.max(1, minutes);
+}
+
+export function formatReadingTime(minutes: number): string {
+  if (minutes === 1) {
+    return '1 min read';
+  }
+  return `${minutes} min read`;
+}

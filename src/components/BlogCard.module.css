@@ -47,14 +47,26 @@
 
 .meta {
   display: flex;
-  gap: var(--spacing-md);
+  gap: 0.5rem;
   align-items: center;
   color: var(--color-text-muted);
   font-size: 0.9rem;
   margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
 }
 
 .date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.separator {
+  color: var(--color-text-light);
+  font-weight: 300;
+}
+
+.readingTime {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);

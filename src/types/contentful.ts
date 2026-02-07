@@ -23,6 +23,7 @@ export interface BlogCardProps {
   tags: string[];
   heroUrl: string;
   excerpt?: string;
+  readingTime?: number;
 }
 
 export interface ProjectFields {

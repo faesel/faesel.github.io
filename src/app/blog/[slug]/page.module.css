@@ -17,7 +17,7 @@
 
 .meta {
   display: flex;
-  gap: var(--spacing-md);
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
   color: var(--color-text-muted);
@@ -26,6 +26,17 @@
 }
 
 .date {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.separator {
+  color: var(--color-text-light);
+  font-weight: 300;
+}
+
+.readingTime {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);

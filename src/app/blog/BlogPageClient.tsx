@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import BlogCard from '@/components/BlogCard';
 import { BlogPost, BlogPostFields } from '@/types/contentful';
-import { getExcerpt } from '@/lib/utils';
+import { getExcerpt, calculateReadingTime } from '@/lib/utils';
 import styles from './page.module.css';
 
 interface BlogPageProps {
@@ -70,6 +70,7 @@ export default function BlogPageClient({ posts, allTags }: BlogPageProps) {
                 tags={fields.tags}
                 heroUrl={`https:${(fields.hero as any).fields.file.url}`}
                 excerpt={getExcerpt(fields.bodym)}
+                readingTime={calculateReadingTime(fields.bodym)}
               />
             );
           })}
