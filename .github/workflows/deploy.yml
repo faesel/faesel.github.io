@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - source
+  repository_dispatch:
+    types: [contentful_publish]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    env:
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      NEXT_PUBLIC_GOOGLE_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_TRACKING_ID }}
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Master Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: master
+          folder: out
+          clean: true
+          clean-exclude: |
+            .nojekyll
+            CNAME

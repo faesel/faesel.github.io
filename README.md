@@ -155,6 +155,22 @@ Edit the CSS variables in \`src/app/globals.css\`:
 
 ## 🚢 Deployment
 
+### GitHub Pages (Automated)
+
+This project uses GitHub Actions for automatic deployment:
+
+1. **Set up GitHub Secrets**: Add `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` in repository settings
+2. **Configure GitHub Pages**: Set to deploy from `master` branch
+3. **Push to source branch**: Automatically builds and deploys to master
+4. **Optional**: Set up Contentful webhook to rebuild on content changes
+
+📖 **See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions**  
+⚡ **See [DEPLOYMENT_QUICKSTART.md](./DEPLOYMENT_QUICKSTART.md) for quick setup**
+
+### Manual Deployment
+
+If you prefer manual deployment:
+
 ### Netlify
 
 1. Connect your GitHub repository
