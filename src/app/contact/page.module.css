@@ -1,84 +1,159 @@
 .container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: var(--spacing-2xl) var(--spacing-md);
+  padding: 4rem var(--spacing-md);
+  min-height: 80vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .title {
   font-size: 3rem;
-  text-align: center;
-  margin-bottom: var(--spacing-md);
+  font-weight: 800;
+  margin-bottom: var(--spacing-sm);
+  background: linear-gradient(120deg, var(--color-primary) 0%, var(--color-text-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .subtitle {
-  text-align: center;
   font-size: 1.25rem;
-  color: var(--color-text-muted);
-  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-light);
 }
 
-.contactInfo {
-  background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-green) 100%);
-  padding: var(--spacing-xl);
+.card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  margin-bottom: var(--spacing-xl);
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.infoItem {
-  margin-bottom: var(--spacing-md);
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-purple));
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.iconWrapper {
+  background: var(--color-hover);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  font-size: 1.125rem;
-}
-
-.infoItem:last-child {
-  margin-bottom: 0;
-}
-
-.infoLabel {
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.infoValue {
-  color: var(--color-text);
-}
-
-.infoValue a {
-  color: var(--color-primary);
-  text-decoration: underline;
-}
-
-.socialLinks {
-  display: flex;
-  gap: var(--spacing-md);
   justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.itemContent {
+  flex: 1;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.value a {
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-accent-blue);
+  transition: border-color var(--transition-fast);
+}
+
+.value a:hover {
+  border-color: var(--color-accent-purple);
+}
+
+.socialSection {
+  text-align: center;
+}
+
+.socialTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialGrid {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
-.socialLink {
-  background: var(--color-primary);
-  color: var(--color-background);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--border-radius);
+.socialCard {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  padding: 1rem 2rem;
+  border-radius: 50px;
   font-weight: 600;
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.socialLink:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+.socialCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   
-  .infoItem {
+  .card {
+    padding: 2rem;
+  }
+
+  .item {
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-xs);
+    gap: 1rem;
   }
 }

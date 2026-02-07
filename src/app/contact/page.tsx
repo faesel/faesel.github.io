@@ -9,55 +9,77 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Contact</h1>
-      <p className={styles.subtitle}>
-        Let's connect! I'd love to hear from you.
-      </p>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Get in Touch</h1>
+        <p className={styles.subtitle}>
+          Have a question or want to work together? I'd love to hear from you.
+        </p>
+      </header>
 
-      <div className={styles.contactInfo}>
-        <div className={styles.infoItem}>
-          <span className={styles.infoLabel}>📧 Email:</span>
-          <span className={styles.infoValue}>
-            <a href="mailto:faesel@outlook.com">faesel@outlook.com</a>
-          </span>
-        </div>
+      <div className={styles.card}>
+        <div className={styles.grid}>
+          <div className={styles.item}>
+            <div className={styles.iconWrapper}>
+              <span>📧</span>
+            </div>
+            <div className={styles.itemContent}>
+              <span className={styles.label}>Email</span>
+              <span className={styles.value}>
+                <a href="mailto:faesel@outlook.com">faesel@outlook.com</a>
+              </span>
+            </div>
+          </div>
 
-        <div className={styles.infoItem}>
-          <span className={styles.infoLabel}>📍 Location:</span>
-          <span className={styles.infoValue}>London</span>
-        </div>
+          <div className={styles.item}>
+            <div className={styles.iconWrapper}>
+              <span>📍</span>
+            </div>
+            <div className={styles.itemContent}>
+              <span className={styles.label}>Location</span>
+              <span className={styles.value}>London, UK</span>
+            </div>
+          </div>
 
-        <div className={styles.infoItem}>
-          <span className={styles.infoLabel}>💼 Available for:</span>
-          <span className={styles.infoValue}>Freelance Projects, Collaborations</span>
+          <div className={styles.item}>
+            <div className={styles.iconWrapper}>
+              <span>💼</span>
+            </div>
+            <div className={styles.itemContent}>
+              <span className={styles.label}>Availability</span>
+              <span className={styles.value}>Open to freelance projects & consulting</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className={styles.socialLinks}>
-        <a
-          href={siteConfig.social.github}
-          className={styles.socialLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-        </a>
-        <a
-          href={siteConfig.social.linkedin}
-          className={styles.socialLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
-        </a>
-        <a
-          href={`https://twitter.com/${siteConfig.social.twitter.replace('@', '')}`}
-          className={styles.socialLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Twitter
-        </a>
+      <div className={styles.socialSection}>
+        <h2 className={styles.socialTitle}>Find me online</h2>
+        <div className={styles.socialGrid}>
+          <a
+            href={siteConfig.social.github}
+            className={styles.socialCard}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>GitHub</span> ↗
+          </a>
+          <a
+            href={siteConfig.social.linkedin}
+            className={styles.socialCard}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>LinkedIn</span> ↗
+          </a>
+          <a
+            href={`https://twitter.com/${siteConfig.social.twitter.replace('@', '')}`}
+            className={styles.socialCard}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Twitter</span> ↗
+          </a>
+        </div>
       </div>
     </div>
   );
