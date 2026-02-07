@@ -40,6 +40,4 @@ jobs:
           branch: master
           folder: out
           clean: true
-          clean-exclude: |
-            .nojekyll
-            CNAME
+          clean-exclude: CNAME
