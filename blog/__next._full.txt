@@ -12,13 +12,374 @@ f:I[68027,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/7082
 :HL["/_next/static/chunks/19d110f125a6a880.css","style"]
 :HL["/_next/static/chunks/9ba9b719c4b6976c.css","style"]
 :HL["/_next/static/chunks/578ca6ed020117e9.css","style"]
-0:{"P":null,"b":"nuf4gO4xDVHrlHALQrgG-","c":["","blog"],"q":"","i":false,"f":[[["",{"children":["blog",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/19d110f125a6a880.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/8be72f203fe36d6f.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.faesel.com/images/logo.png\"},\"sameAs\":[\"https://github.com/faesel\",\"https://www.linkedin.com/in/faesel-saeed-a97b1614\"]}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"FAESEL.COM\",\"url\":\"https://www.faesel.com\",\"description\":\"A modern tech blog exploring technology, coding, and digital innovation\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\"}}"}}]]}],["$","body",null,{"children":[["$","$L2",null,{"gaId":"G-Y039CLFJME"}],["$","a",null,{"href":"#main-content","className":"skip-to-content","children":"Skip to content"}],["$","$L3",null,{}],["$","main",null,{"id":"main-content","style":{"minHeight":"70vh"},"children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"not-found-module__HS70Aa__container","children":[["$","h1",null,{"className":"not-found-module__HS70Aa__title","children":"404"}],["$","h2",null,{"className":"not-found-module__HS70Aa__subtitle","children":"Page Not Found"}],["$","p",null,{"className":"not-found-module__HS70Aa__message","children":"Sorry, the page you're looking for doesn't exist."}],["$","$L6",null,{"href":"/","className":"not-found-module__HS70Aa__homeLink","children":"Go Home"}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/578ca6ed020117e9.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"Footer-module__S6Hkya__footer","children":["$","div",null,{"className":"Footer-module__S6Hkya__container","children":["$","div",null,{"className":"Footer-module__S6Hkya__content","children":[["$","nav",null,{"className":"Footer-module__S6Hkya__links","aria-label":"Footer navigation","children":[["$","$L6",null,{"href":"/blog","className":"Footer-module__S6Hkya__link","children":"Blog"}],["$","$L6",null,{"href":"/projects","className":"Footer-module__S6Hkya__link","children":"Projects"}],["$","$L6",null,{"href":"/about","className":"Footer-module__S6Hkya__link","children":"About"}],["$","$L6",null,{"href":"/contact","className":"Footer-module__S6Hkya__link","children":"Contact"}]]}],["$","p",null,{"className":"Footer-module__S6Hkya__copyright","children":["© ",2026," All rights reserved."]}]]}]}]}]]}]]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L7",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/9ba9b719c4b6976c.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/4f51bef69027d962.js","async":true,"nonce":"$undefined"}]],["$","$L8",null,{"children":["$","$9",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]]}],{},null,false,false]},null,false,false]},null,false,false],["$","$1","h",{"children":[null,["$","$Lb",null,{"children":"$Lc"}],["$","div",null,{"hidden":true,"children":["$","$Ld",null,{"children":["$","$9",null,{"name":"Next.Metadata","children":"$Le"}]}]}],null]}],false]],"m":"$undefined","G":["$f",[]],"S":true}
+0:{"P":null,"b":"4_dvW-pSPBm8eSwnxOBj5","c":["","blog"],"q":"","i":false,"f":[[["",{"children":["blog",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/19d110f125a6a880.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/8be72f203fe36d6f.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.faesel.com/images/logo.png\"},\"sameAs\":[\"https://github.com/faesel\",\"https://www.linkedin.com/in/faesel-saeed-a97b1614\"]}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"FAESEL.COM\",\"url\":\"https://www.faesel.com\",\"description\":\"A modern tech blog exploring technology, coding, and digital innovation\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\"}}"}}]]}],["$","body",null,{"children":[["$","$L2",null,{"gaId":"G-Y039CLFJME"}],["$","a",null,{"href":"#main-content","className":"skip-to-content","children":"Skip to content"}],["$","$L3",null,{}],["$","main",null,{"id":"main-content","style":{"minHeight":"70vh"},"children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"not-found-module__HS70Aa__container","children":[["$","h1",null,{"className":"not-found-module__HS70Aa__title","children":"404"}],["$","h2",null,{"className":"not-found-module__HS70Aa__subtitle","children":"Page Not Found"}],["$","p",null,{"className":"not-found-module__HS70Aa__message","children":"Sorry, the page you're looking for doesn't exist."}],["$","$L6",null,{"href":"/","className":"not-found-module__HS70Aa__homeLink","children":"Go Home"}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/578ca6ed020117e9.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"Footer-module__S6Hkya__footer","children":["$","div",null,{"className":"Footer-module__S6Hkya__container","children":["$","div",null,{"className":"Footer-module__S6Hkya__content","children":[["$","nav",null,{"className":"Footer-module__S6Hkya__links","aria-label":"Footer navigation","children":[["$","$L6",null,{"href":"/blog","className":"Footer-module__S6Hkya__link","children":"Blog"}],["$","$L6",null,{"href":"/projects","className":"Footer-module__S6Hkya__link","children":"Projects"}],["$","$L6",null,{"href":"/about","className":"Footer-module__S6Hkya__link","children":"About"}],["$","$L6",null,{"href":"/contact","className":"Footer-module__S6Hkya__link","children":"Contact"}]]}],["$","p",null,{"className":"Footer-module__S6Hkya__copyright","children":["© ",2026," All rights reserved."]}]]}]}]}]]}]]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L7",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/9ba9b719c4b6976c.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/4f51bef69027d962.js","async":true,"nonce":"$undefined"}]],["$","$L8",null,{"children":["$","$9",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]]}],{},null,false,false]},null,false,false]},null,false,false],["$","$1","h",{"children":[null,["$","$Lb",null,{"children":"$Lc"}],["$","div",null,{"hidden":true,"children":["$","$Ld",null,{"children":["$","$9",null,{"name":"Next.Metadata","children":"$Le"}]}]}],null]}],false]],"m":"$undefined","G":["$f",[]],"S":true}
 c:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 10:I[27201,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/708205fa81a1891d.js"],"IconMark"]
 a:null
 e:[["$","title","0",{"children":"Blog | Tech Blog | FAESEL.COM"}],["$","meta","1",{"name":"description","content":"Read the latest articles about technology, coding, and digital innovation"}],["$","link","2",{"rel":"author","href":"https://www.faesel.com/about"}],["$","meta","3",{"name":"author","content":"Faesel Saeed"}],["$","meta","4",{"name":"keywords","content":"blog,technology,web development,programming,software engineering"}],["$","meta","5",{"property":"og:title","content":"Blog | Tech Blog"}],["$","meta","6",{"property":"og:description","content":"Read the latest articles about technology, coding, and digital innovation"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:site","content":"@faeselsaeed"}],["$","meta","10",{"name":"twitter:creator","content":"@faeselsaeed"}],["$","meta","11",{"name":"twitter:title","content":"Blog | Tech Blog"}],["$","meta","12",{"name":"twitter:description","content":"Read the latest articles about technology, coding, and digital innovation"}],["$","link","13",{"rel":"shortcut icon","href":"/favicon.ico"}],["$","link","14",{"rel":"icon","href":"/favicon.ico"}],["$","link","15",{"rel":"apple-touch-icon","href":"/favicon.ico"}],["$","$L10","16",{}]]
 11:I[29971,["/_next/static/chunks/8be72f203fe36d6f.js","/_next/static/chunks/4f51bef69027d962.js"],"default"]
-12:T2bcd,
+12:T30a0,# Introduction
+
+Recently, I’ve been using the [Nx](https://nx.dev/) monorepo framework quite extensively—but purely for frontend React projects. I’d always thought of Nx as a frontend-focused tool. Turns out, I was wrong (and about two years late to the party).
+
+I recently came across a [YouTube video -  Nx + .NET with the nx-dotnet Plugin](https://www.youtube.com/watch?v=8zoR_NpW7io&t=2829s) demonstrating first-class support for .NET applications inside an Nx workspace.
+
+As a full-stack engineer, this genuinely blew my mind. For the first time, it feels possible to build a full-stack architecture that actively prevents one of the most common pain points in web development: broken contracts between frontend and backend. With Nx, API contracts can live in shared libraries with clear ownership, rather than being duplicated, manually synced, or quietly drifting out of alignment.
+
+In this article, I’ll explore what a basic full-stack architecture looks like using Nx, React, and C#, and share what the developer experience is actually like in practice.
+
+# The basic setup
+
+Nx works on the basic principle of two main folders: `apps` and `libs`. For this application, we'll be using the following folder structure:
+
+**apps/**
+- `web/` → Next.js frontend application  
+- `api/` → ASP.NET Core Web API  
+- `worker/` → .NET background worker (e.g. WebJob, more to show fullstackyness)  
+
+**libs/**
+- `ui/` → Shared React UI components  
+- `domain/` → Shared domain logic  
+  - Must be framework-agnostic  
+  - Must **not** reference ASP.NET Core, React, or Next.js  
+- `contracts/` → Shared API contracts (DTOs / request & response models)  
+- `api-client/` → Generated TypeScript client from OpenAPI
+
+## Step 1 - Create a mono repo
+
+Let's start by creating an empty Nx workspace. Note: this assumes you've already set up Nx, Node, .NET, and npm locally.
+
+```shell
+mkdir fullstack-demo
+cd fullstack-demo
+npx create-nx-workspace@latest fullstack-demo --preset=npm --nxCloud=skip --interactive=false
+```
+
+Next, create the `apps/` and `libs/` folders, then we'll install our Nx dependencies. In my case ive gone for React however Nx supports quite a large array of languages and frameworks.
+
+```shell
+cd fullstack-demo
+mkdir -p apps libs
+
+# Install Nx dependencies for front end
+npm install -D @nx/react
+npm install -D @nx/next
+
+# Create the Next.js application and UI component library
+npx nx g @nx/next:app web --directory=apps/web --no-interactive
+npx nx g @nx/react:lib ui --directory=libs/ui --bundler=none --unitTestRunner=none --no-interactive
+```
+
+With the front end done, we can now create the backend projects:
+
+```shell
+# Create .NET projects manually
+cd apps
+dotnet new webapi -n api -f net8.0
+// Mostly to show you we can host other apps in here, but you can skip this if you just want the API and Next.js frontend
+dotnet new worker -n worker -f net8.0
+cd ..
+```
+
+**Why not use Nx generators for .NET?**
+
+You might wonder why we're using manual `dotnet` commands instead of the `@nx-dotnet/core` plugin. While Nx does have a .NET plugin, I encountered compatibility issues with the current version of Nx (v22.5.0+). The plugin depends on internal Nx modules that have been refactored or removed in recent versions, causing generation to fail.
+
+By creating .NET projects manually and integrating them through custom `project.json` files, we get the same benefits:
+ - Full Nx integration (build, serve, test commands)
+ - Dependency graph visualization
+ - Affected command support
+ - Task caching
+
+This approach is actually more flexible and keeps you in control of the .NET tooling, while still getting all the Nx monorepo benefits. So we don't really loose much aside from a simpler command to generate a new project. But I guess most people will be accustomed to the dotnet commands anyway.
+
+Once the projects are created we can then create a `project.json` file for each .NET project to integrate Nx commands with dotnet CLI. The `project.json` file holds the projects configuration, it also allows Nx to map commands to dotnet which you will see later in the article, as well as control things like project dependencies. 
+
+```json
+{
+  "name": "@fullstack-demo/api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/api",
+  "tags": ["type:app", "platform:dotnet", "scope:backend"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet build",
+        "cwd": "apps/api"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet run",
+        "cwd": "apps/api"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet test",
+        "cwd": "apps/api"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dotnet clean",
+        "cwd": "apps/api"
+      }
+    }
+  }
+}
+```
+
+With this configuration, we can now run these commands through Nx `nx run @fullstack-demo/api:build`! It all connects up and triggers your standard dotnet build.
+
+Now let's generate all the shared libraries:
+
+```shell
+npx nx g @nx/js:lib domain --directory=libs/domain --bundler=none --unitTestRunner=none --no-interactive
+npx nx g @nx/js:lib api-client --directory=libs/api-client --bundler=none --unitTestRunner=none --no-interactive
+```
+
+Once complete we should have this basic structure
+
+![Nx fullstack folder structure](//images.ctfassets.net/wjg1udsw901v/3BdJwgJdwH3ZVZPx9i2Arx/8aecfd2d6a66fc7be6646caad5edf50e/image.png)
+
+## Backend API Implementation
+
+Now that we got a basic app setup let's add Swashbuckle to enable OpenAPI/Swagger documentation. These steps are no different from any other dotnet api project and can be skipped if your familiar with it.
+
+```shell
+cd apps/api && dotnet add package Swashbuckle.AspNetCore
+```
+
+Also ensure you add these lines to `Program.cs`:
+
+```csharp
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+
+// ... later in the file
+app.MapControllers();
+```
+
+Create a basic items model in `Models/Item.cs`,
+
+```csharp
+namespace Api.Models;
+
+public class Item
+{
+    public string Id { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; }
+}
+
+public class ItemsResponse
+{
+    public List<Item> Items { get; set; } = new();
+    public int Total { get; set; }
+}
+```
+
+Now let's create a basic controller to handle the requests in `Controllers/ItemsController.cs`,
+
+```csharp
+using Api.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ItemsController : ControllerBase
+{
+    /// <summary>
+    /// Get all items
+    /// </summary>
+    /// <returns>A list of items</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(ItemsResponse), StatusCodes.Status200OK)]
+    public ActionResult<ItemsResponse> GetItems()
+    {
+        var items = new List<Item>
+        {
+            new Item
+            {
+                Id = "1",
+                Name = "Item 1",
+                Description = "First sample item",
+                CreatedAt = DateTime.UtcNow.AddDays(-2)
+            },
+            new Item
+            {
+                Id = "2",
+                Name = "Item 2",
+                Description = "Second sample item",
+                CreatedAt = DateTime.UtcNow.AddDays(-1)
+            },
+            new Item
+            {
+                Id = "3",
+                Name = "Item 3",
+                Description = "Third sample item",
+                CreatedAt = DateTime.UtcNow
+            }
+        };
+
+        var response = new ItemsResponse
+        {
+            Items = items,
+            Total = items.Count
+        };
+
+        return Ok(response);
+    }
+}
+
+```
+
+Don't forget to wire up the controllers in `Program.cs`:
+
+```csharp
+builder.Services.AddControllers();
+// ... later in the file
+app.MapControllers();
+```
+
+You can now test the API by spinning it up in Nx
+
+```shell
+nx run @fullstack-demo/api:serve
+```
+
+## Getting generated types 
+
+We'll use `openapi-typescript` to generate a type-safe TypeScript interfaces directly from your API's OpenAPI json definition. This ensures your frontend stays in sync with backend changes.
+
+```shell
+npm install -D openapi-typescript
+```
+
+Generate a script file in `scripts/generate-openapi.sh`, this script is going to be responsible for, 
+
+1. Running the dotnet API
+2. Download the open API json generated based on controller actions
+3. Place the file into the API clients directory, the file can then be used to generate types with.
+
+```
+#!/bin/bash
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+cd "$PROJECT_ROOT"
+
+echo "Building API..."
+cd apps/api
+dotnet build --nologo -v q
+
+echo "Starting API..."
+ASPNETCORE_ENVIRONMENT=Development dotnet run --no-launch-profile --urls "http://localhost:5000" > /dev/null 2>&1 &
+API_PID=$!
+
+echo "Waiting for API to start (PID: $API_PID)..."
+sleep 8
+
+echo "Downloading OpenAPI spec..."
+curl -s http://localhost:5000/swagger/v1/swagger.json -o ../../libs/api-client/openapi.json
+
+echo "Stopping API..."
+kill $API_PID 2>/dev/null || true
+
+echo "OpenAPI spec generated successfully at libs/api-client/openapi.json"
+```
+
+Once the script is created we can add it to the `project.json` in the API project. Create a new target to run the script and begin generation. This allows us to execute a command like `nx run @fullstack-demo/api:openapi:generate` to run the step. However as Nx allows you to create dependencies in projects we are not going to run this command explicitly.
+
+```json
+"openapi:generate": {
+  "executor": "nx:run-commands",
+  "options": {
+    "command": "bash scripts/generate-openapi.sh"
+  },
+  "outputs": ["{workspaceRoot}/libs/api-client/openapi.json"]
+}
+```
+
+We can also now update the `api-client/project.json` file to convert the `openapi.json` file into TypeScript types. Note how this command has a dependency on the previous command we created.
+
+```json
+"generate": {
+  "executor": "nx:run-commands",
+  "options": {
+    "command": "npx openapi-typescript libs/api-client/openapi.json -o libs/api-client/src/generated/schema.ts"
+  },
+  "dependsOn": ["@fullstack-demo/api:openapi:generate"],
+  "inputs": ["{projectRoot}/openapi.json"],
+  "outputs": ["{projectRoot}/src/generated"]
+}
+```
+
+Now, with a single Nx command, we can generate TypeScript types from our C# models:
+
+```shell
+nx run @fullstack-demo/api-client:generate
+```
+
+## Integrate front end and backend
+
+Now we can create a Next.js page that fetches data from our backend API. This part of the article just just to demonstrate the complete solution. First step create a basic page `apps/web/src/app/items/page.tsx`, and with this we can use Nx imports to reference the `api-client` project
+
+```typescript
+import { apiClient, type Item } from '@fullstack-demo/api-client';
+
+export default async function ItemsPage() {
+  const data = await apiClient.getItems();
+
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>Items from API</h1>
+      <p>Total: {data.total}</p>
+
+      <ul>
+        {data.items?.map((item: Item) => (
+          <li key={item.id} style={{ marginBottom: '1rem' }}>
+            <h3>{item.name}</h3>
+            <p>{item.description}</p>
+            <small>
+              {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A'}
+            </small>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+## Running the app 
+
+Once everything is set up, you can run both the frontend and backend using the following Nx commands,
+
+```shell
+# Terminal 1 - Start the backend API
+nx run @fullstack-demo/api:serve
+
+# Terminal 2 - Start the frontend
+nx run @fullstack-demo/web:dev
+```
+
+## Conclusion
+
+Using Nx to manage a monorepo with .NET and React is a promising combination — the tooling brings solid cross-stack project organisation, making it easier to house both frontend and backend in one workspace. That said, Nx introduces extra complexity that teams will need to invest time in understanding. As the ecosystem matures, improvements to Nx's generators should help streamline the developer experience further.
+
+Would I use it for a full stack project? I think the answer would be a yes!13:T2bcd,
 # Introduction
 
 Recently I encountered a scenario where I needed to integrate New Relic into my Electron application. New Relic supports a number of integration types our the box, some of the more heavily used ones are,
@@ -235,7 +596,7 @@ FROM SpanEvent WHERE span.id IN (
 )
 ```
 
-And thats it, hope this was useful for someone! Before you get integrating note that there might be some logging providers that have a much easier integration with New Relic, [sentry.io](https://docs.sentry.io/platforms/javascript/guides/electron/) seems like one of them.13:T3098,As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically. Maintaining a cognitive memory across all the different CLI's, languages/frameworks etc in today's setting is no small feat.
+And thats it, hope this was useful for someone! Before you get integrating note that there might be some logging providers that have a much easier integration with New Relic, [sentry.io](https://docs.sentry.io/platforms/javascript/guides/electron/) seems like one of them.14:T3098,As a engineer learning new languages, tools frameworks etc is just part and parcel of the job. Over time the spectrum of knowledge a full stack engineer has to learn has increased dramatically. Maintaining a cognitive memory across all the different CLI's, languages/frameworks etc in today's setting is no small feat.
 
 Over time i've found that if you want something to stick you have to write it down, and if it doesn't stick (or un-sticks over time) you need some notes to look back at it. As my brain 🧠 ages these notes have become invaluable, and the need for quality notes over rushed pasted snippets has become more of a priority.
 
@@ -409,7 +770,7 @@ Obsidian has really refreshed how I work to a modern standard. Hopefully this ha
 
 The only caveat to Obsidian is the lack of mobile apps (its currently being worked on, check out there roadmap on [Trello](https://trello.com/b/Psqfqp7I/obsidian-roadmap)). But to be honest I haven't really felt the need for it as im always learning whilst on my computer.
 
-Obsidian is free try use (and fully functional with its free tier), they also have some paid tiers and boltons, so do check it out!14:T9f3,I've been using C# for about a decade now, and every now and again I discover something that surprises me. This week it's the ability to deconstruct as we do in Javascript (and I'm not talking about using Tuples!).
+Obsidian is free try use (and fully functional with its free tier), they also have some paid tiers and boltons, so do check it out!15:T9f3,I've been using C# for about a decade now, and every now and again I discover something that surprises me. This week it's the ability to deconstruct as we do in Javascript (and I'm not talking about using Tuples!).
 
 Below is a simple example of deconstruction taking place to draw out the power, and defence property for our Trex object,
 
@@ -489,7 +850,7 @@ namespace deconstruction
 }
 ```
 
-Who knows what other hidden gems 💎 lie buried with the Microsoft docs!15:T4738,# Starting my journey with GraphQL
+Who knows what other hidden gems 💎 lie buried with the Microsoft docs!16:T4738,# Starting my journey with GraphQL
 
 Up till now, I've always heavily relied on RESTfull services to power API's, this recently got widened with GRPC which you can read about in my article [.NET & GRPC What they forgot to tell you](https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you). GraphQL was the third final frontier that needed exploring 🥾...until now.
 
@@ -927,7 +1288,7 @@ Regarding logging Chilli Cream has created a guide to adding an `AddDiagnosticEv
 
 # Conclusion
 
-That's it folks! We've seen that the Hot Chocolate implementation nicely fulfils not just the 80% crud use case but can also deal with the other responsibilities we typically see with our REST services in the wild.16:T3753,Recently I started working on a project that was created from the **ASP.NET SPA template for react**. It's one of the templates you get by default with dotnet and can be created by running `dotnet new react`.
+That's it folks! We've seen that the Hot Chocolate implementation nicely fulfils not just the 80% crud use case but can also deal with the other responsibilities we typically see with our REST services in the wild.17:T3753,Recently I started working on a project that was created from the **ASP.NET SPA template for react**. It's one of the templates you get by default with dotnet and can be created by running `dotnet new react`.
 
 The template creates a dotnet webapp which is designed to be an API backend and links it with a react project to power the UI. When running the project from dotnet, static files are built from the react project and served up.
 
@@ -1212,7 +1573,7 @@ services.AddSpaStaticFiles(configuration => configuration.RootPath = WebHostEnvi
 # How to deploy 🚀
 
 Deployment is now a simple case of running `dotnet publish --configuration Release`, once the published artefacts are deployed the app can now take its environment and run the appropriate spa. Build once and deploy anywhere!
-17:T3635,# Why I started building a CLI
+18:T3635,# Why I started building a CLI
 
 As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also widespread from leveraging queues on a basic console app to storing uploaded images from a web application.
 
@@ -1519,7 +1880,7 @@ If you're interested in checking out Az-Lazy, you can install in with the comman
 Do checkout *Nuget Must Haves* command-line tagged package list, there's some great options in there that are not mentioned in this article.
 
 [Nuet Must Haves - CommandLine Packages](https://nugetmusthaves.com/Tag/Commandline?page=1)
-18:T3d71,As an engineer, I have always had a heavy reliance on REST'ful API's for passing information between applications. With the introduction of [open API specification](https://swagger.io/specification/) now in version 3.0.3, integration has never been easier. The push to break monoliths into microservices has further boosted its usage, however I always found one size never fits all.
+19:T3d71,As an engineer, I have always had a heavy reliance on REST'ful API's for passing information between applications. With the introduction of [open API specification](https://swagger.io/specification/) now in version 3.0.3, integration has never been easier. The push to break monoliths into microservices has further boosted its usage, however I always found one size never fits all.
 
 ## Where REST falls down 👎
 
@@ -1850,7 +2211,7 @@ What I find particularly interesting is that the problem grpc-web solves is simi
 
 1. [C# Examples](https://github.com/grpc/grpc/tree/master/src/csharp)
 2. [More c# examples](https://github.com/grpc/grpc-dotnet/tree/master/examples)
-19:T1e32,As a windows user the terminal experience has always been lacking, up till the new [windows terminal](https://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab) was released. Incorporating [WSL (Windows Subsystem for Lynx)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) really helped bridge that gap as it opens up console experience that makes use of **apt-get** use the plethora of packages available. 
+1a:T1e32,As a windows user the terminal experience has always been lacking, up till the new [windows terminal](https://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab) was released. Incorporating [WSL (Windows Subsystem for Lynx)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) really helped bridge that gap as it opens up console experience that makes use of **apt-get** use the plethora of packages available. 
 
 Having tried using this for react apps I found the experience really slow when building apps. Running the same app in Powershell would start up in a fraction of the time. This got me thinking..
 
@@ -2009,7 +2370,7 @@ You can download my complete profile code [here](https://github.com/faesel/termi
 
 ## Summary
 
-I'm still on a path of discovery with Powershell, I've seen some great packages that can help make my terminal experience fast and efficient. However, I do feel I'm at the very beginning of this journey and with the continued improvements to WSL, I may flip flop to the Linux side.1a:T36b9,I recently recreated my blog in GatsbyJs, you can download a template of it here [gatsby-techblog-starter](https://github.com/faesel/gatsby-techblog-starter). In the joy of sharing its simplicity to the world, I tweet about my [intro article](https://www.faesel.com/blog/gatsby-tech-blog-starter) with a link to my website. To my dismay, I noticed the tweet was lacking a lot of formatting and information on the link... would you even see that link 👀?
+I'm still on a path of discovery with Powershell, I've seen some great packages that can help make my terminal experience fast and efficient. However, I do feel I'm at the very beginning of this journey and with the continued improvements to WSL, I may flip flop to the Linux side.1b:T36b9,I recently recreated my blog in GatsbyJs, you can download a template of it here [gatsby-techblog-starter](https://github.com/faesel/gatsby-techblog-starter). In the joy of sharing its simplicity to the world, I tweet about my [intro article](https://www.faesel.com/blog/gatsby-tech-blog-starter) with a link to my website. To my dismay, I noticed the tweet was lacking a lot of formatting and information on the link... would you even see that link 👀?
 
 ![Twitter without opengraph](//images.ctfassets.net/wjg1udsw901v/37l0W6HYcNXrTDrAbMDJSn/04d9b245622621d5b0eafaf59657ea07/twitter-no-opengraph.png)
 
@@ -2323,7 +2684,7 @@ TIP 😎! If your implementing this retrospectively twitter will update all your
 
 After that you can begin to tweet with confidence 😁
 
-![Tweet Format](//images.ctfassets.net/wjg1udsw901v/2ojzLoP0kubfHc6NdpTiIz/483dd1458ab941764b34ba1e3d5e67e9/TweetFormat.png)1b:T2804,I'm someone who's always had my own tech blog, I've gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended on how much friction and effort it takes to write content, manage and upload photos and paste in code. 
+![Tweet Format](//images.ctfassets.net/wjg1udsw901v/2ojzLoP0kubfHc6NdpTiIz/483dd1458ab941764b34ba1e3d5e67e9/TweetFormat.png)1c:T2804,I'm someone who's always had my own tech blog, I've gone through two revisions already with the last revision updating out of a 1997 style book. How much I contribute to the blog has always depended on how much friction and effort it takes to write content, manage and upload photos and paste in code. 
 
 My previous revisions at its core have always been dependent on using opensource wysiwyg editors. Which for me have been deficient in several ways.
 
@@ -2503,7 +2864,7 @@ As with all things in tech, there are some improvements that got taken off the b
 
 This article and the project was inspired by Andrew Mead's [**'The Great Gatsby Bootcamp'**](https://www.youtube.com/watch?v=kzWIUX3CpuI) course which I highly recommend in learning the basics.
 
-https://www.youtube.com/watch?v=kzWIUX3CpuI1c:T2606,I'm currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party's (or our code) fail to send the message. 
+https://www.youtube.com/watch?v=kzWIUX3CpuI1d:T2606,I'm currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party's (or our code) fail to send the message. 
 
 Since we are connecting into 3rd party's you can almost guarantee there's going to be some form of failure. So its always good practice to leverage on this type of architecture to handle the unknown. We have the following setup:
 
@@ -2749,7 +3110,7 @@ https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-az
 How to code up a azure function:
 
 https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-csharp
-1d:T1f26,Having looked at a number of projects in my lifetime, I always come across classes named something like "CustomerService" with similar variations (usually in the same project calling each other) ranging from "CustomerProvider / Helper /Manager / Store / etc...".
+1e:T1f26,Having looked at a number of projects in my lifetime, I always come across classes named something like "CustomerService" with similar variations (usually in the same project calling each other) ranging from "CustomerProvider / Helper /Manager / Store / etc...".
 
 > There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors - PhilKarlton
 
@@ -2908,7 +3269,7 @@ This process should mitigate the scenario of having a customer/service/manager/p
 
 Once we’ve established some conventions for a project we can easily extract these out into a separate project and package it as a NuGet package. This allows us to apply the conventions to other solutions giving us a unified structure that looks the same from one solution to another.
 
-New developers will surely appreciate this, and as a co-worker sitting next to them the wtf count will be below uncomfortable thresholds!1e:Tb11,This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your tests to break down the CI Builds (typically used to run different categories in parallel) or to separate slow running tests into a separate build, all in the aim of speeding up the feedback cycle for developers. So to create a category you simple add a category attribute to either a test or a test fixture like so:
+New developers will surely appreciate this, and as a co-worker sitting next to them the wtf count will be below uncomfortable thresholds!1f:Tb11,This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your tests to break down the CI Builds (typically used to run different categories in parallel) or to separate slow running tests into a separate build, all in the aim of speeding up the feedback cycle for developers. So to create a category you simple add a category attribute to either a test or a test fixture like so:
 
 ```csharp
 [Category("CategoryOne")] 
@@ -2971,4 +3332,4 @@ A screenshot is included for a full list of settings.
 
 ![Nunit Test - Teamcity](//images.ctfassets.net/wjg1udsw901v/56EtPebPnDplF4gswxjpJH/f4ac2ffe01af7d3933838d4425d26bc8/teamcitytestcategory.png)
 
-Once you have this in place your unit tests will run with lightening speed.7:[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.faesel.com\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.faesel.com/blog\"}]}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"name\":\"Blog\",\"description\":\"Articles about technology, coding, and digital innovation\",\"url\":\"https://www.faesel.com/blog\"}"}}],["$","$L11",null,{"posts":[{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5Y4yxKp7A7MgcystqRbOpl","type":"Entry","createdAt":"2023-03-17T14:03:54.327Z","updatedAt":"2023-03-17T16:06:56.451Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":22,"revision":2,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"4N5m97m5WfdJi5u7D8I4tX","type":"Asset","createdAt":"2023-03-17T11:24:11.827Z","updatedAt":"2023-03-17T11:24:11.827Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"electron-newrelic-opentelemetry","description":"","file":{"url":"//images.ctfassets.net/wjg1udsw901v/4N5m97m5WfdJi5u7D8I4tX/00d1a21ab7ce8db54af5fa6f84f89e9d/article-banner.jpg","details":{"size":25119,"image":{"width":1000,"height":500}},"fileName":"article-banner.jpg","contentType":"image/jpeg"}}},"title":"Electron & New Relic Integration Using Open Telemetry","tags":["electron","new-relic","open-telemetry","tracing","logging","jaeger","otlp","ipc-channel"],"slug":"electron-newrelic-integration-using-open-telemetry","datePublished":"2023-03-17T00:00+00:00","bodym":"$12"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5QTs3PIFwWHFqQzpcCUwHl","type":"Entry","createdAt":"2021-05-21T14:22:32.520Z","updatedAt":"2021-05-24T06:26:56.025Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":51,"revision":4,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"78Ws2s56LgCLoxkx3Xdcsl","type":"Asset","createdAt":"2021-05-21T14:22:25.484Z","updatedAt":"2021-05-21T14:22:25.484Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":4,"revision":1,"locale":"en-GB"},"fields":{"title":"Obsidian Logo","file":{"url":"//images.ctfassets.net/wjg1udsw901v/78Ws2s56LgCLoxkx3Xdcsl/083d00cd84eeec428087bbab65ae3580/obsidian-logo.png","details":{"size":31000,"image":{"width":1998,"height":666}},"fileName":"obsidian-logo.png","contentType":"image/png"}}},"title":"Why every developer needs to use Obsidian","tags":["obsidian","research","notes","markdown","ownership","mermaid","git","knowledge-graph","ide","plantuml","open-graph"],"slug":"why-every-developer-needs-to-use-obsidian","datePublished":"2021-05-24T00:00+01:00","bodym":"$13"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6mCFlKsDIry12uLc8ZDYNO","type":"Entry","createdAt":"2021-04-09T15:16:41.488Z","updatedAt":"2021-04-09T15:37:21.069Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":182,"revision":9,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"4l5ONHEazPnD41lO0henyW","type":"Asset","createdAt":"2021-04-09T15:12:23.261Z","updatedAt":"2021-04-09T15:12:23.261Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Deconstruct","file":{"url":"//images.ctfassets.net/wjg1udsw901v/4l5ONHEazPnD41lO0henyW/d4cbb6edf21c40cdb3e340faf620a270/deconstruction.jpg","details":{"size":80197,"image":{"width":1362,"height":686}},"fileName":"deconstruction.jpg","contentType":"image/jpeg"}}},"title":"How to Deconstruct objects in C# like we do in Javascript","tags":["c#","javascript","deconstruction","syntax",".net"],"slug":"deconstruct-objects-in-csharp-like-in-javascript","datePublished":"2021-04-09T00:00+01:00","bodym":"$14"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5pcAHCggLxz88Q0vkgjH2a","type":"Entry","createdAt":"2021-04-05T13:54:14.869Z","updatedAt":"2021-04-05T15:03:08.237Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":1184,"revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"74JrRnpexhOnSAsBwNOPV7","type":"Asset","createdAt":"2021-04-05T13:33:18.027Z","updatedAt":"2021-04-05T13:33:18.027Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"GraphQL With Hot Chocolate","file":{"url":"//images.ctfassets.net/wjg1udsw901v/74JrRnpexhOnSAsBwNOPV7/635bc389cea0de36f3158df45483ae85/graphql.jpg","details":{"size":42436,"image":{"width":1120,"height":630}},"fileName":"graphql.jpg","contentType":"image/jpeg"}}},"title":"ASP.NET GraphQL server with Hot Chocolate","tags":["graphql","hotchocolate","graphql-voyager","asp.net","authentication","authorization","versioning","rest","chilli-cream","logging","open-telemetry","banana-cake-pop"],"slug":"aspnet-graphql-server-with-hot-chocolate","datePublished":"2021-04-05T00:00+01:00","bodym":"$15"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5dxjjWwRr6271r9804OQuh","type":"Entry","createdAt":"2021-01-19T08:52:14.211Z","updatedAt":"2021-01-25T10:46:49.931Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":912,"revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"1IeybLQIjDnbaXTl4sbqTn","type":"Asset","createdAt":"2021-01-18T17:25:12.985Z","updatedAt":"2021-01-18T17:25:12.985Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":".env + dotnet core","file":{"url":"//images.ctfassets.net/wjg1udsw901v/1IeybLQIjDnbaXTl4sbqTn/294b0ef4ad9095ee3633f6c38a0e35aa/hero.png","details":{"size":55286,"image":{"width":1280,"height":720}},"fileName":"hero.png","contentType":"image/png"}}},"title":"Adding environments to ASP.NET Core with React.js SPA","tags":["react","spa","asp.net","dotnet core","environments","env-cmd","shx","template","msbuild",".env"],"slug":"aspnet-core-react-spa-adding-environments","datePublished":"2021-01-19T00:00+00:00","bodym":"$16"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6Tifdl2jmnr4p5XGBzYzt2","type":"Entry","createdAt":"2020-12-18T17:20:58.567Z","updatedAt":"2021-01-25T11:02:41.835Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":972,"revision":3,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5nkhsfNMJDJ5NGcAfvQ2Lt","type":"Asset","createdAt":"2020-12-18T17:17:28.507Z","updatedAt":"2020-12-18T17:17:28.507Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Az Lazy","file":{"url":"//images.ctfassets.net/wjg1udsw901v/5nkhsfNMJDJ5NGcAfvQ2Lt/a2ac18006da7a4865044b77365b55987/AzLazy.png","details":{"size":103712,"image":{"width":2304,"height":1296}},"fileName":"AzLazy.png","contentType":"image/png"}}},"title":"My journey of creating a .NET CLI tool","tags":["cli","azure","queues","table-storage","containers","blob","azure-storage","dotnet-tools","az-lazy","console","commandline","dotnet-tools"],"slug":"my-journey-of-creating-a-dotnet-cli-tool","datePublished":"2020-12-18T00:00+00:00","bodym":"$17"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3llNnDbl34NvCQHa51SjWT","type":"Entry","createdAt":"2020-09-08T12:51:10.019Z","updatedAt":"2020-09-09T11:28:40.087Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":1110,"revision":14,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5m1MwxccFfmDxkLKcq3dBt","type":"Asset","createdAt":"2020-09-08T12:50:44.778Z","updatedAt":"2020-09-08T12:50:44.778Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":6,"revision":1,"locale":"en-GB"},"fields":{"title":"GRPC Logo","file":{"url":"//images.ctfassets.net/wjg1udsw901v/5m1MwxccFfmDxkLKcq3dBt/b54fc31b09d0a266a3d8cd5082839976/grpc-logojpg.jpg","details":{"size":80653,"image":{"width":1600,"height":768}},"fileName":"grpc-logojpg.jpg","contentType":"image/jpeg"}}},"title":".NET & GRPC What they forgot to tell you","tags":["grpc",".net","c#","asp.net","grpc-web","rest","nswag","proto-files","nuget","grpc-reflection","bloomrpc"],"slug":"dotnet-grpc-forgot-to-tell-you","datePublished":"2020-09-08T00:00+01:00","bodym":"$18"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3Wyw7CR6bTwM5Bl8B5mqL8","type":"Entry","createdAt":"2020-07-19T11:07:03.892Z","updatedAt":"2020-07-25T14:11:42.345Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":633,"revision":8,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5WxA9oRmhEgKswEWyFjdbM","type":"Asset","createdAt":"2020-07-24T17:37:02.272Z","updatedAt":"2020-07-25T09:49:11.408Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":9,"revision":2,"locale":"en-GB"},"fields":{"title":"Windows Terminal Icon","file":{"url":"//images.ctfassets.net/wjg1udsw901v/5WxA9oRmhEgKswEWyFjdbM/e0efe86ff8b93567fac16c1cfb7d951f/windowsterminalicon.jpg","details":{"size":42772,"image":{"width":1365,"height":768}},"fileName":"windowsterminalicon.jpg","contentType":"image/jpeg"}}},"title":"Evolving your Windows Terminal using Powershell libraries","tags":["powershell","wsl","windows-terminal","powershell-gallery"],"slug":"evolving-windows-terminal","datePublished":"2020-07-25T00:00+01:00","bodym":"$19"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6QEFdX8pPUEjsy1FkjARIe","type":"Entry","createdAt":"2020-07-12T11:28:51.943Z","updatedAt":"2020-07-12T13:15:52.717Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":633,"revision":4,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6BwwZovIUzXkE7j7ZeVxM6","type":"Asset","createdAt":"2020-07-12T11:27:18.016Z","updatedAt":"2020-07-12T11:27:18.016Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":4,"revision":1,"locale":"en-GB"},"fields":{"title":"Helmet","file":{"url":"//images.ctfassets.net/wjg1udsw901v/6BwwZovIUzXkE7j7ZeVxM6/f7eed6871e869df95a84ef57d8df7ed6/gladiator-1931077_1280.jpg","details":{"size":208632,"image":{"width":1280,"height":853}},"fileName":"gladiator-1931077_1280.jpg","contentType":"image/jpeg"}}},"title":"GatsbyJS SEO and Open Graph with Helmet","tags":["helmet","twitter","seo","linked-data","gatsbyjs","json-ld","open-graph"],"slug":"gatsby-seo-opengraph-helmet","datePublished":"2020-07-12T00:00+01:00","bodym":"$1a"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"aLxVZHYGnw53GvdtjMsio","type":"Entry","createdAt":"2020-07-08T07:23:37.130Z","updatedAt":"2021-01-25T10:45:58.773Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":412,"revision":7,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6hjsGXkoyitmyiEuBdeTP2","type":"Asset","createdAt":"2020-07-08T07:28:31.589Z","updatedAt":"2020-07-08T07:28:31.589Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":4,"revision":1,"locale":"en-GB"},"fields":{"title":"Gatsby JS","file":{"url":"//images.ctfassets.net/wjg1udsw901v/6hjsGXkoyitmyiEuBdeTP2/c77e74af9235ac775f18836e2de07cac/gatsby-logo.jpg","details":{"size":24454,"image":{"width":960,"height":540}},"fileName":"gatsby-logo.jpg","contentType":"image/jpeg"}}},"title":"Creating my dream tech blog with GatsbyJS","tags":["contentful","disqus","google-analytics","blog","react","graphql"],"slug":"gatsby-tech-blog-starter","datePublished":"2020-07-08T00:00+01:00","bodym":"$1b"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"7HTIP6hGAwuoB7DHLmEhUi","type":"Entry","createdAt":"2020-06-28T17:31:51.294Z","updatedAt":"2020-07-02T17:43:34.259Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":72,"revision":3,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"UMa2shO53yjhwxv5PF0go","type":"Asset","createdAt":"2020-07-02T17:43:16.514Z","updatedAt":"2020-07-02T17:43:16.514Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":6,"revision":1,"locale":"en-GB"},"fields":{"title":"Azure Poison Queues Monitoring","file":{"url":"//images.ctfassets.net/wjg1udsw901v/UMa2shO53yjhwxv5PF0go/cbf2e4489e801053a91d77a038dcbde9/tobias-tullius-4dKy7d3lkKM-unsplash.jpg","details":{"size":4379377,"image":{"width":4912,"height":3264}},"fileName":"tobias-tullius-4dKy7d3lkKM-unsplash.jpg","contentType":"image/jpeg"}}},"title":"Making a Azure poison queue Slack notifier","tags":["azure","poison queue","monitoring","slack","azure-queues"],"slug":"azure-poison-queue-notifier","datePublished":"2017-09-23T00:00+01:00","bodym":"$1c"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"7L2t1iKJrp2lW1A5OPQqqC","type":"Entry","createdAt":"2020-06-28T18:24:06.856Z","updatedAt":"2020-07-02T17:50:26.494Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":59,"revision":2,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"27s4Gn7WXRTKhSaaWBU2RN","type":"Asset","createdAt":"2020-07-02T17:49:41.191Z","updatedAt":"2020-07-02T17:49:41.191Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Contention Based Programming","file":{"url":"//images.ctfassets.net/wjg1udsw901v/27s4Gn7WXRTKhSaaWBU2RN/c057b731733a4d8943365bdeaeb71147/alain-pham-P_qvsF7Yodw-unsplash.jpg","details":{"size":4213457,"image":{"width":6016,"height":4016}},"fileName":"alain-pham-P_qvsF7Yodw-unsplash.jpg","contentType":"image/jpeg"}}},"title":"Fix poor project structure with Convention Based Programming","tags":["convention","unit-test","project-structure"],"slug":"convention-based-programming","datePublished":"2017-08-20T00:00+01:00","bodym":"$1d"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3JPof9nR7LY1oL1562Rj65","type":"Entry","createdAt":"2020-06-28T18:42:22.087Z","updatedAt":"2021-01-25T10:45:11.461Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":31,"revision":3,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3YSq2wLiYV0f3KvoXUXjXL","type":"Asset","createdAt":"2020-07-02T17:47:11.331Z","updatedAt":"2020-07-02T17:47:11.331Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Unit Test Traffic Light","file":{"url":"//images.ctfassets.net/wjg1udsw901v/3YSq2wLiYV0f3KvoXUXjXL/19aa4d78b6d63287928c6d40f2e36d99/harshal-desai-0hCIrw8dVfE-unsplash.jpg","details":{"size":370069,"image":{"width":3872,"height":2592}},"fileName":"harshal-desai-0hCIrw8dVfE-unsplash.jpg","contentType":"image/jpeg"}}},"title":"Splitting NUnit Unit Tests With TeamCity To Decrease CI Time","tags":["nunit","unit-tests","continuous-integration","ci","teamcity"],"slug":"nunit-test-ci-split","datePublished":"2017-04-01T00:00+01:00","bodym":"$1e"}}],"allTags":[".env",".net","asp.net","authentication","authorization","az-lazy","azure","azure-queues","azure-storage","banana-cake-pop","blob","blog","bloomrpc","c#","chilli-cream","ci","cli","commandline","console","containers","contentful","continuous-integration","convention","deconstruction","disqus","dotnet core","dotnet-tools","electron","env-cmd","environments","gatsbyjs","git","google-analytics","graphql","graphql-voyager","grpc","grpc-reflection","grpc-web","helmet","hotchocolate","ide","ipc-channel","jaeger","javascript","json-ld","knowledge-graph","linked-data","logging","markdown","mermaid","monitoring","msbuild","new-relic","notes","nswag","nuget","nunit","obsidian","open-graph","open-telemetry","otlp","ownership","plantuml","poison queue","powershell","powershell-gallery","project-structure","proto-files","queues","react","research","rest","seo","shx","slack","spa","syntax","table-storage","teamcity","template","tracing","twitter","unit-test","unit-tests","versioning","windows-terminal","wsl"]}]]
+Once you have this in place your unit tests will run with lightening speed.7:[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.faesel.com\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.faesel.com/blog\"}]}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"name\":\"Blog\",\"description\":\"Articles about technology, coding, and digital innovation\",\"url\":\"https://www.faesel.com/blog\"}"}}],["$","$L11",null,{"posts":[{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"75itZoN0s7ztUCbFQZaxRn","type":"Entry","createdAt":"2026-02-24T12:55:03.856Z","updatedAt":"2026-02-24T12:55:03.856Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":484,"revision":1,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"4PwE6fYKXRgmDdn4A7ok44","type":"Asset","createdAt":"2026-02-11T17:02:05.200Z","updatedAt":"2026-02-11T17:03:03.798Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":8,"revision":2,"locale":"en-GB"},"fields":{"title":"frontend-working-backend","description":"","file":{"url":"//images.ctfassets.net/wjg1udsw901v/4PwE6fYKXRgmDdn4A7ok44/f8252594cc8221cce16af558aec0f929/image.png","details":{"size":1492321,"image":{"width":1479,"height":824}},"fileName":"image.png","contentType":"image/png"}}},"title":"Going fullstack with Nx monorepo using C# and React","tags":["dotnet","react","Nx","monorepo"],"slug":"fullstack-nx-using-react-csharp","datePublished":"2026-02-13T00:00+00:00","bodym":"$12"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5Y4yxKp7A7MgcystqRbOpl","type":"Entry","createdAt":"2023-03-17T14:03:54.327Z","updatedAt":"2023-03-17T16:06:56.451Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":22,"revision":2,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"4N5m97m5WfdJi5u7D8I4tX","type":"Asset","createdAt":"2023-03-17T11:24:11.827Z","updatedAt":"2023-03-17T11:24:11.827Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"electron-newrelic-opentelemetry","description":"","file":{"url":"//images.ctfassets.net/wjg1udsw901v/4N5m97m5WfdJi5u7D8I4tX/00d1a21ab7ce8db54af5fa6f84f89e9d/article-banner.jpg","details":{"size":25119,"image":{"width":1000,"height":500}},"fileName":"article-banner.jpg","contentType":"image/jpeg"}}},"title":"Electron & New Relic Integration Using Open Telemetry","tags":["electron","new-relic","open-telemetry","tracing","logging","jaeger","otlp","ipc-channel"],"slug":"electron-newrelic-integration-using-open-telemetry","datePublished":"2023-03-17T00:00+00:00","bodym":"$13"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5QTs3PIFwWHFqQzpcCUwHl","type":"Entry","createdAt":"2021-05-21T14:22:32.520Z","updatedAt":"2021-05-24T06:26:56.025Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":51,"revision":4,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"78Ws2s56LgCLoxkx3Xdcsl","type":"Asset","createdAt":"2021-05-21T14:22:25.484Z","updatedAt":"2021-05-21T14:22:25.484Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":4,"revision":1,"locale":"en-GB"},"fields":{"title":"Obsidian Logo","file":{"url":"//images.ctfassets.net/wjg1udsw901v/78Ws2s56LgCLoxkx3Xdcsl/083d00cd84eeec428087bbab65ae3580/obsidian-logo.png","details":{"size":31000,"image":{"width":1998,"height":666}},"fileName":"obsidian-logo.png","contentType":"image/png"}}},"title":"Why every developer needs to use Obsidian","tags":["obsidian","research","notes","markdown","ownership","mermaid","git","knowledge-graph","ide","plantuml","open-graph"],"slug":"why-every-developer-needs-to-use-obsidian","datePublished":"2021-05-24T00:00+01:00","bodym":"$14"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6mCFlKsDIry12uLc8ZDYNO","type":"Entry","createdAt":"2021-04-09T15:16:41.488Z","updatedAt":"2021-04-09T15:37:21.069Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":182,"revision":9,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"4l5ONHEazPnD41lO0henyW","type":"Asset","createdAt":"2021-04-09T15:12:23.261Z","updatedAt":"2021-04-09T15:12:23.261Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Deconstruct","file":{"url":"//images.ctfassets.net/wjg1udsw901v/4l5ONHEazPnD41lO0henyW/d4cbb6edf21c40cdb3e340faf620a270/deconstruction.jpg","details":{"size":80197,"image":{"width":1362,"height":686}},"fileName":"deconstruction.jpg","contentType":"image/jpeg"}}},"title":"How to Deconstruct objects in C# like we do in Javascript","tags":["c#","javascript","deconstruction","syntax",".net"],"slug":"deconstruct-objects-in-csharp-like-in-javascript","datePublished":"2021-04-09T00:00+01:00","bodym":"$15"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5pcAHCggLxz88Q0vkgjH2a","type":"Entry","createdAt":"2021-04-05T13:54:14.869Z","updatedAt":"2021-04-05T15:03:08.237Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":1184,"revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"74JrRnpexhOnSAsBwNOPV7","type":"Asset","createdAt":"2021-04-05T13:33:18.027Z","updatedAt":"2021-04-05T13:33:18.027Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"GraphQL With Hot Chocolate","file":{"url":"//images.ctfassets.net/wjg1udsw901v/74JrRnpexhOnSAsBwNOPV7/635bc389cea0de36f3158df45483ae85/graphql.jpg","details":{"size":42436,"image":{"width":1120,"height":630}},"fileName":"graphql.jpg","contentType":"image/jpeg"}}},"title":"ASP.NET GraphQL server with Hot Chocolate","tags":["graphql","hotchocolate","graphql-voyager","asp.net","authentication","authorization","versioning","rest","chilli-cream","logging","open-telemetry","banana-cake-pop"],"slug":"aspnet-graphql-server-with-hot-chocolate","datePublished":"2021-04-05T00:00+01:00","bodym":"$16"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5dxjjWwRr6271r9804OQuh","type":"Entry","createdAt":"2021-01-19T08:52:14.211Z","updatedAt":"2021-01-25T10:46:49.931Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":912,"revision":5,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"1IeybLQIjDnbaXTl4sbqTn","type":"Asset","createdAt":"2021-01-18T17:25:12.985Z","updatedAt":"2021-01-18T17:25:12.985Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":".env + dotnet core","file":{"url":"//images.ctfassets.net/wjg1udsw901v/1IeybLQIjDnbaXTl4sbqTn/294b0ef4ad9095ee3633f6c38a0e35aa/hero.png","details":{"size":55286,"image":{"width":1280,"height":720}},"fileName":"hero.png","contentType":"image/png"}}},"title":"Adding environments to ASP.NET Core with React.js SPA","tags":["react","spa","asp.net","dotnet core","environments","env-cmd","shx","template","msbuild",".env"],"slug":"aspnet-core-react-spa-adding-environments","datePublished":"2021-01-19T00:00+00:00","bodym":"$17"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6Tifdl2jmnr4p5XGBzYzt2","type":"Entry","createdAt":"2020-12-18T17:20:58.567Z","updatedAt":"2021-01-25T11:02:41.835Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":972,"revision":3,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5nkhsfNMJDJ5NGcAfvQ2Lt","type":"Asset","createdAt":"2020-12-18T17:17:28.507Z","updatedAt":"2020-12-18T17:17:28.507Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Az Lazy","file":{"url":"//images.ctfassets.net/wjg1udsw901v/5nkhsfNMJDJ5NGcAfvQ2Lt/a2ac18006da7a4865044b77365b55987/AzLazy.png","details":{"size":103712,"image":{"width":2304,"height":1296}},"fileName":"AzLazy.png","contentType":"image/png"}}},"title":"My journey of creating a .NET CLI tool","tags":["cli","azure","queues","table-storage","containers","blob","azure-storage","dotnet-tools","az-lazy","console","commandline","dotnet-tools"],"slug":"my-journey-of-creating-a-dotnet-cli-tool","datePublished":"2020-12-18T00:00+00:00","bodym":"$18"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3llNnDbl34NvCQHa51SjWT","type":"Entry","createdAt":"2020-09-08T12:51:10.019Z","updatedAt":"2020-09-09T11:28:40.087Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":1110,"revision":14,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5m1MwxccFfmDxkLKcq3dBt","type":"Asset","createdAt":"2020-09-08T12:50:44.778Z","updatedAt":"2020-09-08T12:50:44.778Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":6,"revision":1,"locale":"en-GB"},"fields":{"title":"GRPC Logo","file":{"url":"//images.ctfassets.net/wjg1udsw901v/5m1MwxccFfmDxkLKcq3dBt/b54fc31b09d0a266a3d8cd5082839976/grpc-logojpg.jpg","details":{"size":80653,"image":{"width":1600,"height":768}},"fileName":"grpc-logojpg.jpg","contentType":"image/jpeg"}}},"title":".NET & GRPC What they forgot to tell you","tags":["grpc",".net","c#","asp.net","grpc-web","rest","nswag","proto-files","nuget","grpc-reflection","bloomrpc"],"slug":"dotnet-grpc-forgot-to-tell-you","datePublished":"2020-09-08T00:00+01:00","bodym":"$19"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3Wyw7CR6bTwM5Bl8B5mqL8","type":"Entry","createdAt":"2020-07-19T11:07:03.892Z","updatedAt":"2020-07-25T14:11:42.345Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":633,"revision":8,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"5WxA9oRmhEgKswEWyFjdbM","type":"Asset","createdAt":"2020-07-24T17:37:02.272Z","updatedAt":"2020-07-25T09:49:11.408Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":9,"revision":2,"locale":"en-GB"},"fields":{"title":"Windows Terminal Icon","file":{"url":"//images.ctfassets.net/wjg1udsw901v/5WxA9oRmhEgKswEWyFjdbM/e0efe86ff8b93567fac16c1cfb7d951f/windowsterminalicon.jpg","details":{"size":42772,"image":{"width":1365,"height":768}},"fileName":"windowsterminalicon.jpg","contentType":"image/jpeg"}}},"title":"Evolving your Windows Terminal using Powershell libraries","tags":["powershell","wsl","windows-terminal","powershell-gallery"],"slug":"evolving-windows-terminal","datePublished":"2020-07-25T00:00+01:00","bodym":"$1a"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6QEFdX8pPUEjsy1FkjARIe","type":"Entry","createdAt":"2020-07-12T11:28:51.943Z","updatedAt":"2020-07-12T13:15:52.717Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":633,"revision":4,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6BwwZovIUzXkE7j7ZeVxM6","type":"Asset","createdAt":"2020-07-12T11:27:18.016Z","updatedAt":"2020-07-12T11:27:18.016Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":4,"revision":1,"locale":"en-GB"},"fields":{"title":"Helmet","file":{"url":"//images.ctfassets.net/wjg1udsw901v/6BwwZovIUzXkE7j7ZeVxM6/f7eed6871e869df95a84ef57d8df7ed6/gladiator-1931077_1280.jpg","details":{"size":208632,"image":{"width":1280,"height":853}},"fileName":"gladiator-1931077_1280.jpg","contentType":"image/jpeg"}}},"title":"GatsbyJS SEO and Open Graph with Helmet","tags":["helmet","twitter","seo","linked-data","gatsbyjs","json-ld","open-graph"],"slug":"gatsby-seo-opengraph-helmet","datePublished":"2020-07-12T00:00+01:00","bodym":"$1b"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"aLxVZHYGnw53GvdtjMsio","type":"Entry","createdAt":"2020-07-08T07:23:37.130Z","updatedAt":"2021-01-25T10:45:58.773Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":412,"revision":7,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"6hjsGXkoyitmyiEuBdeTP2","type":"Asset","createdAt":"2020-07-08T07:28:31.589Z","updatedAt":"2020-07-08T07:28:31.589Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":4,"revision":1,"locale":"en-GB"},"fields":{"title":"Gatsby JS","file":{"url":"//images.ctfassets.net/wjg1udsw901v/6hjsGXkoyitmyiEuBdeTP2/c77e74af9235ac775f18836e2de07cac/gatsby-logo.jpg","details":{"size":24454,"image":{"width":960,"height":540}},"fileName":"gatsby-logo.jpg","contentType":"image/jpeg"}}},"title":"Creating my dream tech blog with GatsbyJS","tags":["contentful","disqus","google-analytics","blog","react","graphql"],"slug":"gatsby-tech-blog-starter","datePublished":"2020-07-08T00:00+01:00","bodym":"$1c"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"7HTIP6hGAwuoB7DHLmEhUi","type":"Entry","createdAt":"2020-06-28T17:31:51.294Z","updatedAt":"2020-07-02T17:43:34.259Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":72,"revision":3,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"UMa2shO53yjhwxv5PF0go","type":"Asset","createdAt":"2020-07-02T17:43:16.514Z","updatedAt":"2020-07-02T17:43:16.514Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":6,"revision":1,"locale":"en-GB"},"fields":{"title":"Azure Poison Queues Monitoring","file":{"url":"//images.ctfassets.net/wjg1udsw901v/UMa2shO53yjhwxv5PF0go/cbf2e4489e801053a91d77a038dcbde9/tobias-tullius-4dKy7d3lkKM-unsplash.jpg","details":{"size":4379377,"image":{"width":4912,"height":3264}},"fileName":"tobias-tullius-4dKy7d3lkKM-unsplash.jpg","contentType":"image/jpeg"}}},"title":"Making a Azure poison queue Slack notifier","tags":["azure","poison queue","monitoring","slack","azure-queues"],"slug":"azure-poison-queue-notifier","datePublished":"2017-09-23T00:00+01:00","bodym":"$1d"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"7L2t1iKJrp2lW1A5OPQqqC","type":"Entry","createdAt":"2020-06-28T18:24:06.856Z","updatedAt":"2020-07-02T17:50:26.494Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":59,"revision":2,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"27s4Gn7WXRTKhSaaWBU2RN","type":"Asset","createdAt":"2020-07-02T17:49:41.191Z","updatedAt":"2020-07-02T17:49:41.191Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Contention Based Programming","file":{"url":"//images.ctfassets.net/wjg1udsw901v/27s4Gn7WXRTKhSaaWBU2RN/c057b731733a4d8943365bdeaeb71147/alain-pham-P_qvsF7Yodw-unsplash.jpg","details":{"size":4213457,"image":{"width":6016,"height":4016}},"fileName":"alain-pham-P_qvsF7Yodw-unsplash.jpg","contentType":"image/jpeg"}}},"title":"Fix poor project structure with Convention Based Programming","tags":["convention","unit-test","project-structure"],"slug":"convention-based-programming","datePublished":"2017-08-20T00:00+01:00","bodym":"$1e"}},{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3JPof9nR7LY1oL1562Rj65","type":"Entry","createdAt":"2020-06-28T18:42:22.087Z","updatedAt":"2021-01-25T10:45:11.461Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":31,"revision":3,"contentType":{"sys":{"type":"Link","linkType":"ContentType","id":"theCodeTransposerBlogPosts"}},"locale":"en-GB"},"fields":{"hero":{"metadata":{"tags":[],"concepts":[]},"sys":{"space":{"sys":{"type":"Link","linkType":"Space","id":"wjg1udsw901v"}},"id":"3YSq2wLiYV0f3KvoXUXjXL","type":"Asset","createdAt":"2020-07-02T17:47:11.331Z","updatedAt":"2020-07-02T17:47:11.331Z","environment":{"sys":{"id":"master","type":"Link","linkType":"Environment"}},"publishedVersion":5,"revision":1,"locale":"en-GB"},"fields":{"title":"Unit Test Traffic Light","file":{"url":"//images.ctfassets.net/wjg1udsw901v/3YSq2wLiYV0f3KvoXUXjXL/19aa4d78b6d63287928c6d40f2e36d99/harshal-desai-0hCIrw8dVfE-unsplash.jpg","details":{"size":370069,"image":{"width":3872,"height":2592}},"fileName":"harshal-desai-0hCIrw8dVfE-unsplash.jpg","contentType":"image/jpeg"}}},"title":"Splitting NUnit Unit Tests With TeamCity To Decrease CI Time","tags":["nunit","unit-tests","continuous-integration","ci","teamcity"],"slug":"nunit-test-ci-split","datePublished":"2017-04-01T00:00+01:00","bodym":"$1f"}}],"allTags":[".env",".net","Nx","asp.net","authentication","authorization","az-lazy","azure","azure-queues","azure-storage","banana-cake-pop","blob","blog","bloomrpc","c#","chilli-cream","ci","cli","commandline","console","containers","contentful","continuous-integration","convention","deconstruction","disqus","dotnet","dotnet core","dotnet-tools","electron","env-cmd","environments","gatsbyjs","git","google-analytics","graphql","graphql-voyager","grpc","grpc-reflection","grpc-web","helmet","hotchocolate","ide","ipc-channel","jaeger","javascript","json-ld","knowledge-graph","linked-data","logging","markdown","mermaid","monitoring","monorepo","msbuild","new-relic","notes","nswag","nuget","nunit","obsidian","open-graph","open-telemetry","otlp","ownership","plantuml","poison queue","powershell","powershell-gallery","project-structure","proto-files","queues","react","research","rest","seo","shx","slack","spa","syntax","table-storage","teamcity","template","tracing","twitter","unit-test","unit-tests","versioning","windows-terminal","wsl"]}]]
