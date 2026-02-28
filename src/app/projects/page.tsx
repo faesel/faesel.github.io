@@ -10,6 +10,14 @@ export const metadata = {
 const projects = [
   {
     id: 1,
+    title: 'GridWatch - Copilot CLI Dashboard',
+    description: 'A cross-platform Electron desktop app that reads GitHub Copilot CLI session data and presents it as a real-time dashboard. Features a retro Tron-inspired design with session management, token usage charts, activity heatmaps, and AI-powered insights.',
+    tags: ['Electron', 'React', 'TypeScript', 'Recharts'],
+    link: 'https://github.com/faesel/gridwatch',
+    image: '/images/gridwatch.png',
+  },
+  {
+    id: 2,
     title: 'Az-Lazy - The go-to CLI for Azure storage',
     description: 'Check out my CLI tool Az-Lazy, it provides a command line interface to quickly manage and make changes to azure storage queues, blobs and tables. The inspiration for this project was to move away from using Azure Storage Manager and provide a faster CLI experience for developers.',
     tags: ['c#', 'Azure', 'CLI'],
@@ -17,7 +25,7 @@ const projects = [
     image: '/images/azlazy.png',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Gatsby tech blog starter template',
     description: 'Checkout my tech blog template built with Gatsby, Contentful and Disqus. Its free to use for anyone this includes all costs aside from a custom domain (which is optional), and really easy to configure.',
     tags: ['Node.js', 'Gatsby', 'Contentful', 'Disqus'],
