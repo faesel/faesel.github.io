@@ -14,9 +14,7 @@
       <link>https://www.faesel.com/blog/gridwatch-v028-from-side-project-to-daily-driver</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/gridwatch-v028-from-side-project-to-daily-driver</guid>
       <pubDate>Sat, 11 Apr 2026 23:00:00 GMT</pubDate>
-      <description>It started with curiosity, now I can&apos;t live without it
-
-A few months back I wrote about building GridWatchhttps://www.faesel.com/blog/gridwatch-copilot-session-manager — a desktop dashboard for GitHub Copilot CLI sessions. At the time it was a fairly simple tool: browse your sessions, check token us...</description>
+      <description>It started with curiosity, now I can&apos;t live without it A few months back I wrote about building GridWatch — a desktop dashboard for GitHub Copilot CLI sessions. At the time it was a fairly simple tool: browse your sessions, check token usage, see an activity heatmap, and transfer context between ses...</description>
       <category>gridwatch</category>
       <category>copilot</category>
       <category>cli</category>
@@ -26,9 +24,7 @@ A few months back I wrote about building GridWatchhttps://www.faesel.com/blog/gr
       <link>https://www.faesel.com/blog/gridwatch-copilot-session-manager</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/gridwatch-copilot-session-manager</guid>
       <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
-      <description>Introduction
-
-If you&apos;ve been using GitHub Copilot CLI, you&apos;ll know it stores a surprising amount of data locally — session metadata, conversation history, token usage, tool calls, checkpoint snapshots. It&apos;s all sitting in ~/.copilot/session-state/, but there&apos;s no built-in way to browse or make sense...</description>
+      <description>Introduction If you&apos;ve been using GitHub Copilot CLI, you&apos;ll know it stores a surprising amount of data locally — session metadata, conversation history, token usage, tool calls, checkpoint snapshots. It&apos;s all sitting in , but there&apos;s no built-in way to browse or make sense of it. I wanted to unders...</description>
       <category>copilot</category>
       <category>gridwatch</category>
       <category>cli</category>
@@ -38,11 +34,7 @@ If you&apos;ve been using GitHub Copilot CLI, you&apos;ll know it stores a surpr
       <link>https://www.faesel.com/blog/fullstack-nx-using-react-csharp</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/fullstack-nx-using-react-csharp</guid>
       <pubDate>Tue, 24 Feb 2026 00:00:00 GMT</pubDate>
-      <description>Introduction
-
-Recently, I’ve been using the Nxhttps://nx.dev/ monorepo framework quite extensively—but purely for frontend React projects. I’d always thought of Nx as a frontend-focused tool. Turns out, I was wrong and about two years late to the party.
-
-I recently came across a YouTube video -  Nx...</description>
+      <description>Introduction Recently, I’ve been using the Nx monorepo framework quite extensively—but purely for frontend React projects. I’d always thought of Nx as a frontend-focused tool. Turns out, I was wrong (and about two years late to the party). I recently came across a YouTube video - Nx + .NET with the...</description>
       <category>dotnet</category>
       <category>react</category>
       <category>Nx</category>
@@ -53,11 +45,7 @@ I recently came across a YouTube video -  Nx...</description>
       <link>https://www.faesel.com/blog/electron-newrelic-integration-using-open-telemetry</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/electron-newrelic-integration-using-open-telemetry</guid>
       <pubDate>Fri, 17 Mar 2023 00:00:00 GMT</pubDate>
-      <description>Introduction
-
-Recently I encountered a scenario where I needed to integrate New Relic into my Electron application. New Relic supports a number of integration types our the box, some of the more heavily used ones are,
-
-- APM Agents - Primary used for backend tracking, most of the documentation will...</description>
+      <description>Introduction Recently I encountered a scenario where I needed to integrate New Relic into my Electron application. New Relic supports a number of integration types our the box, some of the more heavily used ones are, - APM Agents - Primary used for backend tracking, most of the documentation will po...</description>
       <category>electron</category>
       <category>new-relic</category>
       <category>open-telemetry</category>
@@ -90,9 +78,7 @@ Recently I encountered a scenario where I needed to integrate New Relic into my 
       <link>https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/deconstruct-objects-in-csharp-like-in-javascript</guid>
       <pubDate>Thu, 08 Apr 2021 23:00:00 GMT</pubDate>
-      <description>I&apos;ve been using C for about a decade now, and every now and again I discover something that surprises me. This week it&apos;s the ability to deconstruct as we do in Javascript and I&apos;m not talking about using Tuples!.
-
-Below is a simple example of deconstruction taking place to draw out the power, and def...</description>
+      <description>I&apos;ve been using C# for about a decade now, and every now and again I discover something that surprises me. This week it&apos;s the ability to deconstruct as we do in Javascript (and I&apos;m not talking about using Tuples!). Below is a simple example of deconstruction taking place to draw out the power, and d...</description>
       <category>c#</category>
       <category>javascript</category>
       <category>deconstruction</category>
@@ -104,9 +90,7 @@ Below is a simple example of deconstruction taking place to draw out the power, 
       <link>https://www.faesel.com/blog/aspnet-graphql-server-with-hot-chocolate</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/aspnet-graphql-server-with-hot-chocolate</guid>
       <pubDate>Sun, 04 Apr 2021 23:00:00 GMT</pubDate>
-      <description>Starting my journey with GraphQL
-
-Up till now, I&apos;ve always heavily relied on RESTfull services to power API&apos;s, this recently got widened with GRPC which you can read about in my article .NET &amp; GRPC What they forgot to tell youhttps://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you. GraphQL was th...</description>
+      <description>Starting my journey with GraphQL Up till now, I&apos;ve always heavily relied on RESTfull services to power API&apos;s, this recently got widened with GRPC which you can read about in my article .NET &amp; GRPC What they forgot to tell you. GraphQL was the third final frontier that needed exploring 🥾...until now...</description>
       <category>graphql</category>
       <category>hotchocolate</category>
       <category>graphql-voyager</category>
@@ -125,9 +109,7 @@ Up till now, I&apos;ve always heavily relied on RESTfull services to power API&a
       <link>https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/aspnet-core-react-spa-adding-environments</guid>
       <pubDate>Tue, 19 Jan 2021 00:00:00 GMT</pubDate>
-      <description>Recently I started working on a project that was created from the ASP.NET SPA template for react. It&apos;s one of the templates you get by default with dotnet and can be created by running dotnet new react.
-
-The template creates a dotnet webapp which is designed to be an API backend and links it with a...</description>
+      <description>Recently I started working on a project that was created from the ASP.NET SPA template for react. It&apos;s one of the templates you get by default with dotnet and can be created by running . The template creates a dotnet webapp which is designed to be an API backend and links it with a react project to...</description>
       <category>react</category>
       <category>spa</category>
       <category>asp.net</category>
@@ -144,9 +126,7 @@ The template creates a dotnet webapp which is designed to be an API backend and 
       <link>https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/my-journey-of-creating-a-dotnet-cli-tool</guid>
       <pubDate>Fri, 18 Dec 2020 00:00:00 GMT</pubDate>
-      <description>Why I started building a CLI
-
-As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also widespread from leveraging queues on a basic console app to storing uploaded images from a web applica...</description>
+      <description>Why I started building a CLI As a .NET engineer, I work with Azure storage a lot, its versatility, ease of use, as well as cost makes it a common staple amongst developers. Its application is also widespread from leveraging queues on a basic console app to storing uploaded images from a web applicat...</description>
       <category>cli</category>
       <category>azure</category>
       <category>queues</category>
@@ -165,7 +145,7 @@ As a .NET engineer, I work with Azure storage a lot, its versatility, ease of us
       <link>https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/dotnet-grpc-forgot-to-tell-you</guid>
       <pubDate>Mon, 07 Sep 2020 23:00:00 GMT</pubDate>
-      <description>As an engineer, I have always had a heavy reliance on REST&apos;ful API&apos;s for passing information between applications. With the introduction of open API specificationhttps://swagger.io/specification/ now in version 3.0.3, integration has never been easier. The push to break monoliths into microservices...</description>
+      <description>As an engineer, I have always had a heavy reliance on REST&apos;ful API&apos;s for passing information between applications. With the introduction of open API specification now in version 3.0.3, integration has never been easier. The push to break monoliths into microservices has further boosted its usage, ho...</description>
       <category>grpc</category>
       <category>.net</category>
       <category>c#</category>
@@ -183,7 +163,7 @@ As a .NET engineer, I work with Azure storage a lot, its versatility, ease of us
       <link>https://www.faesel.com/blog/evolving-windows-terminal</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/evolving-windows-terminal</guid>
       <pubDate>Fri, 24 Jul 2020 23:00:00 GMT</pubDate>
-      <description>As a windows user the terminal experience has always been lacking, up till the new windows terminalhttps://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&amp;activetab=pivot:overviewtab was released. Incorporating WSL Windows Subsystem for Lynxhttps://docs.microsoft.com/en-us/windows/wsl/...</description>
+      <description>As a windows user the terminal experience has always been lacking, up till the new windows terminal was released. Incorporating WSL (Windows Subsystem for Lynx) really helped bridge that gap as it opens up console experience that makes use of apt-get use the plethora of packages available. Having tr...</description>
       <category>powershell</category>
       <category>wsl</category>
       <category>windows-terminal</category>
@@ -194,7 +174,7 @@ As a .NET engineer, I work with Azure storage a lot, its versatility, ease of us
       <link>https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/gatsby-seo-opengraph-helmet</guid>
       <pubDate>Sat, 11 Jul 2020 23:00:00 GMT</pubDate>
-      <description>I recently recreated my blog in GatsbyJs, you can download a template of it here gatsby-techblog-starterhttps://github.com/faesel/gatsby-techblog-starter. In the joy of sharing its simplicity to the world, I tweet about my intro articlehttps://www.faesel.com/blog/gatsby-tech-blog-starter with a link...</description>
+      <description>I recently recreated my blog in GatsbyJs, you can download a template of it here gatsby-techblog-starter. In the joy of sharing its simplicity to the world, I tweet about my intro article with a link to my website. To my dismay, I noticed the tweet was lacking a lot of formatting and information on...</description>
       <category>helmet</category>
       <category>twitter</category>
       <category>seo</category>
@@ -221,7 +201,7 @@ As a .NET engineer, I work with Azure storage a lot, its versatility, ease of us
       <link>https://www.faesel.com/blog/azure-poison-queue-notifier</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/azure-poison-queue-notifier</guid>
       <pubDate>Fri, 22 Sep 2017 23:00:00 GMT</pubDate>
-      <description>I&apos;m currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS using Send Grid and Twilio. Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party&apos;s or our code fail t...</description>
+      <description>I&apos;m currently working at a place were we are using queue triggered Webjobs to handle the sending of messages like email and SMS (using Send Grid and Twilio). Using a queue based system for this is great because it allows us to replay any queue messages, should one of the 3rd party&apos;s (or our code) fa...</description>
       <category>azure</category>
       <category>poison queue</category>
       <category>monitoring</category>
@@ -233,9 +213,7 @@ As a .NET engineer, I work with Azure storage a lot, its versatility, ease of us
       <link>https://www.faesel.com/blog/convention-based-programming</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/convention-based-programming</guid>
       <pubDate>Sat, 19 Aug 2017 23:00:00 GMT</pubDate>
-      <description>Having looked at a number of projects in my lifetime, I always come across classes named something like &quot;CustomerService&quot; with similar variations usually in the same project calling each other ranging from &quot;CustomerProvider / Helper /Manager / Store / etc...&quot;.
-
-&gt; There are two hard things in compute...</description>
+      <description>Having looked at a number of projects in my lifetime, I always come across classes named something like &quot;CustomerService&quot; with similar variations (usually in the same project calling each other) ranging from &quot;CustomerProvider / Helper /Manager / Store / etc...&quot;. There are two hard things in computer...</description>
       <category>convention</category>
       <category>unit-test</category>
       <category>project-structure</category>
@@ -245,7 +223,7 @@ As a .NET engineer, I work with Azure storage a lot, its versatility, ease of us
       <link>https://www.faesel.com/blog/nunit-test-ci-split</link>
       <guid isPermaLink="true">https://www.faesel.com/blog/nunit-test-ci-split</guid>
       <pubDate>Fri, 31 Mar 2017 23:00:00 GMT</pubDate>
-      <description>This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your tests to break down the CI Builds typically used to run different categories in parallel or to separate...</description>
+      <description>This is a quick guide on how to split unit tests into different categories to decrease the time it takes for your CI build to run. The categories can be used to distinguish different areas of your tests to break down the CI Builds (typically used to run different categories in parallel) or to separa...</description>
       <category>nunit</category>
       <category>unit-tests</category>
       <category>continuous-integration</category>
