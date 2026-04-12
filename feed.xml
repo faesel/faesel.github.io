@@ -5,10 +5,22 @@
     <link>https://www.faesel.com</link>
     <description>A modern tech blog exploring technology, coding, and digital innovation</description>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 28 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 23:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.faesel.com/feed.xml" rel="self" type="application/rss+xml" />
     <managingEditor>Faesel Saeed</managingEditor>
     <webMaster>Faesel Saeed</webMaster>
+    <item>
+      <title>GridWatch v0.28 — From Side Project to Daily Driver</title>
+      <link>https://www.faesel.com/blog/gridwatch-v028-from-side-project-to-daily-driver</link>
+      <guid isPermaLink="true">https://www.faesel.com/blog/gridwatch-v028-from-side-project-to-daily-driver</guid>
+      <pubDate>Sat, 11 Apr 2026 23:00:00 GMT</pubDate>
+      <description>It started with curiosity, now I can&apos;t live without it
+
+A few months back I wrote about building GridWatchhttps://www.faesel.com/blog/gridwatch-copilot-session-manager — a desktop dashboard for GitHub Copilot CLI sessions. At the time it was a fairly simple tool: browse your sessions, check token us...</description>
+      <category>gridwatch</category>
+      <category>copilot</category>
+      <category>cli</category>
+    </item>
     <item>
       <title>Building GridWatch — A Dashboard for GitHub Copilot CLI Sessions</title>
       <link>https://www.faesel.com/blog/gridwatch-copilot-session-manager</link>
