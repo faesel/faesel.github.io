@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import RssIcon from '@/components/RssIcon';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -56,6 +57,14 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          <a
+            href="/feed.xml"
+            className={styles.rssLink}
+            aria-label="RSS Feed"
+            title="RSS Feed"
+          >
+            <RssIcon size={18} />
+          </a>
         </nav>
       </div>
     </header>

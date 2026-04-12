@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     shortcut: '/favicon.ico',
     apple: '/favicon.ico',
   },
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

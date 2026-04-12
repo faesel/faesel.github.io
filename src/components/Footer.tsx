@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RssIcon from '@/components/RssIcon';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -21,6 +22,10 @@ export default function Footer() {
             <Link href="/contact" className={styles.link}>
               Contact
             </Link>
+            <a href="/feed.xml" className={styles.rssLink} aria-label="RSS Feed" title="RSS Feed">
+              <RssIcon size={16} />
+              <span>RSS</span>
+            </a>
           </nav>
           <p className={styles.copyright}>
             © {currentYear} All rights reserved.

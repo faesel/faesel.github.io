@@ -74,6 +74,21 @@
   background: var(--color-accent-blue);
 }
 
+.rssLink {
+  display: flex;
+  align-items: center;
+  color: var(--color-text);
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+  padding: var(--spacing-xs);
+  margin-left: var(--spacing-xs);
+}
+
+.rssLink:hover {
+  opacity: 1;
+  color: #f26522;
+}
+
 .mobileMenuButton {
   display: none;
   background: none;
