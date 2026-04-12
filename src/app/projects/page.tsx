@@ -22,7 +22,7 @@ const projects = [
     description: 'A cross-platform Electron desktop app that reads GitHub Copilot CLI session data and presents it as a real-time dashboard. Features a retro Tron-inspired design with session management, token usage charts, activity heatmaps, and AI-powered insights.',
     tags: ['Electron', 'React', 'TypeScript', 'Recharts'],
     link: 'https://github.com/faesel/gridwatch',
-    image: '/images/gridwatch.png',
+    image: '/images/gridwatch.png?v=2',
   },
   {
     id: 3,
