@@ -41,7 +41,17 @@ export function parseMarkdown(markdown: string): string {
 }
 
 export function getExcerpt(markdown: string, maxLength: number = 150): string {
-  const plainText = markdown.replace(/[#*`[\]()]/g, '').trim();
+  const plainText = markdown
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')       // Remove images
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')    // Replace links with link text
+    .replace(/https?:\/\/[^\s)]+/g, '')          // Remove bare URLs
+    .replace(/```[\s\S]*?```/g, '')              // Remove code blocks
+    .replace(/`[^`]*`/g, '')                     // Remove inline code
+    .replace(/^#{1,6}\s+/gm, '')                 // Remove heading markers
+    .replace(/[*_~>]/g, '')                      // Remove emphasis and blockquote markers
+    .replace(/\n+/g, ' ')                        // Collapse newlines to spaces
+    .replace(/\s+/g, ' ')                        // Collapse multiple spaces
+    .trim();
   if (plainText.length <= maxLength) return plainText;
   return plainText.substring(0, maxLength).trim() + '...';
 }
