@@ -28,7 +28,7 @@ export default function Footer() {
             </a>
           </nav>
           <p className={styles.copyright}>
-            © {currentYear} All rights reserved.
+            © {currentYear} Faesel Saeed. All rights reserved. Code snippets are MIT licensed unless stated otherwise.
           </p>
         </div>
       </div>
