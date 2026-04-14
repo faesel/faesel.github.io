@@ -6,6 +6,7 @@ import { parseMarkdown, formatDate, calculateReadingTime, formatReadingTime } fr
 import { JsonLd, generateBlogPostingJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonld';
 import { siteConfig, getAbsoluteUrl } from '@/lib/config';
 import ShareButtons from '@/components/ShareButtons';
+import Comments from '@/components/Comments';
 import type { BlogPostFields } from '@/types/contentful';
 import styles from './page.module.css';
 
@@ -150,6 +151,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           title={fields.title}
           description={fields.bodym.substring(0, 160)}
         />
+
+        <Comments />
       </article>
     </>
   );
