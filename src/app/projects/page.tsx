@@ -14,7 +14,7 @@ const projects = [
     description: 'A calm, spiritually-sensitive prayer tracking app built with React Native and Expo. Log your five daily prayers and watch a peaceful pixel-art garden grow with trees, flowers, buildings, and wildlife. Features gentle decay, Qur\'an and dhikr visual effects, and animated animals — designed to inspire without pressure.',
     tags: ['React Native', 'Expo', 'TypeScript', 'Shopify Skia', 'Pixel Art'],
     link: 'https://github.com/faesel/jannah-builder',
-    image: '/images/jannah-builder.png',
+    image: '/images/jannah-builder.png?v=2',
   },
   {
     id: 1,
