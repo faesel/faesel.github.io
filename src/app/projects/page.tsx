@@ -9,6 +9,14 @@ export const metadata = {
 
 const projects = [
   {
+    id: 5,
+    title: 'Jannah Builder - Islamic Prayer Garden',
+    description: 'A calm, spiritually-sensitive prayer tracking app built with React Native and Expo. Log your five daily prayers and watch a peaceful pixel-art garden grow with trees, flowers, buildings, and wildlife. Features gentle decay, Qur\'an and dhikr visual effects, and animated animals — designed to inspire without pressure.',
+    tags: ['React Native', 'Expo', 'TypeScript', 'Shopify Skia', 'Pixel Art'],
+    link: 'https://github.com/faesel/jannah-builder',
+    image: '/images/jannah-builder.png',
+  },
+  {
     id: 1,
     title: 'iCare - Desktop Blink Reminder',
     description: 'A dead-simple, no-frills desktop blink reminder. No accounts, no cloud sync, no analytics — just a tiny always-on-top widget with a retro seven-segment countdown that tells you to blink and rest your eyes.',
