@@ -5,10 +5,21 @@
     <link>https://www.faesel.com</link>
     <description>A modern tech blog exploring technology, coding, and digital innovation</description>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 11 Apr 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jun 2026 23:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.faesel.com/feed.xml" rel="self" type="application/rss+xml" />
     <managingEditor>Faesel Saeed</managingEditor>
     <webMaster>Faesel Saeed</webMaster>
+    <item>
+      <title>Stop Burning Tokens with GridWatch</title>
+      <link>https://www.faesel.com/blog/stop-burning-tokens-with-gridwatch</link>
+      <guid isPermaLink="true">https://www.faesel.com/blog/stop-burning-tokens-with-gridwatch</guid>
+      <pubDate>Tue, 09 Jun 2026 23:00:00 GMT</pubDate>
+      <description>The 128K wall nobody warns you about Here&apos;s something that took me longer to learn than I&apos;d like to admit: Copilot CLI has a 128,000 token context window, and you start paying for it long before you ever type a prompt. Every skill you&apos;ve enabled, every MCP server you&apos;ve installed — they all quietly...</description>
+      <category>gridwatch</category>
+      <category>copilot</category>
+      <category>tokens</category>
+      <category>ai</category>
+    </item>
     <item>
       <title>GridWatch v0.28.0 — From Side Project to Daily Driver</title>
       <link>https://www.faesel.com/blog/gridwatch-v028-from-side-project-to-daily-driver</link>
