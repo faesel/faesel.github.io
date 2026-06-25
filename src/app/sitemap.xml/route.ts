@@ -27,6 +27,7 @@ export async function GET(): Promise<Response> {
     { url: getAbsoluteUrl('/'), changefreq: 'weekly', priority: 1.0 },
     { url: getAbsoluteUrl('/blog'), changefreq: 'daily', priority: 0.9 },
     { url: getAbsoluteUrl('/projects'), changefreq: 'monthly', priority: 0.7 },
+    { url: getAbsoluteUrl('/company'), changefreq: 'monthly', priority: 0.6 },
     { url: getAbsoluteUrl('/about'), changefreq: 'monthly', priority: 0.6 },
     { url: getAbsoluteUrl('/contact'), changefreq: 'yearly', priority: 0.5 },
   ];
