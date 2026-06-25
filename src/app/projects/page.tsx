@@ -11,7 +11,7 @@ const projects = [
   {
     id: 6,
     title: 'Opdsy - OPDS Comics & Book Reader',
-    description: 'A modern, cross-platform reader for self-hosted OPDS libraries. Browse and stream comics and books from multiple servers at once in a single unified library, with page-by-page OPDS-PSE streaming, cross-source search, and credentials kept safely in the OS keychain. Works with Ubooquity, Komga, Kavita and Calibre-Web. A spiritual successor to the discontinued Kuboo Android app, rebuilt to be server-agnostic and resilient.',
+    description: 'A modern, cross-platform reader for self-hosted OPDS libraries. Browse and stream comics and books from multiple servers at once in a single unified library, with page-by-page OPDS-PSE streaming. Works with Ubooquity, Komga, Kavita and Calibre-Web, designed to be server-agnostic and resilient.',
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'OPDS'],
     image: '/images/opdsy.png?v=2',
   },
