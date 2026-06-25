@@ -9,6 +9,13 @@ export const metadata = {
 
 const projects = [
   {
+    id: 6,
+    title: 'Opdsy - OPDS Comics & Book Reader',
+    description: 'A modern, cross-platform reader for self-hosted OPDS libraries. Browse and stream comics and books from multiple servers at once in a single unified library, with page-by-page OPDS-PSE streaming, cross-source search, and credentials kept safely in the OS keychain. Works with Ubooquity, Komga, Kavita and Calibre-Web. A spiritual successor to the discontinued Kuboo Android app, rebuilt to be server-agnostic and resilient.',
+    tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'OPDS'],
+    image: '/images/opdsy.png',
+  },
+  {
     id: 5,
     title: 'Jannah Builder - Islamic Prayer Garden',
     description: 'A calm, spiritually-sensitive prayer tracking app built with React Native and Expo. Log your five daily prayers and watch a peaceful pixel-art garden grow with trees, flowers, buildings, and wildlife. Features gentle decay, Qur\'an and dhikr visual effects, and animated animals — designed to inspire without pressure.',
