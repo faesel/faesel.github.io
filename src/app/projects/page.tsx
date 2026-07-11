@@ -107,8 +107,8 @@ export default function ProjectsPage() {
                     <Image
                       src="/badges/google-play-badge.png"
                       alt="Get it on Google Play"
-                      width={155}
-                      height={60}
+                      width={186}
+                      height={72}
                       className={styles.playBadge}
                     />
                   </a>
