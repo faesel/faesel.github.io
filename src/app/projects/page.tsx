@@ -96,14 +96,32 @@ export default function ProjectsPage() {
               )}
               
               {project.link && (
-                <a
-                  href={project.link}
-                  className={styles.projectLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Project →
-                </a>
+                project.link.includes('play.google.com') ? (
+                  <a
+                    href={project.link}
+                    className={styles.playBadgeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Get it on Google Play"
+                  >
+                    <Image
+                      src="/badges/google-play-badge.png"
+                      alt="Get it on Google Play"
+                      width={155}
+                      height={60}
+                      className={styles.playBadge}
+                    />
+                  </a>
+                ) : (
+                  <a
+                    href={project.link}
+                    className={styles.projectLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Project →
+                  </a>
+                )
               )}
             </div>
           </article>

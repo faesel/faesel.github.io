@@ -98,6 +98,23 @@
   opacity: 1;
 }
 
+.playBadgeLink {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  transition: opacity var(--transition-fast);
+}
+
+.playBadgeLink:hover {
+  opacity: 0.85;
+}
+
+.playBadge {
+  display: block;
+  height: 60px;
+  width: auto;
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
