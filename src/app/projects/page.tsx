@@ -7,13 +7,43 @@ export const metadata = {
   description: 'Explore my latest projects and work',
 };
 
-const projects = [
+type ProjectLink = {
+  href: string;
+  /** 'play' renders the Google Play badge; 'site' renders a text link. */
+  type: 'play' | 'site';
+  /** Optional label for 'site' links; defaults to 'View Project →'. */
+  label?: string;
+};
+
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  tags?: string[];
+  links: ProjectLink[];
+  image?: string;
+};
+
+const projects: Project[] = [
+  {
+    id: 7,
+    title: 'Spinely - Bookshelf Organiser',
+    description: 'An Android-first bookshelf organiser built with Expo and React Native. Scan book spines, log titles by ISBN barcode with automatic metadata lookup, photograph and crop each spine, then choose how to organise your collection and get an interactive visual shelf. When a shelf overflows, drag the pin inward to set its cut-off. Local-only — your library stays on your device.',
+    tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query'],
+    links: [
+      { href: 'https://www.binarymeadow.com/apps/spinely/', type: 'site', label: 'View on Binary Meadow →' },
+    ],
+    image: '/images/spinely.png',
+  },
   {
     id: 6,
     title: 'Opdsy - OPDS Comics & Book Reader',
     description: 'A modern, cross-platform reader for self-hosted OPDS libraries. Browse and stream comics and books from multiple servers at once in a single unified library, with page-by-page OPDS-PSE streaming. Works with Ubooquity, Komga, Kavita and Calibre-Web, designed to be server-agnostic and resilient.',
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'OPDS'],
-    link: 'https://play.google.com/store/apps/details?id=com.opdsy',
+    links: [
+      { href: 'https://play.google.com/store/apps/details?id=com.opdsy', type: 'play' },
+      { href: 'https://www.binarymeadow.com/apps/opdsy/', type: 'site', label: 'View on Binary Meadow →' },
+    ],
     image: '/images/opdsy.png?v=2',
   },
   {
@@ -21,7 +51,10 @@ const projects = [
     title: 'Jannah Builder - Islamic Prayer Garden',
     description: 'A calm, spiritually-sensitive prayer tracking app built with React Native and Expo. Log your five daily prayers and watch a peaceful pixel-art garden grow with trees, flowers, buildings, and wildlife. Features gentle decay, Qur\'an and dhikr visual effects, and animated animals — designed to inspire without pressure.',
     tags: ['React Native', 'Expo', 'TypeScript', 'Shopify Skia', 'Pixel Art'],
-    link: 'https://github.com/faesel/jannah-builder',
+    links: [
+      { href: 'https://play.google.com/store/apps/details?id=com.jannahbuilder', type: 'play' },
+      { href: 'https://github.com/faesel/jannah-builder', type: 'site' },
+    ],
     image: '/images/jannah-builder.png?v=3',
   },
   {
@@ -29,7 +62,9 @@ const projects = [
     title: 'iCare - Desktop Blink Reminder',
     description: 'A dead-simple, no-frills desktop blink reminder. No accounts, no cloud sync, no analytics — just a tiny always-on-top widget with a retro seven-segment countdown that tells you to blink and rest your eyes.',
     tags: ['Electron', 'TypeScript', 'Desktop App', 'Eye Care'],
-    link: 'https://github.com/faesel/icare',
+    links: [
+      { href: 'https://github.com/faesel/icare', type: 'site' },
+    ],
     image: '/images/icare.png',
   },
   {
@@ -37,7 +72,9 @@ const projects = [
     title: 'GridWatch - Copilot CLI Dashboard',
     description: 'A cross-platform Electron desktop app that reads GitHub Copilot CLI session data and presents it as a real-time dashboard. Features a retro Tron-inspired design with session management, token usage charts, activity heatmaps, and AI-powered insights.',
     tags: ['Electron', 'React', 'TypeScript', 'Recharts'],
-    link: 'https://github.com/faesel/gridwatch',
+    links: [
+      { href: 'https://github.com/faesel/gridwatch', type: 'site' },
+    ],
     image: '/images/gridwatch.png?v=2',
   },
   {
@@ -45,7 +82,9 @@ const projects = [
     title: 'Az-Lazy - The go-to CLI for Azure storage',
     description: 'Check out my CLI tool Az-Lazy, it provides a command line interface to quickly manage and make changes to azure storage queues, blobs and tables. The inspiration for this project was to move away from using Azure Storage Manager and provide a faster CLI experience for developers.',
     tags: ['c#', 'Azure', 'CLI'],
-    link: 'https://github.com/faesel/az-lazy',
+    links: [
+      { href: 'https://github.com/faesel/az-lazy', type: 'site' },
+    ],
     image: '/images/azlazy.png',
   },
   {
@@ -53,7 +92,9 @@ const projects = [
     title: 'Gatsby tech blog starter template',
     description: 'Checkout my tech blog template built with Gatsby, Contentful and Disqus. Its free to use for anyone this includes all costs aside from a custom domain (which is optional), and really easy to configure.',
     tags: ['Node.js', 'Gatsby', 'Contentful', 'Disqus'],
-    link: '#',
+    links: [
+      { href: '#', type: 'site' },
+    ],
     image: '/images/gatsby-blog-starter.png',
   }
 ];
@@ -95,33 +136,39 @@ export default function ProjectsPage() {
                 </div>
               )}
               
-              {project.link && (
-                project.link.includes('play.google.com') ? (
-                  <a
-                    href={project.link}
-                    className={styles.playBadgeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Get it on Google Play"
-                  >
-                    <Image
-                      src="/badges/google-play-badge.png"
-                      alt="Get it on Google Play"
-                      width={186}
-                      height={72}
-                      className={styles.playBadge}
-                    />
-                  </a>
-                ) : (
-                  <a
-                    href={project.link}
-                    className={styles.projectLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View Project →
-                  </a>
-                )
+              {project.links.length > 0 && (
+                <div className={styles.projectLinks}>
+                  {project.links.map((link) =>
+                    link.type === 'play' ? (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className={styles.playBadgeLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Get it on Google Play"
+                      >
+                        <Image
+                          src="/badges/google-play-badge.png"
+                          alt="Get it on Google Play"
+                          width={186}
+                          height={72}
+                          className={styles.playBadge}
+                        />
+                      </a>
+                    ) : (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className={styles.projectLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label ?? 'View Project →'}
+                      </a>
+                    )
+                  )}
+                </div>
               )}
             </div>
           </article>

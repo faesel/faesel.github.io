@@ -82,6 +82,13 @@
   font-weight: 500;
 }
 
+.projectLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
 .projectLink {
   display: inline-block;
   color: var(--color-primary);
