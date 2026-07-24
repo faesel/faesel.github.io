@@ -11,7 +11,7 @@ type ProjectLink = {
   href: string;
   /** 'play' renders the Google Play badge; 'site' renders a text link. */
   type: 'play' | 'site';
-  /** Optional label for 'site' links; defaults to 'View Project →'. */
+  /** Optional label for 'site' links; defaults to 'See More →'. */
   label?: string;
 };
 
@@ -31,7 +31,7 @@ const projects: Project[] = [
     description: 'An Android-first bookshelf organiser built with Expo and React Native. Scan book spines, log titles by ISBN barcode with automatic metadata lookup, photograph and crop each spine, then choose how to organise your collection and get an interactive visual shelf. When a shelf overflows, drag the pin inward to set its cut-off. Local-only — your library stays on your device.',
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query'],
     links: [
-      { href: 'https://www.binarymeadow.com/apps/spinely/', type: 'site', label: 'View on Binary Meadow →' },
+      { href: 'https://www.binarymeadow.com/apps/spinely/', type: 'site' },
     ],
     image: '/images/spinely.png',
   },
@@ -42,7 +42,7 @@ const projects: Project[] = [
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'OPDS'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.opdsy', type: 'play' },
-      { href: 'https://www.binarymeadow.com/apps/opdsy/', type: 'site', label: 'View on Binary Meadow →' },
+      { href: 'https://www.binarymeadow.com/apps/opdsy/', type: 'site' },
     ],
     image: '/images/opdsy.png?v=2',
   },
@@ -164,7 +164,7 @@ export default function ProjectsPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {link.label ?? 'View Project →'}
+                        {link.label ?? 'See More →'}
                       </a>
                     )
                   )}
