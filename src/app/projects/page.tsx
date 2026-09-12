@@ -53,7 +53,7 @@ const projects: Project[] = [
     tags: ['React Native', 'Expo', 'TypeScript', 'Shopify Skia', 'Pixel Art'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.jannahbuilder', type: 'play' },
-      { href: 'https://github.com/faesel/jannah-builder', type: 'site' },
+      { href: 'https://github.com/binarymeadow/jannah-builder', type: 'site' },
     ],
     image: '/images/jannah-builder.png?v=3',
   },
@@ -73,7 +73,7 @@ const projects: Project[] = [
     description: 'A cross-platform Electron desktop app that reads GitHub Copilot CLI session data and presents it as a real-time dashboard. Features a retro Tron-inspired design with session management, token usage charts, activity heatmaps, and AI-powered insights.',
     tags: ['Electron', 'React', 'TypeScript', 'Recharts'],
     links: [
-      { href: 'https://github.com/faesel/gridwatch', type: 'site' },
+      { href: 'https://github.com/binarymeadow/gridwatch', type: 'site' },
     ],
     image: '/images/gridwatch.png?v=2',
   },
