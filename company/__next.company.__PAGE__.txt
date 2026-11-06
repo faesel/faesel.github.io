@@ -1,7 +1,52 @@
 1:"$Sreact.fragment"
-2:I[5500,["/_next/static/chunks/dd5ced4c32edaa19.js"],"Image"]
-3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/708205fa81a1891d.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-:HL["/_next/static/chunks/305ec0c7f67e8daa.css","style"]
-0:{"buildId":"XMdczEaZbjedW4b9NQTAe","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page-module__64MtSq__container","children":[["$","section",null,{"className":"page-module__64MtSq__hero","children":[["$","$L2",null,{"src":"/images/binary-meadow-logo.png","alt":"Binary Meadow logo","width":96,"height":96,"className":"page-module__64MtSq__logo","priority":true}],["$","h1",null,{"className":"page-module__64MtSq__title","children":"Binary Meadow"}],["$","p",null,{"className":"page-module__64MtSq__subtitle","children":"My independent software studio, registered in the United Kingdom — designing and shipping a small, carefully crafted collection of apps."}]]}],["$","div",null,{"className":"page-module__64MtSq__content","children":["$","section",null,{"className":"page-module__64MtSq__section","children":[["$","h2",null,{"className":"page-module__64MtSq__sectionTitle","children":"About the studio"}],["$","p",null,{"className":"page-module__64MtSq__text","children":"Binary Meadow Ltd is the home for the products I build outside of this blog. It's a small studio with a simple philosophy: quality, privacy and longevity over hype. Every app is shipped, maintained and supported directly — no dark patterns and no selling your data."}],["$","p",null,{"className":"page-module__64MtSq__text","children":"The apps span everything from spiritually-mindful tools to developer dashboards, available across Android, macOS and Windows. You can see the full collection, screenshots and downloads on the Binary Meadow website."}],["$","a",null,{"href":"https://www.binarymeadow.com","className":"page-module__64MtSq__link","target":"_blank","rel":"noopener noreferrer","children":"Visit binarymeadow.com →"}]]}]}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/305ec0c7f67e8daa.css","precedence":"next"}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null
+2:"/_next/static/chunks/3qfy96eoyh-ek.js"
+3:"/_next/static/chunks/0lzn5eml9ip7h.js"
+4:I[31362,["$2","$3"],"default"]
+5:I[2971,["$2","$3"],"default"]
+6:I[39756,["$2","$3"],"default"]
+7:I[37457,["$2","$3"],"default"]
+8:I[22016,["$2","$3"],""]
+f:I[5500,["$2","$3"],"Image"]
+15:"ViewportBoundary"
+16:I[97367,["$2","$3"],"$15"]
+17:"MetadataBoundary"
+18:I[97367,["$2","$3"],"$17"]
+19:"$Sreact.suspense"
+:HL["/_next/static/chunks/2y4_r_sfsmm3l.css","style"]
+:HL["/_next/static/chunks/12-83j3b0i26b.css","style"]
+a:X
+d:X
+d:C
+e:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","div",null,{"className":"_64MtSq_container","children":[["$","section",null,{"className":"_64MtSq_hero","children":[["$","$Lf",null,{"src":"/images/binary-meadow-logo.png","alt":"Binary Meadow logo","width":96,"height":96,"className":"_64MtSq_logo","priority":true}],["$","h1",null,{"className":"_64MtSq_title","children":"Binary Meadow"}],["$","p",null,{"className":"_64MtSq_subtitle","children":"My independent software studio, registered in the United Kingdom — designing and shipping a small, carefully crafted collection of apps."}]]}],["$","div",null,{"className":"_64MtSq_content","children":["$","section",null,{"className":"_64MtSq_section","children":[["$","h2",null,{"className":"_64MtSq_sectionTitle","children":"About the studio"}],["$","p",null,{"className":"_64MtSq_text","children":"Binary Meadow Ltd is the home for the products I build outside of this blog. It's a small studio with a simple philosophy: quality, privacy and longevity over hype. Every app is shipped, maintained and supported directly — no dark patterns and no selling your data."}],"$L10","$L11"]}]}]]}],["$L12"],"$L13"]}],"p":"$@14","v":null,"s":"$a"}}]]
+b:[["children",{"s":"company","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@c","v":"$d","s":"$a"},"c":"$Qe"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/2y4_r_sfsmm3l.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/3qfy96eoyh-ek.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/0lzn5eml9ip7h.js","async":true}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.faesel.com/images/logo.png\"},\"sameAs\":[\"https://github.com/faesel\",\"https://www.linkedin.com/in/faesel-saeed-a97b1614\"]}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"FAESEL.COM\",\"url\":\"https://www.faesel.com\",\"description\":\"A modern tech blog exploring technology, coding, and digital innovation\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\"}}"}}]]}],["$","body",null,{"children":[["$","$L4",null,{"gaId":"G-Y039CLFJME"}],["$","a",null,{"href":"#main-content","className":"skip-to-content","children":"Skip to content"}],["$","$L5",null,{}],["$","main",null,{"id":"main-content","style":{"minHeight":"70vh"},"children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[["$","div",null,{"className":"HS70Aa_container","children":[["$","h1",null,{"className":"HS70Aa_title","children":"404"}],["$","h2",null,{"className":"HS70Aa_subtitle","children":"Page Not Found"}],["$","p",null,{"className":"HS70Aa_message","children":"Sorry, the page you're looking for doesn't exist."}],["$","$L8",null,{"href":"/","className":"HS70Aa_homeLink","children":"Go Home"}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/12-83j3b0i26b.css","precedence":"next"}]]]}]}],["$","footer",null,{"className":"S6Hkya_footer","children":["$","div",null,{"className":"S6Hkya_container","children":["$","div",null,{"className":"S6Hkya_content","children":[["$","nav",null,{"className":"S6Hkya_links","aria-label":"Footer navigation","children":[["$","$L8",null,{"href":"/blog","className":"S6Hkya_link","children":"Blog"}],["$","$L8",null,{"href":"/projects","className":"S6Hkya_link","children":"Projects"}],["$","$L8",null,{"href":"/company","className":"S6Hkya_link","children":"Company"}],["$","$L8",null,{"href":"/about","className":"S6Hkya_link","children":"About"}],["$","$L8",null,{"href":"/contact","className":"S6Hkya_link","children":"Contact"}],["$","a",null,{"href":"/feed.xml","className":"S6Hkya_rssLink","aria-label":"RSS Feed","title":"RSS Feed","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 24 24","width":16,"height":16,"fill":"currentColor","className":"Zq2JtW_icon ","aria-hidden":"true","children":[["$","circle",null,{"cx":"6.18","cy":"17.82","r":"2.18"}],["$","path",null,{"d":"M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"}]]}],["$","span",null,{"children":"RSS"}]]}]]}],["$","p",null,{"className":"S6Hkya_copyright","children":["© ",2026," Faesel Saeed. All rights reserved. Code snippets are MIT licensed unless stated otherwise."]}]]}]}]}]]}]]}]]}],"p":"$@9","v":null,"s":"$a"},"c":"$Qb"},"h":{"r":["$","$1","h",{"children":[null,["$","$L16",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L18",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$19",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Company | Binary Meadow Ltd | FAESEL.COM"}],["$","meta","1",{"name":"description","content":"Binary Meadow Ltd is my independent UK software studio, building a focused collection of apps including Jannah Builder, OPDSy and GridWatch."}],["$","link","2",{"rel":"author","href":"https://www.faesel.com/about"}],["$","meta","3",{"name":"author","content":"Faesel Saeed"}],["$","meta","4",{"name":"keywords","content":"blog,technology,web development,programming,software engineering"}],["$","link","5",{"rel":"alternate","type":"application/rss+xml","href":"https://www.faesel.com/feed.xml"}],["$","meta","6",{"property":"og:title","content":"FAESEL.COM"}],"$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27"]}]}],null]}],null]}],"p":"$@28","v":null,"s":"$a"}},"a":"$@29","u":"$@2a","b":"ERk-aZ4gKrBuhZOByl6Ug"}
+2b:I[97367,["$2","$3"],"OutletBoundary"]
+2d:I[27201,["$2","$3"],"IconMark"]
+:HL["/_next/static/chunks/2_yjrtyqwotms.css","style"]
+10:["$","p",null,{"className":"_64MtSq_text","children":"The apps span everything from spiritually-mindful tools to developer dashboards, available across Android, macOS and Windows. You can see the full collection, screenshots and downloads on the Binary Meadow website."}]
+11:["$","a",null,{"href":"https://www.binarymeadow.com","className":"_64MtSq_link","target":"_blank","rel":"noopener noreferrer","children":"Visit binarymeadow.com →"}]
+12:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/2_yjrtyqwotms.css","precedence":"next"}]
+13:["$","$L2b",null,{"children":["$","$19",null,{"name":"Next.MetadataOutlet","children":"$@2c"}]}]
+1a:["$","meta","7",{"property":"og:description","content":"A modern tech blog exploring technology, coding, and digital innovation"}]
+1b:["$","meta","8",{"property":"og:url","content":"https://www.faesel.com"}]
+1c:["$","meta","9",{"property":"og:site_name","content":"FAESEL.COM"}]
+1d:["$","meta","10",{"property":"og:locale","content":"en_US"}]
+1e:["$","meta","11",{"property":"og:type","content":"website"}]
+1f:["$","meta","12",{"name":"twitter:card","content":"summary_large_image"}]
+20:["$","meta","13",{"name":"twitter:site","content":"@faeselsaeed"}]
+21:["$","meta","14",{"name":"twitter:creator","content":"@faeselsaeed"}]
+22:["$","meta","15",{"name":"twitter:title","content":"FAESEL.COM"}]
+23:["$","meta","16",{"name":"twitter:description","content":"A modern tech blog exploring technology, coding, and digital innovation"}]
+24:["$","link","17",{"rel":"shortcut icon","href":"/favicon.ico"}]
+25:["$","link","18",{"rel":"icon","href":"/favicon.ico"}]
+26:["$","link","19",{"rel":"apple-touch-icon","href":"/favicon.ico"}]
+27:["$","$L2d","20",{}]
+a:300
+2c:null
+2a:true
+a:C
+29:0
+c:"$undefined"
+9:"$undefined"
+28:"$undefined"
+14:"$undefined"
