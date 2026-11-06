@@ -5,10 +5,22 @@
     <link>https://www.faesel.com</link>
     <description>A modern tech blog exploring technology, coding, and digital innovation</description>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 09 Jun 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.faesel.com/feed.xml" rel="self" type="application/rss+xml" />
     <managingEditor>Faesel Saeed</managingEditor>
     <webMaster>Faesel Saeed</webMaster>
+    <item>
+      <title>Reset Password Tokens Don&apos;t Belong in Your URL</title>
+      <link>https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url</link>
+      <guid isPermaLink="true">https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Why you shouldn&apos;t put tokens in a reset password URL If you&apos;ve ever built a forgot password journey, you&apos;ve probably built this one: 1. The user enters their email address. 2. You generate a long random token and email them a link. 3. They click Refererwindow.locationReferrer-Policy: no-referrerRefe...</description>
+      <category>security</category>
+      <category>owasp</category>
+      <category>authentication</category>
+      <category>otp</category>
+      <category>observability</category>
+    </item>
     <item>
       <title>Stop Burning Tokens with GridWatch</title>
       <link>https://www.faesel.com/blog/stop-burning-tokens-with-gridwatch</link>

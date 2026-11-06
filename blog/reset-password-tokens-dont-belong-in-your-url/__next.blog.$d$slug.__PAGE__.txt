@@ -1,0 +1,138 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3qfy96eoyh-ek.js"
+3:"/_next/static/chunks/0lzn5eml9ip7h.js"
+4:I[31362,["$2","$3"],"default"]
+5:I[2971,["$2","$3"],"default"]
+6:I[39756,["$2","$3"],"default"]
+7:I[37457,["$2","$3"],"default"]
+8:"/_next/static/chunks/2io_vu9_e8a1i.js"
+9:I[22016,["$2","$3","$8"],""]
+19:"ViewportBoundary"
+1a:I[97367,["$2","$3"],"$19"]
+1b:"MetadataBoundary"
+1c:I[97367,["$2","$3"],"$1b"]
+1d:"$Sreact.suspense"
+:HL["/_next/static/chunks/2y4_r_sfsmm3l.css","style"]
+:HL["/_next/static/chunks/12-83j3b0i26b.css","style"]
+b:X
+e:X
+e:C
+12:T40c,{"@context":"https://schema.org","@type":"BlogPosting","headline":"Reset Password Tokens Don't Belong in Your URL","description":"## Why you shouldn't put tokens in a reset password URL\n\nIf you've ever built a forgot password journey, you've probably built this one:\n\n1. The user enters the","image":"https://images.ctfassets.net/wjg1udsw901v/4QXPLAuCasCQXwRt5pIxpW/ca0d67b9da3acb77070e659523540dbb/reset-password-otp-hero.png","datePublished":"2026-11-06T00:00+00:00","dateModified":"2026-11-06T00:00+00:00","author":{"@type":"Person","name":"Faesel Saeed","url":"https://www.faesel.com/about"},"publisher":{"@type":"Organization","name":"Faesel Saeed","url":"https://www.faesel.com","logo":{"@type":"ImageObject","url":"https://www.faesel.com/images/logo.png"}},"keywords":"security, owasp, authentication, otp, observability","url":"https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url"}}11:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$12"}}],"$L13","$L14"],["$L15","$L16"],"$L17"]}],"p":"$@18","v":null,"s":"$b"}}]]
+f:[["children",{"s":{"n":"slug","t":"d","k":"reset-password-tokens-dont-belong-in-your-url","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@10","v":"$e","s":"$b"},"c":"$Q11"}]]
+c:[["children",{"s":"blog","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@d","v":"$e","s":"$b"},"c":"$Qf"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/2y4_r_sfsmm3l.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/3qfy96eoyh-ek.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/0lzn5eml9ip7h.js","async":true}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.faesel.com/images/logo.png\"},\"sameAs\":[\"https://github.com/faesel\",\"https://www.linkedin.com/in/faesel-saeed-a97b1614\"]}"}}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"FAESEL.COM\",\"url\":\"https://www.faesel.com\",\"description\":\"A modern tech blog exploring technology, coding, and digital innovation\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Faesel Saeed\",\"url\":\"https://www.faesel.com\"}}"}}]]}],["$","body",null,{"children":[["$","$L4",null,{"gaId":"G-Y039CLFJME"}],["$","a",null,{"href":"#main-content","className":"skip-to-content","children":"Skip to content"}],["$","$L5",null,{}],["$","main",null,{"id":"main-content","style":{"minHeight":"70vh"},"children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[["$","div",null,{"className":"HS70Aa_container","children":[["$","h1",null,{"className":"HS70Aa_title","children":"404"}],["$","h2",null,{"className":"HS70Aa_subtitle","children":"Page Not Found"}],["$","p",null,{"className":"HS70Aa_message","children":"Sorry, the page you're looking for doesn't exist."}],["$","$L9",null,{"href":"/","className":"HS70Aa_homeLink","children":"Go Home"}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/12-83j3b0i26b.css","precedence":"next"}]]]}]}],["$","footer",null,{"className":"S6Hkya_footer","children":["$","div",null,{"className":"S6Hkya_container","children":["$","div",null,{"className":"S6Hkya_content","children":[["$","nav",null,{"className":"S6Hkya_links","aria-label":"Footer navigation","children":[["$","$L9",null,{"href":"/blog","className":"S6Hkya_link","children":"Blog"}],["$","$L9",null,{"href":"/projects","className":"S6Hkya_link","children":"Projects"}],["$","$L9",null,{"href":"/company","className":"S6Hkya_link","children":"Company"}],["$","$L9",null,{"href":"/about","className":"S6Hkya_link","children":"About"}],["$","$L9",null,{"href":"/contact","className":"S6Hkya_link","children":"Contact"}],["$","a",null,{"href":"/feed.xml","className":"S6Hkya_rssLink","aria-label":"RSS Feed","title":"RSS Feed","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 24 24","width":16,"height":16,"fill":"currentColor","className":"Zq2JtW_icon ","aria-hidden":"true","children":[["$","circle",null,{"cx":"6.18","cy":"17.82","r":"2.18"}],["$","path",null,{"d":"M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"}]]}],["$","span",null,{"children":"RSS"}]]}]]}],["$","p",null,{"className":"S6Hkya_copyright","children":["© ",2026," Faesel Saeed. All rights reserved. Code snippets are MIT licensed unless stated otherwise."]}]]}]}]}]]}]]}]]}],"p":"$@a","v":null,"s":"$b"},"c":"$Qc"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1a",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#000000"}]]}],["$","$L1c",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1d",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Reset Password Tokens Don't Belong in Your URL | Tech Blog | FAESEL.COM"}],["$","meta","1",{"name":"description","content":"## Why you shouldn't put tokens in a reset password URL\n\nIf you've ever built a forgot password journey, you've probably built this one:\n\n1. The user enters the"}],["$","link","2",{"rel":"author","href":"https://www.faesel.com/about"}],["$","meta","3",{"name":"author","content":"Faesel Saeed"}],["$","meta","4",{"name":"keywords","content":"security,owasp,authentication,otp,observability"}],["$","link","5",{"rel":"alternate","type":"application/rss+xml","href":"https://www.faesel.com/feed.xml"}],"$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a","$L2b","$L2c"]}]}],null]}],null]}],"p":"$@2d","v":null,"s":"$b"}},"a":"$@2e","u":"$@2f","b":"ZY2HxAGmABeEPmPk2qELo"}
+30:I[5500,["$2","$3","$8"],"Image"]
+31:I[23150,["$2","$3","$8"],"default"]
+35:I[97367,["$2","$3"],"OutletBoundary"]
+37:I[27201,["$2","$3"],"IconMark"]
+:HL["/_next/static/chunks/0ircbz9ura95i.css","style"]
+13:["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.faesel.com\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blog\",\"item\":\"https://www.faesel.com/blog\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Reset Password Tokens Don't Belong in Your URL\",\"item\":\"https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url\"}]}"}}]
+32:T2daa,<h2>Why you shouldn&#39;t put tokens in a reset password URL</h2>
+<p>If you&#39;ve ever built a forgot password journey, you&#39;ve probably built this one:</p>
+<ol>
+<li>The user enters their email address.</li>
+<li>You generate a long random token and email them a link.</li>
+<li>They click <code>https://example.com/reset-password?token=8f3a...</code></li>
+<li>Your page reads the token from the query string, checks it, and lets them set a new password.</li>
+</ol>
+<p>It&#39;s simple, it&#39;s everywhere, and it&#39;s the approach described in the <a href="https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html">OWASP Forgot Password Cheat Sheet</a>. Earlier this year I worked on a security fix for exactly this flow, and it changed how I think about it.</p>
+<h2>How the token leaked</h2>
+<p>Nothing was wrong with how the token was generated. It was random, single use and short lived. The problem was where it lived: <strong>in the URL</strong>.</p>
+<p>For years this wasn&#39;t a visible problem, because we were on New Relic. By default, New Relic strips query strings from the URLs it records, perhaps for exactly this reason, so the token never showed up anywhere we looked.</p>
+<p>Then we moved to Dynatrace. Like most monitoring tools it does its job very well. It captures page loads, requests and user actions, and every one of those records includes the full URL, query string and all. Overnight, every reset token a customer used started landing in our logs, readable by anyone with access to the dashboards, and potentially allowing anyone with access to these tokens to reset a customer&#39;s password. Nothing in our code had changed. We had just swapped one tool for another with different defaults.</p>
+<p>That&#39;s the real lesson here. If your security depends on every tool in the chain having the right default settings, a routine platform migration can quietly undo it.</p>
+<p>Once I started looking, the URL turned out to be a pretty leaky place to keep a secret:</p>
+<ul>
+<li><strong>Observability and RUM tools</strong> record full page URLs, including query strings.</li>
+<li><strong>Server and proxy access logs</strong> (load balancers, CDNs, WAFs) log the request line by default.</li>
+<li><strong>Browser history</strong> keeps the link, which matters on shared or family devices.</li>
+<li><strong>The <code>Referer</code> header</strong> can send the URL to any third party script, font or analytics provider on the page.</li>
+<li><strong>Tag managers</strong> such as Google Tag Manager inject marketing and analytics scripts into the page, and every one of those scripts can read the full URL, token included, straight from <code>window.location</code>.</li>
+<li><strong>Email link scanners</strong> in corporate mail systems often visit links before the user does, which can use up or expose the token.</li>
+<li><strong>Screenshots and screen shares</strong> of a support call happily show the address bar, and are an OCR step away from being compromised.</li>
+</ul>
+<p>None of these are exotic attacks. They&#39;re just normal parts of how the web works, and each one is another copy of a credential that can take over an account.</p>
+<h2>The usual mitigations are band aids</h2>
+<p>You can harden the link approach, and OWASP recommends most of these steps if you keep links:</p>
+<ul>
+<li><strong>Set <code>Referrer-Policy: no-referrer</code> on the reset page.</strong> By default, when a page loads a script, image or font from another site, or the user clicks a link away from it, the browser sends the current page&#39;s URL to that site in the <code>Referer</code> header. On a reset page, that URL contains the token. This response header tells the browser not to send the <code>Referer</code> header at all, so the token stays on your site.</li>
+<li><strong>Mask query parameters in your monitoring tool</strong> so tokens are redacted before they&#39;re stored.</li>
+<li><strong>Keep expiry short</strong> and <strong>invalidate the token on first use</strong>, so a leaked token is only useful for a small window.</li>
+</ul>
+<p>The trouble is that every mitigation is opt in, and each new tool, proxy or third party script you add later is another place the URL might get recorded. You&#39;re relying on every system in the chain being configured correctly, forever. Moving the token into the URL fragment (<code>#token=...</code>) keeps it out of server logs, but client side monitoring scripts can still read it.</p>
+<p>The more reliable fix is to stop putting the secret in the URL at all.</p>
+<h2>The OTP approach</h2>
+<p>Instead of emailing a link with a token in it, email the user a <strong>one time passcode</strong> and have them type it into the reset form.</p>
+<p>The journey becomes:</p>
+<ol>
+<li>The user enters their email on <code>/forgot-password</code>.</li>
+<li>You generate a short code (6 to 8 digits), store a <strong>hash</strong> of it against the account with an expiry, and email the code.</li>
+<li>The user is taken to <code>/reset-password</code>, a plain URL with nothing sensitive in it.</li>
+<li>They enter the code and their new password in the form, which is sent as a <code>POST</code> body over HTTPS.</li>
+<li>The server checks the code, resets the password and invalidates the code.</li>
+</ol>
+<p>The code never appears in a URL, so it never ends up in access logs, RUM data, browser history or a <code>Referer</code> header. Email scanners can&#39;t use it up by prefetching a link, because there&#39;s no link to prefetch. You also get a nice user experience bonus: someone can read the email on their phone and type the code on their laptop.</p>
+<h2>Doing OTP properly</h2>
+<p>A 6 digit code has far less entropy than a 32 byte token, so the security comes from the controls around it rather than the code itself:</p>
+<ul>
+<li><strong>Generate codes with a cryptographically secure random number generator.</strong> <code>Math.random()</code> in JavaScript and <code>new Random()</code> in .NET are built for speed, not secrecy. They work out each number from an internal state, so anyone who sees enough of their output can predict what comes next. A secure generator draws on the operating system&#39;s entropy source, so its output can&#39;t be predicted. Use <code>RandomNumberGenerator.GetInt32()</code> in .NET, <code>crypto.randomInt()</code> in Node.js, <code>crypto.getRandomValues()</code> in the browser, or the <code>secrets</code> module in Python.</li>
+<li><strong>Store only a hash</strong> of the code, just as you would a password.</li>
+<li><strong>Keep the expiry short</strong>, 10 to 15 minutes is plenty.</li>
+<li><strong>Limit attempts.</strong> After 5 wrong guesses, invalidate the code and make the user request a new one. With 1,000,000 possible codes and 5 attempts, an attacker has a 0.0005% chance.</li>
+<li><strong>Rate limit requests</strong> per account and per IP so codes can&#39;t be generated endlessly.</li>
+<li><strong>Make codes single use</strong>, and invalidate any previous code when a new one is issued.</li>
+<li><strong>Compare in constant time</strong> to avoid timing attacks.</li>
+<li><strong>Don&#39;t reveal whether an account exists.</strong> Show the same &quot;if an account exists, we&#39;ve sent a code&quot; message every time.</li>
+<li><strong>Once the password has changed,</strong> end existing sessions and send the user a confirmation email.</li>
+</ul>
+<p>Here&#39;s a minimal C# sketch of generating and verifying a code:</p>
+<pre><code class="hljs language-cs"><span class="code-line"><span class="line-number">1</span><span class="line-content"><span class="hljs-keyword">using</span> System.Security.Cryptography;</span></span>
+<span class="code-line"><span class="line-number">2</span><span class="line-content"><span class="hljs-keyword">using</span> System.Text;</span></span>
+<span class="code-line"><span class="line-number">3</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">4</span><span class="line-content"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ResetCode</span></span></span>
+<span class="code-line"><span class="line-number">5</span><span class="line-content">{</span></span>
+<span class="code-line"><span class="line-number">6</span><span class="line-content">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span> <span class="hljs-title">Generate</span>()</span> =&gt;</span></span>
+<span class="code-line"><span class="line-number">7</span><span class="line-content">        RandomNumberGenerator.GetInt32(<span class="hljs-number">0</span>, <span class="hljs-number">1_000_000</span>).ToString(<span class="hljs-string">&quot;D6&quot;</span>);</span></span>
+<span class="code-line"><span class="line-number">8</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">9</span><span class="line-content">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">byte</span>[] <span class="hljs-title">Hash</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> code, <span class="hljs-built_in">byte</span>[] salt</span>)</span> =&gt;</span></span>
+<span class="code-line"><span class="line-number">10</span><span class="line-content">        Rfc2898DeriveBytes.Pbkdf2(</span></span>
+<span class="code-line"><span class="line-number">11</span><span class="line-content">            Encoding.UTF8.GetBytes(code), salt, <span class="hljs-number">100_000</span>, HashAlgorithmName.SHA256, <span class="hljs-number">32</span>);</span></span>
+<span class="code-line"><span class="line-number">12</span><span class="line-content"></span></span>
+<span class="code-line"><span class="line-number">13</span><span class="line-content">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">Verify</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> submitted, <span class="hljs-built_in">byte</span>[] salt, <span class="hljs-built_in">byte</span>[] storedHash</span>)</span> =&gt;</span></span>
+<span class="code-line"><span class="line-number">14</span><span class="line-content">        CryptographicOperations.FixedTimeEquals(Hash(submitted, salt), storedHash);</span></span>
+<span class="code-line"><span class="line-number">15</span><span class="line-content">}</span></span></code></pre><p>The attempt counter, expiry and single use checks belong in whatever stores the hash, alongside the account.</p>
+<h2>Wrapping up</h2>
+<p>Putting reset tokens in URLs is a recognised pattern, but recognised doesn&#39;t mean risk free. The URL is one of the most copied, logged and shared strings in your whole stack, and any secret you put there will turn up somewhere you didn&#39;t expect. For us, that was our own monitoring platform, the moment we changed vendor. A query string is basically a postcard: it gets where it&#39;s going, but every postie along the way gets a good read of the back.</p>
+<p>Switching to an OTP entered on the form keeps the secret out of the URL entirely. You stop relying on every log, proxy and third party script being configured perfectly. Combined with attempt limits, short expiry and hashing, it&#39;s a simpler and safer model, and your customers won&#39;t notice the difference, apart from being better protected.</p>
+14:["$","article",null,{"className":"dgei_G_article","children":[["$","$L9",null,{"href":"/blog","className":"dgei_G_backLink","children":"← Back to Blog"}],["$","header",null,{"className":"dgei_G_header","children":[["$","h1",null,{"className":"dgei_G_title","children":"Reset Password Tokens Don't Belong in Your URL"}],["$","div",null,{"className":"dgei_G_meta","children":[["$","time",null,{"className":"dgei_G_date","dateTime":"2026-11-06T00:00+00:00","children":["📅 ","November 6, 2026"]}],["$","span",null,{"className":"dgei_G_separator","children":"•"}],["$","span",null,{"className":"dgei_G_readingTime","children":["⏱️ ","6 min read"]}]]}],["$","div",null,{"className":"dgei_G_tags","children":[["$","span","security-0",{"className":"dgei_G_tag","children":"security"}],["$","span","owasp-1",{"className":"dgei_G_tag","children":"owasp"}],["$","span","authentication-2",{"className":"dgei_G_tag","children":"authentication"}],["$","span","otp-3",{"className":"dgei_G_tag","children":"otp"}],["$","span","observability-4",{"className":"dgei_G_tag","children":"observability"}]]}]]}],["$","div",null,{"className":"dgei_G_heroImage","children":["$","$L30",null,{"src":"https://images.ctfassets.net/wjg1udsw901v/4QXPLAuCasCQXwRt5pIxpW/ca0d67b9da3acb77070e659523540dbb/reset-password-otp-hero.png","alt":"Reset Password Tokens Don't Belong in Your URL","fill":true,"className":"dgei_G_heroImageImg","priority":true,"sizes":"(max-width: 800px) 100vw, 800px"}]}],["$","$L31",null,{"url":"https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url","title":"Reset Password Tokens Don't Belong in Your URL","description":"## Why you shouldn't put tokens in a reset password URL\n\nIf you've ever built a forgot password journey, you've probably built this one:\n\n1. The user enters the","variant":"sidebar"}],["$","div",null,{"className":"dgei_G_content","dangerouslySetInnerHTML":{"__html":"$32"}}],"$L33","$L34"]}]
+15:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0ircbz9ura95i.css","precedence":"next"}]
+16:["$","script","script-0",{"src":"/_next/static/chunks/2io_vu9_e8a1i.js","async":true}]
+17:["$","$L35",null,{"children":["$","$1d",null,{"name":"Next.MetadataOutlet","children":"$@36"}]}]
+1e:["$","meta","6",{"property":"og:title","content":"Reset Password Tokens Don't Belong in Your URL"}]
+1f:["$","meta","7",{"property":"og:description","content":"## Why you shouldn't put tokens in a reset password URL\n\nIf you've ever built a forgot password journey, you've probably built this one:\n\n1. The user enters the"}]
+20:["$","meta","8",{"property":"og:image","content":"https://images.ctfassets.net/wjg1udsw901v/4QXPLAuCasCQXwRt5pIxpW/ca0d67b9da3acb77070e659523540dbb/reset-password-otp-hero.png"}]
+21:["$","meta","9",{"property":"og:type","content":"article"}]
+22:["$","meta","10",{"property":"article:published_time","content":"2026-11-06T00:00+00:00"}]
+23:["$","meta","11",{"name":"twitter:card","content":"summary_large_image"}]
+24:["$","meta","12",{"name":"twitter:site","content":"@faeselsaeed"}]
+25:["$","meta","13",{"name":"twitter:creator","content":"@faeselsaeed"}]
+26:["$","meta","14",{"name":"twitter:title","content":"Reset Password Tokens Don't Belong in Your URL"}]
+27:["$","meta","15",{"name":"twitter:description","content":"## Why you shouldn't put tokens in a reset password URL\n\nIf you've ever built a forgot password journey, you've probably built this one:\n\n1. The user enters the"}]
+28:["$","meta","16",{"name":"twitter:image","content":"https://images.ctfassets.net/wjg1udsw901v/4QXPLAuCasCQXwRt5pIxpW/ca0d67b9da3acb77070e659523540dbb/reset-password-otp-hero.png"}]
+29:["$","link","17",{"rel":"shortcut icon","href":"/favicon.ico"}]
+2a:["$","link","18",{"rel":"icon","href":"/favicon.ico"}]
+2b:["$","link","19",{"rel":"apple-touch-icon","href":"/favicon.ico"}]
+2c:["$","$L37","20",{}]
+38:I[31175,["$2","$3","$8"],"default"]
+b:300
+33:["$","$L31",null,{"url":"https://www.faesel.com/blog/reset-password-tokens-dont-belong-in-your-url","title":"Reset Password Tokens Don't Belong in Your URL","description":"## Why you shouldn't put tokens in a reset password URL\n\nIf you've ever built a forgot password journey, you've probably built this one:\n\n1. The user enters the"}]
+34:["$","$L38",null,{}]
+36:null
+2f:true
+b:C
+2e:0
+10:"$undefined"
+d:"$undefined"
+a:"$undefined"
+2d:"$undefined"
+18:"$undefined"
