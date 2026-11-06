@@ -122,6 +122,12 @@
   width: auto;
 }
 
+.appStoreBadge {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;

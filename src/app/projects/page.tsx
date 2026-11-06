@@ -9,8 +9,8 @@ export const metadata = {
 
 type ProjectLink = {
   href: string;
-  /** 'play' renders the Google Play badge; 'site' renders a text link. */
-  type: 'play' | 'site';
+  /** 'play' and 'appstore' render store badges; 'site' renders a text link. */
+  type: 'play' | 'appstore' | 'site';
   /** Optional label for 'site' links; defaults to 'See More →'. */
   label?: string;
 };
@@ -26,11 +26,23 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: 8,
+    title: 'Task Monster - Family Chores & Routines',
+    description: 'A gamified to-do list for families built with Expo and React Native. Every chore, routine or task that gets done drops into a feeder as a tasty bubble, ready to feed one of twelve friendly monsters that grow, level up and evolve. Supports groups, subtasks, due dates, reminders and swipe-to-complete. No ads, no in-app purchases, no account, and everything stays on your device.',
+    tags: ['React Native', 'Expo', 'TypeScript', 'React Native SVG', 'Reanimated'],
+    links: [
+      { href: 'https://play.google.com/store/apps/details?id=com.taskmonsters', type: 'play' },
+      { href: 'https://www.binarymeadow.com/apps/task-monster/', type: 'site' },
+    ],
+    image: '/images/task-monster.png',
+  },
+  {
     id: 7,
     title: 'Spinely - Bookshelf Organiser',
     description: 'An Android-first bookshelf organiser built with Expo and React Native. Scan book spines, log titles by ISBN barcode with automatic metadata lookup, photograph and crop each spine, then choose how to organise your collection and get an interactive visual shelf. When a shelf overflows, drag the pin inward to set its cut-off. Local-only — your library stays on your device.',
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query'],
     links: [
+      { href: 'https://play.google.com/store/apps/details?id=com.spinely', type: 'play' },
       { href: 'https://www.binarymeadow.com/apps/spinely/', type: 'site' },
     ],
     image: '/images/spinely.png',
@@ -42,6 +54,7 @@ const projects: Project[] = [
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'OPDS'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.opdsy', type: 'play' },
+      { href: 'https://apps.apple.com/app/opdsy/id6827915459', type: 'appstore' },
       { href: 'https://www.binarymeadow.com/apps/opdsy/', type: 'site' },
     ],
     image: '/images/opdsy.png?v=2',
@@ -139,7 +152,24 @@ export default function ProjectsPage() {
               {project.links.length > 0 && (
                 <div className={styles.projectLinks}>
                   {project.links.map((link) =>
-                    link.type === 'play' ? (
+                    link.type === 'appstore' ? (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className={styles.playBadgeLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Download on the App Store"
+                      >
+                        <Image
+                          src="/badges/app-store-badge.svg"
+                          alt="Download on the App Store"
+                          width={144}
+                          height={48}
+                          className={styles.appStoreBadge}
+                        />
+                      </a>
+                    ) : link.type === 'play' ? (
                       <a
                         key={link.href}
                         href={link.href}
