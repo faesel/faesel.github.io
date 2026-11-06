@@ -109,7 +109,6 @@ Blog/
 - contentful
 - @contentful/rich-text-react-renderer
 - marked (Markdown parser)
-- gray-matter
 
 ## 🚀 Next Steps
 

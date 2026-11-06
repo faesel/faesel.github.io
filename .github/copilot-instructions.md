@@ -25,11 +25,10 @@ This is a **static tech blog** built with **Next.js 14+** and **Contentful CMS**
 ### Key Dependencies
 ```json
 {
-  "contentful": "^11.10.3",
-  "@contentful/rich-text-react-renderer": "^16.1.6",
-  "marked": "^17.0.1",
-  "gray-matter": "^4.0.3",
-  "highlight.js": "^11.11.1"
+  "contentful": "^11.12.10",
+  "@contentful/rich-text-react-renderer": "^16.2.2",
+  "marked": "^18.1.3",
+  "highlight.js": "^11.12.0"
 }
 ```
 

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
@@ -14,8 +14,6 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: ['blog', 'technology', 'web development', 'programming', 'software engineering'],
   authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#000000',
   metadataBase: new URL(siteConfig.url),
   icons: {
     icon: '/favicon.ico',
@@ -40,6 +38,12 @@ export const metadata: Metadata = {
     site: siteConfig.social.twitter,
     creator: siteConfig.social.twitter,
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#000000',
 };
 
 export default function RootLayout({

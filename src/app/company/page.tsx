@@ -12,7 +12,7 @@ export default function CompanyPage() {
     <div className={styles.container}>
       <section className={styles.hero}>
         <Image
-          src="/images/binary-meadow-logo.png"
+          src="/images/binary-meadow-logo.webp"
           alt="Binary Meadow logo"
           width={96}
           height={96}

@@ -1,10 +1,39 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { siteConfig } from '@/lib/config';
+import { siteConfig, getAbsoluteUrl } from '@/lib/config';
+import { JsonLd, generateSoftwareApplicationListJsonLd } from '@/lib/jsonld';
 import styles from './page.module.css';
 
-export const metadata = {
+const pageDescription =
+  'Apps and developer tools by Faesel Saeed, including Task Monster, Spinely, OPDSy, Jannah Builder, GridWatch and iCare.';
+
+export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Explore my latest projects and work',
+  description: pageDescription,
+  alternates: {
+    canonical: '/projects',
+  },
+  openGraph: {
+    type: 'website',
+    url: getAbsoluteUrl('/projects'),
+    siteName: siteConfig.name,
+    title: `Projects | ${siteConfig.name}`,
+    description: pageDescription,
+    images: [
+      {
+        url: '/images/projects-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'App icons for Task Monster, Spinely, OPDSy, Jannah Builder and GridWatch',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Projects | ${siteConfig.name}`,
+    description: pageDescription,
+    images: ['/images/projects-og.jpg'],
+  },
 };
 
 type ProjectLink = {
@@ -22,58 +51,64 @@ type Project = {
   tags?: string[];
   links: ProjectLink[];
   image?: string;
+  /** schema.org applicationCategory, set for apps published to a store. */
+  appCategory?: string;
 };
 
 const projects: Project[] = [
   {
     id: 8,
     title: 'Task Monster - Family Chores & Routines',
-    description: 'A gamified to-do list for families built with Expo and React Native. Every chore, routine or task that gets done drops into a feeder as a tasty bubble, ready to feed one of twelve friendly monsters that grow, level up and evolve. Supports groups, subtasks, due dates, reminders and swipe-to-complete. No ads, no in-app purchases, no account, and everything stays on your device.',
+    description: 'A gamified family to-do list where finished chores feed a friendly monster that grows and evolves.',
     tags: ['React Native', 'Expo', 'TypeScript', 'React Native SVG', 'Reanimated'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.taskmonsters', type: 'play' },
       { href: 'https://www.binarymeadow.com/apps/task-monster/', type: 'site' },
     ],
-    image: '/images/task-monster.png',
+    image: '/images/task-monster.webp',
+    appCategory: 'LifestyleApplication',
   },
   {
     id: 7,
     title: 'Spinely - Bookshelf Organiser',
-    description: 'An Android-first bookshelf organiser built with Expo and React Native. Scan book spines, log titles by ISBN barcode with automatic metadata lookup, photograph and crop each spine, then choose how to organise your collection and get an interactive visual shelf. When a shelf overflows, drag the pin inward to set its cut-off. Local-only — your library stays on your device.',
+    description: 'A bookshelf organiser that scans your book spines and turns your collection into a visual shelf.',
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.spinely', type: 'play' },
       { href: 'https://www.binarymeadow.com/apps/spinely/', type: 'site' },
     ],
-    image: '/images/spinely.png',
+    image: '/images/spinely.webp',
+    appCategory: 'LifestyleApplication',
   },
   {
     id: 6,
-    title: 'Opdsy - OPDS Comics & Book Reader',
-    description: 'A modern, cross-platform reader for self-hosted OPDS libraries. Browse and stream comics and books from multiple servers at once in a single unified library, with page-by-page OPDS-PSE streaming. Works with Ubooquity, Komga, Kavita and Calibre-Web, designed to be server-agnostic and resilient.',
+    title: 'OPDSy - Book, Comic & Audiobook Reader',
+    description: 'A reader that brings your local files and self-hosted OPDS servers together in one library.',
     tags: ['React Native', 'Expo', 'TypeScript', 'TanStack Query', 'OPDS'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.opdsy', type: 'play' },
       { href: 'https://apps.apple.com/app/opdsy/id6827915459', type: 'appstore' },
       { href: 'https://www.binarymeadow.com/apps/opdsy/', type: 'site' },
     ],
-    image: '/images/opdsy.png?v=2',
+    image: '/images/opdsy.webp',
+    appCategory: 'ReferenceApplication',
   },
   {
     id: 5,
     title: 'Jannah Builder - Islamic Prayer Garden',
-    description: 'A calm, spiritually-sensitive prayer tracking app built with React Native and Expo. Log your five daily prayers and watch a peaceful pixel-art garden grow with trees, flowers, buildings, and wildlife. Features gentle decay, Qur\'an and dhikr visual effects, and animated animals — designed to inspire without pressure.',
+    description: 'A calm prayer tracker where logging your five daily prayers grows a peaceful pixel-art garden.',
     tags: ['React Native', 'Expo', 'TypeScript', 'Shopify Skia', 'Pixel Art'],
     links: [
       { href: 'https://play.google.com/store/apps/details?id=com.jannahbuilder', type: 'play' },
       { href: 'https://github.com/binarymeadow/jannah-builder', type: 'site' },
     ],
-    image: '/images/jannah-builder.png?v=3',
+    image: '/images/jannah-builder.webp',
+    appCategory: 'LifestyleApplication',
   },
   {
     id: 1,
     title: 'iCare - Desktop Blink Reminder',
-    description: 'A dead-simple, no-frills desktop blink reminder. No accounts, no cloud sync, no analytics — just a tiny always-on-top widget with a retro seven-segment countdown that tells you to blink and rest your eyes.',
+    description: 'A tiny always-on-top desktop widget that reminds you to blink and rest your eyes.',
     tags: ['Electron', 'TypeScript', 'Desktop App', 'Eye Care'],
     links: [
       { href: 'https://github.com/faesel/icare', type: 'site' },
@@ -83,38 +118,62 @@ const projects: Project[] = [
   {
     id: 2,
     title: 'GridWatch - Copilot CLI Dashboard',
-    description: 'A cross-platform Electron desktop app that reads GitHub Copilot CLI session data and presents it as a real-time dashboard. Features a retro Tron-inspired design with session management, token usage charts, activity heatmaps, and AI-powered insights.',
+    description: 'A desktop dashboard for exploring your GitHub Copilot CLI sessions, token usage and activity.',
     tags: ['Electron', 'React', 'TypeScript', 'Recharts'],
     links: [
       { href: 'https://github.com/binarymeadow/gridwatch', type: 'site' },
     ],
-    image: '/images/gridwatch.png?v=2',
+    image: '/images/gridwatch.webp',
   },
   {
     id: 3,
     title: 'Az-Lazy - The go-to CLI for Azure storage',
-    description: 'Check out my CLI tool Az-Lazy, it provides a command line interface to quickly manage and make changes to azure storage queues, blobs and tables. The inspiration for this project was to move away from using Azure Storage Manager and provide a faster CLI experience for developers.',
+    description: 'A command line tool for quickly managing Azure Storage queues, blobs and tables.',
     tags: ['c#', 'Azure', 'CLI'],
     links: [
       { href: 'https://github.com/faesel/az-lazy', type: 'site' },
     ],
-    image: '/images/azlazy.png',
+    image: '/images/azlazy.webp',
   },
   {
     id: 4,
     title: 'Gatsby tech blog starter template',
-    description: 'Checkout my tech blog template built with Gatsby, Contentful and Disqus. Its free to use for anyone this includes all costs aside from a custom domain (which is optional), and really easy to configure.',
+    description: 'A free tech blog starter template built with Gatsby, Contentful and Disqus.',
     tags: ['Node.js', 'Gatsby', 'Contentful', 'Disqus'],
     links: [
-      { href: '#', type: 'site' },
+      { href: 'https://github.com/faesel/gatsby-techblog-starter', type: 'site' },
     ],
-    image: '/images/gatsby-blog-starter.png',
+    image: '/images/gatsby-blog-starter.webp',
   }
 ];
+
+const operatingSystems = (links: ProjectLink[]): string =>
+  [
+    links.some((link) => link.type === 'play') && 'Android',
+    links.some((link) => link.type === 'appstore') && 'iOS',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+const appsJsonLd = generateSoftwareApplicationListJsonLd(
+  projects
+    .filter((project) => project.appCategory)
+    .map((project) => ({
+      name: project.title.split(' - ')[0],
+      description: project.description,
+      url: project.links.find((link) => link.type === 'site')?.href ?? getAbsoluteUrl('/projects'),
+      image: project.image ? getAbsoluteUrl(project.image) : undefined,
+      applicationCategory: project.appCategory as string,
+      operatingSystem: operatingSystems(project.links),
+      installUrls: project.links.filter((link) => link.type !== 'site').map((link) => link.href),
+    })),
+  { name: siteConfig.author.name, url: siteConfig.author.url }
+);
 
 export default function ProjectsPage() {
   return (
     <div className={styles.container}>
+      <JsonLd data={appsJsonLd} />
       <h1 className={styles.title}>Projects</h1>
       <p className={styles.subtitle}>
         A showcase of my recent work and side projects

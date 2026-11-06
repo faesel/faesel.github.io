@@ -141,6 +141,44 @@ export function generatePersonJsonLd(person: {
   };
 }
 
+export interface SoftwareApplicationSchema {
+  name: string;
+  description: string;
+  url: string;
+  image?: string;
+  applicationCategory: string;
+  operatingSystem: string;
+  installUrls: string[];
+}
+
+/**
+ * Generate ItemList JSON-LD of SoftwareApplication entries
+ */
+export function generateSoftwareApplicationListJsonLd(
+  apps: SoftwareApplicationSchema[],
+  author: { name: string; url?: string }
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: apps.map((app, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'SoftwareApplication',
+        name: app.name,
+        description: app.description,
+        url: app.url,
+        image: app.image,
+        applicationCategory: app.applicationCategory,
+        operatingSystem: app.operatingSystem,
+        installUrl: app.installUrls,
+        author: { '@type': 'Person', name: author.name, url: author.url },
+      },
+    })),
+  };
+}
+
 /**
  * Helper to render JSON-LD script tag
  */
