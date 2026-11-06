@@ -181,7 +181,7 @@ export default function ProjectsPage() {
                             aria-label="Get it on Google Play"
                           >
                             <Image
-                              src="/badges/google-play-badge.png"
+                              src="/badges/google-play-badge.png?v=2"
                               alt="Get it on Google Play"
                               width={134}
                               height={40}
