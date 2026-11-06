@@ -151,42 +151,50 @@ export default function ProjectsPage() {
               
               {project.links.length > 0 && (
                 <div className={styles.projectLinks}>
-                  {project.links.map((link) =>
-                    link.type === 'appstore' ? (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        className={styles.playBadgeLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Download on the App Store"
-                      >
-                        <Image
-                          src="/badges/app-store-badge.svg"
-                          alt="Download on the App Store"
-                          width={144}
-                          height={48}
-                          className={styles.appStoreBadge}
-                        />
-                      </a>
-                    ) : link.type === 'play' ? (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        className={styles.playBadgeLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Get it on Google Play"
-                      >
-                        <Image
-                          src="/badges/google-play-badge.png"
-                          alt="Get it on Google Play"
-                          width={186}
-                          height={72}
-                          className={styles.playBadge}
-                        />
-                      </a>
-                    ) : (
+                  {project.links.some((link) => link.type !== 'site') && (
+                    <div className={styles.storeBadges}>
+                      {project.links.map((link) =>
+                        link.type === 'appstore' ? (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            className={styles.storeBadgeLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Download on the App Store"
+                          >
+                            <Image
+                              src="/badges/app-store-badge.svg"
+                              alt="Download on the App Store"
+                              width={120}
+                              height={40}
+                              className={styles.storeBadge}
+                            />
+                          </a>
+                        ) : link.type === 'play' ? (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            className={styles.storeBadgeLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Get it on Google Play"
+                          >
+                            <Image
+                              src="/badges/google-play-badge.png"
+                              alt="Get it on Google Play"
+                              width={134}
+                              height={40}
+                              className={styles.storeBadge}
+                            />
+                          </a>
+                        ) : null
+                      )}
+                    </div>
+                  )}
+                  {project.links
+                    .filter((link) => link.type === 'site')
+                    .map((link) => (
                       <a
                         key={link.href}
                         href={link.href}
@@ -196,8 +204,7 @@ export default function ProjectsPage() {
                       >
                         {link.label ?? 'See More →'}
                       </a>
-                    )
-                  )}
+                    ))}
                 </div>
               )}
             </div>

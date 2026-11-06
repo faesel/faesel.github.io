@@ -105,26 +105,27 @@
   opacity: 1;
 }
 
-.playBadgeLink {
-  display: inline-flex;
+.storeBadges {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  border-radius: 8px;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.storeBadgeLink {
+  display: inline-flex;
+  border-radius: 6px;
   transition: opacity var(--transition-fast);
 }
 
-.playBadgeLink:hover {
+.storeBadgeLink:hover {
   opacity: 0.85;
 }
 
-.playBadge {
+.storeBadge {
   display: block;
-  height: 72px;
-  width: auto;
-}
-
-.appStoreBadge {
-  display: block;
-  height: 48px;
+  height: 40px;
   width: auto;
 }
 
