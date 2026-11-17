@@ -5,8 +5,10 @@ on:
     branches:
       - source
   repository_dispatch:
-    types:
-      - contentful_publish
+    types: [contentful_publish]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 */5 * *'
 
 permissions:
   contents: write
@@ -14,14 +16,15 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     env:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
       NEXT_PUBLIC_GOOGLE_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_TRACKING_ID }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: Checkout source branch
+      - name: Checkout Source
         uses: actions/checkout@v4
         with:
           ref: source
@@ -29,16 +32,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: npm
+          node-version: '22'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build static site
+      - name: Build
         run: npm run build
 
-      - name: Deploy to master (GitHub Pages)
+      - name: Deploy to Master Branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: master
