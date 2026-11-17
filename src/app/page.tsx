@@ -119,6 +119,9 @@ export default async function HomePage() {
                 <p className={styles.eyebrow}>Books, comics &amp; audiobooks</p>
                 <h3 className={styles.cardTitle}>OPDSy</h3>
                 <div className={styles.rating}>
+                  <span className={styles.ratingScore}>
+                    5.0<span className={styles.visuallyHidden}> out of 5 stars</span>
+                  </span>
                   <span className={styles.stars} aria-hidden="true">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg key={star} viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
@@ -136,6 +139,15 @@ export default async function HomePage() {
               and self-hosted OPDS libraries together. Available on Android and iOS,
               with no ads, no tracking and no subscription.
             </p>
+            <figure className={styles.reviewQuote}>
+              <blockquote>
+                <p>
+                  With a good server, it&rsquo;s basically Netflix for ebooks. Clean UI and
+                  just works!
+                </p>
+              </blockquote>
+              <figcaption>Google Play review</figcaption>
+            </figure>
             <div className={styles.storeBadges}>
               <a href="https://play.google.com/store/apps/details?id=com.opdsy">
                 <Image
