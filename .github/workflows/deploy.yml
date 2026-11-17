@@ -6,6 +6,9 @@ on:
       - source
   repository_dispatch:
     types: [contentful_publish]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 */5 * *'
 
 permissions:
   contents: write
@@ -18,10 +21,13 @@ jobs:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
       NEXT_PUBLIC_GOOGLE_TRACKING_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_TRACKING_ID }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
+        with:
+          ref: source
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

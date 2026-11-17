@@ -36,11 +36,54 @@
 }
 
 .highlight {
+  display: inline-block;
+}
+
+.waveName {
+  white-space: pre;
+}
+
+.waveLetter {
+  display: inline-block;
   background: linear-gradient(120deg, var(--color-accent-blue) 0%, var(--color-accent-purple) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  animation: nameWave 4s ease-in-out infinite;
+}
+
+.waveLetter:nth-child(2) { animation-delay: 0.1s; }
+.waveLetter:nth-child(3) { animation-delay: 0.2s; }
+.waveLetter:nth-child(4) { animation-delay: 0.3s; }
+.waveLetter:nth-child(5) { animation-delay: 0.4s; }
+.waveLetter:nth-child(6) { animation-delay: 0.5s; }
+.waveLetter:nth-child(7) { animation-delay: 0.6s; }
+.waveLetter:nth-child(8) { animation-delay: 0.7s; }
+.waveLetter:nth-child(9) { animation-delay: 0.8s; }
+.waveLetter:nth-child(10) { animation-delay: 0.9s; }
+.waveLetter:nth-child(11) { animation-delay: 1s; }
+.waveLetter:nth-child(12) { animation-delay: 1.1s; }
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes nameWave {
+  0%, 30%, 100% { transform: translateY(0); }
+  15% { transform: translateY(-0.15em); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveLetter {
+    animation: none;
+  }
 }
 
 .heroSubtitle {
@@ -48,9 +91,14 @@
   margin-bottom: var(--spacing-xl);
   color: var(--color-text-light);
   line-height: 1.6;
-  max-width: 600px;
+  max-width: 760px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.heroSubtitleLine {
+  display: block;
+  text-wrap: balance;
 }
 
 .heroButtons {
@@ -144,6 +192,144 @@
   background: var(--color-primary);
   color: var(--color-background);
   opacity: 1;
+}
+
+.sectionIntro {
+  max-width: 600px;
+  margin: calc(-1 * var(--spacing-md)) auto var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1.125rem;
+}
+
+.showcaseGrid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.appCard,
+.companyCard,
+.githubPanel {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--border-radius) * 2);
+}
+
+.appCard {
+  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-background) 65%);
+}
+
+.companyCard {
+  background: linear-gradient(135deg, var(--color-accent-purple), var(--color-background) 65%);
+}
+
+.cardHeading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.appIcon {
+  flex-shrink: 0;
+  border-radius: 20px;
+}
+
+.companyLogo {
+  margin-bottom: var(--spacing-md);
+}
+
+.eyebrow {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.cardTitle {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.rating,
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.rating {
+  gap: var(--spacing-xs);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.appTagline {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.cardDescription {
+  color: var(--color-text-muted);
+}
+
+.storeBadges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+}
+
+.storeBadge {
+  height: 40px;
+  width: auto;
+}
+
+.textLink {
+  display: block;
+  width: fit-content;
+  margin-top: var(--spacing-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.githubProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.githubProfile .cardDescription {
+  max-width: 650px;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .showcaseGrid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+
+  .appCard,
+  .companyCard,
+  .githubPanel {
+    padding: var(--spacing-lg);
+  }
+
+  .githubProfile {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .githubProfile .viewAllLink {
+    flex-shrink: 0;
+  }
+
 }
 
 @media (max-width: 768px) {

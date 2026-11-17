@@ -90,6 +90,35 @@ npm run build
 
 This generates a static export in the \`out\` directory.
 
+### GitHub activity
+
+The home page shows commits and active days (days with contributions) from the past
+12 months, stars across public non-fork repositories owned by me and the BinaryMeadow organisation, and a contribution
+heatmap. The calendar follows GitHub's profile visibility settings and can
+include anonymised private contribution counts where the profile shares them.
+It does not expose private repository names or activity details.
+
+Data is fetched on the server and included in the static export. It refreshes
+on deployment, not when a visitor opens the page. If GitHub is unavailable or
+no token is configured, the profile link remains available and an unavailable
+message replaces the stats rather than displaying misleading zeroes.
+
+For local development, set `GITHUB_STATS_TOKEN` in `.env.local` to a GitHub token
+with public-data access, then restart the server. Never prefix this variable
+with `NEXT_PUBLIC_`. GitHub Actions uses its built-in `GITHUB_TOKEN`, so deployment
+does not need a separate personal token.
+
+The deployment workflow refreshes the stats at 06:17 UTC on days 1, 6, 11, 16, 21, 26 and 31 of each month (roughly every 5 days). GitHub only runs
+scheduled workflows from the default branch. This repository uses the generated
+`master` branch as its default and keeps a deployment workflow there too.
+To activate scheduled refreshes, the updated deployment workflow must also be
+published to `master`; it explicitly checks out `source` before building.
+No default-branch change is needed. Source pushes and Contentful publish events
+continue to refresh the stats as before.
+
+Run the focused data-fetching tests with
+`node --experimental-strip-types --test tests/github.test.mjs` (Node.js 22.6+).
+
 ## 📁 Project Structure
 
 \`\`\`
